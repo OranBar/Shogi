@@ -10,7 +10,7 @@ namespace Shogi
 
 		void Start()
         {
-			board = new Board<Piece>(5,10);
+			board = new Board<Piece>(9,9);
 
 		}
 
