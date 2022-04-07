@@ -11,8 +11,14 @@ namespace Shogi {
 
 		public int x, y;
 
+		private BoardTest board;
+		
+		void Awake(){
+			board = FindObjectOfType<BoardTest>();
+		}
+
 		void Start() {
-			piece = new Piece( x, y, defaultMovement );
+			piece = new Piece( board.board, x, y, defaultMovement );
 		}
 
 		public void Promote(){
