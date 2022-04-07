@@ -25,7 +25,7 @@
 		"SpaceAfterDot": false,
 		"SpaceAfterSemicolonsInForStatement": true,
 		"SpaceBeforeColonInBaseTypeDeclaration": true,
-		"SpaceBeforeComma": true,
+		"SpaceBeforeComma": false,
 		"SpaceBeforeDot": false,
 		"SpaceBeforeSemicolonsInForStatement": false,
 		"SpacingAroundBinaryOperator": "single",
