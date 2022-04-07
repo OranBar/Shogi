@@ -682,6 +682,7 @@ GameObject:
   - component: {fileID: 759263459}
   - component: {fileID: 759263461}
   - component: {fileID: 759263460}
+  - component: {fileID: 759263462}
   m_Layer: 5
   m_Name: Board
   m_TagString: Untagged
@@ -748,6 +749,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 759263458}
   m_CullTransparentMesh: 1
+--- !u!114 &759263462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 759263458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ec09805fd09f72459b4c7cab6485018, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &853997976
 GameObject:
   m_ObjectHideFlags: 0
@@ -835,6 +848,9 @@ GameObject:
   - component: {fileID: 924423873}
   - component: {fileID: 924423875}
   - component: {fileID: 924423874}
+  - component: {fileID: 924423878}
+  - component: {fileID: 924423877}
+  - component: {fileID: 924423876}
   m_Layer: 5
   m_Name: Pawn
   m_TagString: Untagged
@@ -901,6 +917,46 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 924423872}
   m_CullTransparentMesh: 1
+--- !u!114 &924423876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 924423872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dec5c63576cdf8c48955ebd3d2d426ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &924423877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 924423872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5f0fd233a005394faffaf75deb1ec56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &924423878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 924423872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 563f5ec0bb1e01945b53b5c827387fc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _defaultMovement: {fileID: 924423877}
+  _promotedMovement: {fileID: 924423877}
+  x: 0
+  y: 0
 --- !u!1 &940683117
 GameObject:
   m_ObjectHideFlags: 0

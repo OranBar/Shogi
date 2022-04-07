@@ -1,7 +1,9 @@
 {
     "name": "Shogi",
     "rootNamespace": "Shogi",
-    "references": [],
+    "references": [
+        "GUID:a65d9a73e86e8a16094732b640e510ef"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
