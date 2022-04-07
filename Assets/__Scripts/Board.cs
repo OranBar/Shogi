@@ -14,10 +14,10 @@ namespace Shogi {
 			set { board [x , y] = value; }
 		}
 
-		public T this [(int x, int y) inp]
+		public T this [(int x, int y) pos]
 		{
-			get { return board [inp.x , inp.y]; }
-			set { board [inp.x , inp.y] = value; }
+			get { return board [pos.x , pos.y]; }
+			set { board [pos.x , pos.y] = value; }
 		}
 
 		public Board( int width , int height ) {

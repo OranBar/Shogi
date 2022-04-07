@@ -4,6 +4,6 @@ namespace Shogi
 {
 	public interface IMovementStrategy
 	{
-		List<(int x, int y)> GetAvailableMoves();
+		List<(int x, int y)> GetAvailableMoves(int x, int y);
 	}
 }

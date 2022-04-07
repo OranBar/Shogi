@@ -7,15 +7,14 @@ namespace Shogi {
 		public int x, y;
 		public IMovementStrategy movementStrategy;
 
-		public List<(int x, int y)> GetAvailableMoves() {
-			return movementStrategy.GetAvailableMoves();
+		public Piece( int x , int y , IMovementStrategy movementStrategy ) {
+			this.x = x;
+			this.y = y;
+			this.movementStrategy = movementStrategy;
 		}
 
-		public void Promote() {
-			for (int i = 0; i < 4; i++)
-			{
-				
-			}
+		public List<(int x, int y)> GetAvailableMoves() {
+			return movementStrategy.GetAvailableMoves( x , y );
 		}
 	}
 }
