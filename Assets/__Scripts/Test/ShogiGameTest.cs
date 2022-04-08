@@ -13,11 +13,19 @@ namespace Shogi
 		void Start()
         {
 			AddPiecesFromScene();
+			PieceTest.OnAnyPieceMoved += PromoteIfPossible;
 		}
 
 		void AddPiecesFromScene(){
 			foreach(var piece in FindObjectsOfType<PieceTest>()){
 				board.board [piece.X, piece.Y] = piece.piece;
+			}
+		}
+
+		public void PromoteIfPossible(PieceTest piece){
+			if(piece.Y >= 6){
+				piece.Promote();
+				Debug.Log( "Promoted" );
 			}
 		}
     }

@@ -10,12 +10,10 @@ namespace Shogi
 		public Board<Piece> board;
 		public float cellSizeUnit = 37.4f;
 
-		void Start()
+		void Awake()
         {
 			board = new Board<Piece>(9,9);
-
 		}
-
 
 		public void MovePiece(PieceTest piece, int destX, int destY) {
 			board [piece.X, piece.Y] = null;

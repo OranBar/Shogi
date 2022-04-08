@@ -59,17 +59,19 @@ namespace Shogi
 		private BoardTest board;
 		private RectTransform rectTransform;
 		public Action<int, int> OnPieceMoved = ( _, __ ) => { };
+		public static Action<PieceTest> OnAnyPieceMoved = (_) => { };
 
 		void Awake() {
 			board = FindObjectOfType<BoardTest>();
 			rectTransform = this.GetComponent<RectTransform>();
+			piece = new Piece( board.board, startX, startY, DefaultMovement );
 		}
 
 		void Start() {
-			piece = new Piece( board.board, startX, startY, DefaultMovement );
 
 			OnPieceMoved += ( x, y ) => Debug.Log( $"Moving to {x}, {y}" );
 			OnPieceMoved += PieceMovementAnimation;
+			OnPieceMoved += (_, __) => OnAnyPieceMoved.Invoke(this);
 		}
 
 
