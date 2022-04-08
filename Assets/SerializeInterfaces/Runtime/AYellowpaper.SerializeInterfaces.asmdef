@@ -1,10 +1,6 @@
 {
-    "name": "Shogi.Test",
-    "rootNamespace": "Shogi",
-    "references": [
-        "GUID:e10ebfc49e64fcc49b80e0039009d225",
-        "GUID:31976cc9e85bdd9459e856fcb40d0d50"
-    ],
+    "name": "AYellowpaper.SerializeInterfaces",
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

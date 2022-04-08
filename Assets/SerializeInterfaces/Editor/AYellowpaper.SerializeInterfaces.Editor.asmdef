@@ -1,11 +1,11 @@
 {
-    "name": "Shogi.Test",
-    "rootNamespace": "Shogi",
+    "name": "AYellowpaper.SerializeInterfaces.Editor",
     "references": [
-        "GUID:e10ebfc49e64fcc49b80e0039009d225",
         "GUID:31976cc9e85bdd9459e856fcb40d0d50"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,7 @@ namespace Shogi
     public class BoardTest : MonoBehaviour
     {
 		public Board<Piece> board;
+		public float cellSizeUnit = 37.4f;
 
 		void Start()
         {
@@ -14,10 +16,13 @@ namespace Shogi
 
 		}
 
-        // Update is called once per frame
-        void Update()
-        {
-        
-        }
+
+		public void MovePiece(PieceTest piece, int destX, int destY) {
+			board [piece.X, piece.Y] = null;
+			board [destX, destY] = piece.piece;
+			piece.X = destX;
+			piece.Y = destY;
+			piece.OnPieceMoved?.Invoke(destX, destY);
+		}
     }
 }
