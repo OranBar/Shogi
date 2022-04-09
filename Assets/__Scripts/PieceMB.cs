@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using AYellowpaper;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -33,43 +34,25 @@ namespace Shogi
 		}
 		#endregion
 
-		public Piece piece;
+		public int x, y;
+		public IMovementStrategy movementStrategy;
+
+		public List<(int x, int y)> GetAvailableMoves() {
+			var moves = movementStrategy.GetAvailableMoves( x, y );
+			var result = moves.Where( m => board.IsValidBoardPosition( m ) ).ToList();
+			return result;
+		}
+
 		public int startX, startY;
 
-		// public static Action<PieceTest, int, int> OnAnyPieceMoved = (a,b,c) => { };
-		
 		private BoardMB board;
 		private ShogiGameMB gameManager;
 		private RectTransform rectTransform;
 
-		public int X
-		{
-			get
-			{
-				return piece.x;
-			}
-		}
-
-		public int Y
-		{
-			get
-			{
-				return piece.y;
-			}
-		}
-
-
+	
 		void Awake() {
 			board = FindObjectOfType<BoardMB>();
 			rectTransform = this.GetComponent<RectTransform>();
-			piece = new Piece( board.board, startX, startY, DefaultMovement );
-		}
-
-		void Start() {
-
-			// piece.OnPieceMoved += ( x, y ) => Debug.Log( $"Moving to {x}, {y}" );
-			// piece.OnPieceMoved += PieceMovementAnimation;
-			// piece.OnPieceMoved += (x , y) => OnAnyPieceMoved.Invoke(this, x, y);
 		}
 
 		public void PieceMovementAnimation( MovePieceAction action ) {
@@ -85,12 +68,14 @@ namespace Shogi
 		}
 
 		public void Promote() {
-			piece.movementStrategy = PromotedMovement;
+			movementStrategy = PromotedMovement;
 		}
 
+
+
 		public void OnPointerClick( PointerEventData eventData ) {
-			var move = piece.GetAvailableMoves() [0];
-			gameManager.PlayAction( new MovePieceAction(this, move.x, move.y ) );
+			var move = movementStrategy.GetAvailableMoves(x,y) [0];
+			gameManager.PlayAction( new MovePieceAction( this, move.x, move.y ) );
 		}
 
 	}

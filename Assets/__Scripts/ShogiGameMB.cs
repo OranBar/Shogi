@@ -17,7 +17,7 @@ namespace Shogi
 
 		void AddPiecesFromScene(){
 			foreach(var piece in FindObjectsOfType<PieceMB>()){
-				board.board [piece.X, piece.Y] = piece.piece;
+				board.board [piece.x, piece.y] = piece;
 			}
 		}
 
@@ -25,11 +25,11 @@ namespace Shogi
 			board.UpdateBoard( action );
 			action.piece.PieceMovementAnimation( action );
 
-			Piece capturedPiece = board.board [action.destinationX, action.destinationY];
+			PieceMB capturedPiece = board.board [action.destinationX, action.destinationY];
 			bool wasCapturingMove = capturedPiece != null;
 
 			if(wasCapturingMove){
-				action.piece.PieceDeathAnimation();
+				// capturedPiece.PieceDeathAnimation();
 			}
 
 			PromoteIfPossible(action);
