@@ -4,14 +4,13 @@ using System.Collections.Generic;
 using AYellowpaper;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Scripting;
 using Object = UnityEngine.Object;
 
 namespace Shogi
 {
 	public class PieceTest : MonoBehaviour, IPointerClickHandler
 	{
-		public Piece piece;
+		#region Movement Strategy
 		//We're doing depencenty injection by referencing MB from inspector
 		[SerializeField, RequireInterface( typeof( IMovementStrategy ) )]
 		private Object _defaultMovement;
@@ -29,16 +28,25 @@ namespace Shogi
 			set => _promotedMovement = (Object)value;
 		}
 
+		public void PieceDeathAnimation() {
+			throw new NotImplementedException();
+		}
+		#endregion
+
+		public Piece piece;
+		public int startX, startY;
+
+		// public static Action<PieceTest, int, int> OnAnyPieceMoved = (a,b,c) => { };
+		
+		private BoardTest board;
+		private ShogiGameTest gameManager;
+		private RectTransform rectTransform;
 
 		public int X
 		{
 			get
 			{
 				return piece.x;
-			}
-			set
-			{
-				piece.x = value;
 			}
 		}
 
@@ -48,18 +56,8 @@ namespace Shogi
 			{
 				return piece.y;
 			}
-			set
-			{
-				piece.y = value;
-			}
 		}
 
-		public int startX, startY;
-
-		private BoardTest board;
-		private RectTransform rectTransform;
-		public Action<int, int> OnPieceMoved = ( _, __ ) => { };
-		public static Action<PieceTest> OnAnyPieceMoved = (_) => { };
 
 		void Awake() {
 			board = FindObjectOfType<BoardTest>();
@@ -69,13 +67,16 @@ namespace Shogi
 
 		void Start() {
 
-			OnPieceMoved += ( x, y ) => Debug.Log( $"Moving to {x}, {y}" );
-			OnPieceMoved += PieceMovementAnimation;
-			OnPieceMoved += (_, __) => OnAnyPieceMoved.Invoke(this);
+			// piece.OnPieceMoved += ( x, y ) => Debug.Log( $"Moving to {x}, {y}" );
+			// piece.OnPieceMoved += PieceMovementAnimation;
+			// piece.OnPieceMoved += (x , y) => OnAnyPieceMoved.Invoke(this, x, y);
 		}
 
+		public void PieceMovementAnimation( MovePieceAction action ) {
+			PieceMovementAnimation( action.destinationX, action.destinationY );
+		}
 
-		private void PieceMovementAnimation( int x, int y ) {
+		public void PieceMovementAnimation( int x, int y ) {
 			rectTransform.anchoredPosition = new Vector3( x, y ) * board.cellSizeUnit;
 		}
 
@@ -89,7 +90,7 @@ namespace Shogi
 
 		public void OnPointerClick( PointerEventData eventData ) {
 			var move = piece.GetAvailableMoves() [0];
-			board.MovePiece( this, move.x, move.y );
+			gameManager.PlayAction( new MovePieceAction(this, move.x, move.y ) );
 		}
 
 	}

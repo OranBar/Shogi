@@ -1,6 +1,5 @@
 {
 	"FormattingOptions": {
-		"enableEditorConfigSupport": true,
 		"NewLine": "\n",
 		"UseTabs": true,
 		"TabSize": 4,
@@ -27,7 +26,7 @@
 		"SpaceBeforeColonInBaseTypeDeclaration": true,
 		"SpaceBeforeComma": false,
 		"SpaceBeforeDot": false,
-		"SpaceBeforeSemicolonsInForStatement": false,
+		"SpaceBeforeSemicolonsInForStatement": true,
 		"SpacingAroundBinaryOperator": "single",
 		"IndentBraces": false,
 		"IndentBlock": true,

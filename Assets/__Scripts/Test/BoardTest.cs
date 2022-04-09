@@ -7,20 +7,17 @@ namespace Shogi
 {
     public class BoardTest : MonoBehaviour
     {
-		public Board<Piece> board;
+		public Board board;
 		public float cellSizeUnit = 37.4f;
 
 		void Awake()
         {
-			board = new Board<Piece>(9,9);
+			board = new Board(9,9);
 		}
 
-		public void MovePiece(PieceTest piece, int destX, int destY) {
-			board [piece.X, piece.Y] = null;
-			board [destX, destY] = piece.piece;
-			piece.X = destX;
-			piece.Y = destY;
-			piece.OnPieceMoved?.Invoke(destX, destY);
+		public void UpdateBoard( MovePieceAction action) {
+			board [action.piece.X, action.piece.Y] = null;
+			board [action.destinationX, action.destinationY] = action.piece.piece;
 		}
     }
 }

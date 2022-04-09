@@ -13,7 +13,6 @@ namespace Shogi
 		void Start()
         {
 			AddPiecesFromScene();
-			PieceTest.OnAnyPieceMoved += PromoteIfPossible;
 		}
 
 		void AddPiecesFromScene(){
@@ -22,9 +21,23 @@ namespace Shogi
 			}
 		}
 
-		public void PromoteIfPossible(PieceTest piece){
-			if(piece.Y >= 6){
-				piece.Promote();
+		public void PlayAction(MovePieceAction action){
+			board.UpdateBoard( action );
+			action.piece.PieceMovementAnimation( action );
+
+			Piece capturedPiece = board.board [action.destinationX, action.destinationY];
+			bool wasCapturingMove = capturedPiece != null;
+
+			if(wasCapturingMove){
+				action.piece.PieceDeathAnimation();
+			}
+
+			PromoteIfPossible(action);
+		}
+
+		public void PromoteIfPossible(MovePieceAction action){
+			if(action.destinationY >= 6){
+				action.piece.Promote();
 				Debug.Log( "Promoted" );
 			}
 		}

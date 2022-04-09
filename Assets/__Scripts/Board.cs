@@ -4,26 +4,22 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Shogi {
-	public class Board<T> {
+	public class Board {
 		public int width, height;
-		public T [,] board;
+		public Piece [,] board;
 
-		public T this [int x , int y]
+		public Action<Piece, int, int> OnAnyPieceMoved = (a,b,c) => { };
+
+		public Piece this [int x , int y]
 		{
 			get { return board [x , y]; }
 			set { board [x , y] = value; }
 		}
 
-		// public T this [(int x, int y) pos]
-		// {
-		// 	get { return board [pos.x , pos.y]; }
-		// 	set { board [pos.x , pos.y] = value; }
-		// }
-
 		public Board( int width , int height ) {
 			this.width = width;
 			this.height = height;
-			this.board = new T [width , height];
+			this.board = new Piece [width , height];
 		}
 
 		public bool IsValidBoardPosition( (int x, int y) pos ) {
@@ -39,7 +35,6 @@ namespace Shogi {
 			}
 		}
 
-		
 
 	}
 }

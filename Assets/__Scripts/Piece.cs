@@ -1,16 +1,19 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 namespace Shogi {
 	public class Piece {
 		public int x, y;
 		public IMovementStrategy movementStrategy;
 		
-		private Board<Piece> board;
+		private Board board;
 
-		public Piece( Board<Piece> board, int x , int y ,  IMovementStrategy movementStrategy ) {
+		// public Action<int, int> OnPieceMoved = ( _, __ ) => { };
+
+
+		public Piece( Board board, int x , int y ,  IMovementStrategy movementStrategy ) {
 			this.x = x;
 			this.y = y;
 			this.board = board;

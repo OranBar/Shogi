@@ -11,6 +11,14 @@ namespace Shogi
 		
 		void Start()
         {
+			//Setup Board
+
+			//Setup state machine
+
+			//Loop
+				//Player1 makes a move
+				//Player2 makes a move
+				
 		}
     }
 }
