@@ -1,8 +1,8 @@
 {
-    "name": "Shogi",
+    "name": "Shogi.Scripts",
     "rootNamespace": "Shogi",
     "references": [
-        "GUID:a65d9a73e86e8a16094732b640e510ef"
+        "GUID:31976cc9e85bdd9459e856fcb40d0d50"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

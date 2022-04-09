@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Shogi
 {
-    public class BoardTest : MonoBehaviour
+    public class BoardMB : MonoBehaviour
     {
 		public Board board;
 		public float cellSizeUnit = 37.4f;

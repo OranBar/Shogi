@@ -8,7 +8,7 @@ using Object = UnityEngine.Object;
 
 namespace Shogi
 {
-	public class PieceTest : MonoBehaviour, IPointerClickHandler
+	public class PieceMB : MonoBehaviour, IPointerClickHandler
 	{
 		#region Movement Strategy
 		//We're doing depencenty injection by referencing MB from inspector
@@ -38,8 +38,8 @@ namespace Shogi
 
 		// public static Action<PieceTest, int, int> OnAnyPieceMoved = (a,b,c) => { };
 		
-		private BoardTest board;
-		private ShogiGameTest gameManager;
+		private BoardMB board;
+		private ShogiGameMB gameManager;
 		private RectTransform rectTransform;
 
 		public int X
@@ -60,7 +60,7 @@ namespace Shogi
 
 
 		void Awake() {
-			board = FindObjectOfType<BoardTest>();
+			board = FindObjectOfType<BoardMB>();
 			rectTransform = this.GetComponent<RectTransform>();
 			piece = new Piece( board.board, startX, startY, DefaultMovement );
 		}

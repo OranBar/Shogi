@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace Shogi
 {
-    public class ShogiGameTest : MonoBehaviour
+    public class ShogiGameMB : MonoBehaviour
     {
 		private const int WIDTH = 9, HEIGHT = 9;
 
-		public BoardTest board;
+		public BoardMB board;
 		
 		void Start()
         {
@@ -16,7 +16,7 @@ namespace Shogi
 		}
 
 		void AddPiecesFromScene(){
-			foreach(var piece in FindObjectsOfType<PieceTest>()){
+			foreach(var piece in FindObjectsOfType<PieceMB>()){
 				board.board [piece.X, piece.Y] = piece.piece;
 			}
 		}
