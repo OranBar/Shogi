@@ -11,7 +11,7 @@ namespace Shogi{
 
 		public GameObject CreatePiece( PieceType pieceType ) {
 			GameObject piecePrefab = piecesPrefabs
-				.First( p => p.GetComponent<PieceMB>().pieceType == pieceType );
+				.First( p => p.GetComponent<Piece>().PieceType == pieceType );
 
 			return GameObject.Instantiate( piecePrefab );
 		}

@@ -5,18 +5,18 @@ using UnityEngine;
 
 namespace Shogi
 {
-	public class BoardMB : MonoBehaviour
+	public class Board : MonoBehaviour
     {
 		#region ToSerialize
 		//I Actually don't want the references. 
 		//I do want what's inside tho
-		public PieceMB [,] board = new PieceMB[9,9];
+		public Piece [,] board = new Piece[9,9];
 		#endregion
 
 		public float cellSizeUnit = 37.4f;
 
 
-		public PieceMB this [int x, int y]
+		public Piece this [int x, int y]
 		{
 			get { return board [x, y]; }
 			set { board [x, y] = value; }
@@ -41,7 +41,7 @@ namespace Shogi
 		}
 
 		public void UpdateBoard( MovePieceAction action) {
-			board [action.piece.x, action.piece.y] = null;
+			board [action.piece.X, action.piece.Y] = null;
 			board [action.destinationX, action.destinationY] = action.piece;
 		}
 

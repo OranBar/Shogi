@@ -9,8 +9,33 @@ using Object = UnityEngine.Object;
 
 namespace Shogi
 {
-	public class PieceMB : MonoBehaviour, IPointerClickHandler
+	public class PieceData
 	{
+		public int x, y;
+		public PieceType pieceType;
+		public bool isPromoted;
+		public PlayerId owner;
+	}
+
+	public class Piece : MonoBehaviour, IPointerClickHandler
+	{
+	
+		public PieceData pieceData;
+
+		public int X { get => pieceData.x; set => pieceData.x = value; }
+		public int Y { get => pieceData.y; set => pieceData.y = value; }
+		public PieceType PieceType { get => pieceData.pieceType; set => pieceData.pieceType = value; }
+		public bool IsPromoted { get => pieceData.isPromoted; set => pieceData.isPromoted = value; }
+		public PlayerId ownerId {
+			get { return pieceData.owner; }
+			set {
+				pieceData.owner = value;
+				owner = FindObjectsOfType<Player>().First( p => p.playerId == value );
+			}
+		}
+
+		public Player owner;
+
 		#region Movement Strategy
 		//We're doing depencenty injection by referencing MB from inspector
 		[SerializeField, RequireInterface( typeof( IMovementStrategy ) )]
@@ -28,41 +53,33 @@ namespace Shogi
 			get => _promotedMovement as IMovementStrategy;
 			set => _promotedMovement = (Object)value;
 		}
-		#endregion
-
-		#region ToSerialize
-
-		public int x, y;
-		public PieceType pieceType;
-		public bool isPromoted;
-		public Player owner;
+		
 		#endregion
 
 		public IMovementStrategy movementStrategy;
 
 		public List<(int x, int y)> GetAvailableMoves() {
-			var moves = movementStrategy.GetAvailableMoves( x, y );
+			var moves = movementStrategy.GetAvailableMoves( X, Y );
 			var result = moves.Where( m => board.IsValidBoardPosition( m ) ).ToList();
 			return result;
 		}
 
 		public int startX, startY;
 		
-		private BoardMB board;
+		private Board board;
 		private ShogiGameMB gameManager;
 		private RectTransform rectTransform;
 
-	
 		void Awake() {
-			board = FindObjectOfType<BoardMB>();
+			board = FindObjectOfType<Board>();
 			gameManager = FindObjectOfType<ShogiGameMB>();
 			rectTransform = this.GetComponent<RectTransform>();
 		}
 
 		void Start(){
 			//Remove this after creating the serialization of initial game state
-			this.x = startX;
-			this.y = startY;
+			this.X = startX;
+			this.Y = startY;
 		}
 
 		public void PieceMovementAnimation( MovePieceAction action ) {
@@ -82,14 +99,14 @@ namespace Shogi
 		}
 
 		public void Promote() {
-			isPromoted = true;
+			IsPromoted = true;
 			movementStrategy = PromotedMovement;
 		}
 
 
 
 		public void OnPointerClick( PointerEventData eventData ) {
-			var move = movementStrategy.GetAvailableMoves(x,y) [0];
+			var move = movementStrategy.GetAvailableMoves(X,Y) [0];
 			gameManager.PlayAction( new MovePieceAction( this, move.x, move.y ) );
 		}
 

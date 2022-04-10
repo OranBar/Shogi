@@ -18,7 +18,7 @@ namespace Shogi
 		}
 		//We will want to serialize all pieces. Pieces is all the data we need
 		#endregion
-		public BoardMB board;
+		public Board board;
 
 
 		void Start()
@@ -28,8 +28,8 @@ namespace Shogi
 		}
 
 		void AddPiecesFromScene(){
-			foreach(var piece in FindObjectsOfType<PieceMB>()){
-				board.board [piece.x, piece.y] = piece;
+			foreach(var piece in FindObjectsOfType<Piece>()){
+				board.board [piece.X, piece.Y] = piece;
 			}
 		}
 
@@ -37,7 +37,7 @@ namespace Shogi
 			board.UpdateBoard( action );
 			action.piece.PieceMovementAnimation( action );
 
-			PieceMB capturedPiece = board.board [action.destinationX, action.destinationY];
+			Piece capturedPiece = board.board [action.destinationX, action.destinationY];
 			bool wasCapturingMove = capturedPiece != null;
 
 			if(wasCapturingMove){
@@ -55,7 +55,7 @@ namespace Shogi
 		}
 
 		public void SaveGameState(){
-			GameState gameState = new GameState(FindObjectsOfType<PieceMB>());
+			GameState gameState = new GameState(FindObjectsOfType<Piece>());
 			// string gameState_raw = gameState.GenerateBoardRepresentation();
 			//Save to a file or somewhere 
 		}
