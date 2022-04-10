@@ -68,12 +68,12 @@ namespace Shogi
 		public int startX, startY;
 		
 		private Board board;
-		private ShogiGameMB gameManager;
-		private RectTransform rectTransform;
+		private ShogiGame gameManager;
+		[HideInInspector] public RectTransform rectTransform;
 
 		void Awake() {
 			board = FindObjectOfType<Board>();
-			gameManager = FindObjectOfType<ShogiGameMB>();
+			gameManager = FindObjectOfType<ShogiGame>();
 			rectTransform = this.GetComponent<RectTransform>();
 		}
 
@@ -84,11 +84,11 @@ namespace Shogi
 		}
 
 		public void PieceMovementAnimation( MovePieceAction action ) {
-			PieceMovementAnimation( action.destinationX, action.destinationY );
+			PlacePieceOnCell_Immediate( action.destinationX, action.destinationY );
 		}
 
-		public void PieceMovementAnimation( int x, int y ) {
-			rectTransform.anchoredPosition = new Vector3( x, y ) * board.cellSizeUnit;
+		public void PlacePieceOnCell_Immediate( int x, int y ) {
+			rectTransform.anchoredPosition = board.GetCellWorldPosition(x,y);
 		}
 
 		public void PieceDeathAnimation() {
@@ -103,7 +103,6 @@ namespace Shogi
 			IsPromoted = true;
 			movementStrategy = PromotedMovement;
 		}
-
 
 
 		public void OnPointerClick( PointerEventData eventData ) {

@@ -21,7 +21,7 @@ namespace Shogi
 			pieces = piecesInGame.Select( p => p.pieceData ).ToArray();
 		}
 
-		#region Serialization and Deserialization
+		#region Binary Serialization and Deserialization
 		public void SerializeToBinaryFile(string savePath){
 			IFormatter formatter = new BinaryFormatter();
 			Stream stream = new FileStream( savePath, FileMode.Create, FileAccess.Write, FileShare.None );

@@ -28,6 +28,10 @@ namespace Shogi
 			board [action.piece.X, action.piece.Y] = null;
 			board [action.destinationX, action.destinationY] = action.piece;
 		}
+
+		public Vector3 GetCellWorldPosition(  int x, int y ) {
+			return new Vector3( x, y ) * cellSizeUnit;
+		}
 		
 		public bool IsValidBoardPosition( (int x, int y) pos ) {
 			return IsValidBoardPosition( pos.x, pos.y );
