@@ -16,6 +16,7 @@ namespace Shogi
 		public PieceType pieceType;
 		public bool isPromoted;
 		public PlayerId owner;
+		public bool isCaptured;
 	}
 
 	public class Piece : MonoBehaviour, IPointerClickHandler
@@ -27,11 +28,18 @@ namespace Shogi
 		public int Y { get => pieceData.y; set => pieceData.y = value; }
 		public PieceType PieceType { get => pieceData.pieceType; set => pieceData.pieceType = value; }
 		public bool IsPromoted { get => pieceData.isPromoted; set => pieceData.isPromoted = value; }
-		public PlayerId ownerId {
+		public PlayerId OwnerId {
 			get { return pieceData.owner; }
 			set {
 				pieceData.owner = value;
 				owner = FindObjectsOfType<Player>().First( p => p.playerId == value );
+			}
+		}
+		public bool IsCaptured{ 
+			get { return pieceData.isCaptured; }
+			set { 
+				pieceData.isCaptured = value;
+				X = Y = -1;
 			}
 		}
 
@@ -41,6 +49,7 @@ namespace Shogi
 		//We're doing depencenty injection by referencing MB from inspector
 		[SerializeField, RequireInterface( typeof( IMovementStrategy ) )]
 		private Object _defaultMovement;
+
 		public IMovementStrategy DefaultMovement
 		{
 			get => _defaultMovement as IMovementStrategy;
@@ -90,6 +99,21 @@ namespace Shogi
 
 		public void PreviewAvailableMoves() {
 			throw new NotImplementedException();
+		}
+
+		public void CapturePiece() {
+			PieceDeathAnimation();
+
+			this.IsCaptured = true;
+			ConvertPiece();
+		}
+
+		private void ConvertPiece() {
+			if (OwnerId == PlayerId.Player1) {
+				OwnerId = PlayerId.Player2;
+			} else {
+				OwnerId = PlayerId.Player1;
+			}
 		}
 
 		public void Promote() {

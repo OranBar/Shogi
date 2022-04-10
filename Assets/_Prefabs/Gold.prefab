@@ -173,7 +173,7 @@ MonoBehaviour:
   pieceData:
     x: 0
     y: 3
-    pieceType: 4
+    pieceType: 5
     isPromoted: 0
     owner: 0
   owner: {fileID: 0}

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -10,8 +11,8 @@ namespace Shogi
     public class ShogiGame : MonoBehaviour
     {
 		#region ToSerialize
-		public Player gio;
-		public Player oran;
+		public Player oran;	//Player 1
+		public Player gio; //Player 2
 		private PlayerId _currPlayer_turn;
 		public Player CurrPlayer_turn {
 			get{
@@ -24,42 +25,38 @@ namespace Shogi
 
 		void Start()
         {
-			Debug.Assert( FindObjectsOfType<Player>().Length <= 2 );
-			AddPiecesFromScene();
+			board.InitWithPiecesInScene();
 		}
 
-		void AddPiecesFromScene(){
-			foreach(var piece in FindObjectsOfType<Piece>()) {
-				PlacePiece( piece, piece.X, piece.Y );
+		public void PlayAction( IShogiAction action ) {
+			if(action.IsMoveValid(this)){
+				action.ExecuteAction(this);
+				//memento action
 			}
 		}
 
-		private void PlacePiece( Piece piece, int x, int y ) {
-			board [x,y] = piece;
-			piece.PlacePieceOnCell_Immediate( x, y );
-		}
+		// public void PlayAction(MovePieceAction action){
+		// 	board.UpdateBoard( action );
 
-		public void PlayAction(MovePieceAction action){
-			board.UpdateBoard( action );
-			action.piece.PieceMovementAnimation( action );
+		// 	Piece actingPiece = board [action.startX, action.startY];
+		// 	actingPiece.PieceMovementAnimation( action );
 
-			Piece capturedPiece = board.board [action.destinationX, action.destinationY];
-			bool wasCapturingMove = capturedPiece != null;
+		// 	Piece capturedPiece = board.board [action.destinationX, action.destinationY];
+		// 	bool wasCapturingMove = capturedPiece != null && capturedPiece.owner != actingPiece.owner;
 
-			if(wasCapturingMove){
-				//A piece was killed. Such cruelty. 
-				capturedPiece.PieceDeathAnimation();
-			}
+		// 	if(wasCapturingMove){
+		// 		//A piece was killed. Such cruelty. 
+		// 		capturedPiece.CapturePiece();
+		// 	}
+		// }
 
-			
-		}
 
-		public void PromoteIfPossible(MovePieceAction action){
-			if(action.destinationY >= 6){
-				action.piece.Promote();
-				Debug.Log( "Promoted" );
-			}
-		}
+		// public void PromoteIfPossible(MovePieceAction action){
+		// 	if(action.destinationY >= 6){
+		// 		board[action.startX, action.startY].Promote();
+		// 		Debug.Log( "Promoted" );
+		// 	}
+		// }
 
 		[ContextMenu("Save")]
 		public void SaveGameState(){
@@ -69,13 +66,6 @@ namespace Shogi
 
 			string path = Application.persistentDataPath + "/shogi.bin";
 			gameState.SerializeToBinaryFile( path );
-			// IFormatter formatter = new BinaryFormatter();
-			// Stream stream = new FileStream( path, FileMode.Create, FileAccess.Write, FileShare.None );
-			// formatter.Serialize( stream, gameState );
-			// stream.Close();
-			// Debug.Log( "File serialized at " + path );
-			// string gameState_raw = gameState.GenerateBoardRepresentation();
-			//Save to a file or somewhere 
 		}
 
 		[ContextMenu("Load bin")]

@@ -379,7 +379,7 @@ RectTransform:
   - {fileID: 628663231}
   - {fileID: 508870912}
   m_Father: {fileID: 759263459}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -2533,7 +2533,7 @@ GameObject:
   - component: {fileID: 489550811}
   - component: {fileID: 489550810}
   m_Layer: 0
-  m_Name: Player 1
+  m_Name: Player 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2552,7 +2552,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerName: Gio
-  playerId: 0
+  playerId: 2
 --- !u!4 &489550811
 Transform:
   m_ObjectHideFlags: 0
@@ -2566,7 +2566,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1014225916}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &508870911
 PrefabInstance:
@@ -4452,8 +4452,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2052804648}
-  - {fileID: 35154790}
   - {fileID: 1366838017}
+  - {fileID: 35154790}
   m_Father: {fileID: 2011302991}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6016,8 +6016,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 489550811}
   - {fileID: 1402779148}
+  - {fileID: 489550811}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8291,7 +8291,7 @@ RectTransform:
   - {fileID: 624313760}
   - {fileID: 1732277992}
   m_Father: {fileID: 759263459}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -8309,7 +8309,7 @@ GameObject:
   - component: {fileID: 1402779148}
   - component: {fileID: 1402779147}
   m_Layer: 0
-  m_Name: Player 2
+  m_Name: Player 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8342,7 +8342,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1014225916}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1421573784
 GameObject:
