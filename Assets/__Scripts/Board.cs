@@ -30,7 +30,7 @@ namespace Shogi
 		}
 
 		public Vector3 GetCellWorldPosition(  int x, int y ) {
-			return new Vector3( x, y ) * cellSizeUnit;
+			return new Vector3( x, y ) * cellSizeUnit + Vector3.one * cellSizeUnit * 0.5f;
 		}
 		
 		public bool IsValidBoardPosition( (int x, int y) pos ) {
