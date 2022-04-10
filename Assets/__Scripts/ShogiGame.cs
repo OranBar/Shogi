@@ -18,7 +18,6 @@ namespace Shogi
 				return _currPlayer_turn == PlayerId.Player1 ? gio : oran;
 			}
 		}
-		//We will want to serialize all pieces. Pieces is all the data we need
 		#endregion
 		public Board board;
 
@@ -36,7 +35,7 @@ namespace Shogi
 		}
 
 		private void PlacePiece( Piece piece, int x, int y ) {
-			board.board [x,y] = piece;
+			board [x,y] = piece;
 			piece.PlacePieceOnCell_Immediate( x, y );
 		}
 
@@ -48,7 +47,8 @@ namespace Shogi
 			bool wasCapturingMove = capturedPiece != null;
 
 			if(wasCapturingMove){
-				// capturedPiece.PieceDeathAnimation();
+				//A piece was killed. Such cruelty. 
+				capturedPiece.PieceDeathAnimation();
 			}
 
 			PromoteIfPossible(action);
@@ -68,7 +68,7 @@ namespace Shogi
 			Debug.Log(json);
 
 			string path = Application.persistentDataPath + "/shogi.bin";
-			gameState.SerializeToBinaryFile(path );
+			gameState.SerializeToBinaryFile( path );
 			// IFormatter formatter = new BinaryFormatter();
 			// Stream stream = new FileStream( path, FileMode.Create, FileAccess.Write, FileShare.None );
 			// formatter.Serialize( stream, gameState );

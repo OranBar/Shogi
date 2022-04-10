@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Shogi
 {
 	public enum PlayerId{
-		Player1,
+		Player1 = 1,
 		Player2
 	}
 	
