@@ -2739,6 +2739,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cellSizeUnit: 37.3
+  width: 0
+  height: 0
 --- !u!1 &788639541
 GameObject:
   m_ObjectHideFlags: 0
@@ -3970,6 +3972,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1014225916}
   - component: {fileID: 1014225917}
+  - component: {fileID: 1014225918}
   m_Layer: 0
   m_Name: Logic
   m_TagString: Untagged
@@ -4005,6 +4008,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   board: {fileID: 759263462}
+--- !u!114 &1014225918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1014225915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 707673bca97ed4e4e9248f4ed8915161, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  editorLabel: White pieces
+  piecesPrefabs:
+  - {fileID: 8004677806232032892, guid: aa53eeb0a408aa749bde5fb8375d6064, type: 3}
 --- !u!1 &1019125591
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,25 +5,21 @@ using UnityEngine;
 
 namespace Shogi
 {
-    public class BoardMB : MonoBehaviour
+	public class BoardMB : MonoBehaviour
     {
+		#region ToSerialize
+		//I Actually don't want the references. 
+		//I do want what's inside tho
+		public PieceMB [,] board = new PieceMB[9,9];
+		#endregion
+
 		public float cellSizeUnit = 37.4f;
 
-		public int width, height;
-		public PieceMB [,] board;
-
-		public Action<PieceMB, int, int> OnAnyPieceMoved = ( a, b, c ) => { };
 
 		public PieceMB this [int x, int y]
 		{
 			get { return board [x, y]; }
 			set { board [x, y] = value; }
-		}
-
-		public BoardMB( int width, int height ) {
-			this.width = width;
-			this.height = height;
-			this.board = new PieceMB [width, height];
 		}
 
 		public bool IsValidBoardPosition( (int x, int y) pos ) {

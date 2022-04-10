@@ -1,17 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using UnityEngine;
 
 namespace Shogi
 {
     public class ShogiGameMB : MonoBehaviour
     {
-		private const int WIDTH = 9, HEIGHT = 9;
-
+		#region ToSerialize
+		public Player gio;
+		public Player oran;
+		public PlayerId _currPlayer_turn;
+		public Player CurrPlayer_turn {
+			get{
+				return _currPlayer_turn == PlayerId.Player1 ? gio : oran;
+			}
+		}
+		//We will want to serialize all pieces. Pieces is all the data we need
+		#endregion
 		public BoardMB board;
-		
+
+
 		void Start()
         {
+			Debug.Assert( FindObjectsOfType<Player>().Length <= 2 );
 			AddPiecesFromScene();
 		}
 
@@ -41,5 +53,22 @@ namespace Shogi
 				Debug.Log( "Promoted" );
 			}
 		}
-    }
+
+		public void SaveGameState(){
+			GameState gameState = new GameState(FindObjectsOfType<PieceMB>());
+			// string gameState_raw = gameState.GenerateBoardRepresentation();
+			//Save to a file or somewhere 
+		}
+
+		public void LoadGameState( string gameState_raw ) {
+			// GameState gameState = new GameState( gameState_raw );
+			// LoadGameState( gameState );
+		}
+
+		public void LoadGameState(GameState gameState){
+
+		}
+
+		
+	}
 }

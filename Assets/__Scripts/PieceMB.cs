@@ -28,13 +28,16 @@ namespace Shogi
 			get => _promotedMovement as IMovementStrategy;
 			set => _promotedMovement = (Object)value;
 		}
-
-		public void PieceDeathAnimation() {
-			throw new NotImplementedException();
-		}
 		#endregion
 
+		#region ToSerialize
+
 		public int x, y;
+		public PieceType pieceType;
+		public bool isPromoted;
+		public Player owner;
+		#endregion
+
 		public IMovementStrategy movementStrategy;
 
 		public List<(int x, int y)> GetAvailableMoves() {
@@ -44,7 +47,7 @@ namespace Shogi
 		}
 
 		public int startX, startY;
-
+		
 		private BoardMB board;
 		private ShogiGameMB gameManager;
 		private RectTransform rectTransform;
@@ -52,7 +55,14 @@ namespace Shogi
 	
 		void Awake() {
 			board = FindObjectOfType<BoardMB>();
+			gameManager = FindObjectOfType<ShogiGameMB>();
 			rectTransform = this.GetComponent<RectTransform>();
+		}
+
+		void Start(){
+			//Remove this after creating the serialization of initial game state
+			this.x = startX;
+			this.y = startY;
 		}
 
 		public void PieceMovementAnimation( MovePieceAction action ) {
@@ -63,11 +73,16 @@ namespace Shogi
 			rectTransform.anchoredPosition = new Vector3( x, y ) * board.cellSizeUnit;
 		}
 
+		public void PieceDeathAnimation() {
+			throw new NotImplementedException();
+		}
+
 		public void PreviewAvailableMoves() {
 			throw new NotImplementedException();
 		}
 
 		public void Promote() {
+			isPromoted = true;
 			movementStrategy = PromotedMovement;
 		}
 
