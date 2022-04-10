@@ -64,23 +64,16 @@ namespace Shogi
 			var result = moves.Where( m => board.IsValidBoardPosition( m ) ).ToList();
 			return result;
 		}
-
-		public int startX, startY;
 		
 		private Board board;
 		private ShogiGame gameManager;
 		[HideInInspector] public RectTransform rectTransform;
 
+
 		void Awake() {
 			board = FindObjectOfType<Board>();
 			gameManager = FindObjectOfType<ShogiGame>();
 			rectTransform = this.GetComponent<RectTransform>();
-		}
-
-		void Start(){
-			//Remove this after creating the serialization of initial game state
-			this.X = startX;
-			this.Y = startY;
 		}
 
 		public void PieceMovementAnimation( MovePieceAction action ) {

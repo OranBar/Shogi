@@ -51,7 +51,7 @@ namespace Shogi
 				capturedPiece.PieceDeathAnimation();
 			}
 
-			PromoteIfPossible(action);
+			
 		}
 
 		public void PromoteIfPossible(MovePieceAction action){
@@ -84,15 +84,8 @@ namespace Shogi
 			GameState obj = GameState.DeserializeFromBinaryFile( path );
 			string json = JsonUtility.ToJson( obj );
 			Debug.Log( json );
+			//TODO: reassign data
 		}
-		
-		public void LoadGameState( string gameState_raw ) {
-		}
-
-		public void LoadGameState(GameState gameState){
-
-		}
-
 		
 	}
 }
