@@ -7,11 +7,8 @@ namespace Shogi
 {
 	public class Board : MonoBehaviour
     {
-		#region ToSerialize
-		//I Actually don't want the references. 
-		//I do want what's inside tho
 		public Piece [,] board = new Piece[9,9];
-		#endregion
+
 
 		public float cellSizeUnit = 37.4f;
 
@@ -22,6 +19,16 @@ namespace Shogi
 			set { board [x, y] = value; }
 		}
 
+		void Awake()
+        {
+
+		}
+
+		public void UpdateBoard( MovePieceAction action) {
+			board [action.piece.X, action.piece.Y] = null;
+			board [action.destinationX, action.destinationY] = action.piece;
+		}
+		
 		public bool IsValidBoardPosition( (int x, int y) pos ) {
 			return IsValidBoardPosition( pos.x, pos.y );
 		}
@@ -34,17 +41,6 @@ namespace Shogi
 				return false;
 			}
 		}
-
-		void Awake()
-        {
-
-		}
-
-		public void UpdateBoard( MovePieceAction action) {
-			board [action.piece.X, action.piece.Y] = null;
-			board [action.destinationX, action.destinationY] = action.piece;
-		}
-
 		
     }
 }

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
 namespace Shogi
@@ -10,7 +12,7 @@ namespace Shogi
 		#region ToSerialize
 		public Player gio;
 		public Player oran;
-		public PlayerId _currPlayer_turn;
+		private PlayerId _currPlayer_turn;
 		public Player CurrPlayer_turn {
 			get{
 				return _currPlayer_turn == PlayerId.Player1 ? gio : oran;
@@ -54,15 +56,32 @@ namespace Shogi
 			}
 		}
 
+		[ContextMenu("Save")]
 		public void SaveGameState(){
-			GameState gameState = new GameState(FindObjectsOfType<Piece>());
+			GameState gameState = new GameState();
+			string json = JsonUtility.ToJson( gameState );
+			Debug.Log(json);
+
+			string path = Application.persistentDataPath + "/shogi.bin";
+			gameState.SerializeToBinaryFile(path );
+			// IFormatter formatter = new BinaryFormatter();
+			// Stream stream = new FileStream( path, FileMode.Create, FileAccess.Write, FileShare.None );
+			// formatter.Serialize( stream, gameState );
+			// stream.Close();
+			// Debug.Log( "File serialized at " + path );
 			// string gameState_raw = gameState.GenerateBoardRepresentation();
 			//Save to a file or somewhere 
 		}
 
+		[ContextMenu("Load bin")]
+		public void LoadGameState(){
+			string path = Application.persistentDataPath + "/shogi.bin";
+			GameState obj = GameState.DeserializeFromBinaryFile( path );
+			string json = JsonUtility.ToJson( obj );
+			Debug.Log( json );
+		}
+		
 		public void LoadGameState( string gameState_raw ) {
-			// GameState gameState = new GameState( gameState_raw );
-			// LoadGameState( gameState );
 		}
 
 		public void LoadGameState(GameState gameState){

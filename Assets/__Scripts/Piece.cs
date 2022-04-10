@@ -9,6 +9,7 @@ using Object = UnityEngine.Object;
 
 namespace Shogi
 {
+	[Serializable]
 	public class PieceData
 	{
 		public int x, y;
