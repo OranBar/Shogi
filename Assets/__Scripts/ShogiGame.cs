@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Shogi
@@ -22,7 +23,7 @@ namespace Shogi
 		public IPlayer CurrPlayer_turn {
 			get
 			{
-				return _currPlayer_turn == PlayerId.Player1 ? gio : oran;
+				return _currPlayer_turn == PlayerId.Player1 ? oran : gio;
 			}
 		}
 		#endregion
@@ -42,19 +43,24 @@ namespace Shogi
 
 			while(isGameOver == false && manualOverride == false){
 				IShogiAction action = await CurrPlayer_turn.RequestAction();
-				PlayAction( action );
+				await PlayAction( action );
+				AdvanceTurn();
 			}
 			Debug.Log( "Game Finished" );
 		}
 
-		public void PlayAction( IShogiAction action ) {
+		private void AdvanceTurn() {
+			_currPlayer_turn = (_currPlayer_turn == PlayerId.Player1) ? PlayerId.Player2 : PlayerId.Player1;
+		}
+
+		public async Task PlayAction( IShogiAction action ) {
 			if(action.GetPlayer(this) != CurrPlayer_turn){
 				Debug.LogWarning("It's not your turn!");
 				return;
 			}
 
 			if (action.IsMoveValid( this )) {
-				action.ExecuteAction( this );
+				await action.ExecuteAction( this );
 				//memento action
 			}
 		}

@@ -1,8 +1,10 @@
+using System.Threading.Tasks;
+
 namespace Shogi
 {
 	public interface IShogiAction
 	{
-		void ExecuteAction( ShogiGame game );
+		Task ExecuteAction( ShogiGame game );
 		bool IsMoveValid( ShogiGame game );
 		IPlayer GetPlayer( ShogiGame game );
 	}
@@ -27,12 +29,12 @@ namespace Shogi
 		}
 
 
-		public void ExecuteAction( ShogiGame game ) {
+		public async Task ExecuteAction( ShogiGame game ) {
 			Board board = game.board;
 			UpdateBoard( board );
 
 			Piece actingPiece = board [startX, startY];
-			actingPiece.PieceMovementAnimation( this );
+			await actingPiece.PieceMovementAnimation( this );
 
 			Piece capturedPiece = board.board [destinationX, destinationY];
 			bool wasCapturingMove = capturedPiece != null && capturedPiece.owner != actingPiece.owner;

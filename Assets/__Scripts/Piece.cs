@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AYellowpaper;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -85,7 +86,7 @@ namespace Shogi
 			rectTransform = this.GetComponent<RectTransform>();
 		}
 
-		public void PieceMovementAnimation( MovePieceAction action ) {
+		public async Task PieceMovementAnimation( MovePieceAction action ) {
 			PlacePieceOnCell_Immediate( action.destinationX, action.destinationY );
 		}
 
