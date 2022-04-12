@@ -52,7 +52,7 @@ namespace Shogi
 		}
 
 		public bool IsMoveValid( ShogiGame game ) {
-			Piece pieceOnStartCell = game.board [destinationX, destinationY];
+			Piece pieceOnStartCell = game.board [startX, startY];
 			Piece pieceOnDestinationCell = game.board [destinationX, destinationY];
 
 			bool isDestinationSquareOnBoard = game.board.IsValidBoardPosition( destinationX, destinationY );

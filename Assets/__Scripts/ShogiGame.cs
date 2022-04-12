@@ -90,10 +90,10 @@ namespace Shogi
 		}
 
 		public async Task PlayAction( IShogiAction action ) {
-			if(action.GetPlayer(this) != CurrPlayer_turn){
-				Debug.LogWarning( "It's not your turn!" );
-				return;
-			}
+			// if(action.GetPlayer(this) != CurrPlayer_turn){
+			// 	Debug.LogWarning( "It's not your turn!" );
+			// 	return;
+			// }
 
 			if (action.IsMoveValid( this )) {
 				await action.ExecuteAction( this );
