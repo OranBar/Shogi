@@ -20,7 +20,7 @@ namespace Shogi
 		public bool isCaptured;
 	}
 
-	public class Piece : MonoBehaviour
+	public class Piece : MonoBehaviour, IPointerClickHandler
 	{
 	
 		public PieceData pieceData;
@@ -123,6 +123,7 @@ namespace Shogi
 		}
 
 		public void OnPointerClick( PointerEventData eventData ) {
+			Debug.Log("Piece Clicked");
 			ShogiGame.OnAnyPieceClicked.Invoke(this);
 			// var move = movementStrategy.GetAvailableMoves(X,Y) [0];
 			// gameManager.PlayAction( new MovePieceAction( this, move.x, move.y ) );

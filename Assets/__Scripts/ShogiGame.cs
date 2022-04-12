@@ -5,7 +5,9 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
+using AYellowpaper;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Shogi
 {
@@ -14,22 +16,52 @@ namespace Shogi
 		#region Events
 		public static Action<Cell> OnAnyCellClicked = ( _ ) => { };
 		public static Action<Piece> OnAnyPieceClicked = ( _ ) => { };
+		public static event Action<Piece> OnPlayer1_PieceClicked = ( _ ) => { };
+		public static event Action<Piece> OnPlayer2_PieceClicked = ( _ ) => { };
+
+		void RegisterPieceClickedEvents_Invocation(){
+			ShogiGame.OnAnyPieceClicked += ( piece ) =>
+			{
+				if (piece.OwnerId == PlayerId.Player1) {
+					OnPlayer1_PieceClicked.Invoke( piece );
+				} else {
+					OnPlayer2_PieceClicked.Invoke( piece );
+				}
+			};
+		}
 		#endregion
 
+		[SerializeField, RequireInterface( typeof( IPlayer ) )]
+		private Object _player1;
+		public IPlayer Player1
+		{
+			get => _player1 as IPlayer;
+			set => _player1 = (Object)value;
+		}
+		[SerializeField, RequireInterface( typeof( IPlayer ) )]
+		private Object _player2;
+		public IPlayer Player2
+		{
+			get => _player2 as IPlayer;
+			set => _player2 = (Object)value;
+		}
 		#region ToSerialize
-		public IPlayer oran; //Player 1
-		public IPlayer gio; //Player 2
+		
 		private PlayerId _currPlayer_turn;
 		public IPlayer CurrPlayer_turn {
 			get
 			{
-				return _currPlayer_turn == PlayerId.Player1 ? oran : gio;
+				return _currPlayer_turn == PlayerId.Player1 ? Player1 : Player2;
 			}
 		}
 		#endregion
 		public Board board;
 		public bool manualOverride;
 		private bool isGameOver;
+
+		void Awake(){
+			RegisterPieceClickedEvents_Invocation();
+		}
 
 		void Start() {
 			board.InitWithPiecesInScene();
@@ -39,11 +71,15 @@ namespace Shogi
 		}
 
 		async void BeginGame( PlayerId startingPlayer ) {
+			Debug.Log("Begin Game");
 			_currPlayer_turn = startingPlayer;
 
 			while(isGameOver == false && manualOverride == false){
+				Debug.Log("Awaiting Turn: "+_currPlayer_turn.ToString());
 				IShogiAction action = await CurrPlayer_turn.RequestAction();
+				Debug.Log("Action received. Executing");
 				await PlayAction( action );
+				Debug.Log("Action Executed. Advance turn");
 				AdvanceTurn();
 			}
 			Debug.Log( "Game Finished" );
@@ -55,7 +91,7 @@ namespace Shogi
 
 		public async Task PlayAction( IShogiAction action ) {
 			if(action.GetPlayer(this) != CurrPlayer_turn){
-				Debug.LogWarning("It's not your turn!");
+				Debug.LogWarning( "It's not your turn!" );
 				return;
 			}
 

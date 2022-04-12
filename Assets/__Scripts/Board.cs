@@ -21,6 +21,7 @@ namespace Shogi
 			foreach (var piece in FindObjectsOfType<Piece>()) {
 				PlacePiece( piece, piece.X, piece.Y );
 			}
+			Debug.Log("Board Init complete");
 		}
 
 		public void PlacePiece( Piece piece, int x, int y ) {
