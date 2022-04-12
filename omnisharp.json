@@ -27,7 +27,7 @@
 		"SpaceBeforeColonInBaseTypeDeclaration": true,
 		"SpaceBeforeComma": false,
 		"SpaceBeforeDot": false,
-		"SpaceBeforeSemicolonsInForStatement": false,
+		"SpaceBeforeSemicolonsInForStatement": true,
 		"SpacingAroundBinaryOperator": "single",
 		"IndentBraces": false,
 		"IndentBlock": true,

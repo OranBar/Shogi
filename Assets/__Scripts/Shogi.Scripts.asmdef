@@ -1,0 +1,17 @@
+{
+    "name": "Shogi.Scripts",
+    "rootNamespace": "Shogi",
+    "references": [
+        "GUID:31976cc9e85bdd9459e856fcb40d0d50",
+        "GUID:c2f440c9fef6c8c40ac5c50eea18c599"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
