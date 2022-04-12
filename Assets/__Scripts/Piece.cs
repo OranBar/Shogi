@@ -19,7 +19,7 @@ namespace Shogi
 		public bool isCaptured;
 	}
 
-	public class Piece : MonoBehaviour, IPointerClickHandler
+	public class Piece : MonoBehaviour
 	{
 	
 		public PieceData pieceData;
@@ -121,11 +121,10 @@ namespace Shogi
 			movementStrategy = PromotedMovement;
 		}
 
-
 		public void OnPointerClick( PointerEventData eventData ) {
-			var move = movementStrategy.GetAvailableMoves(X,Y) [0];
-			gameManager.PlayAction( new MovePieceAction( this, move.x, move.y ) );
+			ShogiGame.OnAnyPieceClicked.Invoke(this);
+			// var move = movementStrategy.GetAvailableMoves(X,Y) [0];
+			// gameManager.PlayAction( new MovePieceAction( this, move.x, move.y ) );
 		}
-
 	}
 }

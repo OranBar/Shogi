@@ -2,8 +2,9 @@ namespace Shogi
 {
 	public interface IShogiAction
 	{
-		void ExecuteAction(ShogiGame game);
-		bool IsMoveValid(ShogiGame game);
+		void ExecuteAction( ShogiGame game );
+		bool IsMoveValid( ShogiGame game );
+		Player GetPlayer( ShogiGame game );
 	}
 	public class MovePieceAction : IShogiAction
 	{
@@ -26,7 +27,7 @@ namespace Shogi
 		}
 
 
-		public void ExecuteAction(ShogiGame game){
+		public void ExecuteAction( ShogiGame game ) {
 			Board board = game.board;
 			UpdateBoard( board, this );
 
@@ -48,11 +49,18 @@ namespace Shogi
 			board [action.destinationX, action.destinationY] = piece;
 		}
 
-		public bool IsMoveValid(ShogiGame game){
-			bool isOutOfBounds_move = game.board.IsValidBoardPosition(destinationX, destinationY);
-			return isOutOfBounds_move;
+		public bool IsMoveValid( ShogiGame game ) {
+			Piece pieceOnStartCell = game.board [destinationX, destinationY];
+			Piece pieceOnDestinationCell = game.board [destinationX, destinationY];
+
+			bool isDestinationSquareOnBoard = game.board.IsValidBoardPosition( destinationX, destinationY );
+			bool isTargetSquare_occupiedByAllyPiece = pieceOnDestinationCell?.owner == pieceOnStartCell.owner;
+
+			return isDestinationSquareOnBoard && isTargetSquare_occupiedByAllyPiece;
 		}
 
-
+		public Player GetPlayer( ShogiGame game ) {
+			return game.board [startX, startY].owner;
+		}
 	}
 }

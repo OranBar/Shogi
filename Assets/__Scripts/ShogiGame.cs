@@ -8,14 +8,20 @@ using UnityEngine;
 
 namespace Shogi
 {
-    public class ShogiGame : MonoBehaviour
-    {
+	public class ShogiGame : MonoBehaviour
+	{
+		#region Events
+		public static Action<Cell> OnAnyCellClicked = ( _ ) => { };
+		public static Action<Piece> OnAnyPieceClicked = ( _ ) => { };
+		#endregion
+
 		#region ToSerialize
-		public Player oran;	//Player 1
+		public Player oran; //Player 1
 		public Player gio; //Player 2
 		private PlayerId _currPlayer_turn;
 		public Player CurrPlayer_turn {
-			get{
+			get
+			{
 				return _currPlayer_turn == PlayerId.Player1 ? gio : oran;
 			}
 		}
@@ -23,14 +29,28 @@ namespace Shogi
 		public Board board;
 
 
-		void Start()
-        {
+		void Start() {
 			board.InitWithPiecesInScene();
+			//TODO: black starts first
+			_currPlayer_turn = PlayerId.Player1;
+			BeginGame( _currPlayer_turn );
+		}
+
+		void BeginGame( PlayerId startingPlayer ) {
+			_currPlayer_turn = startingPlayer;
+			//Wait for player to call PlayAction
+		}
+
 		}
 
 		public void PlayAction( IShogiAction action ) {
-			if(action.IsMoveValid(this)){
-				action.ExecuteAction(this);
+			if(action.GetPlayer(this) != CurrPlayer_turn){
+				Debug.LogWarning("It's not your turn!");
+				return;
+			}
+
+			if (action.IsMoveValid( this )) {
+				action.ExecuteAction( this );
 				//memento action
 			}
 		}
@@ -58,24 +78,24 @@ namespace Shogi
 		// 	}
 		// }
 
-		[ContextMenu("Save")]
-		public void SaveGameState(){
+		[ContextMenu( "Save" )]
+		public void SaveGameState() {
 			GameState gameState = new GameState();
 			string json = JsonUtility.ToJson( gameState );
-			Debug.Log(json);
+			Debug.Log( json );
 
 			string path = Application.persistentDataPath + "/shogi.bin";
 			gameState.SerializeToBinaryFile( path );
 		}
 
-		[ContextMenu("Load bin")]
-		public void LoadGameState(){
+		[ContextMenu( "Load bin" )]
+		public void LoadGameState() {
 			string path = Application.persistentDataPath + "/shogi.bin";
 			GameState obj = GameState.DeserializeFromBinaryFile( path );
 			string json = JsonUtility.ToJson( obj );
 			Debug.Log( json );
 			//TODO: reassign data
 		}
-		
+
 	}
 }
