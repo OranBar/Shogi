@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Shogi
@@ -9,16 +10,23 @@ namespace Shogi
 		Player1 = 1,
 		Player2
 	}
-	
-    public class Player : MonoBehaviour
-    {
+
+	public interface IPlayer
+	{
+		Task<IShogiAction> RequestAction();
+	}
+
+	public class HumanPlayer : MonoBehaviour, IPlayer
+	{
 		public string playerName;
 		public PlayerId playerId;
-		
-		void Start()
-		{
-			
+
+		void Start() {
+
 		}
 
+		public Task<IShogiAction> RequestAction() {
+			throw new NotImplementedException();
+		}
 	}
 }

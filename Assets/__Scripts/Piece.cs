@@ -32,7 +32,7 @@ namespace Shogi
 			get { return pieceData.owner; }
 			set {
 				pieceData.owner = value;
-				owner = FindObjectsOfType<Player>().First( p => p.playerId == value );
+				owner = FindObjectsOfType<HumanPlayer>().First( p => p.playerId == value );
 			}
 		}
 		public bool IsCaptured{ 
@@ -43,7 +43,7 @@ namespace Shogi
 			}
 		}
 
-		public Player owner;
+		public IPlayer owner;
 
 		#region Movement Strategy
 		//We're doing depencenty injection by referencing MB from inspector

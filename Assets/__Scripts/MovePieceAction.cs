@@ -4,7 +4,7 @@ namespace Shogi
 	{
 		void ExecuteAction( ShogiGame game );
 		bool IsMoveValid( ShogiGame game );
-		Player GetPlayer( ShogiGame game );
+		IPlayer GetPlayer( ShogiGame game );
 	}
 	public class MovePieceAction : IShogiAction
 	{
@@ -29,7 +29,7 @@ namespace Shogi
 
 		public void ExecuteAction( ShogiGame game ) {
 			Board board = game.board;
-			UpdateBoard( board, this );
+			UpdateBoard( board );
 
 			Piece actingPiece = board [startX, startY];
 			actingPiece.PieceMovementAnimation( this );
@@ -43,10 +43,10 @@ namespace Shogi
 			}
 		}
 
-		public void UpdateBoard( Board board, MovePieceAction action ) {
-			Piece piece = board [action.startX, action.startY];
+		public void UpdateBoard( Board board ) {
+			Piece piece = board [startX, startY];
 			board [piece.X, piece.Y] = null;
-			board [action.destinationX, action.destinationY] = piece;
+			board [destinationX, destinationY] = piece;
 		}
 
 		public bool IsMoveValid( ShogiGame game ) {
@@ -59,7 +59,7 @@ namespace Shogi
 			return isDestinationSquareOnBoard && isTargetSquare_occupiedByAllyPiece;
 		}
 
-		public Player GetPlayer( ShogiGame game ) {
+		public IPlayer GetPlayer( ShogiGame game ) {
 			return game.board [startX, startY].owner;
 		}
 	}

@@ -16,10 +16,10 @@ namespace Shogi
 		#endregion
 
 		#region ToSerialize
-		public Player oran; //Player 1
-		public Player gio; //Player 2
+		public IPlayer oran; //Player 1
+		public IPlayer gio; //Player 2
 		private PlayerId _currPlayer_turn;
-		public Player CurrPlayer_turn {
+		public IPlayer CurrPlayer_turn {
 			get
 			{
 				return _currPlayer_turn == PlayerId.Player1 ? gio : oran;
@@ -27,7 +27,8 @@ namespace Shogi
 		}
 		#endregion
 		public Board board;
-
+		public bool manualOverride;
+		private bool isGameOver;
 
 		void Start() {
 			board.InitWithPiecesInScene();
@@ -36,11 +37,14 @@ namespace Shogi
 			BeginGame( _currPlayer_turn );
 		}
 
-		void BeginGame( PlayerId startingPlayer ) {
+		async void BeginGame( PlayerId startingPlayer ) {
 			_currPlayer_turn = startingPlayer;
-			//Wait for player to call PlayAction
-		}
 
+			while(isGameOver == false && manualOverride == false){
+				IShogiAction action = await CurrPlayer_turn.RequestAction();
+				PlayAction( action );
+			}
+			Debug.Log( "Game Finished" );
 		}
 
 		public void PlayAction( IShogiAction action ) {
@@ -54,29 +58,6 @@ namespace Shogi
 				//memento action
 			}
 		}
-
-		// public void PlayAction(MovePieceAction action){
-		// 	board.UpdateBoard( action );
-
-		// 	Piece actingPiece = board [action.startX, action.startY];
-		// 	actingPiece.PieceMovementAnimation( action );
-
-		// 	Piece capturedPiece = board.board [action.destinationX, action.destinationY];
-		// 	bool wasCapturingMove = capturedPiece != null && capturedPiece.owner != actingPiece.owner;
-
-		// 	if(wasCapturingMove){
-		// 		//A piece was killed. Such cruelty. 
-		// 		capturedPiece.CapturePiece();
-		// 	}
-		// }
-
-
-		// public void PromoteIfPossible(MovePieceAction action){
-		// 	if(action.destinationY >= 6){
-		// 		board[action.startX, action.startY].Promote();
-		// 		Debug.Log( "Promoted" );
-		// 	}
-		// }
 
 		[ContextMenu( "Save" )]
 		public void SaveGameState() {
