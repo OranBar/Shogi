@@ -31,6 +31,22 @@ namespace Shogi
 		void Select_ActionPiece(Piece piece){
 			selectedPiece = piece;
 			Debug.Log("Piece Selected "+piece, piece.gameObject);
+
+			if (playerId == PlayerId.Player1) {
+				ShogiGame.OnPlayer2_PieceClicked += Select_PieceToCapture;
+			} else {
+				ShogiGame.OnPlayer1_PieceClicked += Select_PieceToCapture;
+			}
+
+			ShogiGame.OnAnyCellClicked += Select_CellToMove;
+		}
+
+		private void Select_CellToMove( Cell obj ) {
+			currAction = new MovePieceAction( selectedPiece, obj.x, obj.y );
+		}
+
+		private void Select_PieceToCapture( Piece toCapture) {
+			currAction = new MovePieceAction( selectedPiece, toCapture.X, toCapture.Y );
 		}
 
 		public async Task<IShogiAction> RequestAction() {
