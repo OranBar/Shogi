@@ -7,7 +7,6 @@ namespace Shogi
 	{
 		Task ExecuteAction( ShogiGame game );
 		bool IsMoveValid( ShogiGame game );
-		IPlayer GetPlayer( ShogiGame game );
 	}
 	public class MovePieceAction : IShogiAction
 	{
@@ -34,7 +33,6 @@ namespace Shogi
 			Board board = game.board;
 
 			Piece actingPiece = board [startX, startY];
-			await actingPiece.PieceMovementAnimation( this );
 
 			Piece capturedPiece = board.board [destinationX, destinationY];
 			bool wasCapturingMove = capturedPiece != null && capturedPiece.owner != actingPiece.owner;
@@ -43,7 +41,9 @@ namespace Shogi
 				//A piece was killed. Such cruelty. 
 				capturedPiece.CapturePiece();
 			}
-			
+			await actingPiece.PieceMovementAnimation( this );
+
+			//Update game data structures
 			UpdateBoard( board );
 			actingPiece.X = destinationX;
 			actingPiece.Y = destinationY;
@@ -66,10 +66,6 @@ namespace Shogi
 			return isDestinationSquareOnBoard 
 				&& isTargetSquare_occupiedByAllyPiece == false
 				&& isValidPieceMovement;
-		}
-
-		public IPlayer GetPlayer( ShogiGame game ) {
-			return game.board [startX, startY].owner;
 		}
 	}
 }
