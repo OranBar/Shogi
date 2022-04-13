@@ -21,11 +21,6 @@ namespace Shogi
 		private IShogiAction currAction;
 
 		void Start() {
-			if (playerId == PlayerId.Player1) {
-				ShogiGame.OnPlayer1_PieceClicked += Select_ActionPiece;
-			} else {
-				ShogiGame.OnPlayer2_PieceClicked += Select_ActionPiece;
-			}
 		}
 
 		void Select_ActionPiece(Piece piece){
@@ -50,9 +45,21 @@ namespace Shogi
 		}
 
 		public async Task<IShogiAction> RequestAction() {
+			if (playerId == PlayerId.Player1) {
+				ShogiGame.OnPlayer1_PieceClicked += Select_ActionPiece;
+			} else {
+				ShogiGame.OnPlayer2_PieceClicked += Select_ActionPiece;
+			}
+
 			currAction = null;
 			while(currAction == null){
 				await Task.Yield();
+			}
+
+			if (playerId == PlayerId.Player1) {
+				ShogiGame.OnPlayer1_PieceClicked -= Select_ActionPiece;
+			} else {
+				ShogiGame.OnPlayer2_PieceClicked -= Select_ActionPiece;
 			}
 			return currAction;
 		}

@@ -45,7 +45,7 @@ namespace Shogi
 		}
 
 		public IPlayer owner;
-
+		
 		#region Movement Strategy
 		//We're doing depencenty injection by referencing MB from inspector
 		[SerializeField, RequireInterface( typeof( IMovementStrategy ) )]
@@ -69,12 +69,7 @@ namespace Shogi
 
 		public IMovementStrategy movementStrategy;
 
-		public List<(int x, int y)> GetAvailableMoves() {
-			var moves = movementStrategy.GetAvailableMoves( X, Y );
-			var result = moves.Where( m => board.IsValidBoardPosition( m ) ).ToList();
-			return result;
-		}
-		
+	
 		private Board board;
 		private ShogiGame gameManager;
 		[HideInInspector] public RectTransform rectTransform;
@@ -84,7 +79,16 @@ namespace Shogi
 			board = FindObjectOfType<Board>();
 			gameManager = FindObjectOfType<ShogiGame>();
 			rectTransform = this.GetComponent<RectTransform>();
+			owner = FindObjectsOfType<HumanPlayer>().First( p => p.playerId == OwnerId );
+			movementStrategy = DefaultMovement;
 		}
+
+		public List<(int x, int y)> GetAvailableMoves() {
+			var moves = movementStrategy.GetAvailableMoves( X, Y );
+			var result = moves.Where( m => board.IsValidBoardPosition( m ) ).ToList();
+			return result;
+		}
+
 
 		public async Task PieceMovementAnimation( MovePieceAction action ) {
 			PlacePieceOnCell_Immediate( action.destinationX, action.destinationY );

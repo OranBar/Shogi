@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Shogi
@@ -31,7 +32,6 @@ namespace Shogi
 
 		public async Task ExecuteAction( ShogiGame game ) {
 			Board board = game.board;
-			UpdateBoard( board );
 
 			Piece actingPiece = board [startX, startY];
 			await actingPiece.PieceMovementAnimation( this );
@@ -43,6 +43,8 @@ namespace Shogi
 				//A piece was killed. Such cruelty. 
 				capturedPiece.CapturePiece();
 			}
+			
+			UpdateBoard( board );
 		}
 
 		public void UpdateBoard( Board board ) {
@@ -57,8 +59,11 @@ namespace Shogi
 
 			bool isDestinationSquareOnBoard = game.board.IsValidBoardPosition( destinationX, destinationY );
 			bool isTargetSquare_occupiedByAllyPiece = pieceOnDestinationCell?.owner == pieceOnStartCell.owner;
+			bool isValidPieceMovement = pieceOnStartCell.GetAvailableMoves().Any( m => m.x == destinationX && m.y == destinationY );
 
-			return isDestinationSquareOnBoard && isTargetSquare_occupiedByAllyPiece;
+			return isDestinationSquareOnBoard 
+				&& isTargetSquare_occupiedByAllyPiece == false
+				&& isValidPieceMovement;
 		}
 
 		public IPlayer GetPlayer( ShogiGame game ) {

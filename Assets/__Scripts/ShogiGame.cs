@@ -71,15 +71,18 @@ namespace Shogi
 		}
 
 		async void BeginGame( PlayerId startingPlayer ) {
-			Debug.Log("Begin Game");
 			_currPlayer_turn = startingPlayer;
 
 			while(isGameOver == false && manualOverride == false){
 				Debug.Log("Awaiting Turn: "+_currPlayer_turn.ToString());
 				IShogiAction action = await CurrPlayer_turn.RequestAction();
-				Debug.Log("Action received. Executing");
-				await PlayAction( action );
-				Debug.Log("Action Executed. Advance turn");
+				if (action.IsMoveValid( this )) {
+					await PlayAction( action );
+				} else {
+					Debug.Log("Invalid Action: Try again");
+					continue;
+				}
+
 				AdvanceTurn();
 			}
 			Debug.Log( "Game Finished" );

@@ -9692,7 +9692,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player1: {fileID: 1402779149}
-  _player2: {fileID: 0}
+  _player2: {fileID: 489550812}
   board: {fileID: 759263462}
   manualOverride: 0
 --- !u!114 &1014225918
