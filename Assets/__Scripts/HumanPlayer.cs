@@ -52,6 +52,7 @@ namespace Shogi
 			}
 
 			currAction = null;
+			selectedPiece = null;
 			while(currAction == null){
 				await Task.Yield();
 			}
