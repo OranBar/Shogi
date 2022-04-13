@@ -77,7 +77,7 @@ namespace Shogi
 				Debug.Log("Awaiting Turn: "+_currPlayer_turn.ToString());
 				IShogiAction action = await CurrPlayer_turn.RequestAction();
 				if (action.IsMoveValid( this )) {
-					await PlayAction( action );
+					await action.ExecuteAction( this );
 				} else {
 					Debug.Log("Invalid Action: Try again");
 					continue;

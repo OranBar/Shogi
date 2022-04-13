@@ -110,6 +110,8 @@ namespace Shogi
 			PieceDeathAnimation();
 
 			this.IsCaptured = true;
+			X = -1;
+			Y = -1;
 			ConvertPiece();
 		}
 
