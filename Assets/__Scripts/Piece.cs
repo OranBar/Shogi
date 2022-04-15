@@ -2,8 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using AYellowpaper;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Object = UnityEngine.Object;
@@ -90,8 +90,9 @@ namespace Shogi
 		}
 
 
-		public async Task PieceMovementAnimation( MovePieceAction action ) {
+		public async UniTask PieceMovementAnimation( MovePieceAction action ) {
 			PlacePieceOnCell_Immediate( action.destinationX, action.destinationY );
+			await UniTask.Yield();
 		}
 
 		public void PlacePieceOnCell_Immediate( int x, int y ) {
@@ -99,7 +100,8 @@ namespace Shogi
 		}
 
 		public void PieceDeathAnimation() {
-			throw new NotImplementedException();
+			// throw new NotImplementedException();
+			Destroy( this.gameObject);
 		}
 
 		public void PreviewAvailableMoves() {
@@ -130,7 +132,7 @@ namespace Shogi
 		}
 
 		public void OnPointerClick( PointerEventData eventData ) {
-			Debug.Log("Piece Clicked");
+			// Debug.Log("Piece Clicked");
 			ShogiGame.OnAnyPieceClicked.Invoke(this);
 		}
 	}

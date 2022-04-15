@@ -1,11 +1,11 @@
 using System.Linq;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 
 namespace Shogi
 {
 	public interface IShogiAction
 	{
-		Task ExecuteAction( ShogiGame game );
+		UniTask ExecuteAction( ShogiGame game );
 		bool IsMoveValid( ShogiGame game );
 	}
 	public class MovePieceAction : IShogiAction
@@ -29,7 +29,7 @@ namespace Shogi
 		}
 
 
-		public async Task ExecuteAction( ShogiGame game ) {
+		public async UniTask ExecuteAction( ShogiGame game ) {
 			Board board = game.board;
 
 			Piece actingPiece = board [startX, startY];

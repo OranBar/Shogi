@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Threading.Tasks;
 using AYellowpaper;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
-using Object = UnityEngine.Object;
+using Object = UnityEngine.Object; 
 
 namespace Shogi
 {
@@ -16,19 +16,24 @@ namespace Shogi
 		#region Events
 		public static Action<Cell> OnAnyCellClicked = ( _ ) => { };
 		public static Action<Piece> OnAnyPieceClicked = ( _ ) => { };
-		public static event Action<Piece> OnPlayer1_PieceClicked = ( _ ) => { };
-		public static event Action<Piece> OnPlayer2_PieceClicked = ( _ ) => { };
+		public static RefAction<Piece> OnPlayer1_PieceClicked = new RefAction<Piece>();
+		public static RefAction<Piece> OnPlayer2_PieceClicked = new RefAction<Piece>();
+		public static RefAction<Piece> Get_OnPieceClickedEvent( PlayerId player ) {
+			return player == PlayerId.Player1 ? OnPlayer1_PieceClicked : OnPlayer2_PieceClicked;
+		}
 
 		void RegisterPieceClickedEvents_Invocation(){
 			ShogiGame.OnAnyPieceClicked += ( piece ) =>
 			{
 				if (piece.OwnerId == PlayerId.Player1) {
-					OnPlayer1_PieceClicked.Invoke( piece );
+					OnPlayer1_PieceClicked.Value.Invoke( piece );
 				} else {
-					OnPlayer2_PieceClicked.Invoke( piece );
+					OnPlayer2_PieceClicked.Value.Invoke( piece );
 				}
 			};
 		}
+
+		
 		#endregion
 
 		[SerializeField, RequireInterface( typeof( IPlayer ) )]
@@ -70,14 +75,20 @@ namespace Shogi
 			BeginGame( _currPlayer_turn );
 		}
 
-		async void BeginGame( PlayerId startingPlayer ) {
+		void OnDestroyed(){
+			isGameOver = true;
+		}
+
+		async UniTask BeginGame( PlayerId startingPlayer ) {
 			_currPlayer_turn = startingPlayer;
 
 			while(isGameOver == false && manualOverride == false){
 				Debug.Log("Awaiting Turn: "+_currPlayer_turn.ToString());
 				IShogiAction action = await CurrPlayer_turn.RequestAction();
 				if (action.IsMoveValid( this )) {
+					Debug.Log("Valid Move: Executing");
 					await action.ExecuteAction( this );
+					Debug.Log( "Finish Move Execution" );
 				} else {
 					Debug.Log("Invalid Action: Try again");
 					continue;
@@ -92,7 +103,7 @@ namespace Shogi
 			_currPlayer_turn = (_currPlayer_turn == PlayerId.Player1) ? PlayerId.Player2 : PlayerId.Player1;
 		}
 
-		public async Task PlayAction( IShogiAction action ) {
+		public async UniTask PlayAction( IShogiAction action ) {
 			// if(action.GetPlayer(this) != CurrPlayer_turn){
 			// 	Debug.LogWarning( "It's not your turn!" );
 			// 	return;
