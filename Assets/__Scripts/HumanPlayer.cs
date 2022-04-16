@@ -15,7 +15,9 @@ namespace Shogi
 	public class HumanPlayer : MonoBehaviour, IPlayer
 	{
 		public string playerName;
-		public PlayerId playerId;
+		[SerializeField] private PlayerId playerId;
+		public PlayerId OwnerId => playerId;
+
 		public PlayerId OpponentId => playerId == PlayerId.Player1 ? PlayerId.Player2 : PlayerId.Player1;
 
 		private Piece selectedPiece;

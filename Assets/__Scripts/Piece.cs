@@ -33,7 +33,7 @@ namespace Shogi
 			get { return pieceData.owner; }
 			set {
 				pieceData.owner = value;
-				owner = FindObjectsOfType<HumanPlayer>().First( p => p.playerId == value );
+				owner = GameObjectEx.FindAll_InterfaceImplementors<IPlayer>().First( p => p.OwnerId == value );
 			}
 		}
 		public bool IsCaptured{ 
@@ -81,7 +81,7 @@ namespace Shogi
 			rectTransform = this.GetComponent<RectTransform>();
 			dropMovementStrategy = this.gameObject.AddOrGetComponent<DropMovement>();
 			
-			owner = FindObjectsOfType<HumanPlayer>().First( p => p.playerId == OwnerId );
+			owner = FindObjectsOfType<HumanPlayer>().First( p => p.OwnerId == OwnerId );
 			movementStrategy = DefaultMovement;
 		}
 
