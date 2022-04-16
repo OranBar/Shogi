@@ -68,17 +68,19 @@ namespace Shogi
 		#endregion
 
 		public IMovementStrategy movementStrategy;
+		private IMovementStrategy dropMovementStrategy;
 
 	
 		private Board board;
 		private ShogiGame gameManager;
 		[HideInInspector] public RectTransform rectTransform;
 
-
 		void Awake() {
 			board = FindObjectOfType<Board>();
 			gameManager = FindObjectOfType<ShogiGame>();
 			rectTransform = this.GetComponent<RectTransform>();
+			dropMovementStrategy = this.gameObject.AddOrGetComponent<DropMovement>();
+			
 			owner = FindObjectsOfType<HumanPlayer>().First( p => p.playerId == OwnerId );
 			movementStrategy = DefaultMovement;
 		}
@@ -127,6 +129,7 @@ namespace Shogi
 			} else {
 				OwnerId = PlayerId.Player1;
 			}
+			movementStrategy = dropMovementStrategy;
 		}
 
 		public void Promote() {
