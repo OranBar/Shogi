@@ -6,11 +6,11 @@ namespace Shogi
 {
 	public class Board : MonoBehaviour
     {
-		public Piece [,] board = new Piece[9,9];
 		public float cellSizeUnit = 37.4f;
 		public List<Piece> gio_capturedPieces = new List<Piece>();
 		public List<Piece> oran_capturedPieces = new List<Piece>();
 
+		private Piece [,] board = new Piece[9,9];
 		public Piece this [int x, int y]
 		{
 			get { return board [x, y]; }
@@ -41,12 +41,6 @@ namespace Shogi
 			}
 			return false;
 		}
-
-		// public void UpdateBoard( MovePieceAction action) {
-		// 	Piece piece = board [action.startX, action.startY];
-		// 	board [piece.X, piece.Y] = null;
-		// 	board [action.destinationX, action.destinationY] = piece;
-		// }
 
 		public Vector3 GetCellWorldPosition(  int x, int y ) {
 			return new Vector3( x, y ) * cellSizeUnit + Vector3.one * cellSizeUnit * 0.5f;

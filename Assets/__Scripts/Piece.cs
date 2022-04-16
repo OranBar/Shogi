@@ -85,8 +85,9 @@ namespace Shogi
 
 		public List<(int x, int y)> GetAvailableMoves() {
 			var moves = movementStrategy.GetAvailableMoves( X, Y );
-			var result = moves.Where( m => board.IsValidBoardPosition( m ) ).ToList();
-			return result;
+			// var result = moves.Where( m => board.IsValidBoardPosition( m ) ).ToList();
+			// result = moves.Where( m => board [m.x, m.y]?.OwnerId != OwnerId ).ToList();
+			return moves;
 		}
 
 
@@ -105,7 +106,9 @@ namespace Shogi
 		}
 
 		public void PreviewAvailableMoves() {
-			throw new NotImplementedException();
+			foreach(var move in GetAvailableMoves()){
+				Debug.Log(move);
+			}
 		}
 
 		public void CapturePiece() {
