@@ -10,18 +10,14 @@ namespace Shogi
 		}
 
 		public List<(int x, int y)> GetAvailableMoves( int startX, int startY ) {
+			int direction = piece.OwnerId == PlayerId.Player1 ? 1 : -1;
+
 			List<(int x, int y)> result = new List<(int x, int y)>();
-			result.Add( GetCellIndex_Forward( startX, startY, 1 ) );
+			result.Add( (startX, startY + ( 1 * direction )) );
+
+			result = result.Where( m => board.IsValidBoardPosition( m ) ).ToList();
+			result = result.Where( m => board [m.x, m.y]?.OwnerId != piece.OwnerId ).ToList();
 			return result;
-		}
-
-
-		private (int x, int y) GetCellIndex_Forward( int startX, int startY, int distance ) {
-			if (piece.OwnerId == PlayerId.Player1) {
-				return (startX, startY + distance);
-			} else {
-				return (startX, startY - distance);
-			}
 		}
 	}
 

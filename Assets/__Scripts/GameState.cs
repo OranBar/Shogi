@@ -30,10 +30,9 @@ namespace Shogi
 			Debug.Log( "File serialized at " + savePath );
 		}
 
-		public static GameState DeserializeFromBinaryFile(string filepPath){
+		public static GameState DeserializeFromBinaryFile(string filePath){
 			IFormatter formatter = new BinaryFormatter();
-			string path = Application.persistentDataPath + "/shogi.bin";
-			Stream stream = new FileStream( path, FileMode.Open, FileAccess.Read, FileShare.Read );
+			Stream stream = new FileStream( filePath, FileMode.Open, FileAccess.Read, FileShare.Read );
 			GameState deserializedData = (GameState)formatter.Deserialize( stream );
 			stream.Close();
 

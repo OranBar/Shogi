@@ -1,4 +1,7 @@
 {
+	"msbuild": {
+		"useBundledOnly": true
+	},
 	"FormattingOptions": {
 		"enableEditorConfigSupport": true,
 		"NewLine": "\n",

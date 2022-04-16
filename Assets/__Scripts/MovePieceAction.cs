@@ -1,11 +1,11 @@
 using System.Linq;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 
 namespace Shogi
 {
 	public interface IShogiAction
 	{
-		Task ExecuteAction( ShogiGame game );
+		UniTask ExecuteAction( ShogiGame game );
 		bool IsMoveValid( ShogiGame game );
 	}
 	public class MovePieceAction : IShogiAction
@@ -28,13 +28,17 @@ namespace Shogi
 			this.destinationY = destinationY;
 		}
 
+		public override string ToString() {
+			return $"Move: From ({startX}, {startY}) to ({destinationX}, {destinationY})";
+		}
 
-		public async Task ExecuteAction( ShogiGame game ) {
+
+		public async UniTask ExecuteAction( ShogiGame game ) {
 			Board board = game.board;
 
 			Piece actingPiece = board [startX, startY];
 
-			Piece capturedPiece = board.board [destinationX, destinationY];
+			Piece capturedPiece = board[destinationX, destinationY];
 			bool wasCapturingMove = capturedPiece != null && capturedPiece.owner != actingPiece.owner;
 
 			if (wasCapturingMove) {
