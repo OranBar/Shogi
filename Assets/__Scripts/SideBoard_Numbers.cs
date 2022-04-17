@@ -22,6 +22,9 @@ namespace Shogi
 
 		void Start(){
 			sideBoard.OnNewPieceCaptured.Value += UpdateText;
+			foreach(Transform pieceArt in this.transform.GetChild(0)){
+				pieceArt.gameObject.SetActive( false );
+			}
 		}
 
 		private void UpdateText( Piece newCapturedPiece) {
@@ -53,7 +56,22 @@ namespace Shogi
 		public void IncreaseNumberLabel(TMP_Text text){
 			string number_raw = text.text.Skip( 1 ).Replace( "\n", "" );
 			int number = int.Parse( number_raw ) + 1;
+
+			if (number > 0) {
+				text.transform.parent.gameObject.SetActive( true );
+			}
 			text.text = "x"+number.ToString();
+		}
+
+		public void DecreaseNumberLabel( TMP_Text text ) {
+			string number_raw = text.text.Skip( 1 ).Replace( "\n", "" );
+			int number = int.Parse( number_raw ) - 1;
+
+			if(number <= 0){
+				number = 0;
+				text.transform.parent.gameObject.SetActive( false );
+			}
+			text.text = "x" + number.ToString();
 		}
 	}
 
