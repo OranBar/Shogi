@@ -125,8 +125,10 @@ namespace Shogi
 		private void ConvertPiece() {
 			if (OwnerId == PlayerId.Player1) {
 				OwnerId = PlayerId.Player2;
+				gameManager.player2_sideboard.AddCapturedPiece( this );
 			} else {
 				OwnerId = PlayerId.Player1;
+				gameManager.player1_sideboard.AddCapturedPiece( this );
 			}
 			movementStrategy = dropMovementStrategy;
 		}

@@ -27,34 +27,33 @@ namespace Shogi
 		private void UpdateText( Piece newCapturedPiece) {
 			switch (newCapturedPiece.PieceType) {
 				case PieceType.Pawn:
-					var pawns = int.Parse( pawnText.text ) + 1;
-					pawnText.text = pawns.ToString();
+					IncreaseNumberLabel( pawnText );
 					break;
 				case PieceType.Lancer:
-					var lancers = int.Parse( lancerText.text ) + 1;
-					lancerText.text = lancers.ToString();
+					IncreaseNumberLabel( lancerText );
 					break;
 				case PieceType.Knight:
-					var knights = int.Parse( knightText.text ) + 1;
-					knightText.text = knights.ToString();
+					IncreaseNumberLabel( knightText );
 					break;
 				case PieceType.Silver:
-					var silvers = int.Parse( silverText.text ) + 1;
-					silverText.text = silvers.ToString();
+					IncreaseNumberLabel( silverText );
 					break;
 				case PieceType.Gold:
-					var golds = int.Parse( goldText.text ) + 1;
-					goldText.text = golds.ToString();
+					IncreaseNumberLabel( goldText );
 					break;
 				case PieceType.Rook:
-					var rooks = int.Parse( rookText.text ) + 1;
-					rookText.text = rooks.ToString();
+					IncreaseNumberLabel( rookText );
 					break;
 				case PieceType.Bishop:
-					var bishops = int.Parse( bishopText.text ) + 1;
-					bishopText.text = bishops.ToString();
+					IncreaseNumberLabel( bishopText );
 					break;
 			}
+		}
+
+		public void IncreaseNumberLabel(TMP_Text text){
+			string number_raw = text.text.Skip( 1 ).Replace( "\n", "" );
+			int number = int.Parse( number_raw ) + 1;
+			text.text = "x"+number.ToString();
 		}
 	}
 

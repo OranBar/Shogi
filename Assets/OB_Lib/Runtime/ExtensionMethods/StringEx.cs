@@ -76,7 +76,7 @@ public static class StringEx
     /// <returns></returns>
     public static string Skip(this string value, int count)
     {
-        return value.Substring(Math.Min(count, value.Length) - 1);
+        return value.Substring(Math.Min(count, value.Length - 1) );
     }
 
     // Skip

@@ -61,6 +61,8 @@ namespace Shogi
 		}
 		#endregion
 		public Board board;
+		public SideBoard player1_sideboard;
+		public SideBoard player2_sideboard;
 		public bool manualOverride;
 		private bool isGameOver;
 
