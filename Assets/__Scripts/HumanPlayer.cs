@@ -28,15 +28,10 @@ namespace Shogi
 
 		void Select_ActionPiece(Piece piece){
 			selectedPiece = piece;
-			piece.PreviewAvailableMoves();
+			// piece.PreviewAvailableMoves();
 			Debug.Log($"<{playerName}> Piece Selected ({piece.X},{piece.Y})", piece.gameObject);
 
 			ShogiGame.Get_OnPieceClickedEvent(OpponentId).Value += Select_PieceToCapture;
-			// if (playerId == PlayerId.Player1) {
-			// 	ShogiGame.OnPlayer2_PieceClicked += Select_PieceToCapture;
-			// } else {
-			// 	ShogiGame.OnPlayer1_PieceClicked += Select_PieceToCapture;
-			// }
 
 			ShogiGame.OnAnyCellClicked += Select_CellToMove;
 		}
@@ -54,11 +49,6 @@ namespace Shogi
 
 		public async UniTask<IShogiAction> RequestAction() {
 			ShogiGame.Get_OnPieceClickedEvent(playerId).Value += Select_ActionPiece;
-			// if (playerId == PlayerId.Player1) {
-			// 	ShogiGame.OnPlayer1_PieceClicked += Select_ActionPiece;
-			// } else {
-			// 	ShogiGame.OnPlayer2_PieceClicked += Select_ActionPiece;
-			// }
 
 			currAction = null;
 			selectedPiece = null;
@@ -68,11 +58,7 @@ namespace Shogi
 
 			ShogiGame.Get_OnPieceClickedEvent( playerId ).Value -= Select_ActionPiece;
 			ShogiGame.Get_OnPieceClickedEvent( OpponentId ).Value -= Select_PieceToCapture;
-			// if (playerId == PlayerId.Player1) {
-			// 	ShogiGame.OnPlayer1_PieceClicked -= Select_ActionPiece;
-			// } else {
-			// 	ShogiGame.OnPlayer2_PieceClicked -= Select_ActionPiece;
-			// }
+
 			return currAction;
 		}
 	}

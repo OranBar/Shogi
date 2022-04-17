@@ -107,7 +107,7 @@ namespace Shogi
 			Destroy( this.gameObject);
 		}
 
-		public void PreviewAvailableMoves() {
+		public void LogAvailableMoves() {
 			foreach(var move in GetAvailableMoves()){
 				Debug.Log(move);
 			}
