@@ -45,7 +45,7 @@ namespace Shogi
 				//A piece was killed. Such cruelty. 
 				capturedPiece.CapturePiece();
 			}
-			await actingPiece.PieceMovementAnimation( this );
+			await actingPiece.PieceMovementAnimation( destinationX, destinationY );
 
 			//Update game data structures
 			UpdateBoard( board );

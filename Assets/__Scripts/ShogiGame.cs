@@ -134,6 +134,7 @@ namespace Shogi
 			string json = JsonUtility.ToJson( obj );
 			Debug.Log( json );
 			//TODO: reassign data
+			Start();
 		}
 
 	}

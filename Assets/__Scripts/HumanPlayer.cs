@@ -38,7 +38,11 @@ namespace Shogi
 
 		private void Select_CellToMove( Cell obj ) {
 			Debug.Log($"<{playerName}> Move action to cell ({obj.x},{obj.y})");
-			currAction = new MovePieceAction( selectedPiece, obj.x, obj.y );
+			if(selectedPiece.IsCaptured == false){
+				currAction = new MovePieceAction( selectedPiece, obj.x, obj.y );
+			} else {
+				currAction = new DropPieceAction( selectedPiece, obj.x, obj.y );
+			}
 		}
 
 		private void Select_PieceToCapture( Piece toCapture) {

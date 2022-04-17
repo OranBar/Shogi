@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace Shogi
 {
@@ -25,6 +27,14 @@ namespace Shogi
 			foreach(Transform pieceArt in this.transform.GetChild(0)){
 				pieceArt.gameObject.SetActive( false );
 			}
+
+			pawnText.GetComponentInParent<Button>(true).onClick.AddListener(() => OnPieceButtonClicked(PieceType.Pawn));
+		}
+
+		private void OnPieceButtonClicked( PieceType pieceType ) {
+			Debug.Log("Ho clickato");
+			Piece piece = sideBoard.CapturedPieces.First( p => p.PieceType == pieceType );
+			piece.OnPointerClick( new PointerEventData(null) );
 		}
 
 		private void UpdateText( Piece newCapturedPiece) {

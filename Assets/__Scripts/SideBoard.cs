@@ -15,10 +15,11 @@ namespace Shogi{
 
 		public RefAction<Piece> OnNewPieceCaptured { get; private set; } = new RefAction<Piece>();
 
-		[SerializeField] private List<Piece> capturedPieces = new List<Piece>();
+		[SerializeField] private List<Piece> _capturedPieces = new List<Piece>();
+		public List<Piece> CapturedPieces => _capturedPieces;
 
 		public void AddCapturedPiece(Piece piece){
-			capturedPieces.Add(piece);
+			_capturedPieces.Add(piece);
 			OnNewPieceCaptured?.Invoke(piece);
 		}
 

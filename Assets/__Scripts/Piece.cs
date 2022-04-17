@@ -92,8 +92,8 @@ namespace Shogi
 		}
 
 
-		public async UniTask PieceMovementAnimation( MovePieceAction action ) {
-			PlacePieceOnCell_Immediate( action.destinationX, action.destinationY );
+		public async UniTask PieceMovementAnimation( int destinationX, int destinationY ) {
+			PlacePieceOnCell_Immediate( destinationX, destinationY );
 			await UniTask.Yield();
 		}
 
@@ -103,7 +103,10 @@ namespace Shogi
 
 		public void PieceDeathAnimation() {
 			// throw new NotImplementedException();
-			Destroy( this.gameObject);
+			// Destroy( this.gameObject);
+			Transform limbo = GameObject.FindGameObjectWithTag("Limbo").transform;
+			this.transform.parent = limbo;
+			this.transform.localPosition = Vector3.zero;
 		}
 
 		public void LogAvailableMoves() {
@@ -139,7 +142,7 @@ namespace Shogi
 		}
 
 		public void OnPointerClick( PointerEventData eventData ) {
-			// Debug.Log("Piece Clicked");
+			Debug.Log("Piece Clicked");
 			ShogiGame.OnAnyPieceClicked.Invoke(this);
 		}
 	}
