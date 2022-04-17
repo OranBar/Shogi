@@ -16,6 +16,10 @@ public class RefAction
 		a.Value += invokeThenUnsubscribe;
 	}
 
+	public void Invoke(){
+		Value?.Invoke();
+	}
+
 }
 
 public class RefAction<T>
@@ -33,6 +37,9 @@ public class RefAction<T>
 		a.Value += invokeThenUnsubscribe;
 	}
 
+	public void Invoke(T arg) {
+		Value?.Invoke(arg);
+	}
 }
 
 public class RefAction<T, U>
@@ -48,6 +55,10 @@ public class RefAction<T, U>
 		};
 
 		a.Value += invokeThenUnsubscribe;
+	}
+
+	public void Invoke( T arg1, U arg2 ) {
+		Value?.Invoke( arg1, arg2 );
 	}
 }
 
@@ -65,6 +76,10 @@ public class RefAction<T, U, V>
 
 		a.Value += invokeThenUnsubscribe;
 	}
+
+	public void Invoke( T arg1, U arg2, V arg3 ) {
+		Value?.Invoke( arg1, arg2, arg3);
+	}
 }
 
 public class RefAction<T, U, V, Z>
@@ -80,5 +95,9 @@ public class RefAction<T, U, V, Z>
 		};
 
 		a.Value += invokeThenUnsubscribe;
+	}
+
+	public void Invoke( T arg1, U arg2, V arg3, Z arg4 ) {
+		Value?.Invoke( arg1, arg2, arg3, arg4 );
 	}
 }
