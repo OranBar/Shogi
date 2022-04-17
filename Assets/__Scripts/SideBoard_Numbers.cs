@@ -11,7 +11,6 @@ namespace Shogi
 	public class SideBoard_Numbers : MonoBehaviour
 	{
 
-		public SideBoard sideBoard;
 		public TMP_Text pawnText;
 		public TMP_Text lancerText;
 		public TMP_Text knightText;
@@ -19,6 +18,7 @@ namespace Shogi
 		public TMP_Text goldText;
 		public TMP_Text rookText;
 		public TMP_Text bishopText;
+		private SideBoard sideBoard;
 
 		void Start(){
 			sideBoard = GetComponent<SideBoard>();
