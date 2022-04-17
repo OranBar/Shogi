@@ -61,15 +61,13 @@ namespace Shogi
 
 		public bool IsMoveValid( ShogiGame game ) {
 			Piece pieceOnStartCell = game.board [startX, startY];
-			Piece pieceOnDestinationCell = game.board [destinationX, destinationY];
+			// Piece pieceOnDestinationCell = game.board [destinationX, destinationY];
 
-			bool isDestinationSquareOnBoard = game.board.IsValidBoardPosition( destinationX, destinationY );
-			bool isTargetSquare_occupiedByAllyPiece = pieceOnDestinationCell?.owner == pieceOnStartCell.owner;
+			// bool isDestinationSquareOnBoard = game.board.IsValidBoardPosition( destinationX, destinationY );
+			// bool isTargetSquare_occupiedByAllyPiece = pieceOnDestinationCell?.owner == pieceOnStartCell.owner;
 			bool isValidPieceMovement = pieceOnStartCell.GetAvailableMoves().Any( m => m.x == destinationX && m.y == destinationY );
 
-			return isDestinationSquareOnBoard 
-				&& isTargetSquare_occupiedByAllyPiece == false
-				&& isValidPieceMovement;
+			return isValidPieceMovement;
 		}
 	}
 }
