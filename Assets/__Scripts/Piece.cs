@@ -73,12 +73,11 @@ namespace Shogi
 	
 		private Board board;
 		private ShogiGame gameManager;
-		[HideInInspector] public RectTransform rectTransform;
+		[Auto, HideInInspector] public RectTransform rectTransform;
 
 		void Awake() {
 			board = FindObjectOfType<Board>();
 			gameManager = FindObjectOfType<ShogiGame>();
-			rectTransform = this.GetComponent<RectTransform>();
 			dropMovementStrategy = this.gameObject.AddOrGetComponent<DropMovement>();
 			
 			owner = FindObjectsOfType<HumanPlayer>().First( p => p.OwnerId == OwnerId );

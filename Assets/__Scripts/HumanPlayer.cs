@@ -28,7 +28,7 @@ namespace Shogi
 
 		void Select_ActionPiece(Piece piece){
 			selectedPiece = piece;
-			// piece.PreviewAvailableMoves();
+			piece.LogAvailableMoves();
 			Debug.Log($"<{playerName}> Piece Selected ({piece.X},{piece.Y})", piece.gameObject);
 
 			ShogiGame.Get_OnPieceClickedEvent(OpponentId).Value += Select_PieceToCapture;

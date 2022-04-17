@@ -18,10 +18,9 @@ namespace Shogi
 		public TMP_Text goldText;
 		public TMP_Text rookText;
 		public TMP_Text bishopText;
-		private SideBoard sideBoard;
+		[Auto] private SideBoard sideBoard;
 
 		void Start(){
-			sideBoard = GetComponent<SideBoard>();
 			sideBoard.OnNewPieceCaptured.Value += UpdateText;
 		}
 

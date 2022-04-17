@@ -1834,6 +1834,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 159997399}
   m_CullTransparentMesh: 1
+--- !u!1 &194636132
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 194636134}
+  - component: {fileID: 194636133}
+  m_Layer: 0
+  m_Name: Auto_Attribute_Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &194636133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 194636132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b707ec86924986a42bd79edd38a34af8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monoBehavioursInSceneWithAuto: []
+--- !u!4 &194636134
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 194636132}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &195699412
 GameObject:
   m_ObjectHideFlags: 0
@@ -9173,6 +9218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ownerId: 0
+  capturedPieces: []
 --- !u!1 &759263458
 GameObject:
   m_ObjectHideFlags: 0
@@ -10496,6 +10542,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ownerId: 0
+  capturedPieces: []
 --- !u!114 &878130954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10734,6 +10781,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 889619312}
+  - component: {fileID: 889619313}
+  - component: {fileID: 889619314}
   m_Layer: 5
   m_Name: SideBoard_Player2
   m_TagString: Untagged
@@ -10762,6 +10811,39 @@ RectTransform:
   m_AnchoredPosition: {x: -443, y: -272.21002}
   m_SizeDelta: {x: 388.06, y: 271.912}
   m_Pivot: {x: 0.00000016478239, y: -0.000000014901161}
+--- !u!114 &889619313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 889619311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0aaf496ad0336841b01e9d747465757, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 2
+  capturedPieces: []
+--- !u!114 &889619314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 889619311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef235ffa79a334e46a61008003fe59ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pawnText: {fileID: 0}
+  lancerText: {fileID: 0}
+  knightText: {fileID: 0}
+  silverText: {fileID: 0}
+  goldText: {fileID: 0}
+  rookText: {fileID: 0}
+  bishopText: {fileID: 0}
 --- !u!1001 &891203861
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16209,6 +16291,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1355150548}
+  - component: {fileID: 1355150549}
+  - component: {fileID: 1355150550}
   m_Layer: 5
   m_Name: SideBoard_Player1
   m_TagString: Untagged
@@ -16234,9 +16318,42 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 55.00006, y: 0}
+  m_AnchoredPosition: {x: 55.000122, y: 0}
   m_SizeDelta: {x: 388.06, y: 271.912}
   m_Pivot: {x: 0.00000016478239, y: -0.000000014901161}
+--- !u!114 &1355150549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1355150547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0aaf496ad0336841b01e9d747465757, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 1
+  capturedPieces: []
+--- !u!114 &1355150550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1355150547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef235ffa79a334e46a61008003fe59ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pawnText: {fileID: 0}
+  lancerText: {fileID: 0}
+  knightText: {fileID: 0}
+  silverText: {fileID: 0}
+  goldText: {fileID: 0}
+  rookText: {fileID: 0}
+  bishopText: {fileID: 0}
 --- !u!1 &1366838016
 GameObject:
   m_ObjectHideFlags: 0
