@@ -18,6 +18,7 @@ namespace Shogi
 		}
 
 		public void InitWithPiecesInScene() {
+			board = new Piece[9,9];
 			foreach (var piece in FindObjectsOfType<Piece>()) {
 				PlacePiece( piece, piece.X, piece.Y );
 			}

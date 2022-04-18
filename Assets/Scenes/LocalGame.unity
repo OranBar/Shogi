@@ -770,7 +770,7 @@ GameObject:
   - component: {fileID: 35154791}
   m_Layer: 5
   m_Name: Gio Pieces
-  m_TagString: Untagged
+  m_TagString: Player2_Pieces
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16426,7 +16426,7 @@ GameObject:
   - component: {fileID: 1366838017}
   m_Layer: 5
   m_Name: Oran Pieces
-  m_TagString: Untagged
+  m_TagString: Player1_Pieces
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

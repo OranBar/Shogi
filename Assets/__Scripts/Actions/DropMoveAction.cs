@@ -6,50 +6,45 @@ namespace Shogi
 	public class DropPieceAction : IShogiAction
 	{
 
-		public int startX, startY;
-		public int destinationX, destinationY;
+		public int DestinationX { get => _destinationX; set => _destinationX = value; }
+		public int DestinationY { get => _destinationY; set => _destinationY = value; }
 
-		public DropPieceAction( int startX, int startY, int destinationX, int destinationY ) {
-			this.startX = startX;
-			this.startY = startY;
-			this.destinationX = destinationX;
-			this.destinationY = destinationY;
+		private int _destinationY;
+		private int _destinationX;
+		public Piece actingPiece;
+		
+		public DropPieceAction( Piece piece ) {
+			this.actingPiece = piece;
 		}
 
 		public DropPieceAction( Piece piece, int destinationX, int destinationY ) {
-			this.startX = piece.X;
-			this.startY = piece.Y;
-			this.destinationX = destinationX;
-			this.destinationY = destinationY;
+			this.actingPiece = piece;
+			this._destinationX = destinationX;
+			this._destinationY = destinationY;
 		}
 
 		public override string ToString() {
-			return $"Move: From ({startX}, {startY}) to ({destinationX}, {destinationY})";
+			return $"Drop to ({_destinationX}, {_destinationY})";
 		}
 
 
 		public async UniTask ExecuteAction( ShogiGame game ) {
 			Board board = game.board;
 
-			Piece actingPiece = board [startX, startY];
-
-			await actingPiece.PieceMovementAnimation( destinationX, destinationY );
+			await actingPiece.PieceMovementAnimation( _destinationX, _destinationY );
 
 			//Update game data structures
 			UpdateBoard( board );
-			actingPiece.X = destinationX;
-			actingPiece.Y = destinationY;
+			actingPiece.X = _destinationX;
+			actingPiece.Y = _destinationY;
 		}
 
 		public void UpdateBoard( Board board ) {
-			Piece piece = board [startX, startY];
-			board [piece.X, piece.Y] = null;
-			board [destinationX, destinationY] = piece;
+			board [_destinationX, _destinationY] = actingPiece;
 		}
 
 		public bool IsMoveValid( ShogiGame game ) {
-			Piece pieceOnStartCell = game.board [startX, startY];
-			bool isValidPieceMovement = pieceOnStartCell.GetAvailableMoves().Any( m => m.x == destinationX && m.y == destinationY );			return isValidPieceMovement;
+			bool isValidPieceMovement = actingPiece.GetAvailableMoves().Any( m => m.x == _destinationX && m.y == _destinationY );			return isValidPieceMovement;
 		}
 	}
 }

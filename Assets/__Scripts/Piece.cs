@@ -93,6 +93,9 @@ namespace Shogi
 
 
 		public async UniTask PieceMovementAnimation( int destinationX, int destinationY ) {
+			string parentTag = OwnerId == PlayerId.Player1 ? "Player1_Pieces" : "Player2_Pieces";
+			Transform newParent = GameObject.FindGameObjectWithTag(parentTag).transform;
+			this.transform.parent = newParent;
 			PlacePieceOnCell_Immediate( destinationX, destinationY );
 			await UniTask.Yield();
 		}
