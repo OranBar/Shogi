@@ -23,6 +23,7 @@ namespace Shogi
 			return result;
 		}
 		
-		private bool Destination_IsNot_OccupiedByAlliedPiece( (int x, int y) move ) => board [move.x, move.y]?.OwnerId != piece.OwnerId;
+		private bool Destination_IsNot_OccupiedByAlliedPiece( (int x, int y) move )
+			=> board [move.x, move.y]?.OwnerId != piece.OwnerId;
 	}
 }

@@ -45,6 +45,7 @@ namespace Shogi
 
 		public bool IsMoveValid( ShogiGame game ) {
 			bool isValidPieceMovement = actingPiece.GetAvailableMoves().Any( m => m.x == _destinationX && m.y == _destinationY );			return isValidPieceMovement;
+			return isValidPieceMovement;
 		}
 	}
 }

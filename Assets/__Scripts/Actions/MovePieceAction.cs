@@ -5,6 +5,7 @@ namespace Shogi
 {
 	public interface IShogiAction
 	{
+		// public Piece ActingPiece{ get; }
 		public int DestinationX { get; set; }
 		public int DestinationY { get; set; }
 		UniTask ExecuteAction( ShogiGame game );
@@ -61,12 +62,12 @@ namespace Shogi
 		}
 
 		public bool IsMoveValid( ShogiGame game ) {
-			Piece pieceOnStartCell = game.board [StartX, StartY];
+			// Piece pieceOnStartCell = game.board [StartX, StartY];
 			// Piece pieceOnDestinationCell = game.board [destinationX, destinationY];
 
 			// bool isDestinationSquareOnBoard = game.board.IsValidBoardPosition( destinationX, destinationY );
 			// bool isTargetSquare_occupiedByAllyPiece = pieceOnDestinationCell?.owner == pieceOnStartCell.owner;
-			bool isValidPieceMovement = pieceOnStartCell.GetAvailableMoves().Any( m => m.x == DestinationX && m.y == DestinationY );
+			bool isValidPieceMovement = actingPiece.GetAvailableMoves().Any( m => m.x == DestinationX && m.y == DestinationY );
 
 			return isValidPieceMovement;
 		}
