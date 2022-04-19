@@ -14,10 +14,10 @@ namespace Shogi
 	public class ShogiGame : MonoBehaviour
 	{
 		#region Events
-		public static Action<Cell> OnAnyCellClicked = ( _ ) => { };
-		public static Action<Piece> OnAnyPieceClicked = ( _ ) => { };
-		public static RefAction<Piece> OnPlayer1_PieceClicked = new RefAction<Piece>();
-		public static RefAction<Piece> OnPlayer2_PieceClicked = new RefAction<Piece>();
+		public static Action<Cell> OnAnyCellClicked;
+		public static Action<Piece> OnAnyPieceClicked;
+		public static RefAction<Piece> OnPlayer1_PieceClicked;
+		public static RefAction<Piece> OnPlayer2_PieceClicked;
 		public static RefAction<Piece> Get_OnPieceClickedEvent( PlayerId player ) {
 			return player == PlayerId.Player1 ? OnPlayer1_PieceClicked : OnPlayer2_PieceClicked;
 		}
@@ -67,14 +67,16 @@ namespace Shogi
 		private bool isGameOver;
 
 		void Awake(){
+			OnAnyCellClicked = ( _ ) => { };
+			OnAnyPieceClicked = ( _ ) => { };
+			OnPlayer1_PieceClicked = new RefAction<Piece>();
+			OnPlayer2_PieceClicked = new RefAction<Piece>();
 			RegisterPieceClickedEvents_Invocation();
 		}
 
 		void Start() {
-			board.InitWithPiecesInScene();
 			//TODO: black starts first
-			_currPlayer_turn = PlayerId.Player1;
-			BeginGame( _currPlayer_turn );
+			BeginGame( PlayerId.Player1 );
 		}
 
 		void OnDestroyed(){
@@ -82,6 +84,8 @@ namespace Shogi
 		}
 
 		async UniTask BeginGame( PlayerId startingPlayer ) {
+			Awake();
+			board.InitWithPiecesInScene();
 			_currPlayer_turn = startingPlayer;
 
 			while(isGameOver == false && manualOverride == false){
@@ -133,9 +137,22 @@ namespace Shogi
 			GameState obj = GameState.DeserializeFromBinaryFile( path );
 			string json = JsonUtility.ToJson( obj );
 			Debug.Log( json );
-			//TODO: reassign data
-			Start();
+			
+			ReassignPiecesPositions(obj);
+			_currPlayer_turn = obj.currPlayerTurn;
+			BeginGame( obj.currPlayerTurn );
 		}
 
+		private void ReassignPiecesPositions( GameState obj ) {
+			Queue<Piece> piecesObjs = FindObjectsOfType<Piece>().ToQueue();
+			foreach(PieceData piece in obj.pieces){
+				Piece currPieceObj = piecesObjs.Dequeue();
+				currPieceObj.X = piece.x;
+				currPieceObj.Y = piece.y;
+				currPieceObj.OwnerId = piece.owner;
+				currPieceObj.IsCaptured = piece.isCaptured;
+				currPieceObj.IsPromoted = piece.isPromoted;
+			}
+		}
 	}
 }

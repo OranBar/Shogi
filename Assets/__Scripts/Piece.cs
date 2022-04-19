@@ -33,14 +33,17 @@ namespace Shogi
 			get { return pieceData.owner; }
 			set {
 				pieceData.owner = value;
-				owner = GameObjectEx.FindAll_InterfaceImplementors<IPlayer>().First( p => p.OwnerId == value );
+				owner = GameObjectEx.FindAll_InterfaceImplementors<IPlayer>().First( p => p.PlayerId == value );
+				ReparentBasedOnOwnerId();
 			}
 		}
 		public bool IsCaptured{ 
 			get { return pieceData.isCaptured; }
 			set { 
 				pieceData.isCaptured = value;
-				X = Y = -1;
+				if(value){
+					X = Y = -1;
+				}
 			}
 		}
 
@@ -80,7 +83,7 @@ namespace Shogi
 			gameManager = FindObjectOfType<ShogiGame>();
 			dropMovementStrategy = this.gameObject.AddOrGetComponent<DropMovement>();
 			
-			owner = FindObjectsOfType<HumanPlayer>().First( p => p.OwnerId == OwnerId );
+			owner = FindObjectsOfType<HumanPlayer>().First( p => p.PlayerId == OwnerId );
 			movementStrategy = DefaultMovement;
 		}
 
@@ -91,13 +94,16 @@ namespace Shogi
 			return moves;
 		}
 
-
 		public async UniTask PieceMovementAnimation( int destinationX, int destinationY ) {
-			string parentTag = OwnerId == PlayerId.Player1 ? "Player1_Pieces" : "Player2_Pieces";
-			Transform newParent = GameObject.FindGameObjectWithTag(parentTag).transform;
-			this.transform.parent = newParent;
+			ReparentBasedOnOwnerId();
 			PlacePieceOnCell_Immediate( destinationX, destinationY );
 			await UniTask.Yield();
+		}
+
+		private void ReparentBasedOnOwnerId() {
+			string parentTag = OwnerId == PlayerId.Player1 ? "Player1_Pieces" : "Player2_Pieces";
+			Transform newParent = GameObject.FindGameObjectWithTag( parentTag ).transform;
+			this.transform.parent = newParent;
 		}
 
 		public void PlacePieceOnCell_Immediate( int x, int y ) {

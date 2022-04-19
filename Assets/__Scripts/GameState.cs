@@ -13,12 +13,14 @@ namespace Shogi
     public class GameState 
     {
 		public GameData game;
+		public PlayerId currPlayerTurn;
 		public PieceData[] pieces;
 
 		public GameState()
 		{
 			Piece [] piecesInGame = GameObject.FindObjectsOfType<Piece>();
 			pieces = piecesInGame.Select( p => p.pieceData ).ToArray();
+			currPlayerTurn = GameObject.FindObjectOfType<ShogiGame>().CurrPlayer_turn.PlayerId;
 		}
 
 		#region Binary Serialization and Deserialization

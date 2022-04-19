@@ -11,7 +11,7 @@ namespace Shogi{
 	{
 	
 		public PlayerId ownerId;
-		public IPlayer Owner => GameObjectEx.FindAll_InterfaceImplementors<IPlayer>().First( p => p.OwnerId == ownerId );
+		public IPlayer Owner => GameObjectEx.FindAll_InterfaceImplementors<IPlayer>().First( p => p.PlayerId == ownerId );
 
 		public RefAction<Piece> OnNewPieceCaptured { get; private set; } = new RefAction<Piece>();
 

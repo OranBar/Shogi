@@ -16,7 +16,7 @@ namespace Shogi
 	{
 		public string playerName;
 		[SerializeField] private PlayerId playerId;
-		public PlayerId OwnerId => playerId;
+		public PlayerId PlayerId => playerId;
 
 		public PlayerId OpponentId => playerId == PlayerId.Player1 ? PlayerId.Player2 : PlayerId.Player1;
 
@@ -24,8 +24,15 @@ namespace Shogi
 		private IShogiAction currAction;
 		private bool actionReady = false;
 
-		void Start() {
+		public void Init() {
+			// NewMethod();
 		}
+
+		// private void NewMethod() {
+		// 	ShogiGame.OnAnyCellClicked -= Select_CellToMove;
+		// 	ShogiGame.Get_OnPieceClickedEvent( playerId ).Value -= Select_ActionPiece;
+		// 	ShogiGame.Get_OnPieceClickedEvent( OpponentId ).Value -= Select_PieceToCapture;
+		// }
 
 		void Select_ActionPiece(Piece piece){
 			selectedPiece = piece;
