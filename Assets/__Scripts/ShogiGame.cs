@@ -80,7 +80,6 @@ namespace Shogi
 		}
 
 		void Start() {
-			board.InitWithPiecesInScene();
 			//TODO: black starts first
 			BeginGame( PlayerId.Player1 );
 		}
@@ -90,6 +89,10 @@ namespace Shogi
 		}
 
 		async UniTask BeginGame( PlayerId startingPlayer ) {
+			board.InitWithPiecesInScene();
+			player1_sideboard.InitWithPiecesInScene();
+			player2_sideboard.InitWithPiecesInScene();
+
 			( (MonoBehaviour)Player1 ).enabled = true;
 			( (MonoBehaviour)Player2 ).enabled = true;
 			
@@ -120,10 +123,7 @@ namespace Shogi
 
 		public void ApplyGameState(GameState state){
 			ReassignPiecesData( state );
-			board.InitWithPiecesInScene();
-			player1_sideboard.InitWithPiecesInScene();
-			player2_sideboard.InitWithPiecesInScene();
-
+			
 			_currPlayer_turn = state.currPlayerTurn;
 			( (MonoBehaviour)Player1 ).enabled = false;
 			( (MonoBehaviour)Player2 ).enabled = false;
