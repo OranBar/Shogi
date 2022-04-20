@@ -25,18 +25,25 @@ namespace Shogi
 		void OnEnable(){
 			sideBoard.OnNewPieceAdded.Value += IncreaseText;
 			sideBoard.OnNewPieceRemoved.Value += DecreaseText;
+			sideBoard.OnCleared.Value += ResetAllTextsToZero;
 			RegisterButtons();
-
 		}
 
 		void OnDisable(){
 			sideBoard.OnNewPieceAdded.Value -= IncreaseText;
 			sideBoard.OnNewPieceRemoved.Value -= DecreaseText;
+			sideBoard.OnCleared.Value -= ResetAllTextsToZero;
 			UnregisterButtons();
 		}
 
 		void Start() {
 			ResetAllTextsToZero();
+		}
+
+		private void OnPieceButtonClicked( PieceType pieceType ) {
+			Debug.Log( "Ho clickato" );
+			Piece piece = sideBoard.CapturedPieces.First( p => p.PieceType == pieceType );
+			piece.OnPointerClick( new PointerEventData( null ) );
 		}
 
 		private void RegisterButtons() {
@@ -72,13 +79,6 @@ namespace Shogi
 				pieceArt.gameObject.SetActive( false );
 			}
 		}
-
-		private void OnPieceButtonClicked( PieceType pieceType ) {
-			Debug.Log("Ho clickato");
-			Piece piece = sideBoard.CapturedPieces.First( p => p.PieceType == pieceType );
-			piece.OnPointerClick( new PointerEventData(null) );
-		}
-
 
 		private void IncreaseText( Piece newCapturedPiece) {
 			switch (newCapturedPiece.PieceType) {
@@ -132,13 +132,7 @@ namespace Shogi
 			}
 		}
 
-		private int GetNumberFromLabel(TMP_Text text){
-			string number_raw = text.text.Skip( 1 ).Replace( "\n", "" );
-			int number = int.Parse( number_raw );
-			return number;
-		}
-
-		public void IncreaseNumberLabel(TMP_Text text){
+		private void IncreaseNumberLabel(TMP_Text text){
 			int number = GetNumberFromLabel( text ) + 1;
 
 			if (number > 0) {
@@ -147,13 +141,19 @@ namespace Shogi
 			text.text = "x"+number.ToString();
 		}
 
-		public void DecreaseNumberLabel( TMP_Text text ) {
+		private void DecreaseNumberLabel( TMP_Text text ) {
 			int number = GetNumberFromLabel( text ) - 1;
 
 			if (number <= 0) {
 				text.transform.parent.gameObject.SetActive( false );
 			}
 			text.text = "x" + number.ToString();
+		}
+
+		private int GetNumberFromLabel( TMP_Text text ) {
+			string number_raw = text.text.Skip( 1 ).Replace( "\n", "" );
+			int number = int.Parse( number_raw );
+			return number;
 		}
 
 		//TODO: Prendere Sideboard, leggere tutti i pezzi, aggiornare la UI

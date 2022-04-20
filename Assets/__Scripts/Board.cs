@@ -19,12 +19,12 @@ namespace Shogi
 		}
 		
 
-		public void Init(){
+		public void ClearBoard(){
 			board = new Piece [9, 9];
 		}
 
-		public void InitWithPiecesInScene() {
-			Init();
+		public void RefreshWithPiecesInScene() {
+			ClearBoard();
 			foreach (var piece in FindObjectsOfType<Piece>()) {
 				if (piece.IsCaptured == false) {
 					PlacePiece( piece, piece.X, piece.Y );

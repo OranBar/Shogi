@@ -37,7 +37,6 @@ namespace Shogi
 		}
 
 
-
 		void Select_ActionPiece(Piece piece){
 			selectedPiece = piece;
 			if (selectedPiece.IsCaptured == false) {

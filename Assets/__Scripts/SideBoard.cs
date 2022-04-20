@@ -15,6 +15,7 @@ namespace Shogi{
 
 		public RefAction<Piece> OnNewPieceAdded { get; private set; } = new RefAction<Piece>();
 		public RefAction<Piece> OnNewPieceRemoved { get; private set; } = new RefAction<Piece>();
+		public RefAction OnCleared { get; private set; } = new RefAction();
 
 		[SerializeField] private List<Piece> _capturedPieces = new List<Piece>();
 		public List<Piece> CapturedPieces {
@@ -27,12 +28,28 @@ namespace Shogi{
 			}
 		}
 
-		public void InitWithPiecesInScene() {
+		//Needed for when we restart or reload the game
+		private void ClearCapturedPieces(){
+			//We can't remove from the object we're iterating, so we create a copy with ToList()
+			foreach(Piece capturedPiece in _capturedPieces.ToList()){
+				RemoveCapturedPiece( capturedPiece );
+			}
+			_capturedPieces.Clear();
+			OnCleared?.Invoke();
+		}
+
+		public void RefreshWithPiecesInScene() {
+			// OnNewPieceAdded.isEnabled = true;
+			ClearCapturedPieces();
+
 			foreach (var piece in FindObjectsOfType<Piece>()) {
 				if (piece.IsCaptured && piece.OwnerId == ownerId) {
+					//Maybe I don't want to call the event here?
 					AddCapturedPiece( piece );
 				}
 			}
+			
+			// OnNewPieceAdded.isEnabled = false;
 		}
 
 		public void AddCapturedPiece(Piece piece){

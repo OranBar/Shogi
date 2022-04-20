@@ -80,6 +80,8 @@ namespace Shogi
 		}
 
 		void Start() {
+			board.RefreshWithPiecesInScene();
+			//I don't need to init the sideboards since they are empty on beginning of shogi match
 			//TODO: black starts first
 			BeginGame( PlayerId.Player1 );
 		}
@@ -89,9 +91,7 @@ namespace Shogi
 		}
 
 		async UniTask BeginGame( PlayerId startingPlayer ) {
-			board.InitWithPiecesInScene();
-			player1_sideboard.InitWithPiecesInScene();
-			player2_sideboard.InitWithPiecesInScene();
+			
 
 			( (MonoBehaviour)Player1 ).enabled = true;
 			( (MonoBehaviour)Player2 ).enabled = true;
@@ -123,6 +123,9 @@ namespace Shogi
 
 		public void ApplyGameState(GameState state){
 			ReassignPiecesData( state );
+			board.RefreshWithPiecesInScene();
+			player1_sideboard.RefreshWithPiecesInScene();
+			player2_sideboard.RefreshWithPiecesInScene();
 			
 			_currPlayer_turn = state.currPlayerTurn;
 			( (MonoBehaviour)Player1 ).enabled = false;
