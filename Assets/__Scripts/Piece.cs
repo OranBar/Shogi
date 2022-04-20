@@ -34,7 +34,6 @@ namespace Shogi
 			set {
 				pieceData.owner = value;
 				owner = GameObjectEx.FindAll_InterfaceImplementors<IPlayer>().First( p => p.PlayerId == value );
-				ReparentBasedOnOwnerId();
 			}
 		}
 		public bool IsCaptured{ 
@@ -70,8 +69,18 @@ namespace Shogi
 		
 		#endregion
 
-		public IMovementStrategy movementStrategy;
 		private IMovementStrategy dropMovementStrategy;
+		public IMovementStrategy MovementStrategy{
+			get{
+				if(IsCaptured){
+					return dropMovementStrategy;
+				}
+				if(IsPromoted){
+					return PromotedMovement;
+				}
+				return DefaultMovement;
+			}
+		}
 
 	
 		private Board board;
@@ -84,40 +93,30 @@ namespace Shogi
 			dropMovementStrategy = this.gameObject.AddOrGetComponent<DropMovement>();
 			
 			owner = FindObjectsOfType<HumanPlayer>().First( p => p.PlayerId == OwnerId );
-			movementStrategy = DefaultMovement;
 		}
 
 		public List<(int x, int y)> GetAvailableMoves() {
-			var moves = movementStrategy.GetAvailableMoves( X, Y );
+			var moves = MovementStrategy.GetAvailableMoves( X, Y );
 			// var result = moves.Where( m => board.IsValidBoardPosition( m ) ).ToList();
 			// result = moves.Where( m => board [m.x, m.y]?.OwnerId != OwnerId ).ToList();
 			return moves;
 		}
 
 		public async UniTask PieceMovementAnimation( int destinationX, int destinationY ) {
-			ReparentBasedOnOwnerId();
 			PlacePieceOnCell_Immediate( destinationX, destinationY );
 			await UniTask.Yield();
 		}
 
-		private void ReparentBasedOnOwnerId() {
-			string parentTag = OwnerId == PlayerId.Player1 ? "Player1_Pieces" : "Player2_Pieces";
-			Transform newParent = GameObject.FindGameObjectWithTag( parentTag ).transform;
-			this.transform.parent = newParent;
-		}
+		
 
 		public void PlacePieceOnCell_Immediate( int x, int y ) {
 			rectTransform.anchoredPosition = board.GetCellWorldPosition(x,y);
 		}
 
 		public void PieceDeathAnimation() {
-			// throw new NotImplementedException();
 			// Destroy( this.gameObject);
-			Transform limbo = GameObject.FindGameObjectWithTag("Limbo").transform;
-			this.transform.parent = limbo;
-			this.transform.localPosition = Vector3.zero;
 		}
-
+	
 		public void LogAvailableMoves() {
 			foreach(var move in GetAvailableMoves()){
 				Debug.Log(move);
@@ -127,27 +126,26 @@ namespace Shogi
 		public void CapturePiece() {
 			PieceDeathAnimation();
 
-			this.IsCaptured = true;
 			X = -1;
 			Y = -1;
 			//Thou shall live again
-			ConvertPiece();
-		}
+			this.IsCaptured = true;
+			SendToSideboard();
 
-		private void ConvertPiece() {
-			if (OwnerId == PlayerId.Player1) {
-				OwnerId = PlayerId.Player2;
-				gameManager.player2_sideboard.AddCapturedPiece( this );
-			} else {
-				OwnerId = PlayerId.Player1;
-				gameManager.player1_sideboard.AddCapturedPiece( this );
+			void SendToSideboard() {
+				if (OwnerId == PlayerId.Player1) {
+					OwnerId = PlayerId.Player2;
+					gameManager.player2_sideboard.AddCapturedPiece( this );
+				} else {
+					OwnerId = PlayerId.Player1;
+					gameManager.player1_sideboard.AddCapturedPiece( this );
+				}
 			}
-			movementStrategy = dropMovementStrategy;
 		}
 
 		public void Promote() {
 			IsPromoted = true;
-			movementStrategy = PromotedMovement;
+			//TODO: change icon
 		}
 
 		public void OnPointerClick( PointerEventData eventData ) {

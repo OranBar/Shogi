@@ -16,7 +16,7 @@ namespace Shogi
 		#region Events
 		public static Action<Cell> OnAnyCellClicked;
 		public static Action<Piece> OnAnyPieceClicked;
-		public static RefAction<Piece> OnPlayer1_PieceClicked;
+		public static RefAction<Piece> OnPlayer1_PieceClicked = new RefAction<Piece>();
 		public static RefAction<Piece> OnPlayer2_PieceClicked;
 		public static RefAction<Piece> Get_OnPieceClickedEvent( PlayerId player ) {
 			return player == PlayerId.Player1 ? OnPlayer1_PieceClicked : OnPlayer2_PieceClicked;
@@ -59,10 +59,15 @@ namespace Shogi
 				return _currPlayer_turn == PlayerId.Player1 ? Player1 : Player2;
 			}
 		}
-		#endregion
+
 		public Board board;
+		#endregion
 		public SideBoard player1_sideboard;
 		public SideBoard player2_sideboard;
+		public SideBoard GetSideBoard( PlayerId owner ) {
+			return owner == PlayerId.Player1 ? player1_sideboard : player2_sideboard;
+		}
+
 		public bool manualOverride;
 		private bool isGameOver;
 
@@ -75,17 +80,19 @@ namespace Shogi
 		}
 
 		void Start() {
+			board.InitWithPiecesInScene();
 			//TODO: black starts first
 			BeginGame( PlayerId.Player1 );
 		}
 
-		void OnDestroyed(){
+		void OnDisable(){
 			isGameOver = true;
 		}
 
 		async UniTask BeginGame( PlayerId startingPlayer ) {
-			Awake();
-			board.InitWithPiecesInScene();
+			( (MonoBehaviour)Player1 ).enabled = true;
+			( (MonoBehaviour)Player2 ).enabled = true;
+			
 			_currPlayer_turn = startingPlayer;
 
 			while(isGameOver == false && manualOverride == false){
@@ -105,54 +112,39 @@ namespace Shogi
 			Debug.Log( "Game Finished" );
 		}
 
+		
+
 		private void AdvanceTurn() {
 			_currPlayer_turn = (_currPlayer_turn == PlayerId.Player1) ? PlayerId.Player2 : PlayerId.Player1;
 		}
 
-		public async UniTask PlayAction( IShogiAction action ) {
-			// if(action.GetPlayer(this) != CurrPlayer_turn){
-			// 	Debug.LogWarning( "It's not your turn!" );
-			// 	return;
-			// }
+		public void ApplyGameState(GameState state){
+			ReassignPiecesData( state );
+			board.InitWithPiecesInScene();
+			player1_sideboard.InitWithPiecesInScene();
+			player2_sideboard.InitWithPiecesInScene();
 
-			if (action.IsMoveValid( this )) {
-				await action.ExecuteAction( this );
-				//memento action
-			}
+			_currPlayer_turn = state.currPlayerTurn;
+			( (MonoBehaviour)Player1 ).enabled = false;
+			( (MonoBehaviour)Player2 ).enabled = false;
+
+			BeginGame( state.currPlayerTurn );
 		}
 
-		[ContextMenu( "Save" )]
-		public void SaveGameState() {
-			GameState gameState = new GameState();
-			string json = JsonUtility.ToJson( gameState );
-			Debug.Log( json );
-
-			string path = Application.persistentDataPath + "/shogi.bin";
-			gameState.SerializeToBinaryFile( path );
-		}
-
-		[ContextMenu( "Load bin" )]
-		public void LoadGameState() {
-			string path = Application.persistentDataPath + "/shogi.bin";
-			GameState obj = GameState.DeserializeFromBinaryFile( path );
-			string json = JsonUtility.ToJson( obj );
-			Debug.Log( json );
-			
-			ReassignPiecesPositions(obj);
-			_currPlayer_turn = obj.currPlayerTurn;
-			BeginGame( obj.currPlayerTurn );
-		}
-
-		private void ReassignPiecesPositions( GameState obj ) {
+		private void ReassignPiecesData( GameState obj ) {
 			Queue<Piece> piecesObjs = FindObjectsOfType<Piece>().ToQueue();
 			foreach(PieceData piece in obj.pieces){
 				Piece currPieceObj = piecesObjs.Dequeue();
 				currPieceObj.X = piece.x;
 				currPieceObj.Y = piece.y;
 				currPieceObj.OwnerId = piece.owner;
-				currPieceObj.IsCaptured = piece.isCaptured;
 				currPieceObj.IsPromoted = piece.isPromoted;
+				currPieceObj.IsCaptured = piece.isCaptured;
 			}
+			//Update sideboards
+			
 		}
+
+		
 	}
 }

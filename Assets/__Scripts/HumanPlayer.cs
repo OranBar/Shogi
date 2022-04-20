@@ -23,16 +23,20 @@ namespace Shogi
 		private Piece selectedPiece;
 		private IShogiAction currAction;
 		private bool actionReady = false;
+		private bool cancelActionRequest;
 
-		public void Init() {
-			// NewMethod();
+		private void OnEnable(){
+			
 		}
 
-		// private void NewMethod() {
-		// 	ShogiGame.OnAnyCellClicked -= Select_CellToMove;
-		// 	ShogiGame.Get_OnPieceClickedEvent( playerId ).Value -= Select_ActionPiece;
-		// 	ShogiGame.Get_OnPieceClickedEvent( OpponentId ).Value -= Select_PieceToCapture;
-		// }
+		private void OnDisable() {
+			ShogiGame.OnAnyCellClicked -= Select_CellToMove;
+			ShogiGame.Get_OnPieceClickedEvent( playerId ).Value -= Select_ActionPiece;
+			ShogiGame.Get_OnPieceClickedEvent( OpponentId ).Value -= Select_PieceToCapture;
+			cancelActionRequest = true;
+		}
+
+
 
 		void Select_ActionPiece(Piece piece){
 			selectedPiece = piece;
@@ -76,7 +80,8 @@ namespace Shogi
 			actionReady = false;
 			currAction = null;
 			selectedPiece = null;
-			while(actionReady == false){
+			cancelActionRequest = false;
+			while(actionReady == false || cancelActionRequest){
 				await UniTask.Yield();
 			}
 
@@ -86,5 +91,6 @@ namespace Shogi
 
 			return currAction;
 		}
+
 	}
 }

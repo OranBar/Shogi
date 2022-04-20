@@ -46,7 +46,8 @@ namespace Shogi
 	[Serializable]
 	public class GameData
 	{
-
+		public string player1_name;
+		public string player2_name;
 	}
 
 	
