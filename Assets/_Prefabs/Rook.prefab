@@ -147,6 +147,7 @@ GameObject:
   - component: {fileID: 9129131603899054104}
   - component: {fileID: 9129131603899054105}
   - component: {fileID: 9129131603899054109}
+  - component: {fileID: -5974181203552373017}
   m_Layer: 5
   m_Name: Rook
   m_TagString: Untagged
@@ -232,9 +233,21 @@ MonoBehaviour:
     isPromoted: 0
     owner: 0
     isCaptured: 0
-  _defaultMovement: {fileID: 0}
+  _defaultMovement: {fileID: -5974181203552373017}
   _promotedMovement: {fileID: 0}
   rectTransform: {fileID: 0}
+--- !u!114 &-5974181203552373017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9129131603899054107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 252b254015e089541a19156b7619a1e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4636270602519706265
 PrefabInstance:
   m_ObjectHideFlags: 0
