@@ -38,6 +38,7 @@ namespace Shogi
 		}
 
 		public async UniTask ExecuteAction( ShogiGame game ) {
+			UnityEngine.Debug.Log( $"Moving piece {actingPiece} on ({DestinationX},{DestinationY})" );
 			Board board = game.board;
 
 			Piece capturedPiece = board[DestinationX, DestinationY];

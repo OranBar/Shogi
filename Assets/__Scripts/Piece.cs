@@ -152,5 +152,9 @@ namespace Shogi
 			Debug.Log("Piece Clicked");
 			ShogiGame.OnAnyPieceClicked.Invoke(this);
 		}
+
+		public override string ToString() {
+			return $"Piece ({X}, {Y})";
+		}
 	}
 }

@@ -6,13 +6,14 @@ namespace Shogi
 {
 	public abstract class AMovementStrategy : UnityEngine.MonoBehaviour, IMovementStrategy
 	{
-		[Auto] protected Piece piece;
+		protected Piece piece;
 		protected Board board;
 
 		public abstract List<(int x, int y)> GetAvailableMoves( int x, int y );
 
 		protected virtual void Awake() {
 			board = FindObjectOfType<ShogiGame>().board;
+			piece = GetComponent<Piece>();
 		}
 
 		protected List<(int x, int y)> FilterInvalidMoves( List<(int x, int y)> moves ) {

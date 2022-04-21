@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Threading;
 using AYellowpaper;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -70,6 +71,7 @@ namespace Shogi
 
 		public bool manualOverride;
 		private bool isGameOver;
+		private CancellationTokenSource gameLoopCancelToken;
 
 		void Awake(){
 			OnAnyCellClicked = ( _ ) => { };
@@ -83,14 +85,15 @@ namespace Shogi
 			board.RefreshWithPiecesInScene();
 			//I don't need to init the sideboards since they are empty on beginning of shogi match
 			//TODO: black starts first
-			BeginGame( PlayerId.Player1 );
+			gameLoopCancelToken = new CancellationTokenSource();
+			BeginGame( PlayerId.Player1).AttachExternalCancellation( gameLoopCancelToken.Token );
 		}
 
 		void OnDisable(){
 			isGameOver = true;
 		}
 
-		async UniTask BeginGame( PlayerId startingPlayer ) {
+		async UniTask BeginGame( PlayerId startingPlayer) {
 			
 
 			( (MonoBehaviour)Player1 ).enabled = true;
@@ -100,10 +103,10 @@ namespace Shogi
 
 			while(isGameOver == false && manualOverride == false){
 				Debug.Log("Awaiting Turn: "+_currPlayer_turn.ToString());
-				IShogiAction action = await CurrPlayer_turn.RequestAction();
+				IShogiAction action = await CurrPlayer_turn.RequestAction().AttachExternalCancellation( gameLoopCancelToken.Token );
 				if (action.IsMoveValid( this )) {
 					Debug.Log("Valid Move: Executing");
-					await action.ExecuteAction( this );
+					await action.ExecuteAction( this ).AttachExternalCancellation( gameLoopCancelToken.Token );
 					Debug.Log( "Finish Move Execution" );
 				} else {
 					Debug.Log("Invalid Action: Try again");
@@ -131,7 +134,9 @@ namespace Shogi
 			( (MonoBehaviour)Player1 ).enabled = false;
 			( (MonoBehaviour)Player2 ).enabled = false;
 
-			BeginGame( state.currPlayerTurn );
+			gameLoopCancelToken.Cancel();
+			gameLoopCancelToken = new CancellationTokenSource();
+			BeginGame( state.currPlayerTurn ).AttachExternalCancellation(gameLoopCancelToken.Token);
 		}
 
 		private void ReassignPiecesData( GameState obj ) {

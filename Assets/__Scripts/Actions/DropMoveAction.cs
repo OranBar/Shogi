@@ -29,8 +29,10 @@ namespace Shogi
 
 
 		public async UniTask ExecuteAction( ShogiGame game ) {
+			UnityEngine.Debug.Log($"Dropping piece {actingPiece} on ({DestinationX},{DestinationY})");
 			Board board = game.board;
 
+			game.GetSideBoard( actingPiece.OwnerId ).RemoveCapturedPiece( actingPiece );
 			await actingPiece.PieceMovementAnimation( _destinationX, _destinationY );
 
 			//Update game data structures
