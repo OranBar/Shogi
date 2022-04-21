@@ -118,9 +118,7 @@ namespace Shogi
 		}
 	
 		public void LogAvailableMoves() {
-			foreach(var move in GetAvailableMoves()){
-				Debug.Log(move);
-			}
+			Debug.Log("Available moves: \n"+GetAvailableMoves().ToStringPretty());			
 		}
 
 		public void CapturePiece() {
