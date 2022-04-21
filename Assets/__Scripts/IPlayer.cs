@@ -7,6 +7,7 @@ namespace Shogi
 {
 	public interface IPlayer
 	{
+		PlayerId PlayerId { get; }
 		UniTask<IShogiAction> RequestAction();
 	}
 }

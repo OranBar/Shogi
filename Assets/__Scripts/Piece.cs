@@ -33,14 +33,16 @@ namespace Shogi
 			get { return pieceData.owner; }
 			set {
 				pieceData.owner = value;
-				owner = FindObjectsOfType<HumanPlayer>().First( p => p.playerId == value );
+				owner = GameObjectEx.FindAll_InterfaceImplementors<IPlayer>().First( p => p.PlayerId == value );
 			}
 		}
 		public bool IsCaptured{ 
 			get { return pieceData.isCaptured; }
 			set { 
 				pieceData.isCaptured = value;
-				X = Y = -1;
+				if(value){
+					X = Y = -1;
+				}
 			}
 		}
 
@@ -67,76 +69,90 @@ namespace Shogi
 		
 		#endregion
 
-		public IMovementStrategy movementStrategy;
+		private IMovementStrategy dropMovementStrategy;
+		public IMovementStrategy MovementStrategy{
+			get{
+				if(IsCaptured){
+					return dropMovementStrategy;
+				}
+				if(IsPromoted){
+					return PromotedMovement;
+				}
+				return DefaultMovement;
+			}
+		}
 
 	
 		private Board board;
 		private ShogiGame gameManager;
-		[HideInInspector] public RectTransform rectTransform;
-
+		[Auto, HideInInspector] public RectTransform rectTransform;
 
 		void Awake() {
 			board = FindObjectOfType<Board>();
 			gameManager = FindObjectOfType<ShogiGame>();
-			rectTransform = this.GetComponent<RectTransform>();
-			owner = FindObjectsOfType<HumanPlayer>().First( p => p.playerId == OwnerId );
-			movementStrategy = DefaultMovement;
+			dropMovementStrategy = this.gameObject.AddOrGetComponent<DropMovement>();
+			
+			owner = FindObjectsOfType<HumanPlayer>().First( p => p.PlayerId == OwnerId );
 		}
 
 		public List<(int x, int y)> GetAvailableMoves() {
-			var moves = movementStrategy.GetAvailableMoves( X, Y );
+			var moves = MovementStrategy.GetAvailableMoves( X, Y );
 			// var result = moves.Where( m => board.IsValidBoardPosition( m ) ).ToList();
 			// result = moves.Where( m => board [m.x, m.y]?.OwnerId != OwnerId ).ToList();
 			return moves;
 		}
 
-
-		public async UniTask PieceMovementAnimation( MovePieceAction action ) {
-			PlacePieceOnCell_Immediate( action.destinationX, action.destinationY );
+		public async UniTask PieceMovementAnimation( int destinationX, int destinationY ) {
+			PlacePieceOnCell_Immediate( destinationX, destinationY );
 			await UniTask.Yield();
 		}
+
+		
 
 		public void PlacePieceOnCell_Immediate( int x, int y ) {
 			rectTransform.anchoredPosition = board.GetCellWorldPosition(x,y);
 		}
 
 		public void PieceDeathAnimation() {
-			// throw new NotImplementedException();
-			Destroy( this.gameObject);
+			// Destroy( this.gameObject);
 		}
-
-		public void PreviewAvailableMoves() {
-			foreach(var move in GetAvailableMoves()){
-				Debug.Log(move);
-			}
+	
+		public void LogAvailableMoves() {
+			Debug.Log("Available moves: \n"+GetAvailableMoves().ToStringPretty());			
 		}
 
 		public void CapturePiece() {
 			PieceDeathAnimation();
 
-			this.IsCaptured = true;
 			X = -1;
 			Y = -1;
 			//Thou shall live again
-			ConvertPiece();
-		}
+			this.IsCaptured = true;
+			SendToSideboard();
 
-		private void ConvertPiece() {
-			if (OwnerId == PlayerId.Player1) {
-				OwnerId = PlayerId.Player2;
-			} else {
-				OwnerId = PlayerId.Player1;
+			void SendToSideboard() {
+				if (OwnerId == PlayerId.Player1) {
+					OwnerId = PlayerId.Player2;
+					gameManager.player2_sideboard.AddCapturedPiece( this );
+				} else {
+					OwnerId = PlayerId.Player1;
+					gameManager.player1_sideboard.AddCapturedPiece( this );
+				}
 			}
 		}
 
 		public void Promote() {
 			IsPromoted = true;
-			movementStrategy = PromotedMovement;
+			//TODO: change icon
 		}
 
 		public void OnPointerClick( PointerEventData eventData ) {
-			// Debug.Log("Piece Clicked");
+			Debug.Log("Piece Clicked");
 			ShogiGame.OnAnyPieceClicked.Invoke(this);
+		}
+
+		public override string ToString() {
+			return $"Piece ({X}, {Y})";
 		}
 	}
 }

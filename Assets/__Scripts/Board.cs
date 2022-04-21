@@ -7,21 +7,30 @@ namespace Shogi
 	public class Board : MonoBehaviour
     {
 		public float cellSizeUnit = 37.4f;
-		public List<Piece> gio_capturedPieces = new List<Piece>();
-		public List<Piece> oran_capturedPieces = new List<Piece>();
+
+		
 
 		private Piece [,] board = new Piece[9,9];
+
 		public Piece this [int x, int y]
 		{
 			get { return board [x, y]; }
 			set { board [x, y] = value; }
 		}
+		
 
-		public void InitWithPiecesInScene() {
+		public void ClearBoard(){
+			board = new Piece [9, 9];
+		}
+
+		public void RefreshWithPiecesInScene() {
+			ClearBoard();
 			foreach (var piece in FindObjectsOfType<Piece>()) {
-				PlacePiece( piece, piece.X, piece.Y );
+				if (piece.IsCaptured == false) {
+					PlacePiece( piece, piece.X, piece.Y );
+				}
 			}
-			Debug.Log("Board Init complete");
+			Debug.Log( "Board Init complete" );
 		}
 
 		public void PlacePiece( Piece piece, int x, int y ) {

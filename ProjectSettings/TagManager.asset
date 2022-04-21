@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Limbo
+  - Player1_Pieces
+  - Player2_Pieces
   layers:
   - Default
   - TransparentFX

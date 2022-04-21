@@ -16,9 +16,8 @@ namespace Shogi
 
 			result.Add( (startX + ( 1 * direction ), startY - ( 1 * direction )) );
 			result.Add( (startX - ( 1 * direction ), startY - ( 1 * direction )) );
-
-			result = result.Where( m => board.IsValidBoardPosition( m ) ).ToList();
-			result = result.Where( m => board [m.x, m.y]?.OwnerId != piece.OwnerId ).ToList();
+			
+			result = FilterInvalidMoves(result);
 			return result;
 		}
 	}

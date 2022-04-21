@@ -148,6 +148,7 @@ GameObject:
   - component: {fileID: 5361778528041545373}
   - component: {fileID: 5361778528041545369}
   - component: {fileID: 396733328691097896}
+  - component: {fileID: 7740655529641541704}
   m_Layer: 5
   m_Name: Silver
   m_TagString: Untagged
@@ -234,7 +235,7 @@ MonoBehaviour:
     owner: 0
     isCaptured: 0
   _defaultMovement: {fileID: 396733328691097896}
-  _promotedMovement: {fileID: 0}
+  _promotedMovement: {fileID: 7740655529641541704}
   rectTransform: {fileID: 0}
 --- !u!114 &396733328691097896
 MonoBehaviour:
@@ -246,6 +247,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 403af10cc80dca047801620d5430993e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7740655529641541704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5361778528041545375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 113b924576b25574aa6178587b631cce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &6820519473944609273

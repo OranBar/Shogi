@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 4094493778057303689}
   - component: {fileID: 4094493778057303688}
   - component: {fileID: 4094493778057303692}
+  - component: {fileID: -5115837620457174637}
+  - component: {fileID: 2822989077105317914}
   m_Layer: 5
   m_Name: Lancer
   m_TagString: Untagged
@@ -97,9 +99,33 @@ MonoBehaviour:
     isPromoted: 0
     owner: 0
     isCaptured: 0
-  _defaultMovement: {fileID: 0}
-  _promotedMovement: {fileID: 0}
+  _defaultMovement: {fileID: -5115837620457174637}
+  _promotedMovement: {fileID: 2822989077105317914}
   rectTransform: {fileID: 0}
+--- !u!114 &-5115837620457174637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4094493778057303690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc41382424ea8be48977ac56f434c780, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2822989077105317914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4094493778057303690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 113b924576b25574aa6178587b631cce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4174336132898239358
 GameObject:
   m_ObjectHideFlags: 0

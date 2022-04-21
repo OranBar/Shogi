@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 
 namespace Shogi {
-	public class KingMovement : UnityEngine.MonoBehaviour, IMovementStrategy
+	public class KingMovement : AMovementStrategy
 	{
-		public List<(int x, int y)> GetAvailableMoves( int startX , int startY ) {
+		public override List<(int x, int y)> GetAvailableMoves( int startX , int startY ) {
 			List<(int x, int y)> result = new List<(int x, int y)>();
 			result.Add( (startX,     startY + 1) );
 			result.Add( (startX - 1, startY + 1) );
@@ -16,6 +16,7 @@ namespace Shogi {
 			result.Add( (startX - 1, startY - 1) );
 			result.Add( (startX + 1, startY - 1) );
 
+			result = FilterInvalidMoves( result );
 			return result;
 		}
 	}

@@ -5,9 +5,11 @@ using UnityEngine;
 namespace Shogi{
 	public class RotateAllChildren : MonoBehaviour
 	{
+		public Vector3 targetLocalRotation;
+
 		void OnTransformChildrenChanged(){
 			foreach(Transform child in transform){
-				child.SetLocalRotationZ(180);;
+				child.localEulerAngles = targetLocalRotation;
 			}
 		}
 	}
