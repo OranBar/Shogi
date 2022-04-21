@@ -149,8 +149,6 @@ namespace Shogi
 				currPieceObj.IsPromoted = piece.isPromoted;
 				currPieceObj.IsCaptured = piece.isCaptured;
 			}
-			//Update sideboards
-			
 		}
 
 		

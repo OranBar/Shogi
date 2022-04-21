@@ -11,14 +11,15 @@ namespace Shogi
 
 			List<(int x, int y)> result = new List<(int x, int y)>();
 
-			int i = 1;
-			bool isCellOccupied;
-			do {
-				int currX = startX;
-				int currY = startY + ( i * direction );
-				result.Add( (currX, currY) );
-				isCellOccupied = board [currX, currY] != null;
-			} while (i++ <= 9 && (isCellOccupied==false) );
+			for (int distance = 1 ; distance <= 9 ; distance++) {
+				int x = startX;
+				int y = startY + ( distance * direction );
+				result.Add( (x, y) );
+				
+				if ( (board.IsValidBoardPosition( x, y ) == false) || board [x, y] != null) {
+					break;
+				}
+			}
 			
 			result = FilterInvalidMoves(result);
 			return result;
