@@ -16,15 +16,17 @@ namespace Shogi
 			piece = GetComponent<Piece>();
 		}
 
-		protected List<(int x, int y)> FilterInvalidMoves( List<(int x, int y)> moves ) {
-			var result = moves.ToList();
+		// protected List<(int x, int y)> FilterInvalidMoves( List<(int x, int y)> moves ) {
+		// 	var result = moves.ToList();
 
-			result = result.Where( m => board.IsValidBoardPosition( m ) ).ToList();
-			result = result.Where( m => Destination_IsNot_OccupiedByAlliedPiece( m ) ).ToList();
+		// 	result = result.Where( m => board.IsValidBoardPosition( m ) ).ToList();
+		// 	result = result.Where( m => Destination_IsNot_OccupiedByAlliedPiece( m ) ).ToList();
+		// 	return result;
+		// }
+
+		protected List<(int x, int y)> FilterInvalid_BoardPositions(List<(int x, int y)> moves){
+			var result = moves.Where( m => board.IsValidBoardPosition( m ) ).ToList();
 			return result;
 		}
-		
-		private bool Destination_IsNot_OccupiedByAlliedPiece( (int x, int y) move )
-			=> board [move.x, move.y]?.OwnerId != piece.OwnerId;
 	}
 }

@@ -16,7 +16,7 @@ namespace Shogi
 					}
 				}
 			}
-			result = FilterInvalidMoves( result );
+			result = FilterInvalid_BoardPositions( result );
 			//Validation: Can't checkmate with pawn
 			//Validation: Can't place pawn if there already is one on the same column
 			//Validation: Can't place piece where it would have no available moves

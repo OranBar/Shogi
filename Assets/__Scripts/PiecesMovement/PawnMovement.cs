@@ -11,7 +11,7 @@ namespace Shogi
 			List<(int x, int y)> result = new List<(int x, int y)>();
 			result.Add( (startX, startY + ( 1 * direction )) );
 
-			result = FilterInvalidMoves( result );
+			result = FilterInvalid_BoardPositions( result );
 			return result;
 		}
 

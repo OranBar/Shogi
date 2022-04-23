@@ -16,7 +16,7 @@ namespace Shogi {
 			result.Add( (startX - 1, startY - 1) );
 			result.Add( (startX + 1, startY - 1) );
 
-			result = FilterInvalidMoves( result );
+			result = FilterInvalid_BoardPositions( result );
 			return result;
 		}
 	}

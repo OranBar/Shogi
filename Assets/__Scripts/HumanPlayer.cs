@@ -106,14 +106,14 @@ namespace Shogi
 			Piece actingPiece = currAction.GetActingPiece( shogiGame );
 
 			MovePieceAction currMoveAction = currAction as MovePieceAction;
-			bool canPromote = currMoveAction != null && actingPiece.CanPromote();
-			bool canMoveAgain = actingPiece.MovementStrategy.GetAvailableMoves( currAction.DestinationX, currAction.DestinationY ).Any();
-			bool isPromotionZone = (
+			bool canPromote = currMoveAction != null && actingPiece.HasPromotion();
+			bool promotionRequirementSatisfied = (
 				shogiGame.board.IsPromotionZone( currAction.StartX, currAction.StartY, PlayerId ) ||
 				shogiGame.board.IsPromotionZone( currAction.DestinationX, currAction.DestinationY, PlayerId )
 			);
 
-			if (canPromote && isPromotionZone) {
+			if (canPromote && promotionRequirementSatisfied) {
+				bool canMoveAgain = actingPiece.MovementStrategy.GetAvailableMoves( currAction.DestinationX, currAction.DestinationY ).Any();
 				if (canMoveAgain == false) {
 					//Force promotion
 					currMoveAction.PromotePiece = true;

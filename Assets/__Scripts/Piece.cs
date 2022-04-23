@@ -98,11 +98,15 @@ namespace Shogi
 			owner = FindObjectsOfType<HumanPlayer>().First( p => p.PlayerId == OwnerId );
 		}
 
-		public List<(int x, int y)> GetAvailableMoves() {
-			var moves = MovementStrategy.GetAvailableMoves( X, Y );
-			// var result = moves.Where( m => board.IsValidBoardPosition( m ) ).ToList();
-			// result = moves.Where( m => board [m.x, m.y]?.OwnerId != OwnerId ).ToList();
-			return moves;
+		public List<(int x, int y)> GetValidMoves() {
+			var result = MovementStrategy.GetAvailableMoves( X, Y );
+			
+			result = result.Where( Destination_IsNot_OccupiedByAlliedPiece ).ToList();
+			return result;
+			
+			bool Destination_IsNot_OccupiedByAlliedPiece( (int x, int y) move ){ 
+				return board [move.x, move.y]?.OwnerId != OwnerId;
+			}
 		}
 
 		public async UniTask PieceMovementAnimation( int destinationX, int destinationY ) {
@@ -121,7 +125,7 @@ namespace Shogi
 		}
 	
 		public void LogAvailableMoves() {
-			Debug.Log("Available moves: \n"+GetAvailableMoves().ToStringPretty());			
+			Debug.Log("Available moves: \n"+GetValidMoves().ToStringPretty());			
 		}
 
 		public void CapturePiece() {
@@ -145,7 +149,7 @@ namespace Shogi
 			}
 		}
 
-		public bool CanPromote() {
+		public bool HasPromotion() {
 			bool hasPromotion = PromotedMovement != null;
 			return hasPromotion;
 		}

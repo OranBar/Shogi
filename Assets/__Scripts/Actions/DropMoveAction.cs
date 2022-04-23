@@ -5,8 +5,6 @@ namespace Shogi
 {
 	public class DropPieceAction : AShogiAction
 	{
-		private Piece _actingPiece;
-
 		public DropPieceAction( Piece piece ) : base( piece ) {
 		}
 
@@ -40,7 +38,7 @@ namespace Shogi
 		public override bool IsMoveValid( ShogiGame game ) {
 			var actingPiece = game.board [StartX, StartY];
 
-			bool isValidPieceMovement = actingPiece.GetAvailableMoves().Any( m => m.x == DestinationX && m.y == DestinationY );
+			bool isValidPieceMovement = actingPiece.GetValidMoves().Any( m => m.x == DestinationX && m.y == DestinationY );
 			return isValidPieceMovement;
 		}
 	}

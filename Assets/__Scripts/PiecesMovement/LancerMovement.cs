@@ -21,7 +21,7 @@ namespace Shogi
 				}
 			}
 			
-			result = FilterInvalidMoves(result);
+			result = FilterInvalid_BoardPositions(result);
 			return result;
 		}
 	}
