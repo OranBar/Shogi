@@ -6,6 +6,7 @@ using AYellowpaper;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
 namespace Shogi
@@ -82,7 +83,9 @@ namespace Shogi
 			}
 		}
 
-	
+		public Image defaultImage;
+		public Image promotedImage;
+
 		private Board board;
 		private ShogiGame gameManager;
 		[Auto, HideInInspector] public RectTransform rectTransform;
@@ -148,6 +151,7 @@ namespace Shogi
 	
 		public void Promote() {
 			IsPromoted = true;
+			Debug.Log("Piece Promoted");
 			//TODO: change icon
 		}
 

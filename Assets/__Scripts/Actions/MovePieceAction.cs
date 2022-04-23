@@ -43,6 +43,9 @@ namespace Shogi
 			UpdateBoard( board );
 			actingPiece.X = DestinationX;
 			actingPiece.Y = DestinationY;
+			if(PromotePiece){
+				actingPiece.Promote();
+			}
 		}
 
 		public void UpdateBoard( Board board ) {
