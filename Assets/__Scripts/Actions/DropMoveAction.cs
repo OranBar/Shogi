@@ -39,6 +39,7 @@ namespace Shogi
 			UpdateBoard( board );
 			actingPiece.X = _destinationX;
 			actingPiece.Y = _destinationY;
+			actingPiece.IsCaptured = false;
 		}
 
 		public void UpdateBoard( Board board ) {
