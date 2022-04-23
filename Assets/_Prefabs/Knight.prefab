@@ -147,6 +147,7 @@ GameObject:
   - component: {fileID: 9087074038610965225}
   - component: {fileID: 9087074038610965224}
   - component: {fileID: 9087074038610965228}
+  - component: {fileID: -3290743998031283221}
   - component: {fileID: -2444577913328039224}
   m_Layer: 5
   m_Name: Knight
@@ -233,9 +234,21 @@ MonoBehaviour:
     isPromoted: 0
     owner: 0
     isCaptured: 0
-  _defaultMovement: {fileID: 0}
+  _defaultMovement: {fileID: -3290743998031283221}
   _promotedMovement: {fileID: -2444577913328039224}
   rectTransform: {fileID: 0}
+--- !u!114 &-3290743998031283221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9087074038610965226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28b420427cd24a741aeca03ecbe5d74b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &-2444577913328039224
 MonoBehaviour:
   m_ObjectHideFlags: 0
