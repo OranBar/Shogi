@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -103,7 +102,7 @@ namespace Shogi
 		}
 
 		private async UniTask HandlePromotion() {
-			Piece actingPiece = currAction.GetActingPiece( shogiGame );
+			Piece actingPiece = currAction.ActingPiece;
 
 			MovePieceAction currMoveAction = currAction as MovePieceAction;
 			bool canPromote = currMoveAction != null && actingPiece.HasPromotion();

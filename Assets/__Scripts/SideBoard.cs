@@ -54,6 +54,8 @@ namespace Shogi{
 
 		public void AddCapturedPiece(Piece piece){
 			_capturedPieces.Add(piece);
+			piece.X = piece.OwnerId == PlayerId.Player1 ? -1 : -2;
+			piece.Y = _capturedPieces.Count;
 			OnNewPieceAdded?.Invoke(piece);
 			SendPieceToLimbo( piece );
 		}

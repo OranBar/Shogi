@@ -11,7 +11,7 @@ namespace Shogi
 		public int DestinationY { get; set; }
 		UniTask ExecuteAction( ShogiGame game );
 		bool IsMoveValid( ShogiGame game );
-		public Piece GetActingPiece( ShogiGame game );
+		public Piece ActingPiece{ get; }
 	}
 	public class MovePieceAction : AShogiAction
 	{
