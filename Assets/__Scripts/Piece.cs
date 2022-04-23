@@ -131,6 +131,7 @@ namespace Shogi
 			Y = -1;
 			//Thou shall live again
 			this.IsCaptured = true;
+			defaultImage.color = Color.black;
 			SendToSideboard();
 
 			void SendToSideboard() {
@@ -153,6 +154,7 @@ namespace Shogi
 			IsPromoted = true;
 			Debug.Log("Piece Promoted");
 			//TODO: change icon
+			defaultImage.color = Color.red;
 		}
 
 		public void OnPointerClick( PointerEventData eventData ) {
