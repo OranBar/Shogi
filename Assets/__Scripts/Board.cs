@@ -67,6 +67,14 @@ namespace Shogi
 				return false;
 			}
 		}
-		
-    }
+
+		public bool IsPromotionZone( int x, int y, PlayerId playerId ) {
+			if(playerId == PlayerId.Player1){
+				return y >= 6;
+			} else if(playerId == PlayerId.Player2){
+				return y <= 2;
+			}
+			throw new Exception("PlayerId unknown");
+		}
+	}
 }

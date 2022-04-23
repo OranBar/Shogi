@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -22,11 +24,16 @@ namespace Shogi
 
 		private Piece selectedPiece;
 		private IShogiAction currAction;
+		private ShogiGame shogiGame;
 		private bool actionReady = false;
 		private bool cancelActionRequest;
 
+		void Awake(){
+			shogiGame = FindObjectOfType<ShogiGame>();
+		}
+
 		private void OnEnable(){
-			
+
 		}
 
 		private void OnDisable() {
@@ -74,14 +81,18 @@ namespace Shogi
 		}
 
 		public async UniTask<IShogiAction> RequestAction() {
-			ShogiGame.Get_OnPieceClickedEvent(playerId).Value += Select_ActionPiece;
+			ShogiGame.Get_OnPieceClickedEvent( playerId ).Value += Select_ActionPiece;
 
 			actionReady = false;
 			currAction = null;
 			selectedPiece = null;
 			cancelActionRequest = false;
-			while(actionReady == false || cancelActionRequest){
+			while (actionReady == false || cancelActionRequest) {
 				await UniTask.Yield();
+			}
+
+			if (currAction is MovePieceAction) {
+				await HandlePromotion();
 			}
 
 			ShogiGame.OnAnyCellClicked -= Select_CellToMove;
@@ -91,5 +102,27 @@ namespace Shogi
 			return currAction;
 		}
 
+		private async UniTask HandlePromotion() {
+			Piece actingPiece = currAction.GetActingPiece( shogiGame );
+
+			MovePieceAction currMoveAction = currAction as MovePieceAction;
+			bool canPromote = currMoveAction != null && actingPiece.CanPromote();
+			bool canMoveAgain = actingPiece.MovementStrategy.GetAvailableMoves( currAction.DestinationX, currAction.DestinationY ).Any();
+			bool isPromotionZone = (
+				shogiGame.board.IsPromotionZone( currAction.StartX, currAction.StartY, PlayerId ) ||
+				shogiGame.board.IsPromotionZone( currAction.DestinationX, currAction.DestinationY, PlayerId )
+			);
+
+			if (canPromote && isPromotionZone) {
+				if (canMoveAgain == false) {
+					//Force promotion
+					currMoveAction.PromotePiece = true;
+				} else {
+					//Display Ui to decide if promotion needs to be done.
+					//set actionReady after ui click
+					currMoveAction.PromotePiece = await GetComponent<IPromotionPromter>().GetPromotionChoice();
+				}
+			}
+		}
 	}
 }

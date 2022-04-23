@@ -141,6 +141,11 @@ namespace Shogi
 			}
 		}
 
+		public bool CanPromote() {
+			bool hasPromotion = PromotedMovement != null;
+			return hasPromotion;
+		}
+	
 		public void Promote() {
 			IsPromoted = true;
 			//TODO: change icon
