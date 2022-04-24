@@ -8,8 +8,6 @@ namespace Shogi
     {
 		public float cellSizeUnit = 37.4f;
 
-		
-
 		private Piece [,] board = new Piece[9,9];
 
 		public Piece this [int x, int y]
@@ -19,7 +17,7 @@ namespace Shogi
 		}
 		
 
-		public void ClearBoard(){
+		private void ClearBoard(){
 			board = new Piece [9, 9];
 		}
 

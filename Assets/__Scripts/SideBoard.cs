@@ -39,7 +39,6 @@ namespace Shogi{
 		}
 
 		public void RefreshWithPiecesInScene() {
-			// OnNewPieceAdded.isEnabled = true;
 			ClearCapturedPieces();
 
 			foreach (var piece in FindObjectsOfType<Piece>()) {
@@ -48,8 +47,6 @@ namespace Shogi{
 					AddCapturedPiece( piece );
 				}
 			}
-			
-			// OnNewPieceAdded.isEnabled = false;
 		}
 
 		public void AddCapturedPiece(Piece piece){

@@ -35,11 +35,11 @@ namespace Shogi
 			shogiGame = FindObjectOfType<ShogiGame>();
 		}
 
-		private void OnEnable(){
-
+		private void OnDisable() {
+			UnregisterAllCallbacks();
 		}
 
-		private void OnDisable() {
+		private void UnregisterAllCallbacks() {
 			ShogiGame.OnAnyCellClicked -= Select_CellToMove;
 			ShogiGame.Get_OnPieceClickedEvent( playerId ).Value -= Select_ActionPiece;
 			ShogiGame.Get_OnPieceClickedEvent( OpponentId ).Value -= Select_PieceToCapture;
@@ -97,15 +97,11 @@ namespace Shogi
 			if (currAction is MovePieceAction) {
 				MovePieceAction moveAction = (MovePieceAction)currAction;
 				if(moveAction.CanChooseToPromote(shogiGame)){
-					// await HandlePromotion();
 					moveAction.Request_PromotePiece = await GetComponent<IPromotionPromter>().GetPromotionChoice();
 				}
 			}
 
-			ShogiGame.OnAnyCellClicked -= Select_CellToMove;
-			ShogiGame.Get_OnPieceClickedEvent( playerId ).Value -= Select_ActionPiece;
-			ShogiGame.Get_OnPieceClickedEvent( OpponentId ).Value -= Select_PieceToCapture;
-			undoButton.onClick.RemoveListener( RequestUndo );
+			UnregisterAllCallbacks();
 
 			return currAction;
 		}

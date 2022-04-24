@@ -19,16 +19,18 @@ namespace Shogi{
 			return result;
 		}
 
+		
+		public string fileName = "shogi";
 		[ContextMenu( "Save" )]
 		public void SaveGameState_Editor() {
 			GameState gameState = new GameState( gameManager );
-			string path = Application.persistentDataPath + "/shogi.bin";
+			string path = Application.persistentDataPath + $"/{fileName}.bin";
 			SaveGameState( gameState, path );
 		}
 
 		[ContextMenu( "Load bin" )]
 		public void ApplyGameState_Editor() {
-			string path = Application.persistentDataPath + "/shogi.bin";
+			string path = Application.persistentDataPath + $"/{fileName}.bin";
 			GameState gameState = LoadGameState( path );
 			gameManager.ApplyGameState( gameState );
 		}
