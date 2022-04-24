@@ -72,7 +72,7 @@ namespace Shogi
 		public bool manualOverride;
 		private bool isGameOver;
 		private CancellationTokenSource gameLoopCancelToken;
-		private GameHistory gameHistory;
+		public GameHistory gameHistory;
 
 		void Awake(){
 			OnAnyCellClicked = ( _ ) => { };
@@ -108,7 +108,9 @@ namespace Shogi
 				if (action.IsMoveValid( this )) {
 					Debug.Log("Valid Move: Executing");
 					await action.ExecuteAction( this ).AttachExternalCancellation( gameLoopCancelToken.Token );
-					gameHistory.playedMoves.Push( action );
+
+					gameHistory.RegisterNewMove(action);
+
 					Debug.Log( "Finish Move Execution" );
 				} else {
 					Debug.Log("Invalid Action: Try again");

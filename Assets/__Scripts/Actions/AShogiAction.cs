@@ -19,6 +19,10 @@ namespace Shogi{
 
 		private GameState gameState_beforeMove;
 
+		public AShogiAction(){
+			
+		}
+
 		public AShogiAction( Piece piece ) {
 			this.StartX = piece.X;
 			this.StartY = piece.Y;

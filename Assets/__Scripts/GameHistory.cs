@@ -13,6 +13,12 @@ namespace Shogi
 			this.initialGameState = initialGameState;
 			this.firstToMove = firstToMove;
 		}
+
+		internal void RegisterNewMove( IShogiAction action ) {
+			if(action is not UndoLastAction){
+				playedMoves.Push( action );
+			}
+		}
 	}
 	
 }
