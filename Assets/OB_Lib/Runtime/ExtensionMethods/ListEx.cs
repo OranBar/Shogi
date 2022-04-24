@@ -119,6 +119,10 @@ public static class ListEx
 		return result;
 	}
 
+	public static void Push<T>( this List<T> list, T element ) {
+		list.Add( element );
+	}
+
     public static T GetRandomElement<T>(this List<T> list){
 		int rndIndex = UnityEngine.Random.Range(0, list.Count);
 		return list [rndIndex];

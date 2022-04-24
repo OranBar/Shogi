@@ -1,8 +1,10 @@
+using System;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 
 namespace Shogi
 {
+	[Serializable]
 	public class DropPieceAction : AShogiAction
 	{
 		public DropPieceAction( Piece piece ) : base( piece ) {
@@ -16,30 +18,49 @@ namespace Shogi
 		}
 
 		public override async UniTask ExecuteAction( ShogiGame game ) {
-			Board board = game.board;
-			var actingPiece = board [StartX, StartY];
-			UnityEngine.Debug.Log($"Dropping piece {actingPiece} on ({DestinationX},{DestinationY})");
+			base.ExecuteAction(game).Forget();
+			UnityEngine.Debug.Log($"Dropping piece {ActingPiece} on ({DestinationX},{DestinationY})");
 
-			game.GetSideBoard( actingPiece.OwnerId ).RemoveCapturedPiece( actingPiece );
-			await actingPiece.PieceMovementAnimation( DestinationX, DestinationY );
+			game.GetSideBoard( ActingPiece.OwnerId ).RemoveCapturedPiece( ActingPiece );
+			await ActingPiece.PieceMovementAnimation( DestinationX, DestinationY );
 
 			//Update game data structures
-			UpdateBoard( board );
-			actingPiece.X = DestinationX;
-			actingPiece.Y = DestinationY;
-			actingPiece.IsCaptured = false;
+			UpdateBoard( game );
+			ActingPiece.X = DestinationX;
+			ActingPiece.Y = DestinationY;
+			ActingPiece.IsCaptured = false;
 		}
 
-		public void UpdateBoard( Board board ) {
-			var actingPiece = board [StartX, StartY];
-			board [DestinationX, DestinationY] = actingPiece;
+		public void UpdateBoard( ShogiGame game ) {
+			game.board [DestinationX, DestinationY] = ActingPiece;
 		}
 
 		public override bool IsMoveValid( ShogiGame game ) {
-			var actingPiece = game.board [StartX, StartY];
+			bool isValidPieceMovement = ActingPiece.GetValidMoves().Any( m => m.x == DestinationX && m.y == DestinationY );
+			bool willBeAbleToMove_FromDestination = ActingPiece.DefaultMovement.GetAvailableMoves( DestinationX, DestinationY ).Any();
 
-			bool isValidPieceMovement = actingPiece.GetValidMoves().Any( m => m.x == DestinationX && m.y == DestinationY );
-			return isValidPieceMovement;
+			if(ActingPiece.PieceType == PieceType.Pawn){
+				if(AnyUnpromotedPawns_OnColumn()){
+					isValidPieceMovement = false;
+				}
+			}
+			return isValidPieceMovement && willBeAbleToMove_FromDestination;
+
+			//Local methods
+			bool AnyUnpromotedPawns_OnColumn(){
+				for (int y = 0 ; y < 9 ; y++) {
+					Piece piece = game.board [DestinationX, y];
+					bool isPawn = piece?.PieceType == PieceType.Pawn;
+					bool isUnpromotedPawn = isPawn && game.board [StartX, y].IsPromoted == false;
+
+					if (isUnpromotedPawn) {
+						return true;
+					}
+				}
+				return false;
+			}
 		}
+
+
 	}
 }

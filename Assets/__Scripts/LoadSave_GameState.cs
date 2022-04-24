@@ -21,7 +21,7 @@ namespace Shogi{
 
 		[ContextMenu( "Save" )]
 		public void SaveGameState_Editor() {
-			GameState gameState = new GameState();
+			GameState gameState = new GameState( gameManager );
 			string path = Application.persistentDataPath + "/shogi.bin";
 			SaveGameState( gameState, path );
 		}
