@@ -86,8 +86,9 @@ namespace Shogi
 
 		void Start() {
 			board.RefreshWithPiecesInScene();
-			//I don't need to init the sideboards since they are empty on beginning of shogi match
-			//TODO: black starts first
+			player1_sideboard.RefreshWithPiecesInScene();
+			player2_sideboard.RefreshWithPiecesInScene();
+			
 			BeginGame( PlayerId.Player1 );
 		}
 
@@ -101,7 +102,7 @@ namespace Shogi
 			BeginGameAsync( startingPlayer ).AttachExternalCancellation( gameLoopCancelToken.Token );
 		}
 
-		async UniTask BeginGameAsync( PlayerId startingPlayer ) {
+		private async UniTask BeginGameAsync( PlayerId startingPlayer ) {
 			_currPlayer_turn = startingPlayer;
 			gameHistory = new GameHistory( new GameState( this ), startingPlayer );
 
@@ -136,22 +137,15 @@ namespace Shogi
 			_currPlayer_turn = (_currPlayer_turn == PlayerId.Player1) ? PlayerId.Player2 : PlayerId.Player1;
 		}
 
+		//? Forse questa funzione dovrei metterle in LoadSave_GameState
 		public void ApplyGameState(GameState state){
 			ReassignPiecesData( state );
 			board.RefreshWithPiecesInScene();
 			player1_sideboard.RefreshWithPiecesInScene();
 			player2_sideboard.RefreshWithPiecesInScene();
-			
-			// _currPlayer_turn = state.currPlayerTurn;
-			// ( (MonoBehaviour)Player1 ).enabled = false;
-			// ( (MonoBehaviour)Player2 ).enabled = false;
-
-			// gameLoopCancelToken.Cancel();
-			// gameLoopCancelToken = new CancellationTokenSource();
-			// BeginGame( state.currPlayerTurn ).AttachExternalCancellation(gameLoopCancelToken.Token);
 		}
 
-
+		//? Forse questa funzione dovrei metterle in LoadSave_GameState
 		private void ReassignPiecesData( GameState obj ) {
 			Queue<Piece> piecesObjs = FindObjectsOfType<Piece>().ToQueue();
 			foreach(PieceData piece in obj.piecesData){

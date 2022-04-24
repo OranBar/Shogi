@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Shogi
 {
@@ -23,12 +24,12 @@ namespace Shogi
 
 		public PlayerId OpponentId => playerId == PlayerId.Player1 ? PlayerId.Player2 : PlayerId.Player1;
 
+		public Button undoButton;
 
 		private Piece selectedPiece;
 		private IShogiAction currAction;
 		private ShogiGame shogiGame;
 		private bool actionReady = false;
-		private bool cancelActionRequest;
 
 		void Awake(){
 			shogiGame = FindObjectOfType<ShogiGame>();
@@ -42,9 +43,8 @@ namespace Shogi
 			ShogiGame.OnAnyCellClicked -= Select_CellToMove;
 			ShogiGame.Get_OnPieceClickedEvent( playerId ).Value -= Select_ActionPiece;
 			ShogiGame.Get_OnPieceClickedEvent( OpponentId ).Value -= Select_PieceToCapture;
-			cancelActionRequest = true;
+			undoButton.onClick.RemoveListener( RequestUndo );
 		}
-
 
 		void Select_ActionPiece(Piece piece){
 			selectedPiece = piece;
@@ -83,13 +83,13 @@ namespace Shogi
 		}
 
 		public async UniTask<IShogiAction> RequestAction() {
+			undoButton.onClick.AddListener( RequestUndo );
 			ShogiGame.Get_OnPieceClickedEvent( playerId ).Value += Select_ActionPiece;
 
 			actionReady = false;
 			currAction = null;
 			selectedPiece = null;
-			cancelActionRequest = false; //TODO: I think I can take this out
-			while (actionReady == false || cancelActionRequest) {
+			while (actionReady == false ) {
 				await UniTask.Yield();
 			}
 
@@ -105,6 +105,7 @@ namespace Shogi
 			ShogiGame.OnAnyCellClicked -= Select_CellToMove;
 			ShogiGame.Get_OnPieceClickedEvent( playerId ).Value -= Select_ActionPiece;
 			ShogiGame.Get_OnPieceClickedEvent( OpponentId ).Value -= Select_PieceToCapture;
+			undoButton.onClick.RemoveListener( RequestUndo );
 
 			return currAction;
 		}
