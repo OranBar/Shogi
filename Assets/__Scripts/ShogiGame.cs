@@ -140,9 +140,9 @@ namespace Shogi
 		//? Forse questa funzione dovrei metterle in LoadSave_GameState
 		public void ApplyGameState(GameState state){
 			ReassignPiecesData( state );
-			board.RefreshWithPiecesInScene();
 			player1_sideboard.RefreshWithPiecesInScene();
 			player2_sideboard.RefreshWithPiecesInScene();
+			board.RefreshWithPiecesInScene();
 		}
 
 		//? Forse questa funzione dovrei metterle in LoadSave_GameState

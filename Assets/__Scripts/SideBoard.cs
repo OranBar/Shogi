@@ -68,7 +68,7 @@ namespace Shogi{
 
 		private void SendPieceToLimbo(Piece piece ) {
 			Transform limbo = GameObject.FindGameObjectWithTag( "Limbo" ).transform;
-			piece.transform.parent = limbo;
+			piece.transform.SetParent(limbo);
 			piece.transform.localPosition = Vector3.zero;
 		}
 

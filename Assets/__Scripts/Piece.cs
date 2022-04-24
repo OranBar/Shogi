@@ -32,7 +32,9 @@ namespace Shogi
 		
 		public bool IsPromoted { 
 			get { return pieceData.isPromoted; }
-			set { 
+			set {
+				if (pieceData.isPromoted == value) { return; }
+				
 				pieceData.isPromoted = value; 
 				if(value){
 					Promote();
