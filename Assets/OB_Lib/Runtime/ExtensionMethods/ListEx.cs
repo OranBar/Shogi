@@ -120,7 +120,7 @@ public static class ListEx
 	}
 
 	public static void Push<T>( this List<T> list, T element ) {
-		list.Add( element );
+		list.Insert( 0, element );
 	}
 
     public static T GetRandomElement<T>(this List<T> list){
