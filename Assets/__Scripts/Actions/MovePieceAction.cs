@@ -64,11 +64,11 @@ namespace Shogi
 			}
 			
 			if (MustPromoteAfterMove( game )) {
-				ActingPiece.Promote();
+				ActingPiece.IsPromoted = true;
 			}
 
 			if (IsPromotionRequirementSatisfied( game ) && Request_PromotePiece) {
-				ActingPiece.Promote();
+				ActingPiece.IsPromoted = true;
 			}
 		}
 

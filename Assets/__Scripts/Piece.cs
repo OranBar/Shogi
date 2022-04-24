@@ -29,7 +29,21 @@ namespace Shogi
 		public int X { get => pieceData.x; set => pieceData.x = value; }
 		public int Y { get => pieceData.y; set => pieceData.y = value; }
 		public PieceType PieceType { get => pieceData.pieceType; set => pieceData.pieceType = value; }
-		public bool IsPromoted { get => pieceData.isPromoted; set => pieceData.isPromoted = value; }
+		
+		public bool IsPromoted { 
+			get { return pieceData.isPromoted; }
+			set { 
+				pieceData.isPromoted = value; 
+				if(value){
+					Promote();
+				} else {
+					Unpromote();
+				}
+			}
+		}
+
+		
+		
 		public PlayerId OwnerId {
 			get { return pieceData.owner; }
 			set {
@@ -130,7 +144,7 @@ namespace Shogi
 
 			//Thou shall live again
 			this.IsCaptured = true;
-			defaultImage.color = Color.black;
+			this.IsPromoted = false;
 			SendToSideboard();
 
 			void SendToSideboard() {
@@ -148,12 +162,17 @@ namespace Shogi
 			bool hasPromotion = PromotedMovement != null;
 			return hasPromotion;
 		}
-	
-		public void Promote() {
-			IsPromoted = true;
-			Debug.Log("Piece Promoted");
+
+		private void Promote() {
+			Debug.Log( "Piece Promoted" );
 			//TODO: change icon
 			defaultImage.color = Color.red;
+		}
+
+		private void Unpromote() {
+			Debug.Log( "Piece Unromoted =(" );
+			//TODO: change icon
+			defaultImage.color = Color.black;
 		}
 
 		public void OnPointerClick( PointerEventData eventData ) {
