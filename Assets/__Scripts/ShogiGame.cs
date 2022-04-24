@@ -69,10 +69,12 @@ namespace Shogi
 			return owner == PlayerId.Player1 ? player1_sideboard : player2_sideboard;
 		}
 
+		public Piece[] AllPieces => FindObjectsOfType<Piece>();
+
 		public bool manualOverride;
 		private bool isGameOver;
 		private CancellationTokenSource gameLoopCancelToken;
-		public GameHistory gameHistory;
+		public GameHistory gameHistory = null;
 
 		void Awake(){
 			OnAnyCellClicked = ( _ ) => { };
@@ -86,17 +88,25 @@ namespace Shogi
 			board.RefreshWithPiecesInScene();
 			//I don't need to init the sideboards since they are empty on beginning of shogi match
 			//TODO: black starts first
-			gameLoopCancelToken = new CancellationTokenSource();
-			BeginGame( PlayerId.Player1).AttachExternalCancellation( gameLoopCancelToken.Token );
+			BeginGame( PlayerId.Player1 );
 		}
 
 		void OnDisable(){
 			isGameOver = true;
 		}
 
-		async UniTask BeginGame( PlayerId startingPlayer) {
-			gameHistory = new GameHistory( new GameState(), startingPlayer );
+		public void BeginGame( PlayerId startingPlayer ) {
+			gameLoopCancelToken?.Cancel();
+			gameLoopCancelToken = new CancellationTokenSource();
+			BeginGameAsync( startingPlayer ).AttachExternalCancellation( gameLoopCancelToken.Token );
+		}
 
+		async UniTask BeginGameAsync( PlayerId startingPlayer ) {
+			_currPlayer_turn = startingPlayer;
+			gameHistory = new GameHistory( new GameState( this ), startingPlayer );
+
+			( (MonoBehaviour)Player1 ).enabled = false;
+			( (MonoBehaviour)Player2 ).enabled = false;
 			( (MonoBehaviour)Player1 ).enabled = true;
 			( (MonoBehaviour)Player2 ).enabled = true;
 			
@@ -122,8 +132,6 @@ namespace Shogi
 			Debug.Log( "Game Finished" );
 		}
 
-		
-
 		private void AdvanceTurn() {
 			_currPlayer_turn = (_currPlayer_turn == PlayerId.Player1) ? PlayerId.Player2 : PlayerId.Player1;
 		}
@@ -134,18 +142,19 @@ namespace Shogi
 			player1_sideboard.RefreshWithPiecesInScene();
 			player2_sideboard.RefreshWithPiecesInScene();
 			
-			_currPlayer_turn = state.currPlayerTurn;
-			( (MonoBehaviour)Player1 ).enabled = false;
-			( (MonoBehaviour)Player2 ).enabled = false;
+			// _currPlayer_turn = state.currPlayerTurn;
+			// ( (MonoBehaviour)Player1 ).enabled = false;
+			// ( (MonoBehaviour)Player2 ).enabled = false;
 
-			gameLoopCancelToken.Cancel();
-			gameLoopCancelToken = new CancellationTokenSource();
-			BeginGame( state.currPlayerTurn ).AttachExternalCancellation(gameLoopCancelToken.Token);
+			// gameLoopCancelToken.Cancel();
+			// gameLoopCancelToken = new CancellationTokenSource();
+			// BeginGame( state.currPlayerTurn ).AttachExternalCancellation(gameLoopCancelToken.Token);
 		}
+
 
 		private void ReassignPiecesData( GameState obj ) {
 			Queue<Piece> piecesObjs = FindObjectsOfType<Piece>().ToQueue();
-			foreach(PieceData piece in obj.pieces){
+			foreach(PieceData piece in obj.piecesData){
 				Piece currPieceObj = piecesObjs.Dequeue();
 				currPieceObj.X = piece.x;
 				currPieceObj.Y = piece.y;

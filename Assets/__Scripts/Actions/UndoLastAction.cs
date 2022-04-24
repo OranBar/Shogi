@@ -15,7 +15,7 @@ namespace Shogi
 		}
 
 		public override bool IsMoveValid( ShogiGame game ) {
-			return game.gameHistory.playedMoves.Count == 0;
+			return game.gameHistory.playedMoves.Count != 0;
 		}
 	}
 }

@@ -5307,7 +5307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81cdf01860968294cb2f3d956bd681f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerName: Gio
+  _playerName: Gio
   playerId: 2
 --- !u!114 &489550813
 MonoBehaviour:
@@ -12231,6 +12231,14 @@ MonoBehaviour:
   player1_sideboard: {fileID: 1355150549}
   player2_sideboard: {fileID: 966799794}
   manualOverride: 0
+  gameHistory:
+    initialGameState:
+      game:
+        player1_name: 
+        player2_name: 
+      currPlayerTurn: 0
+      piecesData: []
+    firstToMove: 0
 --- !u!114 &1014225918
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16734,7 +16742,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81cdf01860968294cb2f3d956bd681f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerName: Oran
+  _playerName: Oran
   playerId: 1
 --- !u!114 &1402779150
 MonoBehaviour:

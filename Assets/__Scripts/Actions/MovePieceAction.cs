@@ -22,7 +22,7 @@ namespace Shogi
 		}
 
 		public override async UniTask ExecuteAction( ShogiGame game ) {
-			base.ExecuteAction(game ).Forget();
+			base.ExecuteAction( game ).Forget();
 			Board board = game.board;
 			var actingPiece = board[StartX, StartY];
 			UnityEngine.Debug.Log( $"Moving piece {actingPiece} on ({DestinationX},{DestinationY})" );

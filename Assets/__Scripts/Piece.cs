@@ -12,7 +12,7 @@ using Object = UnityEngine.Object;
 namespace Shogi
 {
 	[Serializable]
-	public class PieceData
+	public struct PieceData
 	{
 		public int x, y;
 		public PieceType pieceType;

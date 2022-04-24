@@ -15,11 +15,14 @@ namespace Shogi
 	[Serializable]
 	public class HumanPlayer : MonoBehaviour, IPlayer
 	{
-		public string playerName;
+		[SerializeField] private string _playerName;
+		public string PlayerName { get => _playerName; set => _playerName = value; }
+
 		[SerializeField] private PlayerId playerId;
 		public PlayerId PlayerId => playerId;
 
 		public PlayerId OpponentId => playerId == PlayerId.Player1 ? PlayerId.Player2 : PlayerId.Player1;
+
 
 		private Piece selectedPiece;
 		private IShogiAction currAction;
@@ -52,14 +55,14 @@ namespace Shogi
 			}
 
 			piece.LogAvailableMoves();
-			Debug.Log($"<{playerName}> Piece Selected ({piece.X},{piece.Y})", piece.gameObject);
+			Debug.Log($"<{PlayerName}> Piece Selected ({piece.X},{piece.Y})", piece.gameObject);
 
 			ShogiGame.Get_OnPieceClickedEvent(OpponentId).Value += Select_PieceToCapture;
 			ShogiGame.OnAnyCellClicked += Select_CellToMove;
 		}
 
 		private void Select_CellToMove( Cell obj ) {
-			Debug.Log($"<{playerName}> Move action to cell ({obj.x},{obj.y})");
+			Debug.Log($"<{PlayerName}> Move action to cell ({obj.x},{obj.y})");
 			currAction.DestinationX = obj.x;
 			currAction.DestinationY = obj.y;
 
@@ -69,7 +72,7 @@ namespace Shogi
 		}
 
 		private void Select_PieceToCapture( Piece toCapture) {
-			Debug.Log($"<{playerName}> Capture action: Piece on ({toCapture.X},{toCapture.Y})");
+			Debug.Log($"<{PlayerName}> Capture action: Piece on ({toCapture.X},{toCapture.Y})");
 			currAction.DestinationX = toCapture.X;
 			currAction.DestinationY = toCapture.Y;
 
@@ -85,7 +88,7 @@ namespace Shogi
 			actionReady = false;
 			currAction = null;
 			selectedPiece = null;
-			cancelActionRequest = false;
+			cancelActionRequest = false; //TODO: I think I can take this out
 			while (actionReady == false || cancelActionRequest) {
 				await UniTask.Yield();
 			}
@@ -104,6 +107,12 @@ namespace Shogi
 			ShogiGame.Get_OnPieceClickedEvent( OpponentId ).Value -= Select_PieceToCapture;
 
 			return currAction;
+		}
+
+		[ContextMenu("Request Undo")]
+		public void RequestUndo(){
+			currAction = new UndoLastAction();
+			actionReady = true;
 		}
 	}
 }

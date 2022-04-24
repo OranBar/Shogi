@@ -12,15 +12,19 @@ namespace Shogi
 	[Serializable]
     public class GameState 
     {
-		public GameData game;
+		public GameData gameData;
 		public PlayerId currPlayerTurn;
-		public PieceData[] pieces;
+		public PieceData[] piecesData;
 
-		public GameState()
+		public GameState(){
+
+		}
+
+		public GameState( ShogiGame game)
 		{
-			Piece [] piecesInGame = GameObject.FindObjectsOfType<Piece>();
-			pieces = piecesInGame.Select( p => p.pieceData ).ToArray();
-			currPlayerTurn = GameObject.FindObjectOfType<ShogiGame>().CurrPlayer_turn.PlayerId;
+			piecesData = game.AllPieces.Select( p => p.pieceData ).ToArray();
+			currPlayerTurn = game.CurrPlayer_turn.PlayerId;
+			gameData = new GameData( game.Player1.PlayerName, game.Player2.PlayerName );
 		}
 
 		#region Binary Serialization and Deserialization
@@ -40,6 +44,11 @@ namespace Shogi
 
 			return deserializedData;
 		}
+
+		public override string ToString() {
+			var resultArr = piecesData.Select( p => (p.x, p.y)).OrderBy( pos => pos.x + pos.y * 10 ).ToList();
+			return resultArr.ToStringPretty();
+		}
 		#endregion
 	}
 
@@ -48,6 +57,11 @@ namespace Shogi
 	{
 		public string player1_name;
 		public string player2_name;
+
+		public GameData( string player1_name, string player2_name ) {
+			this.player1_name = player1_name;
+			this.player2_name = player2_name;
+		}
 	}
 
 	

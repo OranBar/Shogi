@@ -20,7 +20,7 @@ namespace Shogi{
 		private GameState gameState_beforeMove;
 
 		public AShogiAction(){
-			
+
 		}
 
 		public AShogiAction( Piece piece ) {
@@ -43,7 +43,7 @@ namespace Shogi{
 
 		public virtual async UniTask ExecuteAction( ShogiGame game ){
 			//save gamestate
-			gameState_beforeMove = new GameState();
+			gameState_beforeMove = new GameState( game );
 		}
 		public async UniTask UndoAction( ShogiGame game ){
 			//reload gamestate
