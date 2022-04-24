@@ -72,6 +72,7 @@ namespace Shogi
 		public bool manualOverride;
 		private bool isGameOver;
 		private CancellationTokenSource gameLoopCancelToken;
+		private GameHistory gameHistory;
 
 		void Awake(){
 			OnAnyCellClicked = ( _ ) => { };
@@ -94,7 +95,7 @@ namespace Shogi
 		}
 
 		async UniTask BeginGame( PlayerId startingPlayer) {
-			
+			gameHistory = new GameHistory( new GameState(), startingPlayer );
 
 			( (MonoBehaviour)Player1 ).enabled = true;
 			( (MonoBehaviour)Player2 ).enabled = true;
@@ -107,6 +108,7 @@ namespace Shogi
 				if (action.IsMoveValid( this )) {
 					Debug.Log("Valid Move: Executing");
 					await action.ExecuteAction( this ).AttachExternalCancellation( gameLoopCancelToken.Token );
+					gameHistory.playedMoves.Push( action );
 					Debug.Log( "Finish Move Execution" );
 				} else {
 					Debug.Log("Invalid Action: Try again");

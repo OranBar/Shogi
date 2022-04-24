@@ -1,6 +1,8 @@
+using System;
 using Cysharp.Threading.Tasks;
 
 namespace Shogi{
+	[Serializable]
 	public abstract class AShogiAction : IShogiAction
 	{
 		public int StartY { get => startY; set => startY = value; }
@@ -14,6 +16,8 @@ namespace Shogi{
 		private int _destinationY;
 		private int _destinationX;
 		private Piece _actingPiece;
+
+		private GameState gameState_beforeMove;
 
 		public AShogiAction( Piece piece ) {
 			this.StartX = piece.X;
@@ -33,7 +37,17 @@ namespace Shogi{
 			return $"Move: From ({StartX}, {StartY}) to ({DestinationX}, {DestinationY})";
 		}
 
-		public abstract UniTask ExecuteAction( ShogiGame game );
+		public virtual async UniTask ExecuteAction( ShogiGame game ){
+			//save gamestate
+			gameState_beforeMove = new GameState();
+		}
+		public async UniTask UndoAction( ShogiGame game ){
+			//reload gamestate
+			if(gameState_beforeMove == null){
+				throw new System.Exception( "Can't undo a move that was not executed. Did you call base.ExecuteAction()?" );
+			}
+			game.ApplyGameState( gameState_beforeMove );
+		}
 		public abstract bool IsMoveValid( ShogiGame game );
 	}
 }

@@ -41,9 +41,6 @@ namespace Shogi
 			get { return pieceData.isCaptured; }
 			set { 
 				pieceData.isCaptured = value;
-				if(value){
-					X = Y = -1;
-				}
 			}
 		}
 
@@ -131,8 +128,6 @@ namespace Shogi
 		public void CapturePiece() {
 			PieceDeathAnimation();
 
-			X = -1;
-			Y = -1;
 			//Thou shall live again
 			this.IsCaptured = true;
 			defaultImage.color = Color.black;

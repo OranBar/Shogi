@@ -1,23 +1,15 @@
+using System;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 
 namespace Shogi
 {
-	public interface IShogiAction
-	{
-		public int StartX { get; set; }
-		public int StartY { get; set; }
-		public int DestinationX { get; set; }
-		public int DestinationY { get; set; }
-		UniTask ExecuteAction( ShogiGame game );
-		bool IsMoveValid( ShogiGame game );
-		public Piece ActingPiece{ get; }
-	}
-	
+	[Serializable]
 	public class MovePieceAction : AShogiAction
 	{
 		public bool Request_PromotePiece { get => _promotePiece; set => _promotePiece = value; }
 		private bool _promotePiece = false;
+		private Piece capturedPiece;
 
 		public MovePieceAction( Piece piece ) : base( piece ) {
 		}
@@ -30,12 +22,13 @@ namespace Shogi
 		}
 
 		public override async UniTask ExecuteAction( ShogiGame game ) {
+			base.ExecuteAction(game ).Forget();
 			Board board = game.board;
 			var actingPiece = board[StartX, StartY];
 			UnityEngine.Debug.Log( $"Moving piece {actingPiece} on ({DestinationX},{DestinationY})" );
 
 
-			Piece capturedPiece = board[DestinationX, DestinationY];
+			capturedPiece = board[DestinationX, DestinationY];
 			bool wasCapturingMove = capturedPiece != null && capturedPiece.owner != actingPiece.owner;
 
 			if (wasCapturingMove) {
@@ -106,7 +99,5 @@ namespace Shogi
 			return game.board.IsPromotionZone( StartX, StartY, ActingPiece.OwnerId ) ||
 				game.board.IsPromotionZone( DestinationX, DestinationY, ActingPiece.OwnerId );
 		}
-
-		
 	}
 }

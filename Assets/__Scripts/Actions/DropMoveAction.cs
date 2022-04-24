@@ -1,8 +1,10 @@
+using System;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 
 namespace Shogi
 {
+	[Serializable]
 	public class DropPieceAction : AShogiAction
 	{
 		public DropPieceAction( Piece piece ) : base( piece ) {
@@ -16,7 +18,7 @@ namespace Shogi
 		}
 
 		public override async UniTask ExecuteAction( ShogiGame game ) {
-			Board board = game.board;
+			base.ExecuteAction(game).Forget();
 			UnityEngine.Debug.Log($"Dropping piece {ActingPiece} on ({DestinationX},{DestinationY})");
 
 			game.GetSideBoard( ActingPiece.OwnerId ).RemoveCapturedPiece( ActingPiece );
