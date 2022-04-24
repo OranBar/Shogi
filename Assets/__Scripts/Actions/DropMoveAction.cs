@@ -17,17 +17,16 @@ namespace Shogi
 
 		public override async UniTask ExecuteAction( ShogiGame game ) {
 			Board board = game.board;
-			var actingPiece = board [StartX, StartY];
-			UnityEngine.Debug.Log($"Dropping piece {actingPiece} on ({DestinationX},{DestinationY})");
+			UnityEngine.Debug.Log($"Dropping piece {ActingPiece} on ({DestinationX},{DestinationY})");
 
-			game.GetSideBoard( actingPiece.OwnerId ).RemoveCapturedPiece( actingPiece );
-			await actingPiece.PieceMovementAnimation( DestinationX, DestinationY );
+			game.GetSideBoard( ActingPiece.OwnerId ).RemoveCapturedPiece( ActingPiece );
+			await ActingPiece.PieceMovementAnimation( DestinationX, DestinationY );
 
 			//Update game data structures
 			UpdateBoard( game );
-			actingPiece.X = DestinationX;
-			actingPiece.Y = DestinationY;
-			actingPiece.IsCaptured = false;
+			ActingPiece.X = DestinationX;
+			ActingPiece.Y = DestinationY;
+			ActingPiece.IsCaptured = false;
 		}
 
 		public void UpdateBoard( ShogiGame game ) {

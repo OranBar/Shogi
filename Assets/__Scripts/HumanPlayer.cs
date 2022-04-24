@@ -90,8 +90,13 @@ namespace Shogi
 				await UniTask.Yield();
 			}
 
+
 			if (currAction is MovePieceAction) {
-				await HandlePromotion();
+				MovePieceAction moveAction = (MovePieceAction)currAction;
+				if(moveAction.CanChooseToPromote(shogiGame)){
+					// await HandlePromotion();
+					await GetComponent<IPromotionPromter>().GetPromotionChoice();
+				}
 			}
 
 			ShogiGame.OnAnyCellClicked -= Select_CellToMove;
@@ -112,14 +117,14 @@ namespace Shogi
 			);
 
 			if (canPromote && promotionRequirementSatisfied) {
-				bool canMoveAgain = actingPiece.MovementStrategy.GetAvailableMoves( currAction.DestinationX, currAction.DestinationY ).Any();
+				bool canMoveAgain = actingPiece.DefaultMovement.GetAvailableMoves( currAction.DestinationX, currAction.DestinationY ).Any();
 				if (canMoveAgain == false) {
 					//Force promotion
-					currMoveAction.PromotePiece = true;
+					currMoveAction.Request_PromotePiece = true;
 				} else {
 					//Display Ui to decide if promotion needs to be done.
 					//set actionReady after ui click
-					currMoveAction.PromotePiece = await GetComponent<IPromotionPromter>().GetPromotionChoice();
+					currMoveAction.Request_PromotePiece = await GetComponent<IPromotionPromter>().GetPromotionChoice();
 				}
 			}
 		}

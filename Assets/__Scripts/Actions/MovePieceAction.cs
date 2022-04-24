@@ -13,15 +13,20 @@ namespace Shogi
 		bool IsMoveValid( ShogiGame game );
 		public Piece ActingPiece{ get; }
 	}
+	
 	public class MovePieceAction : AShogiAction
 	{
-		public bool PromotePiece { get => _promotePiece; set => _promotePiece = value; }
+		public bool Request_PromotePiece { get => _promotePiece; set => _promotePiece = value; }
 		private bool _promotePiece = false;
 
 		public MovePieceAction( Piece piece ) : base( piece ) {
 		}
 
 		public MovePieceAction( Piece piece, int destinationX, int destinationY ) : base( piece, destinationX, destinationY ) {
+		}
+
+		public override string ToString() {
+			return "Move "+base.ToString();
 		}
 
 		public override async UniTask ExecuteAction( ShogiGame game ) {
@@ -43,9 +48,8 @@ namespace Shogi
 			UpdateBoard( board );
 			actingPiece.X = DestinationX;
 			actingPiece.Y = DestinationY;
-			if(PromotePiece){
-				actingPiece.Promote();
-			}
+
+			HandlePromotion(game);
 		}
 
 		public void UpdateBoard( Board board ) {
@@ -60,5 +64,42 @@ namespace Shogi
 
 			return isValidPieceMovement;
 		}
+
+		private void HandlePromotion( ShogiGame game ) {
+			if (MustPromoteAfterMove( game )) {
+				ActingPiece.Promote();
+			}
+
+			if (IsPromotionRequirementSatisfied( game ) && Request_PromotePiece) {
+				ActingPiece.Promote();
+			}
+		}
+
+		public bool CanChooseToPromote( ShogiGame game ) {
+			return IsPromotionRequirementSatisfied(game) && MustPromoteAfterMove( game ) == false;
+		}
+
+		public bool MustPromoteAfterMove( ShogiGame game ) {
+			if (IsPromotionRequirementSatisfied(game)) {
+				bool canMoveAgain = ActingPiece.DefaultMovement.GetAvailableMoves( DestinationX, DestinationY ).Any();
+				if (canMoveAgain == false) {
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		private bool IsPromotionRequirementSatisfied(ShogiGame game){
+			bool canPromote = ActingPiece.HasPromotion();
+			if (canPromote == false) {
+				return false; 
+			}
+
+			return game.board.IsPromotionZone( StartX, StartY, ActingPiece.OwnerId ) ||
+				game.board.IsPromotionZone( DestinationX, DestinationY, ActingPiece.OwnerId );
+		}
+
+		
 	}
 }
