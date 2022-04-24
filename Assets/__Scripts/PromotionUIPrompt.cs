@@ -31,6 +31,9 @@ namespace Shogi
 		}
 
 		public async UniTask<bool> GetPromotionChoice() {
+			choiceWasMade = false;
+			choiceIsPromotion = false;
+			
 			dialogWindow.gameObject.SetActive( true );
 			await UniTask.WaitUntil( () => choiceWasMade );
 			dialogWindow.gameObject.SetActive( false );

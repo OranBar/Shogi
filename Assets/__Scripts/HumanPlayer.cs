@@ -95,7 +95,7 @@ namespace Shogi
 				MovePieceAction moveAction = (MovePieceAction)currAction;
 				if(moveAction.CanChooseToPromote(shogiGame)){
 					// await HandlePromotion();
-					await GetComponent<IPromotionPromter>().GetPromotionChoice();
+					moveAction.Request_PromotePiece = await GetComponent<IPromotionPromter>().GetPromotionChoice();
 				}
 			}
 
@@ -104,29 +104,6 @@ namespace Shogi
 			ShogiGame.Get_OnPieceClickedEvent( OpponentId ).Value -= Select_PieceToCapture;
 
 			return currAction;
-		}
-
-		private async UniTask HandlePromotion() {
-			Piece actingPiece = currAction.ActingPiece;
-
-			MovePieceAction currMoveAction = currAction as MovePieceAction;
-			bool canPromote = currMoveAction != null && actingPiece.HasPromotion();
-			bool promotionRequirementSatisfied = (
-				shogiGame.board.IsPromotionZone( currAction.StartX, currAction.StartY, PlayerId ) ||
-				shogiGame.board.IsPromotionZone( currAction.DestinationX, currAction.DestinationY, PlayerId )
-			);
-
-			if (canPromote && promotionRequirementSatisfied) {
-				bool canMoveAgain = actingPiece.DefaultMovement.GetAvailableMoves( currAction.DestinationX, currAction.DestinationY ).Any();
-				if (canMoveAgain == false) {
-					//Force promotion
-					currMoveAction.Request_PromotePiece = true;
-				} else {
-					//Display Ui to decide if promotion needs to be done.
-					//set actionReady after ui click
-					currMoveAction.Request_PromotePiece = await GetComponent<IPromotionPromter>().GetPromotionChoice();
-				}
-			}
 		}
 	}
 }

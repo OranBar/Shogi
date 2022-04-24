@@ -66,6 +66,10 @@ namespace Shogi
 		}
 
 		private void HandlePromotion( ShogiGame game ) {
+			if(ActingPiece.IsPromoted){
+				return;
+			}
+			
 			if (MustPromoteAfterMove( game )) {
 				ActingPiece.Promote();
 			}
@@ -94,6 +98,9 @@ namespace Shogi
 			bool canPromote = ActingPiece.HasPromotion();
 			if (canPromote == false) {
 				return false; 
+			}
+			if (ActingPiece.IsPromoted) {
+				return false;
 			}
 
 			return game.board.IsPromotionZone( StartX, StartY, ActingPiece.OwnerId ) ||
