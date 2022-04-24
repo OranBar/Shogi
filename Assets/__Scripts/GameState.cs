@@ -46,7 +46,11 @@ namespace Shogi
 		}
 
 		public override string ToString() {
-			var resultArr = piecesData.Select( p => (p.x, p.y)).OrderBy( pos => pos.x + pos.y * 10 ).ToList();
+			var resultArr = piecesData
+				.Select( p => (p.x, p.y))
+				.OrderBy( pos => pos.x + pos.y * 10 )
+				.ToList();
+				
 			return resultArr.ToStringPretty();
 		}
 		#endregion
