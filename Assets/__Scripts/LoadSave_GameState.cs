@@ -1,10 +1,14 @@
 
+using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
 namespace Shogi{
 	public class LoadSave_GameState : MonoBehaviour {
 		[Auto] ShogiGame gameManager;
 
+		#region GameState Save/Load
 		public void SaveGameState( GameState gameState, string path ) {
 			string json = JsonUtility.ToJson( gameState );
 			Debug.Log( json );
@@ -34,5 +38,26 @@ namespace Shogi{
 			GameState gameState = LoadGameState( path );
 			gameManager.ApplyGameState( gameState );
 		}
-	}
+		#endregion
+
+		#region GameHistory Save/Load
+
+		// public void SaveGameHistory( GameHistory toSave, string path ) {
+		// 	string json = JsonUtility.ToJson( toSave );
+		// 	Debug.Log( json );
+
+		// 	toSave.SerializeToBinaryFile( path );
+		// }
+
+		// public GameState LoadGameHistory( string path ) {
+		// 	GameState result = GameState.DeserializeFromBinaryFile( path );
+			
+		// 	string json = JsonUtility.ToJson( result );
+		// 	Debug.Log( json );
+			
+		// 	return result;
+		// }
+
+		#endregion
+}
 }

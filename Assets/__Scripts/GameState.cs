@@ -28,22 +28,14 @@ namespace Shogi
 		}
 
 		#region Binary Serialization and Deserialization
-		public void SerializeToBinaryFile(string savePath){
-			IFormatter formatter = new BinaryFormatter();
-			Stream stream = new FileStream( savePath, FileMode.Create, FileAccess.Write, FileShare.None );
-			formatter.Serialize( stream, this );
-			stream.Close();
-			Debug.Log( "File serialized at " + savePath );
+		public void SerializeToBinaryFile( string savePath ) {
+			SerializationUtils.SerializeToBinaryFile( this, savePath );
 		}
 
-		public static GameState DeserializeFromBinaryFile(string filePath){
-			IFormatter formatter = new BinaryFormatter();
-			Stream stream = new FileStream( filePath, FileMode.Open, FileAccess.Read, FileShare.Read );
-			GameState deserializedData = (GameState)formatter.Deserialize( stream );
-			stream.Close();
-
-			return deserializedData;
+		public static GameState DeserializeFromBinaryFile( string filePath ) {
+			return SerializationUtils.DeserializeFromBinaryFile<GameState>( filePath );
 		}
+
 
 		public override string ToString() {
 			var resultArr = piecesData

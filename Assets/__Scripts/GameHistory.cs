@@ -1,5 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+using UnityEngine;
 
 namespace Shogi
 {
@@ -20,6 +24,17 @@ namespace Shogi
 			}
 			playedMoves.Push( action );
 		}
+
+		#region Binary Serialization and Deserialization
+		public void SerializeToBinaryFile( string savePath ) {
+			SerializationUtils.SerializeToBinaryFile(this, savePath);
+		}
+
+		public static GameHistory DeserializeFromBinaryFile( string filePath ) {
+			return SerializationUtils.DeserializeFromBinaryFile<GameHistory>( filePath );
+		}
+
+		#endregion
 	}
 	
 }
