@@ -92,6 +92,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 563f5ec0bb1e01945b53b5c827387fc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 99979510049307499}
+    - {fileID: -6664581634686616683}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: owner
+      Entry: 6
+      Data: 
+    - Name: defaultMovement
+      Entry: 10
+      Data: 0
+    - Name: promotedMovement
+      Entry: 10
+      Data: 1
   pieceData:
     x: 0
     y: 3
@@ -99,8 +119,6 @@ MonoBehaviour:
     isPromoted: 0
     owner: 0
     isCaptured: 0
-  _defaultMovement: {fileID: 99979510049307499}
-  _promotedMovement: {fileID: -6664581634686616683}
   defaultImage: {fileID: 2317789545884918154}
   promotedImage: {fileID: 0}
   rectTransform: {fileID: 0}

@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using AYellowpaper;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -21,7 +20,7 @@ namespace Shogi
 		public bool isCaptured;
 	}
 
-	public class Piece : MonoBehaviour, IPointerClickHandler
+	public class Piece : Sirenix.OdinInspector.SerializedMonoBehaviour, IPointerClickHandler
 	{
 	
 		public PieceData pieceData;
@@ -34,7 +33,7 @@ namespace Shogi
 			get { return pieceData.isPromoted; }
 			set {
 				if (pieceData.isPromoted == value) { return; }
-				
+
 				pieceData.isPromoted = value; 
 				if(value){
 					Promote();
@@ -61,38 +60,41 @@ namespace Shogi
 		}
 
 		public IPlayer owner;
-		
+
 		#region Movement Strategy
-		//We're doing depencenty injection by referencing MB from inspector
-		[SerializeField, RequireInterface( typeof( IMovementStrategy ) )]
-		private Object _defaultMovement;
+		public IMovementStrategy defaultMovement;
+		public IMovementStrategy promotedMovement;
+		private IMovementStrategy dropMovement;
 
-		public IMovementStrategy DefaultMovement
-		{
-			get => _defaultMovement as IMovementStrategy;
-			set => _defaultMovement = (Object)value;
-		}
+		// //We're doing depencenty injection by referencing MB from inspector
+		// [SerializeField, RequireInterface( typeof( IMovementStrategy ) )]
+		// private Object _defaultMovement;
 
-		[SerializeField, RequireInterface( typeof( IMovementStrategy ) )]
-		private Object _promotedMovement;
-		public IMovementStrategy PromotedMovement
-		{
-			get => _promotedMovement as IMovementStrategy;
-			set => _promotedMovement = (Object)value;
-		}
+		// public IMovementStrategy DefaultMovement
+		// {
+		// 	get => _defaultMovement as IMovementStrategy;
+		// 	set => _defaultMovement = (Object)value;
+		// }
+
+		// [SerializeField, RequireInterface( typeof( IMovementStrategy ) )]
+		// private Object _promotedMovement;
+		// public IMovementStrategy PromotedMovement
+		// {
+		// 	get => _promotedMovement as IMovementStrategy;
+		// 	set => _promotedMovement = (Object)value;
+		// }
 		
 		#endregion
 
-		private IMovementStrategy dropMovementStrategy;
 		public IMovementStrategy MovementStrategy{
 			get{
 				if(IsCaptured){
-					return dropMovementStrategy;
+					return dropMovement;
 				}
 				if(IsPromoted){
-					return PromotedMovement;
+					return promotedMovement;
 				}
-				return DefaultMovement;
+				return defaultMovement;
 			}
 		}
 
@@ -106,7 +108,7 @@ namespace Shogi
 		void Awake() {
 			board = FindObjectOfType<Board>();
 			gameManager = FindObjectOfType<ShogiGame>();
-			dropMovementStrategy = this.gameObject.AddOrGetComponent<DropMovement>();
+			dropMovement = this.gameObject.AddOrGetComponent<DropMovement>();
 			
 			owner = FindObjectsOfType<HumanPlayer>().First( p => p.PlayerId == OwnerId );
 		}
@@ -161,7 +163,7 @@ namespace Shogi
 		}
 
 		public bool HasPromotion() {
-			bool hasPromotion = PromotedMovement != null;
+			bool hasPromotion = promotedMovement != null;
 			return hasPromotion;
 		}
 

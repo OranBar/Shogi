@@ -5,14 +5,13 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
-using AYellowpaper;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Object = UnityEngine.Object; 
 
 namespace Shogi
 {
-	public class ShogiGame : MonoBehaviour
+	public class ShogiGame : Sirenix.OdinInspector.SerializedMonoBehaviour
 	{
 		#region Events
 		public static Action<Cell> OnAnyCellClicked;
@@ -37,22 +36,10 @@ namespace Shogi
 		
 		#endregion
 
-		[SerializeField, RequireInterface( typeof( IPlayer ) )]
-		private Object _player1;
-		public IPlayer Player1
-		{
-			get => _player1 as IPlayer;
-			set => _player1 = (Object)value;
-		}
-		[SerializeField, RequireInterface( typeof( IPlayer ) )]
-		private Object _player2;
-		public IPlayer Player2
-		{
-			get => _player2 as IPlayer;
-			set => _player2 = (Object)value;
-		}
+		public IPlayer Player1;
+		public IPlayer Player2;
 		#region ToSerialize
-		
+
 		private PlayerId _currPlayer_turn;
 		public IPlayer CurrPlayer_turn {
 			get

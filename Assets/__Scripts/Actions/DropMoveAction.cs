@@ -37,7 +37,7 @@ namespace Shogi
 
 		public override bool IsMoveValid( ShogiGame game ) {
 			bool isValidPieceMovement = ActingPiece.GetValidMoves().Any( m => m.x == DestinationX && m.y == DestinationY );
-			bool willBeAbleToMove_FromDestination = ActingPiece.DefaultMovement.GetAvailableMoves( DestinationX, DestinationY ).Any();
+			bool willBeAbleToMove_FromDestination = ActingPiece.defaultMovement.GetAvailableMoves( DestinationX, DestinationY ).Any();
 
 			if(ActingPiece.PieceType == PieceType.Pawn){
 				if(AnyUnpromotedPawns_OnColumn()){

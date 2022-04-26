@@ -78,7 +78,7 @@ namespace Shogi
 
 		public bool MustPromoteAfterMove( ShogiGame game ) {
 			if (IsPromotionRequirementSatisfied(game)) {
-				bool canMoveAgain = ActingPiece.DefaultMovement.GetAvailableMoves( DestinationX, DestinationY ).Any();
+				bool canMoveAgain = ActingPiece.defaultMovement.GetAvailableMoves( DestinationX, DestinationY ).Any();
 				if (canMoveAgain == false) {
 					return true;
 				}
