@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Shogi{
-	public class Foo : MonoBehaviour
+	public class Foo : SerializedMonoBehaviour
 	{
+		[SceneObjectsOnly]
+		public IPlayer player;
 		[ContextMenu( "AssignCellPosition" )]
 		void AssignCellPosition() {
 			// List<Cell> cells = GetComponentsInChildren<Cell>().ToList();
