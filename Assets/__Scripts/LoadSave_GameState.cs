@@ -2,6 +2,7 @@
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Shogi{
@@ -42,22 +43,43 @@ namespace Shogi{
 
 		#region GameHistory Save/Load
 
-		// public void SaveGameHistory( GameHistory toSave, string path ) {
-		// 	string json = JsonUtility.ToJson( toSave );
-		// 	Debug.Log( json );
+		public void SaveGameHistory( GameHistory toSave, string path ) {
+			string json = JsonUtility.ToJson( toSave );
+			Debug.Log( json );
 
-		// 	toSave.SerializeToBinaryFile( path );
-		// }
+			toSave.SerializeToBinaryFile( path );
+		}
 
-		// public GameState LoadGameHistory( string path ) {
-		// 	GameState result = GameState.DeserializeFromBinaryFile( path );
+		public GameHistory LoadGameHistory( string path ) {
+			GameHistory result = GameHistory.DeserializeFromBinaryFile( path );
 			
-		// 	string json = JsonUtility.ToJson( result );
-		// 	Debug.Log( json );
+			string json = JsonUtility.ToJson( result );
+			Debug.Log( json );
 			
-		// 	return result;
-		// }
+			return result;
+		}
 
+		[ContextMenu( "Save History" )]
+		public void SaveGameHistory_Editor() {
+			string path = Application.persistentDataPath + $"/{fileName}.bin";
+			SaveGameHistory( gameManager.gameHistory, path );
+		}
+
+		[ContextMenu("Load History")]
+		public async UniTask ApplyGameHistory_Editor() {
+			string path = Application.persistentDataPath + $"/{fileName}.bin";
+			GameHistory loadedGameHistory = LoadGameHistory( path );
+			// gameManager.gameHistory = loadedGameHistory;
+			// Load initial gamestate
+			gameManager.ApplyGameState( loadedGameHistory.initialGameState );
+			// Apply all moves one after the other
+			Debug.Log("Loaded initial game state");
+			foreach( var move in loadedGameHistory.playedMoves){
+				await move.ExecuteAction( gameManager );
+			}
+
+			Debug.Log("All moves applied");
+		}
 		#endregion
-}
+	}
 }

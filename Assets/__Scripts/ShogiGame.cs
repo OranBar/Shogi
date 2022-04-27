@@ -72,10 +72,8 @@ namespace Shogi
 		}
 
 		void Start() {
-			board.RefreshWithPiecesInScene();
-			player1_sideboard.RefreshWithPiecesInScene();
-			player2_sideboard.RefreshWithPiecesInScene();
-			
+			RefreshMonobehavioursInScene();
+
 			BeginGame( PlayerId.Player1 );
 		}
 
@@ -125,8 +123,12 @@ namespace Shogi
 		}
 
 		//? Forse questa funzione dovrei metterle in LoadSave_GameState
-		public void ApplyGameState(GameState state){
+		public void ApplyGameState(GameState state) {
 			ReassignPiecesData( state );
+			RefreshMonobehavioursInScene();
+		}
+
+		private void RefreshMonobehavioursInScene() {
 			player1_sideboard.RefreshWithPiecesInScene();
 			player2_sideboard.RefreshWithPiecesInScene();
 			board.RefreshWithPiecesInScene();
