@@ -8,7 +8,7 @@ namespace Shogi
 		public int StartY { get; set; }
 		public int DestinationX { get; set; }
 		public int DestinationY { get; set; }
-		public Piece ActingPiece{ get; }
+		// public Piece ActingPiece{ get; }
 		UniTask ExecuteAction( ShogiGame game );
 		UniTask UndoAction( ShogiGame game );
 		bool IsMoveValid( ShogiGame game );

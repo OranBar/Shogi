@@ -19,27 +19,30 @@ namespace Shogi
 
 		public override async UniTask ExecuteAction( ShogiGame game ) {
 			base.ExecuteAction(game).Forget();
-			UnityEngine.Debug.Log($"Dropping piece {ActingPiece} on ({DestinationX},{DestinationY})");
+			var actingPiece = GetActingPiece( game );
+			UnityEngine.Debug.Log($"Dropping piece {actingPiece} on ({DestinationX},{DestinationY})");
 
-			game.GetSideBoard( ActingPiece.OwnerId ).RemoveCapturedPiece( ActingPiece );
-			await ActingPiece.PieceMovementAnimation( DestinationX, DestinationY );
+			game.GetSideBoard( actingPiece.OwnerId ).RemoveCapturedPiece( actingPiece );
+			await actingPiece.PieceMovementAnimation( DestinationX, DestinationY );
 
 			//Update game data structures
-			UpdateBoard( game );
-			ActingPiece.X = DestinationX;
-			ActingPiece.Y = DestinationY;
-			ActingPiece.IsCaptured = false;
+			UpdateBoard( game, actingPiece );
+			actingPiece.X = DestinationX;
+			actingPiece.Y = DestinationY;
+			actingPiece.IsCaptured = false;
 		}
 
-		public void UpdateBoard( ShogiGame game ) {
-			game.board [DestinationX, DestinationY] = ActingPiece;
+		public void UpdateBoard( ShogiGame game, Piece actingPiece ) {
+			game.board [DestinationX, DestinationY] = actingPiece;
 		}
 
 		public override bool IsMoveValid( ShogiGame game ) {
-			bool isValidPieceMovement = ActingPiece.GetValidMoves().Any( m => m.x == DestinationX && m.y == DestinationY );
-			bool willBeAbleToMove_FromDestination = ActingPiece.defaultMovement.GetAvailableMoves( DestinationX, DestinationY ).Any();
+			var actingPiece = GetActingPiece( game );
 
-			if(ActingPiece.PieceType == PieceType.Pawn){
+			bool isValidPieceMovement = actingPiece.GetValidMoves().Any( m => m.x == DestinationX && m.y == DestinationY );
+			bool willBeAbleToMove_FromDestination = actingPiece.defaultMovement.GetAvailableMoves( DestinationX, DestinationY ).Any();
+
+			if(actingPiece.PieceType == PieceType.Pawn){
 				if(AnyUnpromotedPawns_OnColumn()){
 					isValidPieceMovement = false;
 				}

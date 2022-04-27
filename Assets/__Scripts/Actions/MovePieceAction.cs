@@ -23,12 +23,11 @@ namespace Shogi
 
 		public override async UniTask ExecuteAction( ShogiGame game ) {
 			base.ExecuteAction( game ).Forget();
-			Board board = game.board;
-			var actingPiece = board[StartX, StartY];
+			var actingPiece = GetActingPiece( game );
+
 			UnityEngine.Debug.Log( $"Moving piece {actingPiece} on ({DestinationX},{DestinationY})" );
 
-
-			capturedPiece = board[DestinationX, DestinationY];
+			capturedPiece = game.board[DestinationX, DestinationY];
 			bool wasCapturingMove = capturedPiece != null && capturedPiece.owner != actingPiece.owner;
 
 			if (wasCapturingMove) {
@@ -38,47 +37,48 @@ namespace Shogi
 			await actingPiece.PieceMovementAnimation( DestinationX, DestinationY );
 
 			//Update game data structures
-			UpdateBoard( board );
+			UpdateBoard( game.board, actingPiece );
 			actingPiece.X = DestinationX;
 			actingPiece.Y = DestinationY;
 
-			HandlePromotion(game);
+			HandlePromotion( game, actingPiece );
 		}
 
-		public void UpdateBoard( Board board ) {
-			Piece piece = board [StartX, StartY];
-			board [piece.X, piece.Y] = null;
-			board [DestinationX, DestinationY] = piece;
+		public void UpdateBoard( Board board, Piece actingPiece ) {
+			board [actingPiece.X, actingPiece.Y] = null;
+			board [DestinationX, DestinationY] = actingPiece;
 		}
 
 		public override bool IsMoveValid( ShogiGame game ) {
-			var actingPiece = game.board[StartX, StartY];
+			var actingPiece = GetActingPiece( game );
 			bool isValidPieceMovement = actingPiece.GetValidMoves().Any( m => m.x == DestinationX && m.y == DestinationY );
 
 			return isValidPieceMovement;
 		}
 
-		private void HandlePromotion( ShogiGame game ) {
-			if(ActingPiece.IsPromoted){
+		private void HandlePromotion( ShogiGame game, Piece actingPiece ) {
+			if(actingPiece.IsPromoted){
 				return;
 			}
 			
-			if (MustPromoteAfterMove( game )) {
-				ActingPiece.IsPromoted = true;
+			if (MustPromoteAfterMove( game, actingPiece )) {
+				actingPiece.IsPromoted = true;
 			}
 
-			if (IsPromotionRequirementSatisfied( game ) && Request_PromotePiece) {
-				ActingPiece.IsPromoted = true;
+			if (IsPromotionRequirementSatisfied( game, actingPiece ) && Request_PromotePiece) {
+				actingPiece.IsPromoted = true;
 			}
 		}
 
-		public bool CanChooseToPromote( ShogiGame game ) {
-			return IsPromotionRequirementSatisfied(game) && MustPromoteAfterMove( game ) == false;
+		public bool CanChooseToPromote_MovedPiece( ShogiGame game ) {
+			var actingPiece = GetActingPiece( game );
+
+			return IsPromotionRequirementSatisfied( game, actingPiece ) && (MustPromoteAfterMove( game, actingPiece ) == false);
 		}
 
-		public bool MustPromoteAfterMove( ShogiGame game ) {
-			if (IsPromotionRequirementSatisfied(game)) {
-				bool canMoveAgain = ActingPiece.defaultMovement.GetAvailableMoves( DestinationX, DestinationY ).Any();
+		public bool MustPromoteAfterMove( ShogiGame game, Piece actingPiece ) {
+			if (IsPromotionRequirementSatisfied(game, actingPiece )) {
+				bool canMoveAgain = actingPiece.defaultMovement.GetAvailableMoves( DestinationX, DestinationY ).Any();
 				if (canMoveAgain == false) {
 					return true;
 				}
@@ -87,17 +87,17 @@ namespace Shogi
 			return false;
 		}
 
-		private bool IsPromotionRequirementSatisfied(ShogiGame game){
-			bool canPromote = ActingPiece.HasPromotion();
+		private bool IsPromotionRequirementSatisfied(ShogiGame game, Piece actingPiece ){
+			bool canPromote = actingPiece.HasPromotion();
 			if (canPromote == false) {
 				return false; 
 			}
-			if (ActingPiece.IsPromoted) {
+			if (actingPiece.IsPromoted) {
 				return false;
 			}
 
-			return game.board.IsPromotionZone( StartX, StartY, ActingPiece.OwnerId ) ||
-				game.board.IsPromotionZone( DestinationX, DestinationY, ActingPiece.OwnerId );
+			return game.board.IsPromotionZone( StartX, StartY, actingPiece.OwnerId ) ||
+				game.board.IsPromotionZone( DestinationX, DestinationY, actingPiece.OwnerId );
 		}
 	}
 }

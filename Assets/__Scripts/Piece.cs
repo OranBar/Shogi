@@ -43,8 +43,6 @@ namespace Shogi
 			}
 		}
 
-		
-		
 		public PlayerId OwnerId {
 			get { return pieceData.owner; }
 			set {
@@ -61,30 +59,9 @@ namespace Shogi
 
 		public IPlayer owner;
 
-		#region Movement Strategy
 		public IMovementStrategy defaultMovement;
 		public IMovementStrategy promotedMovement;
 		private IMovementStrategy dropMovement;
-
-		// //We're doing depencenty injection by referencing MB from inspector
-		// [SerializeField, RequireInterface( typeof( IMovementStrategy ) )]
-		// private Object _defaultMovement;
-
-		// public IMovementStrategy DefaultMovement
-		// {
-		// 	get => _defaultMovement as IMovementStrategy;
-		// 	set => _defaultMovement = (Object)value;
-		// }
-
-		// [SerializeField, RequireInterface( typeof( IMovementStrategy ) )]
-		// private Object _promotedMovement;
-		// public IMovementStrategy PromotedMovement
-		// {
-		// 	get => _promotedMovement as IMovementStrategy;
-		// 	set => _promotedMovement = (Object)value;
-		// }
-		
-		#endregion
 
 		public IMovementStrategy MovementStrategy{
 			get{

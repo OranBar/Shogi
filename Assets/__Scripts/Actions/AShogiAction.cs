@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 
 namespace Shogi{
@@ -9,16 +10,16 @@ namespace Shogi{
 		public int StartX { get => _startX; set => _startX = value; }
 		public int DestinationX { get => _destinationX; set => _destinationX = value; }
 		public int DestinationY { get => _destinationY; set => _destinationY = value; }
-		public Piece ActingPiece { get => _actingPiece; set => _actingPiece = value; }
+		// protected Piece ActingPiece { get; set; }
 
 		private int _startX;
 		private int startY;
 		private int _destinationY;
 		private int _destinationX;
-		private Piece _actingPiece;
+		private PieceData _actingPieceData;
 
 		private GameState gameState_beforeMove;
-
+		
 		public AShogiAction(){
 
 		}
@@ -26,15 +27,25 @@ namespace Shogi{
 		public AShogiAction( Piece piece ) {
 			this.StartX = piece.X;
 			this.StartY = piece.Y;
-			this._actingPiece = piece;
+			this._actingPieceData = piece.pieceData;
 		}
 
 		public AShogiAction( Piece piece, int destinationX, int destinationY ) {
 			this.StartX = piece.X;
 			this.StartY = piece.Y;
-			this._actingPiece = piece;
+			this._actingPieceData = piece.pieceData;
 			this.DestinationX = destinationX;
 			this.DestinationY = destinationY;
+		}
+
+		//TODO: virtual
+		public Piece GetActingPiece( ShogiGame game ) {
+			if (_actingPieceData.isCaptured) {
+				var sideboard = game.GetSideBoard( _actingPieceData.owner );
+				return sideboard.CapturedPieces.First( p => p.PieceType == _actingPieceData.pieceType );
+			} else {
+				return game.board [StartX, StartY];
+			}
 		}
 
 		public override string ToString() {
@@ -45,6 +56,7 @@ namespace Shogi{
 			//save gamestate
 			gameState_beforeMove = new GameState( game );
 		}
+
 		public async UniTask UndoAction( ShogiGame game ){
 			//reload gamestate
 			if(gameState_beforeMove == null){
