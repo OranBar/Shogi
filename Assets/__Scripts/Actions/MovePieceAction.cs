@@ -9,7 +9,6 @@ namespace Shogi
 	{
 		public bool Request_PromotePiece { get => _promotePiece; set => _promotePiece = value; }
 		private bool _promotePiece = false;
-		private Piece capturedPiece;
 
 		public MovePieceAction( Piece piece ) : base( piece ) {
 		}
@@ -27,7 +26,7 @@ namespace Shogi
 
 			UnityEngine.Debug.Log( $"Moving piece {actingPiece} on ({DestinationX},{DestinationY})" );
 
-			capturedPiece = game.board[DestinationX, DestinationY];
+			var capturedPiece = game.board[DestinationX, DestinationY];
 			bool wasCapturingMove = capturedPiece != null && capturedPiece.owner != actingPiece.owner;
 
 			if (wasCapturingMove) {

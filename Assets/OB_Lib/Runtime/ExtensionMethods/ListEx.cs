@@ -114,13 +114,13 @@ public static class ListEx
         if(list.Count == 0){
 			throw new InvalidOperationException("Trying to Pop an element from an empty list");
 		}
-		var result = list [0];
-		list.RemoveAt(0);
+		var result = list.Last();
+		list.RemoveAt( list.Count -1 );
 		return result;
 	}
 
 	public static void Push<T>( this List<T> list, T element ) {
-		list.Insert( 0, element );
+		list.Add( element );
 	}
 
     public static T GetRandomElement<T>(this List<T> list){

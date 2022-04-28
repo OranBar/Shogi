@@ -23,6 +23,7 @@ namespace Shogi
 				return;
 			}
 			playedMoves.Push( action );
+			Debug.Log("<GameHistory> New move Registered");
 		}
 
 		#region Binary Serialization and Deserialization

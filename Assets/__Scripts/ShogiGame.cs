@@ -74,7 +74,9 @@ namespace Shogi
 		void Start() {
 			RefreshMonobehavioursInScene();
 
-			BeginGame( PlayerId.Player1 );
+			var startingPlayer = PlayerId.Player1;
+			gameHistory = new GameHistory( new GameState( this ), startingPlayer );
+			BeginGame( startingPlayer );
 		}
 
 		void OnDisable(){
@@ -89,15 +91,13 @@ namespace Shogi
 
 		private async UniTask BeginGameAsync( PlayerId startingPlayer ) {
 			_currPlayer_turn = startingPlayer;
-			gameHistory = new GameHistory( new GameState( this ), startingPlayer );
+			// gameHistory = new GameHistory( new GameState( this ), startingPlayer );
 
 			( (MonoBehaviour)Player1 ).enabled = false;
 			( (MonoBehaviour)Player2 ).enabled = false;
 			( (MonoBehaviour)Player1 ).enabled = true;
 			( (MonoBehaviour)Player2 ).enabled = true;
 			
-			_currPlayer_turn = startingPlayer;
-
 			while(isGameOver == false && manualOverride == false){
 				Debug.Log("Awaiting Turn: "+_currPlayer_turn.ToString());
 				IShogiAction action = await CurrPlayer_turn.RequestAction().AttachExternalCancellation( gameLoopCancelToken.Token );
@@ -146,7 +146,5 @@ namespace Shogi
 				currPieceObj.IsCaptured = piece.isCaptured;
 			}
 		}
-
-		
 	}
 }

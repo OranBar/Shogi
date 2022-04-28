@@ -1,5 +1,6 @@
 
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using Cysharp.Threading.Tasks;
@@ -69,16 +70,33 @@ namespace Shogi{
 		public async UniTask ApplyGameHistory_Editor() {
 			string path = Application.persistentDataPath + $"/{fileName}.bin";
 			GameHistory loadedGameHistory = LoadGameHistory( path );
-			// gameManager.gameHistory = loadedGameHistory;
-			// Load initial gamestate
+			
 			gameManager.ApplyGameState( loadedGameHistory.initialGameState );
-			// Apply all moves one after the other
-			Debug.Log("Loaded initial game state");
-			foreach( var move in loadedGameHistory.playedMoves){
+			gameManager.gameHistory = loadedGameHistory;
+			Debug.Log( "Loaded initial game state" );
+
+			//Alter timescale to fast forward?
+			foreach (var move in loadedGameHistory.playedMoves) {
 				await move.ExecuteAction( gameManager );
 			}
 
-			Debug.Log("All moves applied");
+			PlayerId nextPlayerTurn = GetPlayer_WhoMovesNext( loadedGameHistory );
+			gameManager.BeginGame( nextPlayerTurn );
+
+			Debug.Log( "All moves applied" );
+
+			
+			
+			PlayerId GetPlayer_WhoMovesNext( GameHistory loadedGameHistory ) {
+				PlayerId nextPlayerTurn;
+				if (loadedGameHistory.playedMoves.Count % 2 == 0) {
+					nextPlayerTurn = loadedGameHistory.firstToMove;
+				} else {
+					nextPlayerTurn = loadedGameHistory.firstToMove == PlayerId.Player1 ? PlayerId.Player2 : PlayerId.Player1;
+				}
+
+				return nextPlayerTurn;
+			}
 		}
 		#endregion
 	}
