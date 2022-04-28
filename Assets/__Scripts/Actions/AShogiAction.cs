@@ -6,14 +6,14 @@ namespace Shogi{
 	[Serializable]
 	public abstract class AShogiAction : IShogiAction
 	{
-		public int StartY { get => startY; set => startY = value; }
+		public int StartY { get => _startY; set => _startY = value; }
 		public int StartX { get => _startX; set => _startX = value; }
 		public int DestinationX { get => _destinationX; set => _destinationX = value; }
 		public int DestinationY { get => _destinationY; set => _destinationY = value; }
 		// protected Piece ActingPiece { get; set; }
 
 		private int _startX;
-		private int startY;
+		private int _startY;
 		private int _destinationY;
 		private int _destinationX;
 		private PieceData _actingPieceData;
