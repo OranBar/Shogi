@@ -14,10 +14,14 @@ namespace Shogi
 	public class ShogiGame : Sirenix.OdinInspector.SerializedMonoBehaviour
 	{
 		#region Events
+		//Those statics are gonna become a problem someday. The shouldn't be static.
+		//When I'll find myself with 2 or more instances of ShogiGame, everything will crumble. 
 		public static Action<Cell> OnAnyCellClicked;
 		public static Action<Piece> OnAnyPieceClicked;
 		public static RefAction<Piece> OnPlayer1_PieceClicked = new RefAction<Piece>();
 		public static RefAction<Piece> OnPlayer2_PieceClicked;
+		public static RefAction<PlayerId> OnNewTurnBegun = new RefAction<PlayerId>();
+
 		public static RefAction<Piece> Get_OnPieceClickedEvent( PlayerId player ) {
 			return player == PlayerId.Player1 ? OnPlayer1_PieceClicked : OnPlayer2_PieceClicked;
 		}
@@ -40,11 +44,11 @@ namespace Shogi
 		public IPlayer Player2;
 		#region ToSerialize
 
-		private PlayerId _currPlayer_turn;
-		public IPlayer CurrPlayer_turn {
+		private PlayerId _currTurn_PlayerId;
+		public IPlayer CurrTurn_Player {
 			get
 			{
-				return _currPlayer_turn == PlayerId.Player1 ? Player1 : Player2;
+				return _currTurn_PlayerId == PlayerId.Player1 ? Player1 : Player2;
 			}
 		}
 
@@ -58,6 +62,7 @@ namespace Shogi
 
 		public Piece[] AllPieces => FindObjectsOfType<Piece>();
 
+
 		public bool manualOverride;
 		private bool isGameOver;
 		private CancellationTokenSource gameLoopCancelToken;
@@ -68,6 +73,7 @@ namespace Shogi
 			OnAnyPieceClicked = ( _ ) => { };
 			OnPlayer1_PieceClicked = new RefAction<Piece>();
 			OnPlayer2_PieceClicked = new RefAction<Piece>();
+			OnNewTurnBegun = new RefAction<PlayerId>();
 			RegisterPieceClickedEvents_Invocation();
 		}
 
@@ -90,7 +96,7 @@ namespace Shogi
 		}
 
 		private async UniTask BeginGameAsync( PlayerId startingPlayer ) {
-			_currPlayer_turn = startingPlayer;
+			_currTurn_PlayerId = startingPlayer;
 			// gameHistory = new GameHistory( new GameState( this ), startingPlayer );
 
 			( (MonoBehaviour)Player1 ).enabled = false;
@@ -99,8 +105,9 @@ namespace Shogi
 			( (MonoBehaviour)Player2 ).enabled = true;
 			
 			while(isGameOver == false && manualOverride == false){
-				Debug.Log("Awaiting Turn: "+_currPlayer_turn.ToString());
-				IShogiAction action = await CurrPlayer_turn.RequestAction().AttachExternalCancellation( gameLoopCancelToken.Token );
+				Debug.Log("Awaiting Turn: "+_currTurn_PlayerId.ToString());
+				OnNewTurnBegun.Invoke( _currTurn_PlayerId );
+				IShogiAction action = await CurrTurn_Player.RequestAction().AttachExternalCancellation( gameLoopCancelToken.Token );
 				if (action.IsMoveValid( this )) {
 					Debug.Log("Valid Move: Executing");
 					await action.ExecuteAction( this ).AttachExternalCancellation( gameLoopCancelToken.Token );
@@ -119,7 +126,7 @@ namespace Shogi
 		}
 
 		private void AdvanceTurn() {
-			_currPlayer_turn = (_currPlayer_turn == PlayerId.Player1) ? PlayerId.Player2 : PlayerId.Player1;
+			_currTurn_PlayerId = (_currTurn_PlayerId == PlayerId.Player1) ? PlayerId.Player2 : PlayerId.Player1;
 		}
 
 		//? Forse questa funzione dovrei metterle in LoadSave_GameState

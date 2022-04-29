@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8004677806232032890}
   - component: {fileID: 8004677806232032889}
   - component: {fileID: -2752878344998197363}
+  - component: {fileID: 3654179833827461805}
   m_Layer: 5
   m_Name: Pawn
   m_TagString: Untagged
@@ -146,6 +147,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 113b924576b25574aa6178587b631cce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3654179833827461805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8004677806232032892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c02c223cce0cb264e85663b2177a68f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highlightObj: {fileID: 1169717453988321095}
 --- !u!1001 &5740766812001715374
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -287,6 +301,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71372188ad9cb2a4cab64f45c4746afc, type: 3}
+--- !u!1 &1169717453988321095 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6886258007810413545, guid: 71372188ad9cb2a4cab64f45c4746afc, type: 3}
+  m_PrefabInstance: {fileID: 5740766812001715374}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &7011518846871160358 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3379573021986554504, guid: 71372188ad9cb2a4cab64f45c4746afc, type: 3}

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4094493778057303692}
   - component: {fileID: -5115837620457174637}
   - component: {fileID: 2822989077105317914}
+  - component: {fileID: 9065273230480079729}
   m_Layer: 5
   m_Name: Lancer
   m_TagString: Untagged
@@ -146,6 +147,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 113b924576b25574aa6178587b631cce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &9065273230480079729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4094493778057303690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c02c223cce0cb264e85663b2177a68f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highlightObj: {fileID: 5537399528769174433}
 --- !u!1001 &1389409568475916360
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -313,5 +327,10 @@ MonoBehaviour:
 --- !u!224 &4444643151869225664 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3379573021986554504, guid: 71372188ad9cb2a4cab64f45c4746afc, type: 3}
+  m_PrefabInstance: {fileID: 1389409568475916360}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5537399528769174433 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6886258007810413545, guid: 71372188ad9cb2a4cab64f45c4746afc, type: 3}
   m_PrefabInstance: {fileID: 1389409568475916360}
   m_PrefabAsset: {fileID: 0}

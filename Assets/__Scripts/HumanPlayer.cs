@@ -56,6 +56,7 @@ namespace Shogi
 
 			piece.LogAvailableMoves();
 			Debug.Log($"<{PlayerName}> Piece Selected ({piece.X},{piece.Y})", piece.gameObject);
+			piece.GetComponent<IPieceHighlight>().SetHighlight(true);
 
 			ShogiGame.Get_OnPieceClickedEvent(OpponentId).Value += Select_PieceToCapture;
 			ShogiGame.OnAnyCellClicked += Select_CellToMove;
@@ -67,6 +68,7 @@ namespace Shogi
 			currAction.DestinationY = obj.y;
 
 			actionReady = true;
+			selectedPiece.GetComponent<IPieceHighlight>().SetHighlight( false );
 
 			ShogiGame.OnAnyCellClicked -= Select_CellToMove;
 		}

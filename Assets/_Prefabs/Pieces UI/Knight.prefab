@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 9087074038610965228}
   - component: {fileID: -3290743998031283221}
   - component: {fileID: -2444577913328039224}
+  - component: {fileID: 4094312669744424003}
   m_Layer: 5
   m_Name: Knight
   m_TagString: Untagged
@@ -146,6 +147,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 113b924576b25574aa6178587b631cce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4094312669744424003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9087074038610965226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c02c223cce0cb264e85663b2177a68f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highlightObj: {fileID: 8989218936739610933}
 --- !u!1001 &2544808472750248668
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -317,5 +331,10 @@ MonoBehaviour:
 --- !u!224 &988080605355724884 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3379573021986554504, guid: 71372188ad9cb2a4cab64f45c4746afc, type: 3}
+  m_PrefabInstance: {fileID: 2544808472750248668}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8989218936739610933 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6886258007810413545, guid: 71372188ad9cb2a4cab64f45c4746afc, type: 3}
   m_PrefabInstance: {fileID: 2544808472750248668}
   m_PrefabAsset: {fileID: 0}

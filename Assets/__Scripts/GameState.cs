@@ -23,7 +23,7 @@ namespace Shogi
 		public GameState( ShogiGame game)
 		{
 			piecesData = game.AllPieces.Select( p => p.pieceData ).ToArray();
-			currPlayerTurn = game.CurrPlayer_turn.PlayerId;
+			currPlayerTurn = game.CurrTurn_Player.PlayerId;
 			gameData = new GameData( game.Player1.PlayerName, game.Player2.PlayerName );
 		}
 

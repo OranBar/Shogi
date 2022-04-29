@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4610554103108687848}
   - component: {fileID: 4610554103108687852}
   - component: {fileID: 8764866743120805160}
+  - component: {fileID: 941852217953859865}
   m_Layer: 5
   m_Name: King
   m_TagString: Untagged
@@ -132,6 +133,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dec5c63576cdf8c48955ebd3d2d426ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &941852217953859865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4610554103108687850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c02c223cce0cb264e85663b2177a68f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highlightObj: {fileID: 6291311137462432706}
 --- !u!1001 &639472706539135019
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -301,3 +315,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &6291311137462432706 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6886258007810413545, guid: 71372188ad9cb2a4cab64f45c4746afc, type: 3}
+  m_PrefabInstance: {fileID: 639472706539135019}
+  m_PrefabAsset: {fileID: 0}
