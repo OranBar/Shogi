@@ -1,5 +1,19 @@
 {
   "dependencies": {
+    "barbaro.unity3d.auto": {
+      "version": "https://github.com/OranBar/AutoAttribute-for-Unity3d.git?path=Assets/Auto_Attribute",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "fa629ee2f93b9fbfee6db817397130a694b81620"
+    },
+    "barbaro.unity3d.oblib": {
+      "version": "https://github.com/OranBar/OBLib_Package_Unity3D.git?path=Assets/OB_Lib",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "3273301d4ceaf4002cb9319d112deae49292184b"
+    },
     "com.cysharp.unitask": {
       "version": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
       "depth": 0,
