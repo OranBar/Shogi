@@ -40,9 +40,9 @@ namespace Shogi
 		}
 
 		private void UnregisterAllCallbacks() {
-			ShogiGame.OnAnyCellClicked -= Select_CellToMove;
-			ShogiGame.Get_OnPieceClickedEvent( playerId ).Value -= Select_ActionPiece;
-			ShogiGame.Get_OnPieceClickedEvent( OpponentId ).Value -= Select_PieceToCapture;
+			Cell.OnAnyCellClicked -= Select_CellToMove;
+			shogiGame.Get_OnPieceClickedEvent( playerId ).Value -= Select_ActionPiece;
+			shogiGame.Get_OnPieceClickedEvent( OpponentId ).Value -= Select_PieceToCapture;
 			undoButton.onClick.RemoveListener( RequestUndo );
 		}
 
@@ -59,8 +59,8 @@ namespace Shogi
 			Debug.Log($"<{PlayerName}> Piece Selected ({piece.X},{piece.Y})", piece.gameObject);
 			piece.GetComponent<IPieceHighlight>().SetHighlight(true);
 
-			ShogiGame.Get_OnPieceClickedEvent(OpponentId).Value += Select_PieceToCapture;
-			ShogiGame.OnAnyCellClicked += Select_CellToMove;
+			shogiGame.Get_OnPieceClickedEvent(OpponentId).Value += Select_PieceToCapture;
+			Cell.OnAnyCellClicked += Select_CellToMove;
 		}
 
 		private void Select_CellToMove( Cell obj ) {
@@ -71,7 +71,7 @@ namespace Shogi
 			actionReady = true;
 			selectedPiece.GetComponent<IPieceHighlight>().SetHighlight( false );
 
-			ShogiGame.OnAnyCellClicked -= Select_CellToMove;
+			Cell.OnAnyCellClicked -= Select_CellToMove;
 		}
 
 		private void Select_PieceToCapture( Piece toCapture) {
@@ -82,13 +82,13 @@ namespace Shogi
 			actionReady = true;
 			selectedPiece?.GetComponent<IPieceHighlight>().SetHighlight( false );
 
-			ShogiGame.Get_OnPieceClickedEvent( OpponentId ).Value -= Select_PieceToCapture;
-			ShogiGame.OnAnyCellClicked -= Select_CellToMove;
+			shogiGame.Get_OnPieceClickedEvent( OpponentId ).Value -= Select_PieceToCapture;
+			Cell.OnAnyCellClicked -= Select_CellToMove;
 		}
 
 		public async UniTask<IShogiAction> RequestAction() {
 			undoButton.onClick.AddListener( RequestUndo );
-			ShogiGame.Get_OnPieceClickedEvent( playerId ).Value += Select_ActionPiece;
+			shogiGame.Get_OnPieceClickedEvent( playerId ).Value += Select_ActionPiece;
 
 			actionReady = false;
 			currAction = null;

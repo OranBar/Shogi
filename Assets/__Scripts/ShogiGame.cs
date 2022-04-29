@@ -16,18 +16,18 @@ namespace Shogi
 		#region Events
 		//Those statics are gonna become a problem someday. The shouldn't be static.
 		//When I'll find myself with 2 or more instances of ShogiGame, everything will crumble. 
-		public static Action<Cell> OnAnyCellClicked;
-		public static Action<Piece> OnAnyPieceClicked;
-		public static RefAction<Piece> OnPlayer1_PieceClicked = new RefAction<Piece>();
-		public static RefAction<Piece> OnPlayer2_PieceClicked;
-		public static RefAction<PlayerId> OnNewTurnBegun = new RefAction<PlayerId>();
+		// public RefAction<Cell> OnAnyCellClicked => Cell.OnAnyCellClicked;
+		// public RefAction<Piece> OnAnyPieceClicked => Piece.OnAnyPieceClicked;
+		public RefAction<Piece> OnPlayer1_PieceClicked = new RefAction<Piece>();
+		public RefAction<Piece> OnPlayer2_PieceClicked = new RefAction<Piece>();
+		public RefAction<PlayerId> OnNewTurnBegun = new RefAction<PlayerId>();
 
-		public static RefAction<Piece> Get_OnPieceClickedEvent( PlayerId player ) {
+		public RefAction<Piece> Get_OnPieceClickedEvent( PlayerId player ) {
 			return player == PlayerId.Player1 ? OnPlayer1_PieceClicked : OnPlayer2_PieceClicked;
 		}
 
 		void RegisterPieceClickedEvents_Invocation(){
-			ShogiGame.OnAnyPieceClicked += ( piece ) =>
+			Piece.OnAnyPieceClicked += ( piece ) =>
 			{
 				if (piece.OwnerId == PlayerId.Player1) {
 					OnPlayer1_PieceClicked.Value.Invoke( piece );
@@ -69,8 +69,8 @@ namespace Shogi
 		public GameHistory gameHistory = null;
 
 		void Awake(){
-			OnAnyCellClicked = ( _ ) => { };
-			OnAnyPieceClicked = ( _ ) => { };
+			Cell.OnAnyCellClicked = new RefAction<Cell>();
+			Piece.OnAnyPieceClicked = new RefAction<Piece>();
 			OnPlayer1_PieceClicked = new RefAction<Piece>();
 			OnPlayer2_PieceClicked = new RefAction<Piece>();
 			OnNewTurnBegun = new RefAction<PlayerId>();

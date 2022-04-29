@@ -8,13 +8,14 @@ namespace Shogi{
 	public class Cell : MonoBehaviour, IPointerDownHandler
 	{
 		public int x, y;
+		public static RefAction<Cell> OnAnyCellClicked = new RefAction<Cell>();
 
 		public void OnPointerDown( PointerEventData eventData ) {
-			ShogiGame.OnAnyCellClicked.Invoke( this );
+			Cell.OnAnyCellClicked.Invoke( this );
 		}
 
 		void OnMouseDown() {
-			ShogiGame.OnAnyCellClicked.Invoke( this );
+			Cell.OnAnyCellClicked.Invoke( this );
 		}
 
 	}

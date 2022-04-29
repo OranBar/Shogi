@@ -9,7 +9,7 @@ public class UpdateTurnText : MonoBehaviour
 	[Auto] public TMP_Text text;
 
 	void Start(){
-		ShogiGame.OnNewTurnBegun += UpdateText;
+		FindObjectOfType<ShogiGame>().OnNewTurnBegun += UpdateText;
 	}
 
 	void UpdateText(PlayerId currTurn_PlayerId){

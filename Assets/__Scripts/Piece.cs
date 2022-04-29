@@ -22,7 +22,8 @@ namespace Shogi
 
 	public class Piece : Sirenix.OdinInspector.SerializedMonoBehaviour, IPointerClickHandler
 	{
-	
+		public static RefAction<Piece> OnAnyPieceClicked = new RefAction<Piece>();
+
 		public PieceData pieceData;
 
 		public int X { get => pieceData.x; set => pieceData.x = value; }
@@ -156,7 +157,7 @@ namespace Shogi
 
 		public void OnPointerClick( PointerEventData eventData ) {
 			Debug.Log("Piece Clicked");
-			ShogiGame.OnAnyPieceClicked.Invoke(this);
+			Piece.OnAnyPieceClicked.Invoke(this);
 		}
 
 		public override string ToString() {
