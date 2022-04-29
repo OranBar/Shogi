@@ -47,6 +47,7 @@ namespace Shogi
 		}
 
 		void Select_ActionPiece(Piece piece){
+			selectedPiece?.GetComponent<IPieceHighlight>().SetHighlight( false );
 			selectedPiece = piece;
 			if (selectedPiece.IsCaptured == false) {
 				currAction = new MovePieceAction( selectedPiece );
@@ -79,6 +80,7 @@ namespace Shogi
 			currAction.DestinationY = toCapture.Y;
 
 			actionReady = true;
+			selectedPiece?.GetComponent<IPieceHighlight>().SetHighlight( false );
 
 			ShogiGame.Get_OnPieceClickedEvent( OpponentId ).Value -= Select_PieceToCapture;
 			ShogiGame.OnAnyCellClicked -= Select_CellToMove;
