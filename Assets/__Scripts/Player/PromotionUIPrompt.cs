@@ -47,8 +47,10 @@ namespace Shogi
 
 			dialogWindow.gameObject.SetActive( true );
 			Cell destinationCell = FindObjectsOfType<Cell>().First( c => c.x == action.DestinationX && c.y == action.DestinationY );
-			var targetDialogPosition = destinationCell.transform.position + new Vector3( 0, 0, 1 ) * 50;
+			float offsetDirection = action.GetActingPiece().OwnerId == PlayerId.Player1 ? -1 : 1;
+			var targetDialogPosition = destinationCell.transform.position + Vector3.up * 70 * offsetDirection;
 			dialogWindow.transform.position = targetDialogPosition;
+
 			await UniTask.WaitUntil( () => choiceWasMade );
 			dialogWindow.gameObject.SetActive( false );
 			return choiceIsPromotion;
