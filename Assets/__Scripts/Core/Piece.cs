@@ -81,9 +81,9 @@ namespace Shogi
 
 		#region Presentation
 		[Auto] private RectTransform rectTransform;
-		[Auto] public IPieceMoveActionFX moveFx;
+		public IPieceMoveActionFX moveFx;
 		// public PieceDropAnimation dropAnimation;
-		[Auto] public IPieceDeathFx deathFx;
+		public IPieceDeathFx deathFx;
 
 		
 		#endregion
@@ -94,6 +94,8 @@ namespace Shogi
 			dropMovement = this.gameObject.AddOrGetComponent<DropMovement>();
 			
 			owner = FindObjectsOfType<HumanPlayer>().First( p => p.PlayerId == OwnerId );
+			moveFx = GetComponent<IPieceMoveActionFX>();
+			deathFx = GetComponent<IPieceDeathFx>();
 		}
 
 		public List<(int x, int y)> GetValidMoves() {

@@ -18,8 +18,11 @@ namespace Shogi{
 		private int _destinationX;
 		private PieceData _actingPieceData;
 
-		private GameState gameState_beforeMove;
-		
+		private GameState _gameState_beforeMove;
+		public GameState GameState_beforeMove => _gameState_beforeMove;
+
+		[NonSerialized] private Piece actingPiece;
+
 		public AShogiAction(){
 
 		}
@@ -27,25 +30,27 @@ namespace Shogi{
 		public AShogiAction( Piece piece ) {
 			this.StartX = piece.X;
 			this.StartY = piece.Y;
+			this.actingPiece = piece;
 			this._actingPieceData = piece.pieceData;
 		}
 
 		public AShogiAction( Piece piece, int destinationX, int destinationY ) {
 			this.StartX = piece.X;
 			this.StartY = piece.Y;
+			this.actingPiece = piece;
 			this._actingPieceData = piece.pieceData;
 			this.DestinationX = destinationX;
 			this.DestinationY = destinationY;
 		}
 
-		//TODO: virtual
-		public Piece GetActingPiece( ShogiGame game ) {
-			if (_actingPieceData.isCaptured) {
-				var sideboard = game.GetSideBoard( _actingPieceData.owner );
-				return sideboard.CapturedPieces.First( p => p.PieceType == _actingPieceData.pieceType );
-			} else {
-				return game.board [StartX, StartY];
-			}
+		public Piece GetActingPiece( ) {
+			// if (_actingPieceData.isCaptured) {
+			// 	var sideboard = game.GetSideBoard( _actingPieceData.owner );
+			// 	return sideboard.CapturedPieces.First( p => p.PieceType == _actingPieceData.pieceType );
+			// } else {
+			// 	return game.board [StartX, StartY];
+			// }
+			return actingPiece;
 		}
 
 		public override string ToString() {
@@ -54,15 +59,15 @@ namespace Shogi{
 
 		public virtual async UniTask ExecuteAction( ShogiGame game ){
 			//save gamestate
-			gameState_beforeMove = new GameState( game );
+			_gameState_beforeMove = new GameState( game );
 		}
 
 		public async UniTask UndoAction( ShogiGame game ){
 			//reload gamestate
-			if(gameState_beforeMove == null){
+			if(_gameState_beforeMove == null){
 				throw new System.Exception( "Can't undo a move that was not executed. Did you call base.ExecuteAction()?" );
 			}
-			game.ApplyGameState( gameState_beforeMove );
+			game.ApplyGameState( _gameState_beforeMove );
 		}
 		public abstract bool IsMoveValid( ShogiGame game );
 	}

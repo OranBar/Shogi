@@ -1679,6 +1679,53 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   x: 5
   y: 7
+--- !u!1 &92531591
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 92531593}
+  - component: {fileID: 92531592}
+  m_Layer: 0
+  m_Name: Piece Factory (Unused)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &92531592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 92531591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 707673bca97ed4e4e9248f4ed8915161, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  editorLabel: White pieces
+  piecesPrefabs:
+  - {fileID: 8004677806232032892, guid: aa53eeb0a408aa749bde5fb8375d6064, type: 3}
+--- !u!4 &92531593
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 92531591}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 807.3602, y: 445.8315, z: -11.147175}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &102032283
 GameObject:
   m_ObjectHideFlags: 0
@@ -3919,7 +3966,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &339176578
 PrefabInstance:
@@ -5470,8 +5517,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 487057818}
+  - component: {fileID: 487057819}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Presentation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5485,13 +5533,26 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 487057817}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 906.6349, y: 435.07635, z: -7.6581993}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &487057819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 487057817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc2e0c10033226a4199fb5663174dd7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  settings: {fileID: 0}
 --- !u!1 &489550809
 GameObject:
   m_ObjectHideFlags: 0
@@ -12635,9 +12696,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1014225916}
   - component: {fileID: 1014225917}
-  - component: {fileID: 1014225918}
   - component: {fileID: 1014225919}
   - component: {fileID: 1014225920}
+  - component: {fileID: 1014225921}
   m_Layer: 0
   m_Name: Logic
   m_TagString: Untagged
@@ -12705,6 +12766,12 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: OnActionExecuted
+      Entry: 7
+      Data: 3|RefAction`1[[Shogi.IShogiAction, Shogi.Scripts]], barbaro.oblib.runtime
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: Player1
       Entry: 10
       Data: 0
@@ -12723,21 +12790,6 @@ MonoBehaviour:
       currPlayerTurn: 0
       piecesData: []
     firstToMove: 0
---- !u!114 &1014225918
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1014225915}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 707673bca97ed4e4e9248f4ed8915161, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  editorLabel: White pieces
-  piecesPrefabs:
-  - {fileID: 8004677806232032892, guid: aa53eeb0a408aa749bde5fb8375d6064, type: 3}
 --- !u!114 &1014225919
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12764,6 +12816,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   autosaveRootName: AutoSave
+--- !u!114 &1014225921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1014225915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f89b0248eb3a05459408fef0d576851, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playSoundOnMove: 0
+  selectedPiece_color: {r: 0, g: 0.4862745, b: 1, a: 1}
+  lastMovedPiece_color: {r: 0.7075472, g: 0.2770114, b: 0.2770114, a: 1}
 --- !u!1 &1017732296
 GameObject:
   m_ObjectHideFlags: 0
@@ -21694,7 +21761,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1729138107
 GameObject:
@@ -24216,7 +24283,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1927071169
 GameObject:
@@ -25715,7 +25782,7 @@ RectTransform:
   - {fileID: 759263459}
   - {fileID: 60871019}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

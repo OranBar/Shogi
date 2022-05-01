@@ -19,7 +19,7 @@ namespace Shogi
 
 		public override async UniTask ExecuteAction( ShogiGame game ) {
 			base.ExecuteAction(game).Forget();
-			var actingPiece = GetActingPiece( game );
+			var actingPiece = GetActingPiece();
 			UnityEngine.Debug.Log($"Dropping piece {actingPiece} on ({DestinationX},{DestinationY})");
 
 			game.GetSideBoard( actingPiece.OwnerId ).RemoveCapturedPiece( actingPiece );
@@ -37,7 +37,7 @@ namespace Shogi
 		}
 
 		public override bool IsMoveValid( ShogiGame game ) {
-			var actingPiece = GetActingPiece( game );
+			var actingPiece = GetActingPiece( );
 
 			bool isValidPieceMovement = actingPiece.GetValidMoves().Any( m => m.x == DestinationX && m.y == DestinationY );
 			bool willBeAbleToMove_FromDestination = actingPiece.defaultMovement.GetAvailableMoves( DestinationX, DestinationY ).Any();

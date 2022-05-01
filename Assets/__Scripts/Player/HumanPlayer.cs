@@ -16,6 +16,7 @@ namespace Shogi
 	[Serializable]
 	public class HumanPlayer : MonoBehaviour, IPlayer
 	{
+		private GameSettings settings;
 		[SerializeField] private string _playerName;
 		public string PlayerName { get => _playerName; set => _playerName = value; }
 
@@ -33,6 +34,7 @@ namespace Shogi
 
 		void Awake(){
 			shogiGame = FindObjectOfType<ShogiGame>();
+			settings = FindObjectOfType<GameSettings>();
 		}
 
 		private void OnDisable() {
@@ -47,7 +49,7 @@ namespace Shogi
 		}
 
 		void Select_ActionPiece(Piece piece){
-			selectedPiece?.GetComponent<IPieceHighlight>().SetHighlight( false );
+			selectedPiece?.GetComponent<IPieceHighlight>().DisableHighlight();
 			selectedPiece = piece;
 			if (selectedPiece.IsCaptured == false) {
 				currAction = new MovePieceAction( selectedPiece );
@@ -57,7 +59,7 @@ namespace Shogi
 
 			piece.LogAvailableMoves();
 			Debug.Log($"<{PlayerName}> Piece Selected ({piece.X},{piece.Y})", piece.gameObject);
-			piece.GetComponent<IPieceHighlight>().SetHighlight(true);
+			piece.GetComponent<IPieceHighlight>().EnableHighlight( settings.selectedPiece_color );
 
 			shogiGame.Get_OnPieceClickedEvent(OpponentId).Value += Select_PieceToCapture;
 			Cell.OnAnyCellClicked += Select_CellToMove;
@@ -69,7 +71,7 @@ namespace Shogi
 			currAction.DestinationY = obj.y;
 
 			actionReady = true;
-			selectedPiece.GetComponent<IPieceHighlight>().SetHighlight( false );
+			selectedPiece.GetComponent<IPieceHighlight>().DisableHighlight( );
 
 			Cell.OnAnyCellClicked -= Select_CellToMove;
 		}
@@ -80,7 +82,7 @@ namespace Shogi
 			currAction.DestinationY = toCapture.Y;
 
 			actionReady = true;
-			selectedPiece?.GetComponent<IPieceHighlight>().SetHighlight( false );
+			selectedPiece?.GetComponent<IPieceHighlight>().DisableHighlight( );
 
 			shogiGame.Get_OnPieceClickedEvent( OpponentId ).Value -= Select_PieceToCapture;
 			Cell.OnAnyCellClicked -= Select_CellToMove;

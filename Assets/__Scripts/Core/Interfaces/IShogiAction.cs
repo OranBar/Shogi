@@ -4,11 +4,12 @@ namespace Shogi
 {
 	public interface IShogiAction
 	{
-		public int StartX { get; set; }
-		public int StartY { get; set; }
-		public int DestinationX { get; set; }
-		public int DestinationY { get; set; }
-		public Piece GetActingPiece( ShogiGame game );
+		int StartX { get; set; }
+		int StartY { get; set; }
+		int DestinationX { get; set; }
+		int DestinationY { get; set; }
+		GameState GameState_beforeMove { get; }
+		Piece GetActingPiece();
 		UniTask ExecuteAction( ShogiGame game );
 		UniTask UndoAction( ShogiGame game );
 		bool IsMoveValid( ShogiGame game );

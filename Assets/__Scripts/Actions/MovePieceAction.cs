@@ -22,7 +22,7 @@ namespace Shogi
 
 		public override async UniTask ExecuteAction( ShogiGame game ) {
 			base.ExecuteAction( game ).Forget();
-			var actingPiece = GetActingPiece( game );
+			var actingPiece = GetActingPiece( );
 
 			UnityEngine.Debug.Log( $"Moving piece {actingPiece} on ({DestinationX},{DestinationY})" );
 
@@ -40,7 +40,7 @@ namespace Shogi
 			UpdateBoard( game.board, actingPiece );
 			actingPiece.X = DestinationX;
 			actingPiece.Y = DestinationY;
-
+			
 			HandlePromotion( game, actingPiece );
 		}
 
@@ -50,7 +50,7 @@ namespace Shogi
 		}
 
 		public override bool IsMoveValid( ShogiGame game ) {
-			var actingPiece = GetActingPiece( game );
+			var actingPiece = GetActingPiece( );
 			bool isValidPieceMovement = actingPiece.GetValidMoves().Any( m => m.x == DestinationX && m.y == DestinationY );
 
 			return isValidPieceMovement;
@@ -71,7 +71,7 @@ namespace Shogi
 		}
 
 		public bool CanChooseToPromote_MovedPiece( ShogiGame game ) {
-			var actingPiece = GetActingPiece( game );
+			var actingPiece = GetActingPiece();
 
 			return IsPromotionRequirementSatisfied( game, actingPiece ) && (MustPromoteAfterMove( game, actingPiece ) == false);
 		}

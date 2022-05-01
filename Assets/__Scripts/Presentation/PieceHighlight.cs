@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Shogi
 {
@@ -8,12 +9,20 @@ namespace Shogi
 	{
 		public GameObject highlightObj;
 
+		private Image highlight;
+
 		void Start() {
+			highlight = highlightObj.GetComponent<Image>();
 			highlightObj.SetActive( false );
 		}
 
-		public void SetHighlight( bool enable ) {
-			highlightObj.SetActive( enable );
+		public void EnableHighlight( Color color ) {
+			highlightObj.SetActive( true );
+			highlight.color = color;
+		}
+
+		public void DisableHighlight() {
+			highlightObj.SetActive( false );
 		}
 	}
 }

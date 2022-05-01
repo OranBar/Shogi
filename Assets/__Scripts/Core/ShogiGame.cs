@@ -8,13 +8,12 @@ namespace Shogi
 	public class ShogiGame : Sirenix.OdinInspector.SerializedMonoBehaviour
 	{
 		#region Events
-		//Those statics are gonna become a problem someday. The shouldn't be static.
-		//When I'll find myself with 2 or more instances of ShogiGame, everything will crumble. 
 		// public RefAction<Cell> OnAnyCellClicked => Cell.OnAnyCellClicked;
 		// public RefAction<Piece> OnAnyPieceClicked => Piece.OnAnyPieceClicked;
 		public RefAction<Piece> OnPlayer1_PieceClicked = new RefAction<Piece>();
 		public RefAction<Piece> OnPlayer2_PieceClicked = new RefAction<Piece>();
 		public RefAction<PlayerId> OnNewTurnBegun = new RefAction<PlayerId>();
+		public RefAction<IShogiAction> OnActionExecuted = new RefAction<IShogiAction>();
 
 		public RefAction<Piece> Get_OnPieceClickedEvent( PlayerId player ) {
 			return player == PlayerId.Player1 ? OnPlayer1_PieceClicked : OnPlayer2_PieceClicked;
@@ -105,6 +104,7 @@ namespace Shogi
 					Debug.Log("Valid Move: Executing");
 					await action.ExecuteAction( this ).AttachExternalCancellation( gameLoopCancelToken.Token );
 
+					OnActionExecuted.Invoke(action);
 					gameHistory.RegisterNewMove(action);
 
 					Debug.Log( "Finish Move Execution" );
