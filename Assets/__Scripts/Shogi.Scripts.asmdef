@@ -5,7 +5,9 @@
         "UniTask",
         "Unity.TextMeshPro",
         "barbaro.autoattributes.Runtime",
-        "barbaro.oblib.runtime"
+        "barbaro.oblib.runtime",
+        "UniTask.DOTween",
+        "DOTween.Modules"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -49,7 +49,7 @@ namespace Shogi
 			return false;
 		}
 
-		public Vector3 GetCellWorldPosition(  int x, int y ) {
+		public Vector3 GetCellPosition(  int x, int y ) {
 			return new Vector3( x, y ) * cellSizeUnit + Vector3.one * cellSizeUnit * 0.5f;
 		}
 		

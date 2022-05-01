@@ -158,7 +158,7 @@ namespace Shogi
 
 
 		public void PlacePieceOnCell_Immediate( int x, int y ) {
-			rectTransform.anchoredPosition = board.GetCellWorldPosition( x, y );
+			rectTransform.anchoredPosition = board.GetCellPosition( x, y );
 		}
 		
 	}
