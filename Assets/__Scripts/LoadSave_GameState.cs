@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -26,20 +27,6 @@ namespace Shogi{
 		}
 
 		
-		public string fileName = "shogi";
-		[ContextMenu( "Save" )]
-		public void SaveGameState_Editor() {
-			GameState gameState = new GameState( gameManager );
-			string path = Application.persistentDataPath + $"/{fileName}.bin";
-			SaveGameState( gameState, path );
-		}
-
-		[ContextMenu( "Load bin" )]
-		public void ApplyGameState_Editor() {
-			string path = Application.persistentDataPath + $"/{fileName}.bin";
-			GameState gameState = LoadGameState( path );
-			gameManager.ApplyGameState( gameState );
-		}
 		#endregion
 
 		#region GameHistory Save/Load
@@ -60,44 +47,43 @@ namespace Shogi{
 			return result;
 		}
 
+		public async UniTask ApplyGameHistory( string path ) {
+			GameHistory loadedGameHistory = LoadGameHistory( path );
+
+			await gameManager.ApplyGameHistory( loadedGameHistory );
+		}
+		#endregion
+
+
+		#region Editor 
+		public string fileName = "shogi";
+		[ContextMenu( "Save state" )]
+		void SaveGameState_Editor() {
+			GameState gameState = new GameState( gameManager );
+			string path = Application.persistentDataPath + $"/{fileName}.bin";
+			SaveGameState( gameState, path );
+		}
+
+		[ContextMenu( "Load state" )]
+		void ApplyGameState_Editor() {
+			string path = Application.persistentDataPath + $"/{fileName}.bin";
+			GameState gameState = LoadGameState( path );
+			gameManager.ApplyGameState( gameState );
+		}
+
 		[ContextMenu( "Save History" )]
-		public void SaveGameHistory_Editor() {
+		void SaveGameHistory_Editor() {
 			string path = Application.persistentDataPath + $"/{fileName}.bin";
 			SaveGameHistory( gameManager.gameHistory, path );
 		}
 
-		[ContextMenu("Load History")]
-		public async UniTask ApplyGameHistory_Editor() {
+		[ContextMenu( "Load History" )]
+		async UniTask ApplyGameHistory_Editor() {
 			string path = Application.persistentDataPath + $"/{fileName}.bin";
-			GameHistory loadedGameHistory = LoadGameHistory( path );
-			
-			gameManager.ApplyGameState( loadedGameHistory.initialGameState );
-			gameManager.gameHistory = loadedGameHistory;
-			Debug.Log( "Loaded initial game state" );
-
-			//Alter timescale to fast forward?
-			foreach (var move in loadedGameHistory.playedMoves) {
-				await move.ExecuteAction( gameManager );
-			}
-
-			PlayerId nextPlayerTurn = GetPlayer_WhoMovesNext( loadedGameHistory );
-			gameManager.BeginGame( nextPlayerTurn );
-
-			Debug.Log( "All moves applied" );
-
-			
-			
-			PlayerId GetPlayer_WhoMovesNext( GameHistory loadedGameHistory ) {
-				PlayerId nextPlayerTurn;
-				if (loadedGameHistory.playedMoves.Count % 2 == 0) {
-					nextPlayerTurn = loadedGameHistory.firstToMove;
-				} else {
-					nextPlayerTurn = loadedGameHistory.firstToMove == PlayerId.Player1 ? PlayerId.Player2 : PlayerId.Player1;
-				}
-
-				return nextPlayerTurn;
-			}
+			await ApplyGameHistory( path );
 		}
+
+		
 		#endregion
 	}
 }

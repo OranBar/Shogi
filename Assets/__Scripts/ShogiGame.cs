@@ -135,6 +135,35 @@ namespace Shogi
 			RefreshMonobehavioursInScene();
 		}
 
+		public async UniTask ApplyGameHistory( GameHistory history ) {
+			ApplyGameState( history.initialGameState );
+			gameHistory = history;
+
+			//Alter timescale to fast forward?
+			foreach (var move in history.playedMoves) {
+				await move.ExecuteAction( this );
+			}
+
+			PlayerId nextPlayerTurn = GetPlayer_WhoMovesNext( history );
+			BeginGame( nextPlayerTurn );
+
+			Debug.Log( "All moves applied" );
+
+
+
+			PlayerId GetPlayer_WhoMovesNext( GameHistory loadedGameHistory ) {
+				PlayerId nextPlayerTurn;
+				if (loadedGameHistory.playedMoves.Count % 2 == 0) {
+					nextPlayerTurn = loadedGameHistory.firstToMove;
+				} else {
+					nextPlayerTurn = loadedGameHistory.firstToMove == PlayerId.Player1 ? PlayerId.Player2 : PlayerId.Player1;
+				}
+
+				return nextPlayerTurn;
+			}
+		}
+
+
 		private void RefreshMonobehavioursInScene() {
 			player1_sideboard.RefreshWithPiecesInScene();
 			player2_sideboard.RefreshWithPiecesInScene();
