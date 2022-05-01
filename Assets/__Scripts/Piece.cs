@@ -102,26 +102,7 @@ namespace Shogi
 			}
 		}
 
-		public async UniTask PieceMovementAnimation( int destinationX, int destinationY ) {
-			PlacePieceOnCell_Immediate( destinationX, destinationY );
-			await UniTask.Yield();
-		}
-
-		public void PlacePieceOnCell_Immediate( int x, int y ) {
-			rectTransform.anchoredPosition = board.GetCellWorldPosition(x,y);
-		}
-
-		public void PieceDeathAnimation() {
-			// Destroy( this.gameObject);
-		}
-	
-		public void LogAvailableMoves() {
-			Debug.Log("Available moves: \n"+GetValidMoves().ToStringPretty());			
-		}
-
 		public void CapturePiece() {
-			PieceDeathAnimation();
-
 			//Thou shall live again
 			this.IsCaptured = true;
 			this.IsPromoted = false;
@@ -160,8 +141,28 @@ namespace Shogi
 			Piece.OnAnyPieceClicked.Invoke(this);
 		}
 
+		public void LogAvailableMoves() {
+			Debug.Log( "Available moves: \n" + GetValidMoves().ToStringPretty() );
+		}
+
 		public override string ToString() {
 			return $"Piece ({X}, {Y})";
 		}
+
+		#region Animations
+		public async UniTask PieceMovementAnimation( int destinationX, int destinationY ) {
+			PlacePieceOnCell_Immediate( destinationX, destinationY );
+			GetComponent<AudioSource>().Play();
+			await UniTask.Yield();
+		}
+
+		public void PlacePieceOnCell_Immediate( int x, int y ) {
+			rectTransform.anchoredPosition = board.GetCellWorldPosition( x, y );
+		}
+
+		public void PieceDeathAnimation() {
+			// Destroy( this.gameObject);
+		}
+		#endregion
 	}
 }

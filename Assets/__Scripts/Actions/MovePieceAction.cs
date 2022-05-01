@@ -32,6 +32,7 @@ namespace Shogi
 			if (wasCapturingMove) {
 				//A piece was killed. Such cruelty. 
 				capturedPiece.CapturePiece();
+				capturedPiece.PieceDeathAnimation();
 			}
 			await actingPiece.PieceMovementAnimation( DestinationX, DestinationY );
 

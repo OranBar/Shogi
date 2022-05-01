@@ -10,7 +10,6 @@ using UnityEngine;
 
 public class AutoSaver : MonoBehaviour
 {
-	[Auto] LoadSave_GameState saverLoader;
 	private ShogiGame shogiGame;
 
 	public string autosaveRootName = "AutoSave";
@@ -66,15 +65,14 @@ public class AutoSaver : MonoBehaviour
 	public void SaveGameState( PlayerId currTurnPlayer ) {
 		autoSaveCounter++;
 		string savePath = $"{SaveDirPath( CurrGameIndex )}/gamestate_{autoSaveCounter}.bin";
-		saverLoader.SaveGameState( new GameState( shogiGame ), savePath );
+		new GameState( shogiGame ).SerializeToBinaryFile( savePath );
 	}
 
 	public void SaveGameHistory( PlayerId currTurnPlayer ) {
 		//Override previous file
 
 		string savePath = $"{SaveDirPath( CurrGameIndex )}/gamehistory.bin";
-		saverLoader.SaveGameHistory( shogiGame.gameHistory, savePath );
-
+		shogiGame.gameHistory.SerializeToBinaryFile( savePath );
 	}
 
 	#endregion
@@ -90,7 +88,7 @@ public class AutoSaver : MonoBehaviour
 		string binFileName = $"gamestate_{turnIndex}.bin";
 		string fullPath = path + "/" + binFileName;
 		
-		GameState loadedGameState = saverLoader.LoadGameState(fullPath);
+		GameState loadedGameState = GameState.DeserializeFromBinaryFile( fullPath );
 
 		shogiGame.ApplyGameState( loadedGameState );
 	}
@@ -101,8 +99,8 @@ public class AutoSaver : MonoBehaviour
 		string binFileName = $"gamehistory.bin";
 		string fullPath = path + "/" + binFileName;
 
-		GameHistory loadedGame = saverLoader.LoadGameHistory( fullPath );
-		saverLoader.ApplyGameHistory( fullPath ).Forget();
+		GameHistory loadedGame = GameHistory.DeserializeFromBinaryFile( path );
+		shogiGame.ApplyGameHistory( loadedGame ).Forget();
 	}
 	
 	[Button]
@@ -113,9 +111,9 @@ public class AutoSaver : MonoBehaviour
 		string binFileName = $"gamehistory.bin";
 		string fullPath = path + "/" + binFileName;
 
-		GameHistory loadedGame = saverLoader.LoadGameHistory( fullPath );
+		GameHistory loadedGame = GameHistory.DeserializeFromBinaryFile( path );
 		loadedGame.playedMoves = loadedGame.playedMoves.Take( turnIndex ).ToList();
-		saverLoader.ApplyGameHistory( fullPath ).Forget();
+		shogiGame.ApplyGameHistory( loadedGame ).Forget();
 	}
 
 	
