@@ -103,7 +103,7 @@ namespace Shogi
 			if (currAction is MovePieceAction) {
 				MovePieceAction moveAction = (MovePieceAction)currAction;
 				if(moveAction.IsMoveValid(shogiGame) && moveAction.CanChooseToPromote_MovedPiece(shogiGame)){
-					moveAction.Request_PromotePiece = await GetComponent<IPromotionPromter>().GetPromotionChoice();
+					moveAction.Request_PromotePiece = await GetComponent<IPromotionPromter>().GetPromotionChoice(moveAction);
 				}
 			}
 
