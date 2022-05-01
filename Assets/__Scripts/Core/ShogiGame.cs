@@ -96,9 +96,9 @@ namespace Shogi
 			( (MonoBehaviour)Player1 ).enabled = true;
 			( (MonoBehaviour)Player2 ).enabled = true;
 			
+			OnNewTurnBegun.Invoke( _currTurn_PlayerId );
 			while(isGameOver == false && manualOverride == false){
 				Debug.Log("Awaiting Turn: "+_currTurn_PlayerId.ToString());
-				OnNewTurnBegun.Invoke( _currTurn_PlayerId );
 				IShogiAction action = await CurrTurn_Player.RequestAction().AttachExternalCancellation( gameLoopCancelToken.Token );
 				if (action.IsMoveValid( this )) {
 					Debug.Log("Valid Move: Executing");
@@ -114,6 +114,7 @@ namespace Shogi
 				}
 
 				AdvanceTurn();
+				OnNewTurnBegun.Invoke( _currTurn_PlayerId );
 			}
 			Debug.Log( "Game Finished" );
 		}
