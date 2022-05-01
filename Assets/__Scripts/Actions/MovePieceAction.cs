@@ -32,9 +32,9 @@ namespace Shogi
 			if (wasCapturingMove) {
 				//A piece was killed. Such cruelty. 
 				capturedPiece.CapturePiece();
-				capturedPiece.PieceDeathAnimation();
+				capturedPiece.deathFx.PieceDeathAnimation();
 			}
-			await actingPiece.movementFx.DoMoveAnimation( DestinationX, DestinationY );
+			await actingPiece.moveFx.DoMoveAnimation( DestinationX, DestinationY );
 
 			//Update game data structures
 			UpdateBoard( game.board, actingPiece );

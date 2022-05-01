@@ -1,19 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Shogi
 {
-    public class PieceMoveActionFX : MonoBehaviour
-    {
+
+	public class PieceMoveActionFX : MonoBehaviour, IPieceMoveActionFX
+	{
 		[Auto] Piece piece;
 		public AudioClip movementAudio;
 
 		private AudioSource audioSource;
 
-		void Awake()
-		{
+		void Awake() {
 			audioSource = this.gameObject.AddOrGetComponent<AudioSource>();
 		}
 
@@ -23,10 +21,10 @@ namespace Shogi
 			await UniTask.Yield();
 		}
 
-		public void PlayMoveAudio(){
+		public void PlayMoveAudio() {
 			audioSource.clip = movementAudio;
 			audioSource.Play();
 		}
 
-    }
+	}
 }

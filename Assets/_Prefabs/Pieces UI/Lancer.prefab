@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 9065273230480079729}
   - component: {fileID: 7729831591607784718}
   - component: {fileID: -1735431935040453400}
+  - component: {fileID: 533876452402441898}
   m_Layer: 5
   m_Name: Lancer
   m_TagString: Untagged
@@ -126,6 +127,7 @@ MonoBehaviour:
   promotedImage: {fileID: 0}
   board: {fileID: 0}
   movementFx: {fileID: 0}
+  deathFx: {fileID: 0}
 --- !u!114 &-5115837620457174637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,6 +177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 641d5e88af924c540a968166d7dd2531, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movementAudio: {fileID: 0}
 --- !u!82 &-1735431935040453400
 AudioSource:
   m_ObjectHideFlags: 0
@@ -271,6 +274,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &533876452402441898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4094493778057303690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb26d2f02c95f084182d885e3889d89c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1389409568475916360
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,13 +1,7 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-using Object = UnityEngine.Object; 
 
 namespace Shogi
 {
@@ -97,7 +91,6 @@ namespace Shogi
 
 		private async UniTask BeginGameAsync( PlayerId startingPlayer ) {
 			_currTurn_PlayerId = startingPlayer;
-			// gameHistory = new GameHistory( new GameState( this ), startingPlayer );
 
 			( (MonoBehaviour)Player1 ).enabled = false;
 			( (MonoBehaviour)Player2 ).enabled = false;

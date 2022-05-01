@@ -1,12 +1,9 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using Object = UnityEngine.Object;
 
 namespace Shogi
 {
@@ -84,14 +81,11 @@ namespace Shogi
 
 		#region Presentation
 		[Auto] private RectTransform rectTransform;
-		[Auto] public PieceMoveActionFX movementFx;
+		[Auto] public IPieceMoveActionFX moveFx;
 		// public PieceDropAnimation dropAnimation;
+		[Auto] public IPieceDeathFx deathFx;
 
-
-
-		public void PieceDeathAnimation() {
-			// Destroy( this.gameObject);
-		}
+		
 		#endregion
 
 		void Awake() {

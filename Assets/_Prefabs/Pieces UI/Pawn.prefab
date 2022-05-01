@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 3654179833827461805}
   - component: {fileID: 7034216246574121676}
   - component: {fileID: -2415402311314763496}
+  - component: {fileID: -8558274185510921318}
   m_Layer: 5
   m_Name: Pawn
   m_TagString: Untagged
@@ -126,6 +127,7 @@ MonoBehaviour:
   promotedImage: {fileID: 0}
   board: {fileID: 0}
   movementFx: {fileID: 0}
+  deathFx: {fileID: 0}
 --- !u!114 &8004677806232032889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,6 +177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 641d5e88af924c540a968166d7dd2531, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movementAudio: {fileID: 0}
 --- !u!82 &-2415402311314763496
 AudioSource:
   m_ObjectHideFlags: 0
@@ -271,6 +274,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-8558274185510921318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8004677806232032892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb26d2f02c95f084182d885e3889d89c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5740766812001715374
 PrefabInstance:
   m_ObjectHideFlags: 0

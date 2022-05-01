@@ -23,7 +23,7 @@ namespace Shogi
 			UnityEngine.Debug.Log($"Dropping piece {actingPiece} on ({DestinationX},{DestinationY})");
 
 			game.GetSideBoard( actingPiece.OwnerId ).RemoveCapturedPiece( actingPiece );
-			await actingPiece.movementFx.DoMoveAnimation( DestinationX, DestinationY );
+			await actingPiece.moveFx.DoMoveAnimation( DestinationX, DestinationY );
 
 			//Update game data structures
 			UpdateBoard( game, actingPiece );
