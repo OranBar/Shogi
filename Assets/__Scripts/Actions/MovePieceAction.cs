@@ -34,7 +34,7 @@ namespace Shogi
 				capturedPiece.CapturePiece();
 				capturedPiece.PieceDeathAnimation();
 			}
-			await actingPiece.PieceMovementAnimation( DestinationX, DestinationY );
+			await actingPiece.movementFx.DoMoveAnimation( DestinationX, DestinationY );
 
 			//Update game data structures
 			UpdateBoard( game.board, actingPiece );

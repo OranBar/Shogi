@@ -79,9 +79,20 @@ namespace Shogi
 		public Image defaultImage;
 		public Image promotedImage;
 
-		private Board board;
+		public Board board;
 		private ShogiGame gameManager;
-		[Auto, HideInInspector] public RectTransform rectTransform;
+
+		#region Presentation
+		[Auto] private RectTransform rectTransform;
+		[Auto] public PieceMoveActionFX movementFx;
+		// public PieceDropAnimation dropAnimation;
+
+
+
+		public void PieceDeathAnimation() {
+			// Destroy( this.gameObject);
+		}
+		#endregion
 
 		void Awake() {
 			board = FindObjectOfType<Board>();
@@ -149,20 +160,10 @@ namespace Shogi
 			return $"Piece ({X}, {Y})";
 		}
 
-		#region Animations
-		public async UniTask PieceMovementAnimation( int destinationX, int destinationY ) {
-			PlacePieceOnCell_Immediate( destinationX, destinationY );
-			GetComponent<AudioSource>().Play();
-			await UniTask.Yield();
-		}
 
 		public void PlacePieceOnCell_Immediate( int x, int y ) {
 			rectTransform.anchoredPosition = board.GetCellWorldPosition( x, y );
 		}
-
-		public void PieceDeathAnimation() {
-			// Destroy( this.gameObject);
-		}
-		#endregion
+		
 	}
 }
