@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -20,13 +21,45 @@ namespace Shogi
 		public TMP_Text goldText;
 		public TMP_Text rookText;
 		public TMP_Text bishopText;
+
+		public TMP_Text GetText(PieceType pieceType){
+			switch (pieceType) {
+				case PieceType.Pawn:
+					return pawnText;
+				case PieceType.Lancer:
+					return lancerText;
+				case PieceType.Knight:
+					return knightText;
+				case PieceType.Silver:
+					return silverText;
+				case PieceType.Gold:
+					return goldText;
+				case PieceType.Rook:
+					return rookText;
+				case PieceType.Bishop:
+					return bishopText;
+				default:
+					throw new Exception( "Not supported PieceType" );
+			}
+		}
+
 		[Auto] private SideBoard sideBoard;
 
 		void OnEnable(){
-			sideBoard.OnNewPieceAdded.Value += IncreaseText;
-			sideBoard.OnNewPieceRemoved.Value += DecreaseText;
-			sideBoard.OnCleared.Value += ResetAllTextsToZero;
+			sideBoard.OnNewPieceAdded += IncreaseText;
+			sideBoard.OnNewPieceRemoved += DecreaseText;
+			sideBoard.OnCleared += ResetAllTextsToZero;
+
+			sideBoard.OnNewPieceAdded += PieceAddedToSideboardFx;
 			RegisterButtons();
+		}
+
+		private void PieceAddedToSideboardFx( Piece obj ) {
+			Debug.Log("Sideboard piece FX");
+			Transform sideboardPiece = GetText( obj.PieceType ).transform.parent;
+
+			sideboardPiece.transform.localScale = Vector3.one * 2;
+			sideboardPiece.DOScale(Vector3.one, 1f).SetEase(Ease.OutCubic);
 		}
 
 		void OnDisable(){
@@ -81,55 +114,13 @@ namespace Shogi
 		}
 
 		private void IncreaseText( Piece newCapturedPiece) {
-			switch (newCapturedPiece.PieceType) {
-				case PieceType.Pawn:
-					IncreaseNumberLabel( pawnText );
-					break;
-				case PieceType.Lancer:
-					IncreaseNumberLabel( lancerText );
-					break;
-				case PieceType.Knight:
-					IncreaseNumberLabel( knightText );
-					break;
-				case PieceType.Silver:
-					IncreaseNumberLabel( silverText );
-					break;
-				case PieceType.Gold:
-					IncreaseNumberLabel( goldText );
-					break;
-				case PieceType.Rook:
-					IncreaseNumberLabel( rookText );
-					break;
-				case PieceType.Bishop:
-					IncreaseNumberLabel( bishopText );
-					break;
-			}
+			TMP_Text targetText = GetText( newCapturedPiece.PieceType );
+			IncreaseNumberLabel( targetText );
 		}
 
 		private void DecreaseText( Piece newCapturedPiece ) {
-			switch (newCapturedPiece.PieceType) {
-				case PieceType.Pawn:
-					DecreaseNumberLabel( pawnText );
-					break;
-				case PieceType.Lancer:
-					DecreaseNumberLabel( lancerText );
-					break;
-				case PieceType.Knight:
-					DecreaseNumberLabel( knightText );
-					break;
-				case PieceType.Silver:
-					DecreaseNumberLabel( silverText );
-					break;
-				case PieceType.Gold:
-					DecreaseNumberLabel( goldText );
-					break;
-				case PieceType.Rook:
-					DecreaseNumberLabel( rookText );
-					break;
-				case PieceType.Bishop:
-					DecreaseNumberLabel( bishopText );
-					break;
-			}
+			TMP_Text targetText = GetText( newCapturedPiece.PieceType );
+			DecreaseNumberLabel( targetText );
 		}
 
 		private void IncreaseNumberLabel(TMP_Text text){

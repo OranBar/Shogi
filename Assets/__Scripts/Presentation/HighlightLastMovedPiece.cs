@@ -27,6 +27,7 @@ namespace Shogi
 
 		public void DoHighlightLastMovedPiece(IShogiAction action){
 			prevMovedPiece?.DisableHighlight();
+			if (action is UndoLastAction) { return; }
 
 			IPieceHighlight pieceHighlight = action.GetActingPiece().GetComponent<IPieceHighlight>();
 			pieceHighlight.EnableHighlight( settings.lastMovedPiece_color);
@@ -38,6 +39,7 @@ namespace Shogi
 		public void DoHighlightStartMoveCell(IShogiAction action){
 			prevStartMovedCell?.DeactivateHightlight();
 			if (action is DropPieceAction) { return; }
+			if (action is UndoLastAction) { return; }
 
 			Cell startCell = cells.First(c => c.x == action.StartX && c.y == action.StartY);
 			CellFx startCellFx = startCell.GetComponent<CellFx>();
