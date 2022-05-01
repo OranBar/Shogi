@@ -2,16 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
+using UnityEditor;
 using UnityEngine;
 
 namespace Shogi{
-	public class Foo : SerializedMonoBehaviour
+	public class AssignCellPositions_UI : SerializedMonoBehaviour
 	{
-		[SceneObjectsOnly]
-		public IPlayer player;
-		[ContextMenu( "AssignCellPosition" )]
+
+		//Assumes hierarchy is ordered. Order is as follows
+		//first row: (8,0), (8,1), ...., (8,8); 
+		//then second row: (7,0), (7,1), ...., (7,8);
+		// .... ; 
+		//until last row (0,0), (7,1), ...., (0,8)
+		[Button]
 		void AssignCellPosition() {
-			// List<Cell> cells = GetComponentsInChildren<Cell>().ToList();
 			List<Transform> children = this.transform.GetChildren();
 			for (int y = 9 - 1; y >= 0 ; y--)
 			{
@@ -20,6 +24,7 @@ namespace Shogi{
 					Cell currCell = children[0].gameObject.AddOrGetComponent<Cell>();
 					currCell.x = x;
 					currCell.y = y;
+					PrefabUtility.RecordPrefabInstancePropertyModifications( currCell );
 					children.RemoveAt(0);
 				}
 			}

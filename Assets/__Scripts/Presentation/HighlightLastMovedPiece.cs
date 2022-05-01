@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Shogi;
 using UnityEngine;
 
@@ -10,18 +11,40 @@ namespace Shogi
 		public GameSettings settings;
 		private ShogiGame shogiGame;
 
-		private Piece lastMovedPiece;
+		private IPieceHighlight prevMovedPiece;
+		private CellFx prevStartMovedCell;
+
+		private Cell[] cells;
 
 		void Start() {
 			shogiGame = FindObjectOfType<ShogiGame>();
 			settings = FindObjectOfType<GameSettings>();
 			shogiGame.OnActionExecuted += DoHighlightLastMovedPiece;
+			shogiGame.OnActionExecuted += DoHighlightStartMoveCell;
+
+			cells = FindObjectsOfType<Cell>(true);
 		}
 
 		public void DoHighlightLastMovedPiece(IShogiAction action){
-			lastMovedPiece?.GetComponent<IPieceHighlight>()?.DisableHighlight();
-			action.GetActingPiece().GetComponent<IPieceHighlight>().EnableHighlight(settings.lastMovedPiece_color);
-			lastMovedPiece = action.GetActingPiece();
+			prevMovedPiece?.DisableHighlight();
+
+			IPieceHighlight pieceHighlight = action.GetActingPiece().GetComponent<IPieceHighlight>();
+			pieceHighlight.EnableHighlight( settings.lastMovedPiece_color);
+
+			prevMovedPiece = pieceHighlight;
+
+		}
+
+		public void DoHighlightStartMoveCell(IShogiAction action){
+			prevStartMovedCell?.DeactivateHightlight();
+
+			Cell startCell = cells.First(c => c.x == action.StartX && c.y == action.StartY);
+			CellFx startCellFx = startCell.GetComponent<CellFx>();
+
+			Color highlightCellColor = settings.lastMovedPiece_color.SetAlpha(0.5f);
+			startCellFx.ActivateHighlight( highlightCellColor );
+
+			prevStartMovedCell = startCellFx;
 		}
 
 	}

@@ -10,14 +10,17 @@ namespace Shogi
 		public AudioClip movementAudio;
 
 		private AudioSource audioSource;
+		private GameSettings settings;
 
 		void Awake() {
 			audioSource = this.gameObject.AddOrGetComponent<AudioSource>();
+			settings = FindObjectOfType<GameSettings>();
 		}
 
 		public async UniTask DoMoveAnimation( int destinationX, int destinationY ) {
 			piece.PlacePieceOnCell_Immediate( destinationX, destinationY );
-			PlayMoveAudio();
+			if(settings.playSoundOnMove){ PlayMoveAudio(); }
+
 			await UniTask.Yield();
 		}
 

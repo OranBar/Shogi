@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace Shogi{
 
@@ -9,6 +10,7 @@ namespace Shogi{
 	{
 		public int x, y;
 		public static RefAction<Cell> OnAnyCellClicked = new RefAction<Cell>();
+		
 
 		public void OnPointerDown( PointerEventData eventData ) {
 			Cell.OnAnyCellClicked.Invoke( this );
@@ -18,6 +20,7 @@ namespace Shogi{
 			Cell.OnAnyCellClicked.Invoke( this );
 		}
 
+		
 	}
 
 }
