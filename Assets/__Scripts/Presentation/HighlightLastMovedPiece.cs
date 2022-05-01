@@ -37,6 +37,7 @@ namespace Shogi
 
 		public void DoHighlightStartMoveCell(IShogiAction action){
 			prevStartMovedCell?.DeactivateHightlight();
+			if (action is DropPieceAction) { return; }
 
 			Cell startCell = cells.First(c => c.x == action.StartX && c.y == action.StartY);
 			CellFx startCellFx = startCell.GetComponent<CellFx>();
