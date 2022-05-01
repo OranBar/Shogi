@@ -94,13 +94,23 @@ public class AutoSaver : MonoBehaviour
 
 		shogiGame.ApplyGameState( loadedGameState );
 	}
+
+	[Button]
+	public void ReloadGameHistory( int gameId ) {
+		string path = SaveDirPath( gameId );
+		string binFileName = $"gamehistory.bin";
+		string fullPath = path + "/" + binFileName;
+
+		GameHistory loadedGame = saverLoader.LoadGameHistory( fullPath );
+		saverLoader.ApplyGameHistory( fullPath ).Forget();
+	}
 	
 	[Button]
-	public void ReloadGameHistory( int gameId, int turnIndex ) {
+	public void ReloadGameHistory_AtTurn( int gameId, int turnIndex ) {
 		Debug.Assert( turnIndex > 0 );
 
 		string path = SaveDirPath( gameId );
-		string binFileName = $"gamestate.bin";
+		string binFileName = $"gamehistory.bin";
 		string fullPath = path + "/" + binFileName;
 
 		GameHistory loadedGame = saverLoader.LoadGameHistory( fullPath );
@@ -108,8 +118,8 @@ public class AutoSaver : MonoBehaviour
 		saverLoader.ApplyGameHistory( fullPath ).Forget();
 	}
 
-	// [InfoBox( "$InfoBoxMessage" )]
-	// [InfoBox( "@InfoBoxMessage()" )]
+	
+
 	[ShowInInspector]
 	[PropertySpace]
 	public int LastAutoSavedGameId {

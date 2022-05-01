@@ -82,8 +82,6 @@ namespace Shogi{
 			string path = Application.persistentDataPath + $"/{fileName}.bin";
 			await ApplyGameHistory( path );
 		}
-
-		
 		#endregion
 	}
 }
