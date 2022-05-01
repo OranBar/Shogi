@@ -54,7 +54,7 @@ namespace Shogi{
 		}
 
 		public override string ToString() {
-			return $"Move: From ({StartX}, {StartY}) to ({DestinationX}, {DestinationY})";
+			return $"From ({StartX}, {StartY}) to ({DestinationX}, {DestinationY})";
 		}
 
 		public virtual async UniTask ExecuteAction( ShogiGame game ){

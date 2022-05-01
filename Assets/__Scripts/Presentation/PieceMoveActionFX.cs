@@ -24,7 +24,7 @@ namespace Shogi
 			if(settings.playSoundOnMove){ PlayMoveAudio(); }
 			
 			var targetWorldPosition = shogiGame.board.GetCellPosition( destinationX, destinationY );
-			await piece.GetComponent<RectTransform>().DOAnchorPos3D( targetWorldPosition, .55f ).SetEase( Ease.InSine );
+			await piece.GetComponent<RectTransform>().DOAnchorPos3D( targetWorldPosition, .15f ).SetEase( Ease.InSine );
 
 			//Tanto per
 			await UniTask.Yield();

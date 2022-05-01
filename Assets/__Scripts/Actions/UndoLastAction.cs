@@ -15,14 +15,19 @@ namespace Shogi
 			await lastMove.UndoAction( game );
 
 			if(game.gameHistory.playedMoves.Count >= 1){
-				lastMove = game.gameHistory.playedMoves.Last();
-				await lastMove.UndoAction( game );
-				await lastMove.ExecuteAction( game );
+				var secondToLastMove = game.gameHistory.playedMoves.Last();
+				await secondToLastMove.UndoAction( game );
+				await secondToLastMove.ExecuteAction( game );
+				game.OnActionExecuted.Invoke( secondToLastMove );
 			}
 		}
 
 		public override bool IsMoveValid( ShogiGame game ) {
 			return game.gameHistory.playedMoves.Count != 0;
+		}
+
+		public override string ToString() {
+			return "Undo " + base.ToString();
 		}
 	}
 }
