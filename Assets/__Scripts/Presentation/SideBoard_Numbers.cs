@@ -50,7 +50,7 @@ namespace Shogi
 			sideBoard.OnNewPieceRemoved += DecreaseText;
 			sideBoard.OnCleared += ResetAllTextsToZero;
 
-			RegisterButtons();
+			// RegisterButtons();
 		}
 
 		private void PieceAddedToSideboardFx( Piece newPiece ) {
@@ -74,7 +74,7 @@ namespace Shogi
 			sideBoard.OnNewPieceAdded.Value -= IncreaseText;
 			sideBoard.OnNewPieceRemoved.Value -= DecreaseText;
 			sideBoard.OnCleared.Value -= ResetAllTextsToZero;
-			UnregisterButtons();
+			// UnregisterButtons();
 		}
 
 		void Start() {
@@ -88,25 +88,25 @@ namespace Shogi
 		}
 
 		//TODO: instead of registering buttons, we register to the piece's onclick with the OnPieceClicked event
-		private void RegisterButtons() {
-			pawnText.GetComponentInParent<Button>( true ).onClick.AddListener( () => OnPieceButtonClicked( PieceType.Pawn ) );
-			lancerText.GetComponentInParent<Button>( true ).onClick.AddListener( () => OnPieceButtonClicked( PieceType.Lancer ) );
-			knightText.GetComponentInParent<Button>( true ).onClick.AddListener( () => OnPieceButtonClicked( PieceType.Knight ) );
-			silverText.GetComponentInParent<Button>( true ).onClick.AddListener( () => OnPieceButtonClicked( PieceType.Silver ) );
-			goldText.GetComponentInParent<Button>( true ).onClick.AddListener( () => OnPieceButtonClicked( PieceType.Gold ) );
-			rookText.GetComponentInParent<Button>( true ).onClick.AddListener( () => OnPieceButtonClicked( PieceType.Rook ) );
-			bishopText.GetComponentInParent<Button>( true ).onClick.AddListener( () => OnPieceButtonClicked( PieceType.Bishop ) );
-		}
+		// private void RegisterButtons() {
+		// 	pawnText.GetComponentInParent<Button>( true ).onClick.AddListener( () => OnPieceButtonClicked( PieceType.Pawn ) );
+		// 	lancerText.GetComponentInParent<Button>( true ).onClick.AddListener( () => OnPieceButtonClicked( PieceType.Lancer ) );
+		// 	knightText.GetComponentInParent<Button>( true ).onClick.AddListener( () => OnPieceButtonClicked( PieceType.Knight ) );
+		// 	silverText.GetComponentInParent<Button>( true ).onClick.AddListener( () => OnPieceButtonClicked( PieceType.Silver ) );
+		// 	goldText.GetComponentInParent<Button>( true ).onClick.AddListener( () => OnPieceButtonClicked( PieceType.Gold ) );
+		// 	rookText.GetComponentInParent<Button>( true ).onClick.AddListener( () => OnPieceButtonClicked( PieceType.Rook ) );
+		// 	bishopText.GetComponentInParent<Button>( true ).onClick.AddListener( () => OnPieceButtonClicked( PieceType.Bishop ) );
+		// }
 
-		private void UnregisterButtons() {
-			pawnText.GetComponentInParent<Button>( true ).onClick.RemoveAllListeners();
-			lancerText.GetComponentInParent<Button>( true ).onClick.RemoveAllListeners();
-			knightText.GetComponentInParent<Button>( true ).onClick.RemoveAllListeners();
-			silverText.GetComponentInParent<Button>( true ).onClick.RemoveAllListeners();
-			goldText.GetComponentInParent<Button>( true ).onClick.RemoveAllListeners();
-			rookText.GetComponentInParent<Button>( true ).onClick.RemoveAllListeners();
-			bishopText.GetComponentInParent<Button>( true ).onClick.RemoveAllListeners();
-		}
+		// private void UnregisterButtons() {
+		// 	pawnText.GetComponentInParent<Button>( true ).onClick.RemoveAllListeners();
+		// 	lancerText.GetComponentInParent<Button>( true ).onClick.RemoveAllListeners();
+		// 	knightText.GetComponentInParent<Button>( true ).onClick.RemoveAllListeners();
+		// 	silverText.GetComponentInParent<Button>( true ).onClick.RemoveAllListeners();
+		// 	goldText.GetComponentInParent<Button>( true ).onClick.RemoveAllListeners();
+		// 	rookText.GetComponentInParent<Button>( true ).onClick.RemoveAllListeners();
+		// 	bishopText.GetComponentInParent<Button>( true ).onClick.RemoveAllListeners();
+		// }
 
 		private void ResetAllTextsToZero(){
 			pawnText.text = "x0";
@@ -117,8 +117,11 @@ namespace Shogi
 			rookText.text = "x0";
 			bishopText.text = "x0";
 
-			foreach (Transform pieceArt in this.transform.GetChild( 0 )) {
-				pieceArt.gameObject.SetActive( false );
+			// foreach (Transform pieceArt in this.transform.GetChild( 0 )) {
+			// 	pieceArt.gameObject.SetActive( false );
+			// }
+			foreach(TMP_Text text in GetComponentsInChildren<TMP_Text>()){
+				text.gameObject.SetActive( false );
 			}
 		}
 
@@ -136,7 +139,7 @@ namespace Shogi
 			int number = GetNumberFromLabel( text ) + 1;
 			
 			if (number > 0) {
-				text.transform.parent.gameObject.SetActive( true );
+				text.transform.gameObject.SetActive( true );
 			}
 			text.text = "x"+number.ToString();
 		}
@@ -145,7 +148,7 @@ namespace Shogi
 			int number = GetNumberFromLabel( text ) - 1;
 
 			if (number <= 0) {
-				text.transform.parent.gameObject.SetActive( false );
+				text.transform.gameObject.SetActive( false );
 			}
 			text.text = "x" + number.ToString();
 		}
