@@ -1,14 +1,9 @@
-
-using System.IO;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Shogi{
+namespace Shogi
+{
 	public class LoadSave_GameState_Editor : MonoBehaviour {
 		[Auto] ShogiGame gameManager;
 

@@ -100,6 +100,7 @@ namespace Shogi
 			while(isGameOver == false && manualOverride == false){
 				Debug.Log("Awaiting Turn: "+_currTurn_PlayerId.ToString());
 				IShogiAction action = await CurrTurn_Player.RequestAction().AttachExternalCancellation( gameLoopCancelToken.Token );
+				
 				if (action.IsMoveValid( this )) {
 					Debug.Log("Valid Move: Executing");
 					await action.ExecuteAction( this ).AttachExternalCancellation( gameLoopCancelToken.Token );
@@ -123,7 +124,6 @@ namespace Shogi
 			_currTurn_PlayerId = (_currTurn_PlayerId == PlayerId.Player1) ? PlayerId.Player2 : PlayerId.Player1;
 		}
 
-		//? Forse questa funzione dovrei metterle in LoadSave_GameState
 		public void ApplyGameState(GameState state) {
 			ReassignPiecesData( state );
 			RefreshMonobehavioursInScene();
@@ -141,9 +141,7 @@ namespace Shogi
 			PlayerId nextPlayerTurn = GetPlayer_WhoMovesNext( history );
 			BeginGame( nextPlayerTurn );
 
-			Debug.Log( "All moves applied" );
-
-
+			Debug.Log( "Finish Apply GameHistory: All moves applied" );
 
 			PlayerId GetPlayer_WhoMovesNext( GameHistory loadedGameHistory ) {
 				PlayerId nextPlayerTurn;
@@ -164,7 +162,6 @@ namespace Shogi
 			board.RefreshWithPiecesInScene();
 		}
 
-		//? Forse questa funzione dovrei metterle in LoadSave_GameState
 		private void ReassignPiecesData( GameState obj ) {
 			Queue<Piece> piecesObjs = FindObjectsOfType<Piece>().ToQueue();
 			foreach(PieceData piece in obj.piecesData){

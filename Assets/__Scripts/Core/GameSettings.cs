@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace Shogi{
+namespace Shogi
+{
 
 	public class GameSettings : MonoBehaviour
 	{

@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using Shogi;
 using UnityEngine;
 
 namespace Shogi
@@ -28,20 +25,17 @@ namespace Shogi
 		public void DoHighlightLastMovedPiece(IShogiAction action){
 			if (action is UndoLastAction) { return; }
 			
-			Debug.Log("Dehighlight"+ action);
 			prevMovedPiece?.DisableHighlight();
 
 			IPieceHighlight pieceHighlight = action.GetActingPiece().GetComponent<IPieceHighlight>();
 			pieceHighlight.EnableHighlight( settings.lastMovedPiece_color);
 
 			prevMovedPiece = pieceHighlight;
-
 		}
 
 		public void DoHighlightStartMoveCell(IShogiAction action){
 			if (action is UndoLastAction) { return; }
-			
-			Debug.Log("Highlight"+ action);
+
 			prevStartMovedCell?.DeactivateHightlight();
 			if (action is DropPieceAction) { return; }
 
