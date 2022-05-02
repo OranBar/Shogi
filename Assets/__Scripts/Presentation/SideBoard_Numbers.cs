@@ -134,7 +134,10 @@ namespace Shogi
 
 		private void IncreaseNumberLabel(TMP_Text text){
 			int number = GetNumberFromLabel( text ) + 1;
-
+			
+			if (number > 0) {
+				text.transform.parent.gameObject.SetActive( true );
+			}
 			text.text = "x"+number.ToString();
 		}
 

@@ -398,6 +398,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 755911785}
     m_Modifications:
+    - target: {fileID: 3261286759888544218, guid: aa53eeb0a408aa749bde5fb8375d6064, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8004677805882255526, guid: aa53eeb0a408aa749bde5fb8375d6064, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0.5
@@ -936,6 +940,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 755911785}
     m_Modifications:
+    - target: {fileID: 3331760211047461226, guid: a57209e9a4d81d84e81c343a652ce83d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4319184984772985231, guid: a57209e9a4d81d84e81c343a652ce83d, type: 3}
       propertyPath: m_fontSize
       value: 40
@@ -2093,6 +2101,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 33709915}
     m_Modifications:
+    - target: {fileID: 4736060756096677800, guid: 59b021fd73102d1439bdfc1ce28f5987, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7087982915131018581, guid: 59b021fd73102d1439bdfc1ce28f5987, type: 3}
       propertyPath: m_fontSize
       value: 40
@@ -4368,6 +4380,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 755911785}
     m_Modifications:
+    - target: {fileID: 2503562086913957869, guid: 630f5336552ff994ba01979093083c20, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6640862060424339122, guid: 630f5336552ff994ba01979093083c20, type: 3}
       propertyPath: m_fontSize
       value: 40
@@ -5275,6 +5291,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 33709915}
     m_Modifications:
+    - target: {fileID: 3331760211047461226, guid: a57209e9a4d81d84e81c343a652ce83d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4319184984772985231, guid: a57209e9a4d81d84e81c343a652ce83d, type: 3}
       propertyPath: m_fontSize
       value: 40
@@ -5635,6 +5655,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 33709915}
     m_Modifications:
+    - target: {fileID: 4345548866980668557, guid: 10dd514ba809ddf4cb4c0bcc5c618ac0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4820640226029177274, guid: 10dd514ba809ddf4cb4c0bcc5c618ac0, type: 3}
       propertyPath: m_fontSize
       value: 40
@@ -7838,6 +7862,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 33709915}
     m_Modifications:
+    - target: {fileID: 3261286759888544218, guid: aa53eeb0a408aa749bde5fb8375d6064, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8004677805882255526, guid: aa53eeb0a408aa749bde5fb8375d6064, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
@@ -13453,6 +13481,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8187838090369862972, guid: 089699a568ba9d14eaea0ff37eef0f9a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4094493778057303692, guid: 089699a568ba9d14eaea0ff37eef0f9a, type: 3}
     - {fileID: -1735431935040453400, guid: 089699a568ba9d14eaea0ff37eef0f9a, type: 3}
@@ -14447,6 +14479,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 755911785}
     m_Modifications:
+    - target: {fileID: 4345548866980668557, guid: 10dd514ba809ddf4cb4c0bcc5c618ac0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4820640226029177274, guid: 10dd514ba809ddf4cb4c0bcc5c618ac0, type: 3}
       propertyPath: m_fontSize
       value: 40
@@ -19380,6 +19416,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7097196122825976055, guid: 998c04b99451d974b8566c4384b0fbfc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2010630293906527259, guid: 998c04b99451d974b8566c4384b0fbfc, type: 3}
     - {fileID: 8675494995940331956, guid: 998c04b99451d974b8566c4384b0fbfc, type: 3}
@@ -20066,6 +20106,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 33709915}
     m_Modifications:
+    - target: {fileID: 2503562086913957869, guid: 630f5336552ff994ba01979093083c20, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6640862060424339122, guid: 630f5336552ff994ba01979093083c20, type: 3}
       propertyPath: m_fontSize
       value: 40
@@ -21564,6 +21608,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 755911785}
     m_Modifications:
+    - target: {fileID: 4736060756096677800, guid: 59b021fd73102d1439bdfc1ce28f5987, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7087982915131018581, guid: 59b021fd73102d1439bdfc1ce28f5987, type: 3}
       propertyPath: m_fontSize
       value: 40
@@ -24601,6 +24649,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7097196122825976055, guid: 998c04b99451d974b8566c4384b0fbfc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2010630293906527259, guid: 998c04b99451d974b8566c4384b0fbfc, type: 3}
     - {fileID: 6113464295935342294, guid: 998c04b99451d974b8566c4384b0fbfc, type: 3}
@@ -27003,6 +27055,10 @@ PrefabInstance:
     - target: {fileID: 4094493778057303692, guid: 089699a568ba9d14eaea0ff37eef0f9a, type: 3}
       propertyPath: pieceData.owner
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8187838090369862972, guid: 089699a568ba9d14eaea0ff37eef0f9a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4094493778057303692, guid: 089699a568ba9d14eaea0ff37eef0f9a, type: 3}
