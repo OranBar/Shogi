@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -163,7 +164,8 @@ namespace Shogi
 		}
 
 		private void ReassignPiecesData( GameState obj ) {
-			Queue<Piece> piecesObjs = FindObjectsOfType<Piece>().ToQueue();
+			Queue<Piece> piecesObjs = FindObjectsOfType<Piece>(true).ToQueue();
+			Debug.Log( "Found "+piecesObjs.Count()+" Pieces" );
 			foreach(PieceData piece in obj.piecesData){
 				Piece currPieceObj = piecesObjs.Dequeue();
 				currPieceObj.X = piece.x;
@@ -171,6 +173,8 @@ namespace Shogi
 				currPieceObj.OwnerId = piece.owner;
 				currPieceObj.IsPromoted = piece.isPromoted;
 				currPieceObj.IsCaptured = piece.isCaptured;
+
+				currPieceObj.gameObject.SetActive( true );
 			}
 		}
 	}
