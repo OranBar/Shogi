@@ -34,7 +34,16 @@ namespace Shogi
 		}
 
 		public void DoHighlightStartMoveCell(IShogiAction action){
-			if (action is UndoLastAction) { return; }
+			//I really dislike this if. It's ugly. I wish I could put it inside the IShogiAciton and do something like
+			//action.HandleFx();
+			//But then my action does BOTH logic AND effects, and I think I should avoid mixing them. 
+			if (action is UndoLastAction) { 
+				if(shogiGame.gameHistory.playedMoves.Count < 1){
+					prevStartMovedCell?.DeactivateHightlight();
+				}
+				return; 
+			}
+			//-------------------
 
 			prevStartMovedCell?.DeactivateHightlight();
 			if (action is DropPieceAction) { return; }

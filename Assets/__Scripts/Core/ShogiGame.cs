@@ -165,7 +165,6 @@ namespace Shogi
 
 		private void ReassignPiecesData( GameState obj ) {
 			Queue<Piece> piecesObjs = FindObjectsOfType<Piece>(true).ToQueue();
-			Debug.Log( "Found "+piecesObjs.Count()+" Pieces" );
 			foreach(PieceData piece in obj.piecesData){
 				Piece currPieceObj = piecesObjs.Dequeue();
 				currPieceObj.X = piece.x;
