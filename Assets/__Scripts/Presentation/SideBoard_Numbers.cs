@@ -57,9 +57,14 @@ namespace Shogi
 		private void PieceAddedToSideboardFx( Piece obj ) {
 			Debug.Log("Sideboard piece FX");
 			Transform sideboardPiece = GetText( obj.PieceType ).transform.parent;
+			
 
-			sideboardPiece.transform.localScale = Vector3.one * 2;
-			sideboardPiece.DOScale(Vector3.one, 1f).SetEase(Ease.OutCubic);
+			var sequence = DOTween.Sequence();
+			sequence
+				.PrependInterval( .3f )
+				.AppendCallback( ()=> sideboardPiece.gameObject.SetActive( true ))
+				.AppendCallback( ()=> sideboardPiece.transform.localScale = Vector3.one * 2)
+				.Append( sideboardPiece.DOScale( Vector3.one, 1.5f ).SetEase( Ease.OutCubic ) );
 		}
 
 		void OnDisable(){
@@ -126,9 +131,6 @@ namespace Shogi
 		private void IncreaseNumberLabel(TMP_Text text){
 			int number = GetNumberFromLabel( text ) + 1;
 
-			if (number > 0) {
-				text.transform.parent.gameObject.SetActive( true );
-			}
 			text.text = "x"+number.ToString();
 		}
 
