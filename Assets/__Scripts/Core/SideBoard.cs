@@ -54,7 +54,8 @@ namespace Shogi{
 			piece.X = piece.OwnerId == PlayerId.Player1 ? -1 : -2;
 			piece.Y = _capturedPieces.Count;
 			OnNewPieceAdded?.Invoke(piece);
-			SendPieceToLimbo( piece );
+			// SendPieceToLimbo( piece );
+			piece.transform.parent = this.transform;
 		}
 
 		public void RemoveCapturedPiece(Piece piece){
@@ -64,6 +65,7 @@ namespace Shogi{
 		}
 
 		private void SendPieceToLimbo(Piece piece ) {
+			//TODO: this needs to put the piece in place instead of sending it far far away :D
 			Transform limbo = GameObject.FindGameObjectWithTag( "Limbo" ).transform;
 			piece.transform.SetParent(limbo);
 			piece.transform.localPosition = Vector3.zero;

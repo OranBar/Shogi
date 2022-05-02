@@ -20,6 +20,7 @@ namespace Shogi
 	public class Piece : Sirenix.OdinInspector.SerializedMonoBehaviour, IPointerClickHandler
 	{
 		public static RefAction<Piece> OnAnyPieceClicked = new RefAction<Piece>();
+		public RefAction OnPieceClicked = new RefAction();
 
 		public PieceData pieceData;
 
@@ -113,6 +114,7 @@ namespace Shogi
 			//Thou shall live again
 			this.IsCaptured = true;
 			this.IsPromoted = false;
+			this.transform.SetLocalRotationZ( this.transform.eulerAngles.z + 180 );
 			SendToSideboard();
 
 			void SendToSideboard() {
@@ -146,6 +148,7 @@ namespace Shogi
 		public void OnPointerClick( PointerEventData eventData ) {
 			Debug.Log("Piece Clicked");
 			Piece.OnAnyPieceClicked.Invoke(this);
+			OnPieceClicked.Invoke();
 		}
 
 		public void LogAvailableMoves() {

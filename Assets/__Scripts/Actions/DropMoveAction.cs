@@ -56,7 +56,7 @@ namespace Shogi
 				for (int y = 0 ; y < 9 ; y++) {
 					Piece piece = game.board [DestinationX, y];
 					bool isPawn = piece?.PieceType == PieceType.Pawn;
-					bool isUnpromotedPawn = isPawn && game.board [StartX, y].IsPromoted == false;
+					bool isUnpromotedPawn = isPawn && piece.IsPromoted == false;
 
 					if (isUnpromotedPawn) {
 						return true;

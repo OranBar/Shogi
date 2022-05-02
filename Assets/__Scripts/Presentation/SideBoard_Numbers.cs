@@ -46,25 +46,28 @@ namespace Shogi
 		[Auto] private SideBoard sideBoard;
 
 		void OnEnable(){
-			sideBoard.OnNewPieceAdded += IncreaseText;
+			sideBoard.OnNewPieceAdded += PieceAddedToSideboardFx;
 			sideBoard.OnNewPieceRemoved += DecreaseText;
 			sideBoard.OnCleared += ResetAllTextsToZero;
 
-			sideBoard.OnNewPieceAdded += PieceAddedToSideboardFx;
 			RegisterButtons();
 		}
 
-		private void PieceAddedToSideboardFx( Piece obj ) {
+		private void PieceAddedToSideboardFx( Piece newPiece ) {
 			Debug.Log("Sideboard piece FX");
-			Transform sideboardPiece = GetText( obj.PieceType ).transform.parent;
-			
+			Transform sideboardPiece = GetText( newPiece.PieceType ).transform.parent;
+			newPiece.transform.position = sideboardPiece.transform.position;
+			newPiece.gameObject.SetActive( false );
 
 			var sequence = DOTween.Sequence();
 			sequence
 				.PrependInterval( .3f )
-				.AppendCallback( ()=> sideboardPiece.gameObject.SetActive( true ))
-				.AppendCallback( ()=> sideboardPiece.transform.localScale = Vector3.one * 2)
-				.Append( sideboardPiece.DOScale( Vector3.one, 1.5f ).SetEase( Ease.OutCubic ) );
+				.AppendCallback( () => newPiece.gameObject.SetActive( true ) )
+				.AppendCallback( () => newPiece.transform.localScale = Vector3.one * 2 )
+				.AppendCallback( () => IncreaseText( newPiece ) )
+				.Append( newPiece.transform.DOScale( Vector3.one, 1.5f ).SetEase( Ease.OutCubic ) );
+
+			
 		}
 
 		void OnDisable(){
@@ -84,6 +87,7 @@ namespace Shogi
 			piece.OnPointerClick( new PointerEventData( null ) );
 		}
 
+		//TODO: instead of registering buttons, we register to the piece's onclick with the OnPieceClicked event
 		private void RegisterButtons() {
 			pawnText.GetComponentInParent<Button>( true ).onClick.AddListener( () => OnPieceButtonClicked( PieceType.Pawn ) );
 			lancerText.GetComponentInParent<Button>( true ).onClick.AddListener( () => OnPieceButtonClicked( PieceType.Lancer ) );
