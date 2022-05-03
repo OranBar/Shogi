@@ -13229,6 +13229,9 @@ MonoBehaviour:
     - Name: Player2
       Entry: 10
       Data: 1
+    - Name: winner
+      Entry: 6
+      Data: 
   board: {fileID: 759263462}
   player1_sideboard: {fileID: 1355150549}
   player2_sideboard: {fileID: 966799794}
@@ -15696,7 +15699,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c95ee9d101c4ea14ab21f479f53e2f34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clockTime: 900
+  clockTime: 15
   owner: 1
   timerType: 1
   incrementAmount: 10
@@ -15996,7 +15999,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c95ee9d101c4ea14ab21f479f53e2f34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clockTime: 900
+  clockTime: 15
   owner: 2
   timerType: 1
   incrementAmount: 10

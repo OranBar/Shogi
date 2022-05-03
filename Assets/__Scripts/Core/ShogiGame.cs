@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Shogi
@@ -42,8 +44,12 @@ namespace Shogi
 		public IPlayer CurrTurn_Player {
 			get
 			{
-				return _currTurn_PlayerId == PlayerId.Player1 ? Player1 : Player2;
+				return GetPlayer( _currTurn_PlayerId );
 			}
+		}
+
+		public IPlayer GetPlayer(PlayerId playerId){
+			return playerId == PlayerId.Player1 ? Player1 : Player2;
 		}
 
 		public Board board;
@@ -59,6 +65,8 @@ namespace Shogi
 
 		public bool manualOverride;
 		private bool isGameOver;
+		[ReadOnly] public IPlayer winner = null;
+
 		private CancellationTokenSource gameLoopCancelToken;
 		public GameHistory gameHistory = null;
 
@@ -81,6 +89,10 @@ namespace Shogi
 
 		void OnDisable(){
 			isGameOver = true;
+
+			var shogiClock = FindObjectOfType<ShogiClock>();
+			shogiClock.timer_player1.OnTimerFinished += Player2_HasWon;
+			shogiClock.timer_player2.OnTimerFinished += Player1_HasWon;
 		}
 
 		public void BeginGame( PlayerId startingPlayer ) {
@@ -91,6 +103,8 @@ namespace Shogi
 
 		private async UniTask BeginGameAsync( PlayerId startingPlayer ) {
 			_currTurn_PlayerId = startingPlayer;
+
+			RegisterTimeout_ToGameOver();
 
 			( (MonoBehaviour)Player1 ).enabled = false;
 			( (MonoBehaviour)Player2 ).enabled = false;
@@ -118,6 +132,26 @@ namespace Shogi
 				AdvanceTurn();
 				OnNewTurnBegun.Invoke( _currTurn_PlayerId );
 			}
+		}
+
+		private void RegisterTimeout_ToGameOver() {
+			var shogiClock = FindObjectOfType<ShogiClock>();
+			shogiClock.timer_player1.OnTimerFinished += Player2_HasWon;
+			shogiClock.timer_player2.OnTimerFinished += Player1_HasWon;
+		}
+
+		private void Player1_HasWon(){
+			GameOver( GetPlayer( PlayerId.Player1 ) );
+		}
+
+		private void Player2_HasWon() {
+			GameOver( GetPlayer( PlayerId.Player2 ) );
+		}
+
+		private void GameOver(IPlayer winner){
+			this.winner = winner;
+			isGameOver = true;
+			gameLoopCancelToken.Cancel();
 			Debug.Log( "Game Finished" );
 		}
 
