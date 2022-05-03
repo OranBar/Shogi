@@ -13,6 +13,12 @@ namespace Shogi
 		Player2
 	}
 
+	public static class PlayerIdEx{
+		public static PlayerId GetOtherPlayer(this PlayerId playerId){
+			return playerId == PlayerId.Player1 ? PlayerId.Player2 : PlayerId.Player1;
+		} 
+	}
+
 	[Serializable]
 	public class HumanPlayer : MonoBehaviour, IPlayer
 	{
