@@ -6,15 +6,20 @@ namespace Shogi
 {
 
 
-	public class ShogiTimers : MonoBehaviour
+	public class ShogiClock : MonoBehaviour
 	{
-		public PlayerTimer timer_player1;
-		public PlayerTimer timer_player2;
+		public Timer timer_player1;
+		public Timer timer_player2;
 
 		public RefAction OnPlayer1Timer_Finished;
 
+		private void OnValidate(){
+			Debug.Assert( timer_player1.enabled == false );
+			Debug.Assert( timer_player2.enabled == false );
+		}
 
 		public void Start(){
+			OnValidate();
 			var shogiGame = FindObjectOfType<ShogiGame>();
 			shogiGame.OnNewTurnBegun += ToggleBothTimers;
 
@@ -23,7 +28,9 @@ namespace Shogi
 		}
 
 		public void ToggleBothTimers( PlayerId playerId ){
-			GetPlayerTimer( playerId ).enabled = true;
+			Timer currPlayerTimer = GetPlayerTimer( playerId );
+			currPlayerTimer.enabled = true;
+
 			GetPlayerTimer( playerId.GetOtherPlayer() ).enabled = false;
 		}
 
