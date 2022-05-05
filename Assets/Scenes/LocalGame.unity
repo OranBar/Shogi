@@ -15699,10 +15699,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c95ee9d101c4ea14ab21f479f53e2f34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clockTime: 15
+  clockTime: 2
   owner: 1
   timerType: 1
-  incrementAmount: 10
+  incrementAmount: 2
 --- !u!114 &1200282480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15999,10 +15999,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c95ee9d101c4ea14ab21f479f53e2f34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clockTime: 15
+  clockTime: 2
   owner: 2
   timerType: 1
-  incrementAmount: 10
+  incrementAmount: 2
 --- !u!114 &1209995859
 MonoBehaviour:
   m_ObjectHideFlags: 0
