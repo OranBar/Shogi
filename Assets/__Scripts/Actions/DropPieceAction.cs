@@ -28,6 +28,7 @@ namespace Shogi
 			var actingPiece = GetActingPiece();
 			UnityEngine.Debug.Log($"Dropping piece {actingPiece} on ({DestinationX},{DestinationY})");
 
+			//TODO: the drop animation will not work if we don't run this line, since it changes the pieceGO's parent
 			game.GetSideBoard( actingPiece.OwnerId ).RemoveCapturedPiece( actingPiece );
 			//TODO: replace with animation
 			actingPiece.PlacePieceOnCell_Immediate( DestinationX, DestinationY );

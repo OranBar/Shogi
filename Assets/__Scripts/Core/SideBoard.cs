@@ -55,12 +55,14 @@ namespace Shogi{
 			piece.Y = _capturedPieces.Count;
 			OnNewPieceAdded?.Invoke(piece);
 			// SendPieceToLimbo( piece );
+			//Probably should be done by MoveAction or IMoveActionFX implementor
 			piece.transform.parent = this.transform;
 		}
 
 		public void RemoveCapturedPiece(Piece piece){
 			_capturedPieces.Remove(piece);
 			OnNewPieceRemoved?.Invoke(piece);
+			//TODO: probably should be done by DropAction or IDropActionFX implementor
 			ReparentPiece_ToOwner( piece );
 		}
 

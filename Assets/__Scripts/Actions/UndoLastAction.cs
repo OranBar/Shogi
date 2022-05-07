@@ -11,12 +11,13 @@ namespace Shogi
 		}
 
 		public override async UniTask ExecuteAction( ShogiGame game ) {
+			int count = game.gameHistory.playedMoves.Count;
 			//Side effect. GameHistory playedmoves is modified, the last move is removed from the list
-			var lastMove = game.gameHistory.playedMoves.Pop();
+			var lastMove = game.gameHistory.playedMoves[count - 1];
 			await lastMove.UndoAction( game );
 
-			if(game.gameHistory.playedMoves.Count >= 1){
-				var secondToLastMove = game.gameHistory.playedMoves.Last();
+			if(count >= 1){
+				var secondToLastMove = game.gameHistory.playedMoves[count - 2];
 				await secondToLastMove.UndoAction( game );
 				await secondToLastMove.ExecuteAction( game );
 			}

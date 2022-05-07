@@ -128,6 +128,9 @@ namespace Shogi
 
 					if (action is not UndoLastAction) {
 						gameHistory.RegisterNewMove( action );
+					} else {
+						//We don't want to register the UndoAction, and also we want to remove the last action. 
+						gameHistory.playedMoves.Pop();
 					}
 
 					Debug.Log( "Finish Move Execution" );
@@ -140,7 +143,7 @@ namespace Shogi
 				OnNewTurnBegun.Invoke( _currTurn_PlayerId );
 			}
 		}
-		
+
 		private void RegisterTimeout_ToGameOver() {
 			var shogiClock = FindObjectOfType<ShogiClock>();
 			shogiClock.timer_player1.OnTimerFinished += Player2_HasWon;
