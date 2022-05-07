@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 941852217953859865}
   - component: {fileID: -8539203347971522954}
   - component: {fileID: 2968846191801268064}
-  - component: {fileID: 7618030094505704600}
   m_Layer: 5
   m_Name: King
   m_TagString: Untagged
@@ -105,6 +104,12 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
+    - Name: OnPieceClicked
+      Entry: 7
+      Data: 0|RefAction, barbaro.oblib.runtime
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: owner
       Entry: 6
       Data: 
@@ -124,8 +129,6 @@ MonoBehaviour:
   defaultImage: {fileID: 2910105995129965602}
   promotedImage: {fileID: 0}
   board: {fileID: 0}
-  movementFx: {fileID: 0}
-  deathFx: {fileID: 0}
 --- !u!114 &8764866743120805160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -260,18 +263,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &7618030094505704600
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4610554103108687850}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb26d2f02c95f084182d885e3889d89c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &639472706539135019
 PrefabInstance:
   m_ObjectHideFlags: 0

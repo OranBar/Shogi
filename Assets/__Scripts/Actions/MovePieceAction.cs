@@ -38,12 +38,13 @@ namespace Shogi
 			var capturedPiece = game.board[DestinationX, DestinationY];
 			bool wasCapturingMove = capturedPiece != null && capturedPiece.owner != actingPiece.owner;
 
+			await actingPiece.GetComponent<IPieceMoveActionFX>().DoMoveAnimation( DestinationX, DestinationY );
 			if (wasCapturingMove) {
 				//A piece was killed. Such cruelty. 
+				await capturedPiece.GetComponent<IPieceDeathFx>().DoPieceDeathAnimation();
 				capturedPiece.CapturePiece();
-				capturedPiece.GetComponent<IPieceDeathFx>().DoPieceDeathAnimation();
 			}
-			await actingPiece.GetComponent<IPieceMoveActionFX>().DoMoveAnimation( DestinationX, DestinationY );
+			
 			await actingPiece.GetComponent<IHighlightFx>().EnableHighlight( game.settings.lastMovedPiece_color );
 			await startCell.GetComponent<IHighlightFx>().EnableHighlight( game.settings.lastMovedPiece_color.SetAlpha( 0.5f ) );
 

@@ -20,7 +20,7 @@ namespace Shogi
 	public class Piece : Sirenix.OdinInspector.SerializedMonoBehaviour, IPointerClickHandler
 	{
 		public static RefAction<Piece> OnAnyPieceClicked = new RefAction<Piece>();
-		public RefAction OnPieceClicked = new RefAction();
+		[HideInInspector] public RefAction OnPieceClicked = new RefAction();
 
 		public PieceData pieceData;
 
@@ -77,16 +77,11 @@ namespace Shogi
 		public Image defaultImage;
 		public Image promotedImage;
 
-		public Board board;
+		private Board board;
 		private ShogiGame gameManager;
 
 		#region Presentation
 		[Auto] private RectTransform rectTransform;
-		// public IPieceMoveActionFX moveFx;
-		// public PieceDropAnimation dropAnimation;
-		// public IPieceDeathFx deathFx;
-
-		
 		#endregion
 
 		void Awake() {
@@ -95,8 +90,6 @@ namespace Shogi
 			dropMovement = this.gameObject.AddOrGetComponent<DropMovement>();
 			
 			owner = FindObjectsOfType<HumanPlayer>().First( p => p.PlayerId == OwnerId );
-			// moveFx = GetComponent<IPieceMoveActionFX>();
-			// deathFx = GetComponent<IPieceDeathFx>();
 		}
 
 		public List<(int x, int y)> GetValidMoves() {

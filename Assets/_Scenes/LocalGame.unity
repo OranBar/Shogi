@@ -15686,7 +15686,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c95ee9d101c4ea14ab21f479f53e2f34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clockTime: 2
+  clockTime: 900
   owner: 1
   timerType: 1
   incrementAmount: 2
@@ -15986,7 +15986,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c95ee9d101c4ea14ab21f479f53e2f34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clockTime: 2
+  clockTime: 900
   owner: 2
   timerType: 1
   incrementAmount: 2

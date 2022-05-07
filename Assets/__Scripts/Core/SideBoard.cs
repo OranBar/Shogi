@@ -54,30 +54,14 @@ namespace Shogi{
 			piece.X = piece.OwnerId == PlayerId.Player1 ? -1 : -2;
 			piece.Y = _capturedPieces.Count;
 			OnNewPieceAdded?.Invoke(piece);
-			// SendPieceToLimbo( piece );
-			//Probably should be done by MoveAction or IMoveActionFX implementor
-			piece.transform.parent = this.transform;
 		}
 
 		public void RemoveCapturedPiece(Piece piece){
 			_capturedPieces.Remove(piece);
 			OnNewPieceRemoved?.Invoke(piece);
-			//TODO: probably should be done by DropAction or IDropActionFX implementor
-			ReparentPiece_ToOwner( piece );
 		}
 
-		private void SendPieceToLimbo(Piece piece ) {
-			//TODO: this needs to put the piece in place instead of sending it far far away :D
-			Transform limbo = GameObject.FindGameObjectWithTag( "Limbo" ).transform;
-			piece.transform.SetParent(limbo);
-			piece.transform.localPosition = Vector3.zero;
-		}
-
-		private void ReparentPiece_ToOwner(Piece piece) {
-			string parentTag = piece.OwnerId == PlayerId.Player1 ? "Player1_Pieces" : "Player2_Pieces";
-			Transform newParent = GameObject.FindGameObjectWithTag( parentTag ).transform;
-			piece.transform.parent = newParent;
-		}
+		
 
 		
 	}

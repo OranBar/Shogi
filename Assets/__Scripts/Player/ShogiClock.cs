@@ -12,19 +12,31 @@ namespace Shogi
 		public Timer timer_player2;
 
 		public RefAction OnPlayer1Timer_Finished;
+		private ShogiGame shogiGame;
 
 		private void OnValidate(){
 			Debug.Assert( timer_player1.enabled == false );
 			Debug.Assert( timer_player2.enabled == false );
 		}
+		
+		void Awake()
+		{
+			shogiGame = FindObjectOfType<ShogiGame>();
+		}
 
 		public void Start(){
 			OnValidate();
-			var shogiGame = FindObjectOfType<ShogiGame>();
-			shogiGame.OnNewTurnBegun += ToggleBothTimers;
-
+			
 			timer_player1.enabled = false;
 			timer_player2.enabled = false;
+		}
+
+		void OnEnable(){
+			shogiGame.OnNewTurnBegun += ToggleBothTimers;
+		}
+
+		void OnDisable(){
+			shogiGame.OnNewTurnBegun -= ToggleBothTimers;
 		}
 
 		public void ToggleBothTimers( PlayerId playerId ){

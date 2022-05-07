@@ -1,7 +1,9 @@
+using Cysharp.Threading.Tasks;
+
 namespace Shogi
 {
 	public interface IPieceDeathFx
 	{
-		void DoPieceDeathAnimation();
+		UniTask DoPieceDeathAnimation();
 	}
 }

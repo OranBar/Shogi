@@ -179,8 +179,11 @@ namespace Shogi
 			gameHistory = history;
 
 			//Alter timescale to fast forward?
+			IShogiAction prevMove = null;
 			foreach (var move in history.playedMoves) {
+				prevMove?.DisableFX();
 				await move.ExecuteAction( this );
+				prevMove = move;
 			}
 
 			PlayerId nextPlayerTurn = GetPlayer_WhoMovesNext( history );

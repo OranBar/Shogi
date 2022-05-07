@@ -54,7 +54,6 @@ namespace Shogi
 		}
 
 		private void PieceAddedToSideboardFx( Piece newPiece ) {
-			Debug.Log("Sideboard piece FX");
 			Transform sideboardPiece = GetText( newPiece.PieceType ).transform.parent;
 			newPiece.transform.position = sideboardPiece.transform.position;
 			newPiece.gameObject.SetActive( false );
