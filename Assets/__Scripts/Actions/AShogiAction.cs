@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 namespace Shogi{
 	[Serializable]
@@ -44,12 +45,16 @@ namespace Shogi{
 		}
 
 		public Piece GetActingPiece( ) {
-			// if (_actingPieceData.isCaptured) {
-			// 	var sideboard = game.GetSideBoard( _actingPieceData.owner );
-			// 	return sideboard.CapturedPieces.First( p => p.PieceType == _actingPieceData.pieceType );
-			// } else {
-			// 	return game.board [StartX, StartY];
-			// }
+			if(actingPiece == null){
+				Debug.Log($"Looking for piece {StartX}, {StartY}");
+				actingPiece = GameObject.FindObjectsOfType<Piece>(true).First( p => p.X == StartX && p.Y == StartY );
+				// if (_actingPieceData.isCaptured) {
+				// 	var sideboard = game.GetSideBoard( _actingPieceData.owner );
+				// 	return sideboard.CapturedPieces.First( p => p.PieceType == _actingPieceData.pieceType );
+				// } else {
+				// 	return game.board [StartX, StartY];
+				// }
+			}
 			return actingPiece;
 		}
 
