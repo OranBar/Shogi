@@ -122,12 +122,13 @@ namespace Shogi
 				
 				if (action.IsMoveValid( this )) {
 					Debug.Log("Valid Move: Executing");
-					// await action.ExecuteAction( this ).AttachExternalCancellation( gameLoopCancelToken.Token );
-					await ExecuteAction(action);
+					gameHistory.playedMoves.LastOrDefault()?.DisableFX();
 
-					//I don't like this event. I think it needs to go
-					// OnActionExecuted.Invoke(action);
-					// gameHistory.RegisterNewMove(action);
+					await action.ExecuteAction( this ).AttachExternalCancellation( gameLoopCancelToken.Token );
+
+					if (action is not UndoLastAction) {
+						gameHistory.RegisterNewMove( action );
+					}
 
 					Debug.Log( "Finish Move Execution" );
 				} else {
@@ -139,16 +140,7 @@ namespace Shogi
 				OnNewTurnBegun.Invoke( _currTurn_PlayerId );
 			}
 		}
-
-		public async UniTask ExecuteAction(IShogiAction action){
-			gameHistory.playedMoves.LastOrDefault()?.DisableFX();
-
-			await action.ExecuteAction( this ).AttachExternalCancellation( gameLoopCancelToken.Token );
-			if (action is not UndoLastAction) {
-				gameHistory.RegisterNewMove( action );
-			}
-		}
-
+		
 		private void RegisterTimeout_ToGameOver() {
 			var shogiClock = FindObjectOfType<ShogiClock>();
 			shogiClock.timer_player1.OnTimerFinished += Player2_HasWon;

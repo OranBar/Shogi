@@ -19,11 +19,6 @@ namespace Shogi
 				var secondToLastMove = game.gameHistory.playedMoves.Last();
 				await secondToLastMove.UndoAction( game );
 				await secondToLastMove.ExecuteAction( game );
-				// await game.ExecuteAction( secondToLastMove );
-
-				//I think that removing this line is a GREAT goal. FX will be handled by ExecuteAction
-				// game.OnActionExecuted.Invoke( secondToLastMove );
-				//----------------
 			}
 		}
 
