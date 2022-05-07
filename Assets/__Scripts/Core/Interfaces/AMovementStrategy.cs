@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Shogi
 {
-	public abstract class AMovementStrategy : MonoBehaviour, IMovementStrategy
+	public abstract class AMovementStrategy : MonoBehaviour
 	{
 		protected Piece piece;
 		protected Board board;
@@ -16,14 +16,6 @@ namespace Shogi
 			board = FindObjectOfType<ShogiGame>().board;
 			piece = GetComponent<Piece>();
 		}
-
-		// protected List<(int x, int y)> FilterInvalidMoves( List<(int x, int y)> moves ) {
-		// 	var result = moves.ToList();
-
-		// 	result = result.Where( m => board.IsValidBoardPosition( m ) ).ToList();
-		// 	result = result.Where( m => Destination_IsNot_OccupiedByAlliedPiece( m ) ).ToList();
-		// 	return result;
-		// }
 
 		protected List<(int x, int y)> FilterInvalid_BoardPositions(List<(int x, int y)> moves){
 			var result = moves.Where( m => board.IsValidBoardPosition( m ) ).ToList();

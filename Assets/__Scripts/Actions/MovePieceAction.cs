@@ -38,6 +38,7 @@ namespace Shogi
 			var capturedPiece = game.board[DestinationX, DestinationY];
 			bool wasCapturingMove = capturedPiece != null && capturedPiece.owner != actingPiece.owner;
 
+			//Potrei aver creato 4 interfacce senza alcun valido motivo. Tutti e 4 questi GetComponent restituiscono lo stesso oggetto. 
 			await actingPiece.GetComponent<IPieceMoveActionFX>().DoMoveAnimation( DestinationX, DestinationY );
 			if (wasCapturingMove) {
 				//A piece was killed. Such cruelty. 

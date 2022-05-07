@@ -1,0 +1,8 @@
+Avere un oggetto che eredita da piu' interfacce puo' essere figo, e magari puo' pure aumentare la leggibilita' del codice.
+Pero' e' sicuramente piu' complesso capire chi fa cosa se non vedi la classe che sta eseguendo il metodo, ma solo l'interfaccia che implementa.
+Inoltre, la classe di appoggio (senza interfacce), puo' comunque delegare a un'altra classe il lavoro, permettendo la modularita' anche dei metodi devono essere condivisi su altri oggetti. 
+Infine, Unity e' molto piu' contento se usi classe astratte che ereditano da MB, te le fa anche serializzare!
+
+Effettivamente... Poter avere un oggetto che implementa piu' interfacce... Su unity... E' abbastanza inutile.....
+Significa che il codice che chiamava le interfacce, puo' chiamare direttamente la classe che le implementa. 
+Se si vuole dare piu' implementazioni, si crea una interfaccia di QUELLA classe, contenente tutte le implementazioni.

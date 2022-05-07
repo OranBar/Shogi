@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Shogi
 {
-	public class ShogiGame : Sirenix.OdinInspector.SerializedMonoBehaviour
+	public class ShogiGame : MonoBehaviour
 	{
 		#region Events
 		// public RefAction<Cell> OnAnyCellClicked => Cell.OnAnyCellClicked;
@@ -36,19 +36,19 @@ namespace Shogi
 		
 		#endregion
 
-		public IPlayer Player1;
-		public IPlayer Player2;
+		public APlayer Player1;
+		public APlayer Player2;
 		#region ToSerialize
 
 		private PlayerId _currTurn_PlayerId;
-		public IPlayer CurrTurn_Player {
+		public APlayer CurrTurn_Player {
 			get
 			{
 				return GetPlayer( _currTurn_PlayerId );
 			}
 		}
 
-		public IPlayer GetPlayer(PlayerId playerId){
+		public APlayer GetPlayer(PlayerId playerId){
 			return playerId == PlayerId.Player1 ? Player1 : Player2;
 		}
 
@@ -65,7 +65,7 @@ namespace Shogi
 
 		public bool manualOverride;
 		private bool isGameOver;
-		[ReadOnly] public IPlayer winner = null;
+		[ReadOnly] public APlayer winner = null;
 
 		private CancellationTokenSource gameLoopCancelToken;
 		public GameHistory gameHistory = null;
@@ -110,10 +110,10 @@ namespace Shogi
 
 			RegisterTimeout_ToGameOver();
 
-			( (MonoBehaviour)Player1 ).enabled = false;
-			( (MonoBehaviour)Player2 ).enabled = false;
-			( (MonoBehaviour)Player1 ).enabled = true;
-			( (MonoBehaviour)Player2 ).enabled = true;
+			Player1.enabled = false;
+			Player2.enabled = false;
+			Player1.enabled = true;
+			Player2.enabled = true;
 			
 			OnNewTurnBegun.Invoke( _currTurn_PlayerId );
 			while(isGameOver == false && manualOverride == false){
@@ -158,7 +158,7 @@ namespace Shogi
 			GameOver( GetPlayer( PlayerId.Player2 ) );
 		}
 
-		private void GameOver(IPlayer winner){
+		private void GameOver(APlayer winner){
 			this.winner = winner;
 			isGameOver = true;
 			gameLoopCancelToken.Cancel();

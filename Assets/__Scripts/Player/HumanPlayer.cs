@@ -17,13 +17,13 @@ namespace Shogi
 	}
 
 	[Serializable]
-	public class HumanPlayer : MonoBehaviour, IPlayer
+	public class HumanPlayer : APlayer
 	{
 		[SerializeField] private string _playerName;
-		public string PlayerName { get => _playerName; set => _playerName = value; }
+		public override string PlayerName { get => _playerName; set => _playerName = value; }
 
 		[SerializeField] private PlayerId playerId;
-		public PlayerId PlayerId => playerId;
+		public override PlayerId PlayerId => playerId;
 
 		public PlayerId OpponentId => playerId == PlayerId.Player1 ? PlayerId.Player2 : PlayerId.Player1;
 
@@ -89,7 +89,7 @@ namespace Shogi
 			Cell.OnAnyCellClicked -= Select_CellToMove;
 		}
 
-		public async UniTask<IShogiAction> RequestAction() {
+		public async override UniTask<IShogiAction> RequestAction() {
 			undoButton.onClick.AddListener( RequestUndo );
 			shogiGame.Get_OnPieceClickedEvent( playerId ).Value += Select_ActionPiece;
 

@@ -46,7 +46,7 @@ namespace Shogi
 			get { return pieceData.owner; }
 			set {
 				pieceData.owner = value;
-				owner = GameObjectEx.FindAll_InterfaceImplementors<IPlayer>().First( p => p.PlayerId == value );
+				owner = GameObjectEx.FindAll_InterfaceImplementors<APlayer>().First( p => p.PlayerId == value );
 			}
 		}
 		public bool IsCaptured{ 
@@ -56,7 +56,7 @@ namespace Shogi
 			}
 		}
 
-		public IPlayer owner;
+		public APlayer owner;
 
 		[SerializeReference] public AMovementStrategy defaultMovement;
 		[SerializeReference] public AMovementStrategy promotedMovement;
