@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Shogi
 {
 
-	public class PieceMoveActionFX : MonoBehaviour, IPieceMoveActionFX
+	public class PieceActionsFX : MonoBehaviour, IPieceMoveActionFX, IPieceDropActionFX
 	{
 		[Auto] Piece piece;
 		public AudioClip movementAudio;
@@ -28,12 +28,16 @@ namespace Shogi
 
 			//Tanto per
 			await UniTask.Yield();
+
+			void PlayMoveAudio() {
+				audioSource.clip = movementAudio;
+				audioSource.Play();
+			}
 		}
 
-		public void PlayMoveAudio() {
-			audioSource.clip = movementAudio;
-			audioSource.Play();
+		public async UniTask DoDropAnimation( int destinationX, int destinationY ) {
+			//temporary 
+			await DoMoveAnimation( destinationX, destinationY );
 		}
-
 	}
 }

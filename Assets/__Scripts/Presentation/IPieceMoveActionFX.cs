@@ -5,6 +5,5 @@ namespace Shogi
 	public interface IPieceMoveActionFX
 	{
 		UniTask DoMoveAnimation( int destinationX, int destinationY );
-		void PlayMoveAudio();
 	}
 }
