@@ -23,6 +23,7 @@ namespace Shogi
 		public override async UniTask ExecuteAction( ShogiGame game ) {
 			base.ExecuteAction( game ).Forget();
 			var actingPiece = GetActingPiece( );
+			Cell startCell = Cell.GetCell( StartX, StartY );
 
 			UnityEngine.Debug.Log( $"Moving piece {actingPiece} to cell ({DestinationX},{DestinationY})" );
 
@@ -35,7 +36,8 @@ namespace Shogi
 				capturedPiece.GetComponent<IPieceDeathFx>().DoPieceDeathAnimation();
 			}
 			await actingPiece.GetComponent<IPieceMoveActionFX>().DoMoveAnimation( DestinationX, DestinationY );
-			await actingPiece.GetComponent<IPieceHighlight>().EnableHighlight( game.settings.lastMovedPiece_color );
+			await actingPiece.GetComponent<IHighlight>().EnableHighlight( game.settings.lastMovedPiece_color );
+			await startCell.GetComponent<IHighlight>().EnableHighlight( game.settings.lastMovedPiece_color.SetAlpha( 0.5f ) );
 
 
 			//Update game data structures

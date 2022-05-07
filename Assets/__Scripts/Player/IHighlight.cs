@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Shogi
 {
-	public interface IPieceHighlight
+	public interface IHighlight
 	{
 		UniTask EnableHighlight( Color color );
 		UniTask DisableHighlight();

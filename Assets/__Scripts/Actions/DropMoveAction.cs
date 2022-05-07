@@ -26,7 +26,7 @@ namespace Shogi
 			//TODO: replace with animation
 			actingPiece.PlacePieceOnCell_Immediate( DestinationX, DestinationY );
 			await actingPiece.GetComponent<IPieceDropActionFX>().DoDropAnimation( DestinationX, DestinationY );
-			await actingPiece.GetComponent<IPieceHighlight>().EnableHighlight( game.settings.lastMovedPiece_color );
+			await actingPiece.GetComponent<IHighlight>().EnableHighlight( game.settings.lastMovedPiece_color );
 
 			//Update game data structures
 			UpdateBoard( game, actingPiece );

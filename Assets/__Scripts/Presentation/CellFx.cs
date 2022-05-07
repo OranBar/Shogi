@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using BarbarO.ExtensionMethods;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Shogi
 {
-    public class CellFx : MonoBehaviour
+    public class CellFx : MonoBehaviour, IHighlight
     {
 		private Image highlightImage;
 
@@ -16,13 +17,13 @@ namespace Shogi
 			highlightImage.enabled = false;
 		}
 
-		public void ActivateHighlight( Color color ) {
+		public async UniTask EnableHighlight( Color color ) {
 			highlightImage.enabled = true;
 			highlightImage.color = color;
 		}
 
-		public void DeactivateHightlight() {
+		public async UniTask DisableHighlight() {
 			highlightImage.enabled = false;
 		}
-    }
+	}
 }

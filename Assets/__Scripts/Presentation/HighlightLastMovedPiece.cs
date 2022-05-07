@@ -8,8 +8,8 @@ namespace Shogi
 	{
 		private ShogiGame shogiGame;
 
-		private IPieceHighlight prevMovedPiece;
-		private CellFx prevStartMovedCell;
+		private IHighlight prevMovedPiece;
+		private IHighlight prevStartMovedCell_highlighter;
 
 		private Cell[] cells;
 
@@ -27,7 +27,7 @@ namespace Shogi
 			
 			prevMovedPiece?.DisableHighlight();
 
-			IPieceHighlight pieceHighlight = action.GetActingPiece().GetComponent<IPieceHighlight>();
+			IHighlight pieceHighlight = action.GetActingPiece().GetComponent<IHighlight>();
 			// pieceHighlight.EnableHighlight( shogiGame.settings.lastMovedPiece_color);
 
 			prevMovedPiece = pieceHighlight;
@@ -39,22 +39,22 @@ namespace Shogi
 			//But then my action does BOTH logic AND effects, and I think I should avoid mixing them. 
 			if (action is UndoLastAction) { 
 				if(shogiGame.gameHistory.playedMoves.Count < 1){
-					prevStartMovedCell?.DeactivateHightlight();
+					prevStartMovedCell_highlighter?.DisableHighlight();
 				}
 				return; 
 			}
 			//-------------------
 
-			prevStartMovedCell?.DeactivateHightlight();
-			if (action is DropPieceAction) { return; }
+			prevStartMovedCell_highlighter?.DisableHighlight();
+			// if (action is DropPieceAction) { return; }
 
-			Cell startCell = cells.First(c => c.x == action.StartX && c.y == action.StartY);
-			CellFx startCellFx = startCell.GetComponent<CellFx>();
+			Cell startCell = Cell.GetCell( action.StartX, action.StartY );
+			IHighlight startCell_highlighter = startCell.GetComponent<IHighlight>();
 
-			Color highlightCellColor = shogiGame.settings.lastMovedPiece_color.SetAlpha(0.5f);
-			startCellFx.ActivateHighlight( highlightCellColor );
+			// Color highlightCellColor = shogiGame.settings.lastMovedPiece_color.SetAlpha(0.5f);
+			// startCellFx.ActivateHighlight( highlightCellColor );
 
-			prevStartMovedCell = startCellFx;
+			prevStartMovedCell_highlighter = startCell_highlighter;
 		}
 
 	}

@@ -53,7 +53,7 @@ namespace Shogi
 		}
 
 		void Select_ActionPiece(Piece piece){
-			selectedPiece?.GetComponent<IPieceHighlight>().DisableHighlight();
+			selectedPiece?.GetComponent<IHighlight>().DisableHighlight();
 			selectedPiece = piece;
 			if (selectedPiece.IsCaptured == false) {
 				currAction = new MovePieceAction( selectedPiece );
@@ -63,7 +63,7 @@ namespace Shogi
 
 			piece.LogAvailableMoves();
 			Debug.Log($"<{PlayerName}> Piece Selected ({piece.X},{piece.Y})", piece.gameObject);
-			piece.GetComponent<IPieceHighlight>().EnableHighlight( shogiGame.settings.selectedPiece_color );
+			piece.GetComponent<IHighlight>().EnableHighlight( shogiGame.settings.selectedPiece_color );
 
 			shogiGame.Get_OnPieceClickedEvent(OpponentId).Value += Select_PieceToCapture;
 			Cell.OnAnyCellClicked += Select_CellToMove;
@@ -75,7 +75,7 @@ namespace Shogi
 			currAction.DestinationY = obj.y;
 
 			actionReady = true;
-			selectedPiece.GetComponent<IPieceHighlight>().DisableHighlight( );
+			selectedPiece.GetComponent<IHighlight>().DisableHighlight( );
 
 			Cell.OnAnyCellClicked -= Select_CellToMove;
 		}
@@ -86,7 +86,7 @@ namespace Shogi
 			currAction.DestinationY = toCapture.Y;
 
 			actionReady = true;
-			selectedPiece?.GetComponent<IPieceHighlight>().DisableHighlight( );
+			selectedPiece?.GetComponent<IHighlight>().DisableHighlight( );
 
 			shogiGame.Get_OnPieceClickedEvent( OpponentId ).Value -= Select_PieceToCapture;
 			Cell.OnAnyCellClicked -= Select_CellToMove;
