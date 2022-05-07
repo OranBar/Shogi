@@ -19,6 +19,8 @@ namespace Shogi{
 		private int _destinationX;
 		// private PieceData _actingPieceData;
 
+		//TODO: Mark this field as [NonSerialized] to gain tons of space when serializing
+		//I'm leaving it here for debugging purposes, it could prove useful
 		private GameState _gameState_beforeMove;
 		public GameState GameState_beforeMove => _gameState_beforeMove;
 
@@ -48,12 +50,6 @@ namespace Shogi{
 			if(actingPiece == null){
 				Debug.Log($"Looking for piece {StartX}, {StartY}");
 				actingPiece = GameObject.FindObjectsOfType<Piece>(true).First( p => p.X == StartX && p.Y == StartY );
-				// if (_actingPieceData.isCaptured) {
-				// 	var sideboard = game.GetSideBoard( _actingPieceData.owner );
-				// 	return sideboard.CapturedPieces.First( p => p.PieceType == _actingPieceData.pieceType );
-				// } else {
-				// 	return game.board [StartX, StartY];
-				// }
 			}
 			return actingPiece;
 		}
@@ -68,10 +64,7 @@ namespace Shogi{
 		}
 
 		public abstract void DisableFX();
-		public virtual async UniTask ExecuteAction( ShogiGame game ){
-			// IShogiAction prevMove = game.gameHistory.playedMoves.LastOrDefault();
-			// prevMove?.DisableFX();
-			
+		public virtual async UniTask ExecuteAction( ShogiGame game ){			
 			//save gamestate
 			_gameState_beforeMove = new GameState( game );
 		}

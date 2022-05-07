@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Shogi
 {
-
 
 	public class ShogiClock : MonoBehaviour
 	{
@@ -18,7 +15,7 @@ namespace Shogi
 			Debug.Assert( timer_player1.enabled == false );
 			Debug.Assert( timer_player2.enabled == false );
 		}
-		
+
 		void Awake()
 		{
 			shogiGame = FindObjectOfType<ShogiGame>();
