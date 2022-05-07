@@ -93,8 +93,10 @@ namespace Shogi
 			isGameOver = true;
 
 			var shogiClock = FindObjectOfType<ShogiClock>();
-			shogiClock.timer_player1.OnTimerFinished += Player2_HasWon;
-			shogiClock.timer_player2.OnTimerFinished += Player1_HasWon;
+			if(shogiClock != null){
+				shogiClock.timer_player1.OnTimerFinished -= Player2_HasWon;
+				shogiClock.timer_player2.OnTimerFinished -= Player1_HasWon;
+			}
 		}
 
 		public void BeginGame( PlayerId startingPlayer ) {
