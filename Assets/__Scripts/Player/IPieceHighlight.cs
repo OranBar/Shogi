@@ -1,10 +1,11 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Shogi
 {
 	public interface IPieceHighlight
 	{
-		void EnableHighlight( Color color );
-		void DisableHighlight();
+		UniTask EnableHighlight( Color color );
+		UniTask DisableHighlight();
 	}
 }
