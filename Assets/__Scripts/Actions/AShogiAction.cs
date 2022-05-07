@@ -16,7 +16,7 @@ namespace Shogi{
 		private int _startY;
 		private int _destinationY;
 		private int _destinationX;
-		private PieceData _actingPieceData;
+		// private PieceData _actingPieceData;
 
 		private GameState _gameState_beforeMove;
 		public GameState GameState_beforeMove => _gameState_beforeMove;
@@ -31,14 +31,14 @@ namespace Shogi{
 			this.StartX = piece.X;
 			this.StartY = piece.Y;
 			this.actingPiece = piece;
-			this._actingPieceData = piece.pieceData;
+			// this._actingPieceData = piece.pieceData;
 		}
 
 		public AShogiAction( Piece piece, int destinationX, int destinationY ) {
 			this.StartX = piece.X;
 			this.StartY = piece.Y;
 			this.actingPiece = piece;
-			this._actingPieceData = piece.pieceData;
+			// this._actingPieceData = piece.pieceData;
 			this.DestinationX = destinationX;
 			this.DestinationY = destinationY;
 		}
@@ -53,11 +53,20 @@ namespace Shogi{
 			return actingPiece;
 		}
 
+
+		public Cell GetStartCell(){
+			return Cell.GetCell( StartX, StartY );
+		}
+
 		public override string ToString() {
 			return $"From ({StartX}, {StartY}) to ({DestinationX}, {DestinationY})";
 		}
 
+		public abstract void DisableFX();
 		public virtual async UniTask ExecuteAction( ShogiGame game ){
+			// IShogiAction prevMove = game.gameHistory.playedMoves.LastOrDefault();
+			// prevMove?.DisableFX();
+			
 			//save gamestate
 			_gameState_beforeMove = new GameState( game );
 		}
@@ -68,7 +77,9 @@ namespace Shogi{
 				throw new System.Exception( "Can't undo a move that was not executed. Did you call base.ExecuteAction()?" );
 			}
 			game.ApplyGameState( _gameState_beforeMove );
+
 		}
 		public abstract bool IsMoveValid( ShogiGame game );
+
 	}
 }

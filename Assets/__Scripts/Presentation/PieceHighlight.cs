@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Shogi
 {
-	public class PieceHighlight : MonoBehaviour, IHighlight
+	public class PieceHighlight : MonoBehaviour, IHighlightFx
 	{
 		public GameObject highlightObj;
 

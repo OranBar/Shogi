@@ -20,10 +20,18 @@ namespace Shogi
 			return "Move "+base.ToString();
 		}
 
+		public override void DisableFX(){
+			var actingPiece = GetActingPiece();
+			Cell startCell = GetStartCell();
+
+			actingPiece.GetComponent<IHighlightFx>().DisableHighlight();
+			startCell.GetComponent<IHighlightFx>().DisableHighlight();
+		}
+
 		public override async UniTask ExecuteAction( ShogiGame game ) {
 			base.ExecuteAction( game ).Forget();
 			var actingPiece = GetActingPiece( );
-			Cell startCell = Cell.GetCell( StartX, StartY );
+			Cell startCell = GetStartCell();
 
 			UnityEngine.Debug.Log( $"Moving piece {actingPiece} to cell ({DestinationX},{DestinationY})" );
 
@@ -36,8 +44,8 @@ namespace Shogi
 				capturedPiece.GetComponent<IPieceDeathFx>().DoPieceDeathAnimation();
 			}
 			await actingPiece.GetComponent<IPieceMoveActionFX>().DoMoveAnimation( DestinationX, DestinationY );
-			await actingPiece.GetComponent<IHighlight>().EnableHighlight( game.settings.lastMovedPiece_color );
-			await startCell.GetComponent<IHighlight>().EnableHighlight( game.settings.lastMovedPiece_color.SetAlpha( 0.5f ) );
+			await actingPiece.GetComponent<IHighlightFx>().EnableHighlight( game.settings.lastMovedPiece_color );
+			await startCell.GetComponent<IHighlightFx>().EnableHighlight( game.settings.lastMovedPiece_color.SetAlpha( 0.5f ) );
 
 
 			//Update game data structures

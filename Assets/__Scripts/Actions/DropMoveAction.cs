@@ -17,6 +17,12 @@ namespace Shogi
 			return "Drop "+base.ToString();
 		}
 
+		public override void DisableFX() {
+			var actingPiece = GetActingPiece();
+
+			actingPiece.GetComponent<IHighlightFx>().DisableHighlight();
+		}
+
 		public override async UniTask ExecuteAction( ShogiGame game ) {
 			base.ExecuteAction(game).Forget();
 			var actingPiece = GetActingPiece();
@@ -26,7 +32,7 @@ namespace Shogi
 			//TODO: replace with animation
 			actingPiece.PlacePieceOnCell_Immediate( DestinationX, DestinationY );
 			await actingPiece.GetComponent<IPieceDropActionFX>().DoDropAnimation( DestinationX, DestinationY );
-			await actingPiece.GetComponent<IHighlight>().EnableHighlight( game.settings.lastMovedPiece_color );
+			await actingPiece.GetComponent<IHighlightFx>().EnableHighlight( game.settings.lastMovedPiece_color );
 
 			//Update game data structures
 			UpdateBoard( game, actingPiece );

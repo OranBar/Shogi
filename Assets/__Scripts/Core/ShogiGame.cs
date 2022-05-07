@@ -122,11 +122,12 @@ namespace Shogi
 				
 				if (action.IsMoveValid( this )) {
 					Debug.Log("Valid Move: Executing");
-					await action.ExecuteAction( this ).AttachExternalCancellation( gameLoopCancelToken.Token );
+					// await action.ExecuteAction( this ).AttachExternalCancellation( gameLoopCancelToken.Token );
+					await ExecuteAction(action);
 
 					//I don't like this event. I think it needs to go
-					OnActionExecuted.Invoke(action);
-					gameHistory.RegisterNewMove(action);
+					// OnActionExecuted.Invoke(action);
+					// gameHistory.RegisterNewMove(action);
 
 					Debug.Log( "Finish Move Execution" );
 				} else {
@@ -136,6 +137,15 @@ namespace Shogi
 
 				AdvanceTurn();
 				OnNewTurnBegun.Invoke( _currTurn_PlayerId );
+			}
+		}
+
+		public async UniTask ExecuteAction(IShogiAction action){
+			gameHistory.playedMoves.LastOrDefault()?.DisableFX();
+
+			await action.ExecuteAction( this ).AttachExternalCancellation( gameLoopCancelToken.Token );
+			if (action is not UndoLastAction) {
+				gameHistory.RegisterNewMove( action );
 			}
 		}
 

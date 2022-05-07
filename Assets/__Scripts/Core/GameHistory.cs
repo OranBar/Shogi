@@ -20,7 +20,7 @@ namespace Shogi
 
 		public void RegisterNewMove( IShogiAction action ) {
 			if(action is UndoLastAction){
-				return;
+				Debug.LogWarning("Saving an Undo action into the GameHistory is weird. The code doesn't really take that possibility into account. Can we not?");
 			}
 			playedMoves.Push( action );
 			Debug.Log("<GameHistory> New move Registered");

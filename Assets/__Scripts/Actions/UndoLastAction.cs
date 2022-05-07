@@ -11,6 +11,7 @@ namespace Shogi
 		}
 
 		public override async UniTask ExecuteAction( ShogiGame game ) {
+			//Side effect. GameHistory playedmoves is modified, the last move is removed from the list
 			var lastMove = game.gameHistory.playedMoves.Pop();
 			await lastMove.UndoAction( game );
 
@@ -18,7 +19,11 @@ namespace Shogi
 				var secondToLastMove = game.gameHistory.playedMoves.Last();
 				await secondToLastMove.UndoAction( game );
 				await secondToLastMove.ExecuteAction( game );
-				game.OnActionExecuted.Invoke( secondToLastMove );
+				// await game.ExecuteAction( secondToLastMove );
+
+				//I think that removing this line is a GREAT goal. FX will be handled by ExecuteAction
+				// game.OnActionExecuted.Invoke( secondToLastMove );
+				//----------------
 			}
 		}
 
@@ -29,5 +34,7 @@ namespace Shogi
 		public override string ToString() {
 			return "Undo " + base.ToString();
 		}
+
+		public override void DisableFX() { }
 	}
 }
