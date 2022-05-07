@@ -103,7 +103,7 @@ namespace Shogi
 			string binFileName = $"gamehistory.bin";
 			string fullPath = path + "/" + binFileName;
 
-			GameHistory loadedGame = GameHistory.DeserializeFromBinaryFile( path );
+			GameHistory loadedGame = GameHistory.DeserializeFromBinaryFile( fullPath );
 			shogiGame.ApplyGameHistory( loadedGame ).Forget();
 		}
 
@@ -115,7 +115,7 @@ namespace Shogi
 			string binFileName = $"gamehistory.bin";
 			string fullPath = path + "/" + binFileName;
 
-			GameHistory loadedGame = GameHistory.DeserializeFromBinaryFile( path );
+			GameHistory loadedGame = GameHistory.DeserializeFromBinaryFile( fullPath );
 			loadedGame.playedMoves = loadedGame.playedMoves.Take( turnIndex ).ToList();
 			shogiGame.ApplyGameHistory( loadedGame ).Forget();
 		}
