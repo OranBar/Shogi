@@ -24,7 +24,7 @@ namespace Shogi
 			base.ExecuteAction( game ).Forget();
 			var actingPiece = GetActingPiece( );
 
-			UnityEngine.Debug.Log( $"Moving piece {actingPiece} on ({DestinationX},{DestinationY})" );
+			UnityEngine.Debug.Log( $"Moving piece {actingPiece} to cell ({DestinationX},{DestinationY})" );
 
 			var capturedPiece = game.board[DestinationX, DestinationY];
 			bool wasCapturingMove = capturedPiece != null && capturedPiece.owner != actingPiece.owner;
@@ -32,9 +32,11 @@ namespace Shogi
 			if (wasCapturingMove) {
 				//A piece was killed. Such cruelty. 
 				capturedPiece.CapturePiece();
-				capturedPiece.GetComponent<IPieceDeathFx>().PieceDeathAnimation();
+				capturedPiece.GetComponent<IPieceDeathFx>().DoPieceDeathAnimation();
 			}
 			await actingPiece.GetComponent<IPieceMoveActionFX>().DoMoveAnimation( DestinationX, DestinationY );
+			await actingPiece.GetComponent<IPieceHighlight>().EnableHighlight( game.settings.lastMovedPiece_color );
+
 
 			//Update game data structures
 			UpdateBoard( game.board, actingPiece );

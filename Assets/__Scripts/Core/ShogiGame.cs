@@ -69,8 +69,10 @@ namespace Shogi
 
 		private CancellationTokenSource gameLoopCancelToken;
 		public GameHistory gameHistory = null;
+		public GameSettings settings;
 
 		void Awake(){
+			settings = FindObjectOfType<GameSettings>();
 			Cell.OnAnyCellClicked = new RefAction<Cell>();
 			Piece.OnAnyPieceClicked = new RefAction<Piece>();
 			OnPlayer1_PieceClicked = new RefAction<Piece>();
@@ -120,6 +122,7 @@ namespace Shogi
 					Debug.Log("Valid Move: Executing");
 					await action.ExecuteAction( this ).AttachExternalCancellation( gameLoopCancelToken.Token );
 
+					//I don't like this event. I think it needs to go
 					OnActionExecuted.Invoke(action);
 					gameHistory.RegisterNewMove(action);
 

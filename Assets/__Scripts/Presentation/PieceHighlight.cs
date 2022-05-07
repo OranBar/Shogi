@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,12 +17,12 @@ namespace Shogi
 			highlightObj.SetActive( false );
 		}
 
-		public void EnableHighlight( Color color ) {
+		public async UniTask EnableHighlight( Color color ) {
 			highlightObj.SetActive( true );
 			highlight.color = color;
 		}
 
-		public void DisableHighlight() {
+		public async UniTask DisableHighlight() {
 			highlightObj.SetActive( false );
 		}
 	}

@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace Shogi
 {
+	//This class should not exist. Or maybe it can only take care of deactivating highlights from previous move?
 	public class HighlightLastMovedPiece : MonoBehaviour
 	{
-		public GameSettings settings;
 		private ShogiGame shogiGame;
 
 		private IPieceHighlight prevMovedPiece;
@@ -15,7 +15,7 @@ namespace Shogi
 
 		void Start() {
 			shogiGame = FindObjectOfType<ShogiGame>();
-			settings = FindObjectOfType<GameSettings>();
+			// settings = FindObjectOfType<GameSettings>();
 			shogiGame.OnActionExecuted += DoHighlightLastMovedPiece;
 			shogiGame.OnActionExecuted += DoHighlightStartMoveCell;
 
@@ -28,7 +28,7 @@ namespace Shogi
 			prevMovedPiece?.DisableHighlight();
 
 			IPieceHighlight pieceHighlight = action.GetActingPiece().GetComponent<IPieceHighlight>();
-			pieceHighlight.EnableHighlight( settings.lastMovedPiece_color);
+			// pieceHighlight.EnableHighlight( shogiGame.settings.lastMovedPiece_color);
 
 			prevMovedPiece = pieceHighlight;
 		}
@@ -51,7 +51,7 @@ namespace Shogi
 			Cell startCell = cells.First(c => c.x == action.StartX && c.y == action.StartY);
 			CellFx startCellFx = startCell.GetComponent<CellFx>();
 
-			Color highlightCellColor = settings.lastMovedPiece_color.SetAlpha(0.5f);
+			Color highlightCellColor = shogiGame.settings.lastMovedPiece_color.SetAlpha(0.5f);
 			startCellFx.ActivateHighlight( highlightCellColor );
 
 			prevStartMovedCell = startCellFx;

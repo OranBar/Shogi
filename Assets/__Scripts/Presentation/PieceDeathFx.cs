@@ -5,7 +5,7 @@ namespace Shogi
 
 	public class PieceDeathFx : MonoBehaviour, IPieceDeathFx
 	{
-		public void PieceDeathAnimation() {
+		public void DoPieceDeathAnimation() {
 			//TODO: Do cool particle stuff
 			// Destroy( this.gameObject);
 		}

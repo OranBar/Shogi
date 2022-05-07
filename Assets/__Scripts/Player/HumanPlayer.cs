@@ -22,7 +22,6 @@ namespace Shogi
 	[Serializable]
 	public class HumanPlayer : MonoBehaviour, IPlayer
 	{
-		private GameSettings settings;
 		[SerializeField] private string _playerName;
 		public string PlayerName { get => _playerName; set => _playerName = value; }
 
@@ -40,7 +39,6 @@ namespace Shogi
 
 		void Awake(){
 			shogiGame = FindObjectOfType<ShogiGame>();
-			settings = FindObjectOfType<GameSettings>();
 		}
 
 		private void OnDisable() {
@@ -65,7 +63,7 @@ namespace Shogi
 
 			piece.LogAvailableMoves();
 			Debug.Log($"<{PlayerName}> Piece Selected ({piece.X},{piece.Y})", piece.gameObject);
-			piece.GetComponent<IPieceHighlight>().EnableHighlight( settings.selectedPiece_color );
+			piece.GetComponent<IPieceHighlight>().EnableHighlight( shogiGame.settings.selectedPiece_color );
 
 			shogiGame.Get_OnPieceClickedEvent(OpponentId).Value += Select_PieceToCapture;
 			Cell.OnAnyCellClicked += Select_CellToMove;
