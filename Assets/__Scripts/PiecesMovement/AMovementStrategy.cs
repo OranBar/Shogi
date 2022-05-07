@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Shogi
 {
-	public abstract class AMovementStrategy : UnityEngine.MonoBehaviour, IMovementStrategy
+	public abstract class AMovementStrategy : MonoBehaviour, IMovementStrategy
 	{
 		protected Piece piece;
 		protected Board board;

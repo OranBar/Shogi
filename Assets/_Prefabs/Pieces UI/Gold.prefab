@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 4478906809194316426}
   - component: {fileID: 516154023898911352}
   - component: {fileID: -641568663122999949}
+  - component: {fileID: 1093897070549370937}
   m_Layer: 5
   m_Name: Gold
   m_TagString: Untagged
@@ -97,8 +98,7 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects:
-    - {fileID: 2017314789468213507}
+    ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -113,12 +113,6 @@ MonoBehaviour:
     - Name: owner
       Entry: 6
       Data: 
-    - Name: defaultMovement
-      Entry: 10
-      Data: 0
-    - Name: promotedMovement
-      Entry: 6
-      Data: 
   pieceData:
     x: 0
     y: 3
@@ -126,9 +120,11 @@ MonoBehaviour:
     isPromoted: 0
     owner: 0
     isCaptured: 0
+  defaultMovement: {fileID: 2017314789468213507}
+  promotedMovement: {fileID: 0}
+  dropMovement: {fileID: 1093897070549370937}
   defaultImage: {fileID: 7811763246624700439}
   promotedImage: {fileID: 0}
-  board: {fileID: 0}
 --- !u!114 &2017314789468213507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,6 +259,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1093897070549370937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6340562250175052781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea7097b595940c7429dbaab880da4137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5536592703902585886
 PrefabInstance:
   m_ObjectHideFlags: 0

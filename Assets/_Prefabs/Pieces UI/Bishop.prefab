@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 8104289928117423650}
   - component: {fileID: 6113464295935342294}
   - component: {fileID: 8675494995940331956}
+  - component: {fileID: -3706472705900880292}
   m_Layer: 5
   m_Name: Bishop
   m_TagString: Untagged
@@ -98,9 +99,7 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects:
-    - {fileID: 99979510049307499}
-    - {fileID: -6664581634686616683}
+    ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -115,12 +114,6 @@ MonoBehaviour:
     - Name: owner
       Entry: 6
       Data: 
-    - Name: defaultMovement
-      Entry: 10
-      Data: 0
-    - Name: promotedMovement
-      Entry: 10
-      Data: 1
   pieceData:
     x: 0
     y: 3
@@ -128,9 +121,11 @@ MonoBehaviour:
     isPromoted: 0
     owner: 0
     isCaptured: 0
+  defaultMovement: {fileID: 99979510049307499}
+  promotedMovement: {fileID: -6664581634686616683}
+  dropMovement: {fileID: -3706472705900880292}
   defaultImage: {fileID: 2317789545884918154}
   promotedImage: {fileID: 0}
-  board: {fileID: 0}
 --- !u!114 &99979510049307499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -277,6 +272,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-3706472705900880292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2010630293906527261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea7097b595940c7429dbaab880da4137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &42618986184297859
 PrefabInstance:
   m_ObjectHideFlags: 0

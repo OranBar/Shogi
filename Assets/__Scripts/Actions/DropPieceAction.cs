@@ -45,6 +45,9 @@ namespace Shogi
 			game.board [DestinationX, DestinationY] = actingPiece;
 		}
 
+		//TODO: Maybe I should create a DropPawnAction class, and move this code there. 
+		//I don't need to do pawn validation if I'm dropping other pieces. It might make sense
+		//It's more Object Oriented, but maybe our if is good enough in this case. 
 		public override bool IsMoveValid( ShogiGame game ) {
 			var actingPiece = GetActingPiece( );
 

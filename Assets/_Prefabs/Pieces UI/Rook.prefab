@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 5518221184069108918}
   - component: {fileID: 8372008434563202694}
   - component: {fileID: -8616752547793295653}
+  - component: {fileID: 5074151337790925953}
   m_Layer: 5
   m_Name: Rook
   m_TagString: Untagged
@@ -98,9 +99,7 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects:
-    - {fileID: -5974181203552373017}
-    - {fileID: 6695023404847565246}
+    ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -115,12 +114,6 @@ MonoBehaviour:
     - Name: owner
       Entry: 6
       Data: 
-    - Name: defaultMovement
-      Entry: 10
-      Data: 0
-    - Name: promotedMovement
-      Entry: 10
-      Data: 1
   pieceData:
     x: 0
     y: 3
@@ -128,9 +121,11 @@ MonoBehaviour:
     isPromoted: 0
     owner: 0
     isCaptured: 0
+  defaultMovement: {fileID: -5974181203552373017}
+  promotedMovement: {fileID: 6695023404847565246}
+  dropMovement: {fileID: 5074151337790925953}
   defaultImage: {fileID: 6983481577584170640}
   promotedImage: {fileID: 0}
-  board: {fileID: 0}
 --- !u!114 &-5974181203552373017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -277,6 +272,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5074151337790925953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9129131603899054107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea7097b595940c7429dbaab880da4137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4636270602519706265
 PrefabInstance:
   m_ObjectHideFlags: 0

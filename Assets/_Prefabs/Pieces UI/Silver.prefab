@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 1476650727418494927}
   - component: {fileID: -1978302703270823741}
   - component: {fileID: -2673635355845748191}
+  - component: {fileID: 6804708721590863164}
   m_Layer: 5
   m_Name: Silver
   m_TagString: Untagged
@@ -98,9 +99,7 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects:
-    - {fileID: 396733328691097896}
-    - {fileID: 7740655529641541704}
+    ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -115,12 +114,6 @@ MonoBehaviour:
     - Name: owner
       Entry: 6
       Data: 
-    - Name: defaultMovement
-      Entry: 10
-      Data: 0
-    - Name: promotedMovement
-      Entry: 10
-      Data: 1
   pieceData:
     x: 0
     y: 3
@@ -128,9 +121,11 @@ MonoBehaviour:
     isPromoted: 0
     owner: 0
     isCaptured: 0
+  defaultMovement: {fileID: 396733328691097896}
+  promotedMovement: {fileID: 7740655529641541704}
+  dropMovement: {fileID: 6804708721590863164}
   defaultImage: {fileID: 9086648457476451824}
   promotedImage: {fileID: 0}
-  board: {fileID: 0}
 --- !u!114 &396733328691097896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -277,6 +272,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6804708721590863164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5361778528041545375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea7097b595940c7429dbaab880da4137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6820519473944609273
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -17,7 +17,7 @@ namespace Shogi
 		public bool isCaptured;
 	}
 
-	public class Piece : Sirenix.OdinInspector.SerializedMonoBehaviour, IPointerClickHandler
+	public class Piece : MonoBehaviour, IPointerClickHandler
 	{
 		public static RefAction<Piece> OnAnyPieceClicked = new RefAction<Piece>();
 		[HideInInspector] public RefAction OnPieceClicked = new RefAction();
@@ -58,11 +58,11 @@ namespace Shogi
 
 		public IPlayer owner;
 
-		public IMovementStrategy defaultMovement;
-		public IMovementStrategy promotedMovement;
-		private IMovementStrategy dropMovement;
+		[SerializeReference] public AMovementStrategy defaultMovement;
+		[SerializeReference] public AMovementStrategy promotedMovement;
+		[SerializeReference] private AMovementStrategy dropMovement;
 
-		public IMovementStrategy MovementStrategy{
+		public AMovementStrategy MovementStrategy{
 			get{
 				if(IsCaptured){
 					return dropMovement;
@@ -87,7 +87,7 @@ namespace Shogi
 		void Awake() {
 			board = FindObjectOfType<Board>();
 			gameManager = FindObjectOfType<ShogiGame>();
-			dropMovement = this.gameObject.AddOrGetComponent<DropMovement>();
+			// dropMovement = this.gameObject.AddOrGetComponent<DropMovement>();
 			
 			owner = FindObjectsOfType<HumanPlayer>().First( p => p.PlayerId == OwnerId );
 		}
