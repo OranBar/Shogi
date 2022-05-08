@@ -26,9 +26,7 @@ namespace Shogi
 		}
 
 		void OnEnable(){
-			Debug.Log("Registered");
 			shogiGame.OnNewTurnBegun += ToggleBothTimers;
-			
 		}
 
 		void OnDisable(){
