@@ -46,7 +46,7 @@ namespace Shogi
 			get { return pieceData.owner; }
 			set {
 				pieceData.owner = value;
-				owner = GameObjectEx.FindAll_InterfaceImplementors<APlayer>().First( p => p.PlayerId == value );
+				owner = GameObject.FindObjectsOfType<APlayer>().First( p => p.PlayerId == value );
 				if(value == PlayerId.Player1){
 					this.transform.SetLocalRotationZ( 0f );
 				} else {
