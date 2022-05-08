@@ -44,14 +44,14 @@ namespace Shogi
 			await DoMoveAnimation( destinationX, destinationY );
 		}
 
-		public void DoHighlightStartMoveCell( IShogiAction action ) {
-			Cell startCell = cells.First( c => c.x == action.StartX && c.y == action.StartY );
-			CellFx startCellFx = startCell.GetComponent<CellFx>();
+		// public void DoHighlightStartMoveCell( IShogiAction action ) {
+		// 	Cell startCell = cells.First( c => c.x == action.StartX && c.y == action.StartY );
+		// 	CellFx startCellFx = startCell.GetComponent<CellFx>();
 
-			Color highlightCellColor = shogiGame.settings.lastMovedPiece_color.SetAlpha( 0.5f );
-			startCellFx.EnableHighlight( highlightCellColor );
+		// 	Color highlightCellColor = shogiGame.settings.lastMovedPiece_color.SetAlpha( 0.5f );
+		// 	startCellFx.EnableHighlight( highlightCellColor );
 
-		}
+		// }
 
 		private void ReparentPiece_ToOwner( Piece piece ) {
 			string parentTag = piece.OwnerId == PlayerId.Player1 ? "Player1_Pieces" : "Player2_Pieces";
