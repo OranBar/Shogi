@@ -52,7 +52,7 @@ namespace Shogi
 
 			void SetDialogPosition_RelativeToTargetCell( IShogiAction action ) {
 				Cell destinationCell = FindObjectsOfType<Cell>().First( c => c.x == action.DestinationX && c.y == action.DestinationY );
-				float offsetDirection = action.GetActingPiece().OwnerId == PlayerId.Player1 ? -1 : 1;
+				float offsetDirection = action.ActingPiece.OwnerId == PlayerId.Player1 ? -1 : 1;
 				var targetDialogPosition = destinationCell.transform.position + Vector3.up * 70 * offsetDirection;
 				dialogWindow.transform.position = targetDialogPosition;
 			}

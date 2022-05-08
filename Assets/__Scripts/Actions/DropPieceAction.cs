@@ -7,6 +7,8 @@ namespace Shogi
 	[Serializable]
 	public class DropPieceAction : AShogiAction
 	{
+		public DropPieceAction() : base(){}
+
 		public DropPieceAction( Piece piece ) : base( piece ) {
 		}
 
@@ -17,44 +19,45 @@ namespace Shogi
 			return "Drop "+base.ToString();
 		}
 
-		public override void DisableFX() {
-			var actingPiece = GetActingPiece();
+		public override async UniTask EnableLastMoveFX(GameSettings settings){
+			await ActingPiece.GetComponent<IHighlightFx>().EnableHighlight( settings.lastMovedPiece_color );
+		}
 
-			actingPiece.GetComponent<IHighlightFx>().DisableHighlight();
+		public override void DisableLastMoveFX() {
+
+			ActingPiece.GetComponent<IHighlightFx>().DisableHighlight();
 		}
 
 		public override async UniTask ExecuteAction( ShogiGame game ) {
 			base.ExecuteAction(game).Forget();
-			var actingPiece = GetActingPiece();
-			UnityEngine.Debug.Log($"Dropping piece {actingPiece} on ({DestinationX},{DestinationY})");
+			UnityEngine.Debug.Log($"Dropping piece {ActingPiece} on ({DestinationX},{DestinationY})");
 
 			//TODO: replace with animation
-			actingPiece.PlacePieceOnCell_Immediate( DestinationX, DestinationY );
-			await actingPiece.GetComponent<IPieceDropActionFX>().DoDropAnimation( DestinationX, DestinationY );
-			await actingPiece.GetComponent<IHighlightFx>().EnableHighlight( game.settings.lastMovedPiece_color );
+			ActingPiece.PlacePieceOnCell_Immediate( DestinationX, DestinationY );
+			await ActingPiece.GetComponent<IPieceDropActionFX>().DoDropAnimation( DestinationX, DestinationY );
+			// await ActingPiece.GetComponent<IHighlightFx>().EnableHighlight( game.settings.lastMovedPiece_color );
 
 			//Update game data structures
-			game.GetSideBoard( actingPiece.OwnerId ).RemoveCapturedPiece( actingPiece );
-			UpdateBoard( game, actingPiece );
-			actingPiece.X = DestinationX;
-			actingPiece.Y = DestinationY;
-			actingPiece.IsCaptured = false;
+			game.GetSideBoard( ActingPiece.OwnerId ).RemoveCapturedPiece( ActingPiece );
+			UpdateBoard( game );
+			ActingPiece.X = DestinationX;
+			ActingPiece.Y = DestinationY;
+			ActingPiece.IsCaptured = false;
 		}
 
-		public void UpdateBoard( ShogiGame game, Piece actingPiece ) {
-			game.board [DestinationX, DestinationY] = actingPiece;
+		public void UpdateBoard( ShogiGame game ) {
+			game.board [DestinationX, DestinationY] = ActingPiece;
 		}
 
 		//TODO: Maybe I should create a DropPawnAction class, and move this code there. 
 		//I don't need to do pawn validation if I'm dropping other pieces. It might make sense
 		//It's more Object Oriented, but maybe our if is good enough in this case. 
 		public override bool IsMoveValid( ShogiGame game ) {
-			var actingPiece = GetActingPiece( );
 
-			bool isValidPieceMovement = actingPiece.GetValidMoves().Any( m => m.x == DestinationX && m.y == DestinationY );
-			bool willBeAbleToMove_FromDestination = actingPiece.defaultMovement.GetAvailableMoves( DestinationX, DestinationY ).Any();
+			bool isValidPieceMovement = ActingPiece.GetValidMoves().Any( m => m.x == DestinationX && m.y == DestinationY );
+			bool willBeAbleToMove_FromDestination = ActingPiece.defaultMovement.GetAvailableMoves( DestinationX, DestinationY ).Any();
 
-			if(actingPiece.PieceType == PieceType.Pawn){
+			if(ActingPiece.PieceType == PieceType.Pawn){
 				if(AnyUnpromotedPawns_OnColumn()){
 					isValidPieceMovement = false;
 				}

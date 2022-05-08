@@ -10,63 +10,73 @@ namespace Shogi
 		public bool Request_PromotePiece { get => _promotePiece; set => _promotePiece = value; }
 		private bool _promotePiece = false;
 
+		public MovePieceAction() : base(){
+		}
+
 		public MovePieceAction( Piece piece ) : base( piece ) {
 		}
 
 		public MovePieceAction( Piece piece, int destinationX, int destinationY ) : base( piece, destinationX, destinationY ) {
+
 		}
 
 		public override string ToString() {
 			return "Move "+base.ToString();
 		}
 
-		public override void DisableFX(){
+		public override async UniTask EnableLastMoveFX(GameSettings settings){
+			var startCell = Cell.GetCell( StartX, StartY );
+
+			await ActingPiece.GetComponent<IHighlightFx>().EnableHighlight( settings.lastMovedPiece_color );
+			await startCell.GetComponent<IHighlightFx>().EnableHighlight( settings.lastMovedPiece_color.SetAlpha( 0.5f ) );
+		}
+
+		public override void DisableLastMoveFX(){
 			//I'm surprised this line works, since we have moved the piece to a different spot, and it's index is now different
 			//We probably cached the correct one in time. But this one was a risky one, I don't realy like
-			var actingPiece = GetActingPiece();
-			Cell startCell = GetStartCell();
+			// var actingPiece = GetActingPiece();
+			var startCell = Cell.GetCell( StartX, StartY );
 
-			actingPiece.GetComponent<IHighlightFx>().DisableHighlight();
+			ActingPiece.GetComponent<IHighlightFx>().DisableHighlight();
 			startCell.GetComponent<IHighlightFx>().DisableHighlight();
+		}
+
+		public bool IsCapturingMove( ShogiGame game ){
+			var capturedPiece = game.board [DestinationX, DestinationY];
+			return capturedPiece != null && capturedPiece.owner != ActingPiece.owner;
 		}
 
 		public override async UniTask ExecuteAction( ShogiGame game ) {
 			base.ExecuteAction( game ).Forget();
-			var actingPiece = GetActingPiece( );
-			Cell startCell = GetStartCell();
 
-			UnityEngine.Debug.Log( $"Moving piece {actingPiece} to cell ({DestinationX},{DestinationY})" );
+			UnityEngine.Debug.Log( $"Moving piece {ActingPiece} to cell ({DestinationX},{DestinationY})" );
 
+			// var startCell = Cell.GetCell( StartX, StartY );
 			var capturedPiece = game.board[DestinationX, DestinationY];
-			bool wasCapturingMove = capturedPiece != null && capturedPiece.owner != actingPiece.owner;
-
+			
 			//Potrei aver creato 4 interfacce senza alcun valido motivo. Tutti e 4 questi GetComponent restituiscono lo stesso oggetto. 
-			await actingPiece.GetComponent<IPieceMoveActionFX>().DoMoveAnimation( DestinationX, DestinationY );
-			if (wasCapturingMove) {
+			await ActingPiece.GetComponent<IPieceMoveActionFX>().DoMoveAnimation( DestinationX, DestinationY );
+			if (IsCapturingMove(game)) {
 				//A piece was killed. Such cruelty. 
 				await capturedPiece.GetComponent<IPieceDeathFx>().DoPieceDeathAnimation();
 				capturedPiece.CapturePiece();
 			}
 			
-			await actingPiece.GetComponent<IHighlightFx>().EnableHighlight( game.settings.lastMovedPiece_color );
-			await startCell.GetComponent<IHighlightFx>().EnableHighlight( game.settings.lastMovedPiece_color.SetAlpha( 0.5f ) );
-
-
 			//Update game data structures
-			UpdateBoard( game.board, actingPiece );
-			actingPiece.X = DestinationX;
-			actingPiece.Y = DestinationY;
+			UpdateBoard( game.board );
+			ActingPiece.X = DestinationX;
+			ActingPiece.Y = DestinationY;
 			
-			HandlePromotion( game, actingPiece );
+			HandlePromotion( game, ActingPiece );
 		}
 
-		public void UpdateBoard( Board board, Piece actingPiece ) {
-			board [actingPiece.X, actingPiece.Y] = null;
-			board [DestinationX, DestinationY] = actingPiece;
+		public void UpdateBoard( Board board ) {
+			board [ActingPiece.X, ActingPiece.Y] = null;
+			board [DestinationX, DestinationY] = ActingPiece;
 		}
 
 		public override bool IsMoveValid( ShogiGame game ) {
-			var actingPiece = GetActingPiece( );
+			var actingPiece = ActingPiece;
 			bool isValidPieceMovement = actingPiece.GetValidMoves().Any( m => m.x == DestinationX && m.y == DestinationY );
 
 			return isValidPieceMovement;
@@ -87,7 +97,7 @@ namespace Shogi
 		}
 
 		public bool CanChooseToPromote_MovedPiece( ShogiGame game ) {
-			var actingPiece = GetActingPiece();
+			var actingPiece = ActingPiece;
 
 			return IsPromotionRequirementSatisfied( game, actingPiece ) && (MustPromoteAfterMove( game, actingPiece ) == false);
 		}

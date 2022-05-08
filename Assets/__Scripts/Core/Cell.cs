@@ -18,7 +18,6 @@ namespace Shogi{
 			Cell[] cells = FindObjectsOfType<Cell>();
 			Cell cell = cells.First( c => c.x == x && c.y == y );
 			return cell;
-
 		}
 
 		public void OnPointerDown( PointerEventData eventData ) {

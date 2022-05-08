@@ -9,11 +9,12 @@ namespace Shogi
 		int DestinationX { get; set; }
 		int DestinationY { get; set; }
 		GameState GameState_beforeMove { get; }
-		Piece GetActingPiece();
-		Cell GetStartCell();
+		Piece ActingPiece { get; }
 		UniTask ExecuteAction( ShogiGame game );
 		UniTask UndoAction( ShogiGame game );
 		bool IsMoveValid( ShogiGame game );
-		void DisableFX();
+		
+		UniTask EnableLastMoveFX( GameSettings settings );
+		void DisableLastMoveFX();
 	}
 }

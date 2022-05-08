@@ -125,9 +125,10 @@ namespace Shogi
 				
 				if (action.IsMoveValid( this )) {
 					Debug.Log("Valid Move: Executing");
-					gameHistory.playedMoves.LastOrDefault()?.DisableFX();
+					gameHistory.playedMoves.LastOrDefault()?.DisableLastMoveFX();
 
 					await action.ExecuteAction( this ).AttachExternalCancellation( gameLoopCancelToken.Token );
+					await action.EnableLastMoveFX( this.settings );
 
 					if (action is not UndoLastAction) {
 						gameHistory.RegisterNewMove( action );
@@ -184,7 +185,6 @@ namespace Shogi
 			//Alter timescale to fast forward?
 			IShogiAction prevMove = null;
 			foreach (var move in history.playedMoves) {
-				prevMove?.DisableFX();
 				await move.ExecuteAction( this );
 				prevMove = move;
 			}

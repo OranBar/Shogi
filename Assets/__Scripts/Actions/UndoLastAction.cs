@@ -6,17 +6,17 @@ namespace Shogi
 	[Serializable]
 	public class UndoLastAction : AShogiAction
 	{
-		public UndoLastAction( ) : base( ) {
+		public UndoLastAction() : base() {
 		}
 
 		public override async UniTask ExecuteAction( ShogiGame game ) {
 			int playedMovesCount = game.gameHistory.playedMoves.Count;
 
-			var lastMove = game.gameHistory.playedMoves[playedMovesCount - 1];
+			var lastMove = game.gameHistory.playedMoves [playedMovesCount - 1];
 			await lastMove.UndoAction( game );
 
-			if(playedMovesCount >= 2){
-				var secondToLastMove = game.gameHistory.playedMoves[playedMovesCount - 2];
+			if (playedMovesCount >= 2) {
+				var secondToLastMove = game.gameHistory.playedMoves [playedMovesCount - 2];
 				await secondToLastMove.UndoAction( game );
 				await secondToLastMove.ExecuteAction( game );
 			}
@@ -30,6 +30,8 @@ namespace Shogi
 			return "Undo " + base.ToString();
 		}
 
-		public override void DisableFX() { }
+		public override void DisableLastMoveFX() { }
+
+		public override async UniTask EnableLastMoveFX( GameSettings settings ) { }
 	}
 }

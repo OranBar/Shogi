@@ -6,6 +6,11 @@ using UnityEngine;
 namespace Shogi
 {
 
+	//Se tutti i pezzi fanno la stessa cosa, posso usare questa classe.
+	//Se un giorno devo avere due IPieceMoveActionFx, posso smettere di ereditare qui, e portare il codice in una classe a se', ereditanto di la'
+	//Alla fine dei conti posso arrivare ad avere 3 classi, che implementano rispettivamente ognuna delle 3 interfacce.
+	//Tantovale gia' creare la differenziazione fin da subito, e accettare il fatto che i miei gameobject saranno pieni di componenti?
+	//O fa parte dello scrivere codice scalabile farlo cosi', e ?
 	public class PieceActionsFX : MonoBehaviour, IPieceMoveActionFX, IPieceDropActionFX, IPieceDeathFx
 	{
 		[Auto] Piece piece;
@@ -43,15 +48,6 @@ namespace Shogi
 			//temporary 
 			await DoMoveAnimation( destinationX, destinationY );
 		}
-
-		// public void DoHighlightStartMoveCell( IShogiAction action ) {
-		// 	Cell startCell = cells.First( c => c.x == action.StartX && c.y == action.StartY );
-		// 	CellFx startCellFx = startCell.GetComponent<CellFx>();
-
-		// 	Color highlightCellColor = shogiGame.settings.lastMovedPiece_color.SetAlpha( 0.5f );
-		// 	startCellFx.EnableHighlight( highlightCellColor );
-
-		// }
 
 		private void ReparentPiece_ToOwner( Piece piece ) {
 			string parentTag = piece.OwnerId == PlayerId.Player1 ? "Player1_Pieces" : "Player2_Pieces";
