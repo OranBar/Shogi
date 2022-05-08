@@ -6,3 +6,5 @@ Infine, Unity e' molto piu' contento se usi classe astratte che ereditano da MB,
 Effettivamente... Poter avere un oggetto che implementa piu' interfacce... Su unity... E' abbastanza inutile.....
 Significa che il codice che chiamava le interfacce, puo' chiamare direttamente la classe che le implementa. 
 Se si vuole dare piu' implementazioni, si crea una interfaccia di QUELLA classe, contenente tutte le implementazioni.
+
+.... Tantovale usare solo classi astratte e non usare mai le interfacce. A questo punto, voglio essere contraddetto: Le interfacce non servono a un cazzo. Non in Unity3D. Un monobehaviour non ha ragione di implementare 2 interfacce differenti. Quindi andra' sempre bene una classe astratta.
