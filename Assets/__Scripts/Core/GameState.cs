@@ -18,7 +18,7 @@ namespace Shogi
 		{
 			piecesData = game.AllPieces.Select( p => p.pieceData ).ToArray();
 			currPlayerTurn = game.CurrTurn_Player.PlayerId;
-			gameData = new GameData( game.Player1.PlayerName, game.Player2.PlayerName );
+			gameData = new GameData( game );
 		}
 
 		#region Binary Serialization and Deserialization
@@ -47,10 +47,15 @@ namespace Shogi
 	{
 		public string player1_name;
 		public string player2_name;
+		public float player1_time;
+		public float player2_time;
 
-		public GameData( string player1_name, string player2_name ) {
-			this.player1_name = player1_name;
-			this.player2_name = player2_name;
+		public GameData( ShogiGame game ) {
+			this.player1_name = game.Player1.PlayerName;
+			this.player2_name = game.Player2.PlayerName;
+			var shogiClock = UnityEngine.GameObject.FindObjectOfType<ShogiClock>();
+			this.player1_time = shogiClock.timer_player1.clockTime;
+			this.player2_time = shogiClock.timer_player2.clockTime;
 		}
 	}
 
