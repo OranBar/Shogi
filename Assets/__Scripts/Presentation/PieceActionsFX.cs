@@ -19,13 +19,11 @@ namespace Shogi
 		private AudioSource audioSource;
 		private GameSettings settings;
 		private ShogiGame shogiGame;
-		private Cell[] cells;
 
 		void Awake() {
 			audioSource = this.gameObject.AddOrGetComponent<AudioSource>();
 			settings = FindObjectOfType<GameSettings>();
 			shogiGame = FindObjectOfType<ShogiGame>();
-			cells = FindObjectsOfType<Cell>( true );
 		}
 
 		public async UniTask DoMoveAnimation( int destinationX, int destinationY ) {
