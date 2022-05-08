@@ -58,6 +58,7 @@ namespace Shogi{
 
 		public virtual async UniTask ExecuteAction( ShogiGame game ){
 			_actingPiece = FindActingPiece();
+			game.gameHistory.playedMoves.LastOrDefault()?.DisableLastMoveFX();
 			//save gamestate
 			_gameState_beforeMove = new GameState( game );
 		}

@@ -61,7 +61,9 @@ namespace Shogi
 				await capturedPiece.GetComponent<IPieceDeathFx>().DoPieceDeathAnimation();
 				capturedPiece.CapturePiece();
 			}
-			
+
+			await EnableLastMoveFX( game.settings );
+
 			//Update game data structures
 			UpdateBoard( game.board );
 			ActingPiece.X = DestinationX;
