@@ -69,15 +69,19 @@ namespace Shogi
 
 		private CancellationTokenSource gameLoopCancelToken;
 		public GameHistory gameHistory = null;
-		public GameSettings settings;
+		[ReadOnly] public GameSettings settings;
+		private ShogiClock shogiClock;
 
 		void Awake(){
 			settings = FindObjectOfType<GameSettings>();
+			shogiClock = FindObjectOfType<ShogiClock>();
+
 			Cell.OnAnyCellClicked = new RefAction<Cell>();
 			Piece.OnAnyPieceClicked = new RefAction<Piece>();
-			OnPlayer1_PieceClicked = new RefAction<Piece>();
-			OnPlayer2_PieceClicked = new RefAction<Piece>();
-			OnNewTurnBegun = new RefAction<PlayerId>();
+			// OnPlayer1_PieceClicked = new RefAction<Piece>();
+			// OnPlayer2_PieceClicked = new RefAction<Piece>();
+			// OnNewTurnBegun = new RefAction<PlayerId>();
+			Debug.Log("Event init");
 			RegisterPieceClickedEvents_Invocation();
 		}
 
@@ -92,7 +96,6 @@ namespace Shogi
 		void OnDisable(){
 			isGameOver = true;
 
-			var shogiClock = FindObjectOfType<ShogiClock>();
 			if(shogiClock != null){
 				shogiClock.timer_player1.OnTimerFinished -= Player2_HasWon;
 				shogiClock.timer_player2.OnTimerFinished -= Player1_HasWon;
@@ -114,7 +117,7 @@ namespace Shogi
 			Player2.enabled = false;
 			Player1.enabled = true;
 			Player2.enabled = true;
-			
+
 			OnNewTurnBegun.Invoke( _currTurn_PlayerId );
 			while(isGameOver == false && manualOverride == false){
 				Debug.Log("Awaiting Turn: "+_currTurn_PlayerId.ToString());
