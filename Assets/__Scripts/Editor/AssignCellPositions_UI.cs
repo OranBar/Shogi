@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Sirenix.OdinInspector;
+using NaughtyAttributes;
 using UnityEditor;
 using UnityEngine;
 
 namespace Shogi{
-	public class AssignCellPositions_UI : SerializedMonoBehaviour
+	public class AssignCellPositions_UI : MonoBehaviour
 	{
 
 		//Assumes hierarchy is ordered. Order is as follows

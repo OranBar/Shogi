@@ -1,7 +1,7 @@
 using System.IO;
 using System.Linq;
 using Cysharp.Threading.Tasks;
-using Sirenix.OdinInspector;
+using NaughtyAttributes;
 using UnityEngine;
 
 namespace Shogi
@@ -79,8 +79,24 @@ namespace Shogi
 
 
 		#region Loading AutoSaves Logic
+		[BoxGroup("Reload Parameters")] public int gameId;
+		[BoxGroup( "Reload Parameters" )] public int turnIndex;
 
 		[Button]
+		public void ReloadGameState_Editor(){
+			ReloadGameState( gameId, turnIndex );
+		}
+
+		[Button]
+		public void ReloadGameHistory() {
+			ReloadGameHistory( gameId );
+		}
+
+		[Button]
+		public void ReloadGameHistory_AtTurn( ) {
+			ReloadGameHistory_AtTurn( gameId, turnIndex );
+		}
+
 		public void ReloadGameState( int gameId, int turnIndex ) {
 			Debug.Assert( turnIndex > 0 );
 
@@ -93,7 +109,6 @@ namespace Shogi
 			shogiGame.ApplyGameState( loadedGameState );
 		}
 
-		[Button]
 		public void ReloadGameHistory( int gameId ) {
 			string path = SaveDirPath( gameId );
 			string binFileName = $"gamehistory.bin";
@@ -103,7 +118,6 @@ namespace Shogi
 			shogiGame.ApplyGameHistory( loadedGame ).Forget();
 		}
 
-		[Button]
 		public void ReloadGameHistory_AtTurn( int gameId, int turnIndex ) {
 			Debug.Assert( turnIndex > 0 );
 
@@ -116,10 +130,7 @@ namespace Shogi
 			shogiGame.ApplyGameHistory( loadedGame ).Forget();
 		}
 
-
-
-		[ShowInInspector]
-		[PropertySpace]
+		[ShowNativeProperty]
 		public int LastAutoSavedGameId
 		{
 			get

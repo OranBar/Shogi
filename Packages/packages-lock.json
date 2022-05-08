@@ -21,6 +21,13 @@
       "dependencies": {},
       "hash": "9e2163616b9c527fa9461544e2bcc5f93fd12d83"
     },
+    "com.dbrizov.naughtyattributes": {
+      "version": "https://github.com/dbrizov/NaughtyAttributes.git#upm",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "8a8fa5a9659a6d63f196391c71e06c4286c8acd7"
+    },
     "com.unity.ide.vscode": {
       "version": "1.2.5",
       "depth": 0,

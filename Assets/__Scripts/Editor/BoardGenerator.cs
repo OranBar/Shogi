@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks.Triggers;
-using Sirenix.OdinInspector;
+using NaughtyAttributes;
 using UnityEditor;
 using UnityEngine;
 

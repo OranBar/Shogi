@@ -21,6 +21,8 @@ namespace Shogi
 		}
 
 		public override void DisableFX(){
+			//I'm surprised this line works, since we have moved the piece to a different spot, and it's index is now different
+			//We probably cached the correct one in time. But this one was a risky one, I don't realy like
 			var actingPiece = GetActingPiece();
 			Cell startCell = GetStartCell();
 
