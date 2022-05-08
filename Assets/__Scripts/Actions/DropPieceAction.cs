@@ -24,7 +24,6 @@ namespace Shogi
 		}
 
 		public override void DisableLastMoveFX() {
-
 			ActingPiece.GetComponent<IHighlightFx>().DisableHighlight();
 		}
 

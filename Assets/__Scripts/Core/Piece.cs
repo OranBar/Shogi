@@ -47,6 +47,11 @@ namespace Shogi
 			set {
 				pieceData.owner = value;
 				owner = GameObjectEx.FindAll_InterfaceImplementors<APlayer>().First( p => p.PlayerId == value );
+				if(value == PlayerId.Player1){
+					this.transform.SetLocalRotationZ( 0f );
+				} else {
+					this.transform.SetLocalRotationZ( 180f );
+				}
 			}
 		}
 		public bool IsCaptured{ 
@@ -107,7 +112,6 @@ namespace Shogi
 			//Thou shall live again
 			this.IsCaptured = true;
 			this.IsPromoted = false;
-			this.transform.SetLocalRotationZ( this.transform.eulerAngles.z + 180 );
 			SendToSideboard();
 
 			void SendToSideboard() {
