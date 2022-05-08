@@ -23,13 +23,12 @@ namespace Shogi
 
 		public void Start(){
 			OnValidate();
-			
-			timer_player1.enabled = false;
-			timer_player2.enabled = false;
 		}
 
 		void OnEnable(){
+			Debug.Log("Registered");
 			shogiGame.OnNewTurnBegun += ToggleBothTimers;
+			
 		}
 
 		void OnDisable(){
