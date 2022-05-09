@@ -70,7 +70,7 @@ namespace Shogi
 		private CancellationTokenSource gameLoopCancelToken;
 		public GameHistory gameHistory = null;
 		[ReadOnly] public GameSettings settings;
-		private ShogiClock shogiClock;
+		[ReadOnly] public ShogiClock shogiClock;
 
 		void Awake(){
 			settings = FindObjectOfType<GameSettings>();
@@ -89,7 +89,7 @@ namespace Shogi
 			RefreshMonobehavioursInScene();
 
 			var startingPlayer = PlayerId.Player1;
-			gameHistory = new GameHistory( new GameState( this ), startingPlayer );
+			gameHistory = new GameHistory( new GameState( this ), startingPlayer, this );
 			BeginGame( startingPlayer );
 		}
 
@@ -125,10 +125,8 @@ namespace Shogi
 				
 				if (action.IsMoveValid( this )) {
 					Debug.Log("Valid Move: Executing");
-					// gameHistory.playedMoves.LastOrDefault()?.DisableLastMoveFX();
-
 					await action.ExecuteAction( this ).AttachExternalCancellation( gameLoopCancelToken.Token );
-					// await action.EnableLastMoveFX( this.settings );
+		
 
 					if (action is not UndoLastAction) {
 						gameHistory.RegisterNewMove( action );
@@ -180,15 +178,20 @@ namespace Shogi
 
 		public async UniTask ApplyGameHistory( GameHistory history ) {
 			ApplyGameState( history.initialGameState );
-			gameHistory = history;
+			// gameHistory = history;
 
 			//Alter timescale to fast forward?
+
 			IShogiAction prevMove = null;
 			foreach (var move in history.playedMoves) {
+	
 				await move.ExecuteAction( this );
+				gameHistory.RegisterNewMove( move );
 				prevMove = move;
 			}
 
+			shogiClock.timer_player1.clockTime = history.gameData.player1_time;
+			shogiClock.timer_player2.clockTime = history.gameData.player2_time;
 			PlayerId nextPlayerTurn = GetPlayer_WhoMovesNext( history );
 			BeginGame( nextPlayerTurn );
 

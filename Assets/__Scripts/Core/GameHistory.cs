@@ -1,8 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
 namespace Shogi
@@ -11,9 +8,10 @@ namespace Shogi
 	public class GameHistory {
 		public GameState initialGameState;
 		public PlayerId firstToMove;
+		public GameData gameData;
 		public List<IShogiAction> playedMoves = new List<IShogiAction>();
 
-		public GameHistory( GameState initialGameState, PlayerId firstToMove) {
+		public GameHistory( GameState initialGameState, PlayerId firstToMove, ShogiGame game) {
 			this.initialGameState = initialGameState;
 			this.firstToMove = firstToMove;
 		}
@@ -28,6 +26,7 @@ namespace Shogi
 
 		#region Binary Serialization and Deserialization
 		public void SerializeToBinaryFile( string savePath ) {
+			this.gameData = new GameData( GameObject.FindObjectOfType<ShogiGame>() );
 			SerializationUtils.SerializeToBinaryFile(this, savePath);
 		}
 

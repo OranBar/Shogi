@@ -53,7 +53,7 @@ namespace Shogi
 		public GameData( ShogiGame game ) {
 			this.player1_name = game.Player1.PlayerName;
 			this.player2_name = game.Player2.PlayerName;
-			var shogiClock = UnityEngine.GameObject.FindObjectOfType<ShogiClock>();
+			var shogiClock = game.shogiClock;
 			this.player1_time = shogiClock.timer_player1.clockTime;
 			this.player2_time = shogiClock.timer_player2.clockTime;
 		}

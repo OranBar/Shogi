@@ -22,7 +22,7 @@ namespace Shogi{
 		private GameState _gameState_beforeMove;
 		public GameState GameState_beforeMove => _gameState_beforeMove;
 
-		public Piece ActingPiece => _actingPiece;
+		public Piece ActingPiece => FindActingPiece();
 		[NonSerialized] private Piece _actingPiece;
 
 		public AShogiAction(){
@@ -44,6 +44,8 @@ namespace Shogi{
 
 
 		//This only works before ExecuteMove is called				
+		//I should probably fetch the piece from the GameState_beforeMove somehow.
+		//Or maybe use a pieceId?
 		private Piece FindActingPiece() {
 			if(_actingPiece == null){
 				Debug.Log($"Looking for piece {StartX}, {StartY}");

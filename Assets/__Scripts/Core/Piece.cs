@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 namespace Shogi
 {
+	//Does it make sense to ahve a pieceId assigned to every piece, considering they never actually die/get destroyed?
+	//This way I can reference them using id instead of x and y position (those change with moves, which makes it hard to do undo, for example)
 	[Serializable]
 	public struct PieceData
 	{
