@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Shogi
@@ -28,7 +29,6 @@ namespace Shogi
 		void OnEnable(){
 			Debug.Log("Registered");
 			shogiGame.OnNewTurnBegun += ToggleBothTimers;
-			
 		}
 
 		void OnDisable(){
@@ -44,6 +44,19 @@ namespace Shogi
 
 		public Timer GetPlayerTimer( PlayerId playerId ) {
 			return ( playerId == PlayerId.Player1 ) ? timer_player1 : timer_player2;
+		}		
+		
+		
+		//TODO: Hook methods to buttons
+		public void Pause(){
+			timer_player1.enabled = timer_player2.enabled = false;
+			this.enabled = false;
 		}
+		public void Unpause() {
+			ToggleBothTimers( shogiGame.CurrTurn_Player.PlayerId );
+			this.enabled = true;
+		}
+
+		
 	}
 }

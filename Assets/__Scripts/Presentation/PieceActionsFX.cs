@@ -50,12 +50,14 @@ namespace Shogi
 		private void ReparentPiece_ToOwner( Piece piece ) {
 			string parentTag = piece.OwnerId == PlayerId.Player1 ? "Player1_Pieces" : "Player2_Pieces";
 			Transform newParent = GameObject.FindGameObjectWithTag( parentTag ).transform;
-			piece.transform.parent = newParent;
+			// piece.transform.parent = newParent;
+			piece.transform.SetParent(newParent, true);
 		}
 
 		public async UniTask DoPieceDeathAnimation() {
 			//TODO: Do cool particle stuff
-			piece.transform.parent = this.transform;
+			// piece.transform.parent = this.transform;
+			piece.transform.SetParent( this.transform, true );
 		}
 	}
 }

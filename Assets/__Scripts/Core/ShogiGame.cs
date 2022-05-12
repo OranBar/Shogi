@@ -40,7 +40,7 @@ namespace Shogi
 		public APlayer Player2;
 		#region ToSerialize
 
-		private PlayerId _currTurn_PlayerId;
+		[SerializeField] private PlayerId _currTurn_PlayerId;
 		public APlayer CurrTurn_Player {
 			get
 			{
