@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 
@@ -43,27 +44,25 @@ namespace Shogi{
 
 			foreach (var piece in FindObjectsOfType<Piece>()) {
 				if (piece.IsCaptured && piece.OwnerId == ownerId) {
-					//Maybe I don't want to call the event here?
+					//Maybe I don't want to call the animation in here?
 					AddCapturedPiece( piece );
 				}
 			}
 		}
 
-		public void AddCapturedPiece(Piece piece){
+		public async UniTask AddCapturedPiece(Piece piece){
 			_capturedPieces.Add(piece);
 			piece.X = piece.OwnerId == PlayerId.Player1 ? -1 : -2;
 			piece.Y = _capturedPieces.Count;
-			OnNewPieceAdded?.Invoke(piece);
+			
+			foreach(var newPieceAdded_listener in GetComponentsInChildren<ISideboardPieceAdded>()){
+				await newPieceAdded_listener.OnNewPieceAdded(piece);
+			}
 		}
 
 		public void RemoveCapturedPiece(Piece piece){
 			_capturedPieces.Remove(piece);
 			OnNewPieceRemoved?.Invoke(piece);
 		}
-
-		
-
-		
 	}
-
 }

@@ -58,8 +58,8 @@ namespace Shogi
 			await ActingPiece.GetComponent<IPieceMoveActionFX>().DoMoveAnimation( DestinationX, DestinationY );
 			if (IsCapturingMove(game)) {
 				//A piece was killed. Such cruelty. 
-				await capturedPiece.GetComponent<IPieceDeathFx>().DoPieceDeathAnimation();
-				capturedPiece.CapturePiece();
+				// await capturedPiece.GetComponent<IPieceDeathFx>().DoPieceDeathAnimation();
+				await capturedPiece.CapturePiece();
 			}
 
 			await EnableLastMoveFX( game.settings );

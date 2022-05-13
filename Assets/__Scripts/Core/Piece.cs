@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -110,19 +111,20 @@ namespace Shogi
 			}
 		}
 
-		public void CapturePiece() {
+		public async UniTask CapturePiece() {
 			//Thou shall live again
 			this.IsCaptured = true;
 			this.IsPromoted = false;
-			SendToSideboard();
-
-			void SendToSideboard() {
+			await GetComponent<IPieceDeathFx>().DoPieceDeathAnimation();
+			await SendToSideboard();
+			
+			async UniTask SendToSideboard() {
 				if (OwnerId == PlayerId.Player1) {
 					OwnerId = PlayerId.Player2;
-					gameManager.player2_sideboard.AddCapturedPiece( this );
+					await gameManager.player2_sideboard.AddCapturedPiece( this );
 				} else {
 					OwnerId = PlayerId.Player1;
-					gameManager.player1_sideboard.AddCapturedPiece( this );
+					await gameManager.player1_sideboard.AddCapturedPiece( this );
 				}
 			}
 		}

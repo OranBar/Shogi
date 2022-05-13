@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -9,7 +10,7 @@ using UnityEngine.EventSystems;
 namespace Shogi
 {
 	[Serializable]
-	public class SideBoard_Numbers : MonoBehaviour
+	public class SideBoard_UI : MonoBehaviour, ISideboardPieceAdded
 	{
 
 		public TMP_Text pawnText;
@@ -44,27 +45,29 @@ namespace Shogi
 		[Auto] private SideBoard sideBoard;
 
 		void OnEnable(){
-			sideBoard.OnNewPieceAdded += PieceAddedToSideboardFx;
+			// sideBoard.OnNewPieceAdded += PieceAddedToSideboardFx;
 			sideBoard.OnNewPieceRemoved += DecreaseText;
 			sideBoard.OnCleared += ResetAllTextsToZero;
+		}
+
+		public async UniTask OnNewPieceAdded( Piece newPiece ) {
+			PieceAddedToSideboardFx( newPiece );
 		}
 
 		private void PieceAddedToSideboardFx( Piece newPiece ) {
 			Transform sideboardPiece = GetText( newPiece.PieceType ).transform.parent;
 			newPiece.transform.position = sideboardPiece.transform.position;
-			//Make the piece higher in z position based on the number of pieces of the same type in the sideboard, to ensure we always click the topmost
-			//Don't disable the gameobject. It breaks a lot of stuff. Disable the child
-			newPiece.transform.GetChild(0).gameObject.SetActive( false );
+			// //Make the piece higher in z position based on the number of pieces of the same type in the sideboard, to ensure we always click the topmost
+			// //Don't disable the gameobject. It breaks a lot of stuff. Disable the child
+			// newPiece.transform.GetChild(0).gameObject.SetActive( false );
 
-			var sequence = DOTween.Sequence();
-			sequence
-				.PrependInterval( .3f )
-				.AppendCallback( () => newPiece.transform.GetChild( 0 ).gameObject.SetActive( true ) )
-				.AppendCallback( () => newPiece.transform.localScale = Vector3.one * 2 )
-				.AppendCallback( () => IncreaseText( newPiece ) )
-				.Append( newPiece.transform.DOScale( Vector3.one, 1.5f ).SetEase( Ease.OutCubic ) );
-
-			
+			// var sequence = DOTween.Sequence();
+			// sequence
+			// 	.PrependInterval( .3f )
+			// 	.AppendCallback( () => newPiece.transform.GetChild( 0 ).gameObject.SetActive( true ) )
+			// 	.AppendCallback( () => newPiece.transform.localScale = Vector3.one * 2 )
+			// 	.AppendCallback( () => IncreaseText( newPiece ) )
+			// 	.Append( newPiece.transform.DOScale( Vector3.one, 1.5f ).SetEase( Ease.OutCubic ) );
 		}
 
 		void OnDisable(){
@@ -97,12 +100,12 @@ namespace Shogi
 			}
 		}
 
-		private void IncreaseText( Piece newCapturedPiece) {
+		public void IncreaseText( Piece newCapturedPiece) {
 			TMP_Text targetText = GetText( newCapturedPiece.PieceType );
 			IncreaseNumberLabel( targetText );
 		}
 
-		private void DecreaseText( Piece newCapturedPiece ) {
+		public void DecreaseText( Piece newCapturedPiece ) {
 			TMP_Text targetText = GetText( newCapturedPiece.PieceType );
 			DecreaseNumberLabel( targetText );
 		}

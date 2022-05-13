@@ -57,7 +57,7 @@ namespace Shogi
 		public async UniTask DoPieceDeathAnimation() {
 			//TODO: Do cool particle stuff
 			// piece.transform.parent = this.transform;
-			piece.transform.SetParent( this.transform, true );
+			// piece.transform.SetParent( this.transform, true );
 		}
 	}
 }
