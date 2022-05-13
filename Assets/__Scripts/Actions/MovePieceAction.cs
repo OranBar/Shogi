@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 namespace Shogi
 {
@@ -26,9 +27,10 @@ namespace Shogi
 
 		public override async UniTask EnableLastMoveFX(GameSettings settings){
 			var startCell = Cell.GetCell( StartX, StartY );
+			Color highlightColor = settings.GetLastMovedPiece_Color(playerId);
 
-			await ActingPiece.GetComponent<IHighlightFx>().EnableHighlight( settings.lastMovedPiece_color );
-			await startCell.GetComponent<IHighlightFx>().EnableHighlight( settings.lastMovedPiece_color.SetAlpha( 0.5f ) );
+			await ActingPiece.GetComponent<IHighlightFx>().EnableHighlight( highlightColor );
+			await startCell.GetComponent<IHighlightFx>().EnableHighlight( highlightColor.SetAlpha( 0.5f ) );
 		}
 
 		public override void DisableLastMoveFX(){
@@ -50,30 +52,26 @@ namespace Shogi
 			base.ExecuteAction( game ).Forget();
 
 			UnityEngine.Debug.Log( $"Moving piece {ActingPiece} to cell ({DestinationX},{DestinationY})" );
+			
+			EnableLastMoveFX( game.settings );
 
 			// var startCell = Cell.GetCell( StartX, StartY );
 			var capturedPiece = game.board[DestinationX, DestinationY];
-			
-			//Potrei aver creato 4 interfacce senza alcun valido motivo. Tutti e 4 questi GetComponent restituiscono lo stesso oggetto. 
-			await ActingPiece.GetComponent<IPieceMoveActionFX>().DoMoveAnimation( DestinationX, DestinationY );
+
+			await ActingPiece.Move( DestinationX, DestinationY );
 			if (IsCapturingMove(game)) {
 				//A piece was killed. Such cruelty. 
-				// await capturedPiece.GetComponent<IPieceDeathFx>().DoPieceDeathAnimation();
 				await capturedPiece.CapturePiece();
 			}
 
-			await EnableLastMoveFX( game.settings );
 
-			//Update game data structures
 			UpdateBoard( game.board );
-			ActingPiece.X = DestinationX;
-			ActingPiece.Y = DestinationY;
 			
 			HandlePromotion( game, ActingPiece );
 		}
 
 		public void UpdateBoard( Board board ) {
-			board [ActingPiece.X, ActingPiece.Y] = null;
+			board [StartX, StartY] = null;
 			board [DestinationX, DestinationY] = ActingPiece;
 		}
 

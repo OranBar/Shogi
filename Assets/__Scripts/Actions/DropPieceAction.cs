@@ -20,7 +20,7 @@ namespace Shogi
 		}
 
 		public override async UniTask EnableLastMoveFX(GameSettings settings){
-			await ActingPiece.GetComponent<IHighlightFx>().EnableHighlight( settings.lastMovedPiece_color );
+			await ActingPiece.GetComponent<IHighlightFx>().EnableHighlight( settings.GetLastMovedPiece_Color( playerId ) );
 		}
 
 		public override void DisableLastMoveFX() {

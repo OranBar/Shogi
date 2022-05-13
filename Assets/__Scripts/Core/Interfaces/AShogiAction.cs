@@ -21,6 +21,7 @@ namespace Shogi{
 		//I'm leaving it here for debugging purposes, it could prove useful
 		private GameState _gameState_beforeMove;
 		public GameState GameState_beforeMove => _gameState_beforeMove;
+		public PlayerId playerId;
 
 		public Piece ActingPiece => FindActingPiece();
 		[NonSerialized] private Piece _actingPiece;
@@ -32,6 +33,7 @@ namespace Shogi{
 			this.StartX = piece.X;
 			this.StartY = piece.Y;
 			this._actingPiece = piece;
+			this.playerId = piece.OwnerId;
 		}
 
 		public AShogiAction( Piece piece, int destinationX, int destinationY ) {
@@ -40,6 +42,7 @@ namespace Shogi{
 			this._actingPiece = piece;
 			this.DestinationX = destinationX;
 			this.DestinationY = destinationY;
+			this.playerId = piece.OwnerId;
 		}
 
 

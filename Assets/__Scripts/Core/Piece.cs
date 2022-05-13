@@ -111,6 +111,13 @@ namespace Shogi
 			}
 		}
 
+		public async UniTask Move(int targetX, int targetY){
+			await GetComponent<PieceActionsFX>().DoMoveAnimation( targetX, targetY );
+			this.X = targetX;
+			this.Y = targetY;
+			PlacePieceOnCell_Immediate( targetX, targetY );
+		}
+
 		public async UniTask CapturePiece() {
 			//Thou shall live again
 			this.IsCaptured = true;
