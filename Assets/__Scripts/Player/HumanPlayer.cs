@@ -50,7 +50,13 @@ namespace Shogi
 		}
 
 		void Select_ActionPiece(Piece piece){
-			selectedPiece?.GetComponent<IHighlightFx>().DisableHighlight();
+			if(selectedPiece != null){
+				//We entered this method more then once in the same turn.
+				selectedPiece.GetComponent<IHighlightFx>().DisableHighlight();
+				shogiGame.Get_OnPieceClickedEvent( OpponentId ).Value -= Select_PieceToCapture;
+				Cell.OnAnyCellClicked -= Select_CellToMove;
+			}
+
 			selectedPiece = piece;
 			if (selectedPiece.IsCaptured == false) {
 				currAction = new MovePieceAction( selectedPiece );
@@ -62,6 +68,7 @@ namespace Shogi
 			Debug.Log($"<{PlayerName}> Piece Selected ({piece.X},{piece.Y})", piece.gameObject);
 			piece.GetComponent<IHighlightFx>().EnableHighlight( shogiGame.settings.selectedPiece_color );
 
+			
 			shogiGame.Get_OnPieceClickedEvent(OpponentId).Value += Select_PieceToCapture;
 			Cell.OnAnyCellClicked += Select_CellToMove;
 		}
