@@ -21,9 +21,12 @@ namespace Shogi{
 		//I'm leaving it here for debugging purposes, it could prove useful
 		private GameState _gameState_beforeMove;
 		public GameState GameState_beforeMove => _gameState_beforeMove;
-		public PlayerId playerId;
+		private PlayerId _playerId;
 
 		public Piece ActingPiece => FindActingPiece();
+
+		public PlayerId PlayerId { get => _playerId; set => _playerId = value; }
+
 		[NonSerialized] private Piece _actingPiece;
 
 		public AShogiAction(){
@@ -33,7 +36,7 @@ namespace Shogi{
 			this.StartX = piece.X;
 			this.StartY = piece.Y;
 			this._actingPiece = piece;
-			this.playerId = piece.OwnerId;
+			this.PlayerId = piece.OwnerId;
 		}
 
 		public AShogiAction( Piece piece, int destinationX, int destinationY ) {
@@ -42,7 +45,7 @@ namespace Shogi{
 			this._actingPiece = piece;
 			this.DestinationX = destinationX;
 			this.DestinationY = destinationY;
-			this.playerId = piece.OwnerId;
+			this.PlayerId = piece.OwnerId;
 		}
 
 
@@ -63,7 +66,6 @@ namespace Shogi{
 
 		public virtual async UniTask ExecuteAction( ShogiGame game ){
 			_actingPiece = FindActingPiece();
-			game.gameHistory.playedMoves.LastOrDefault()?.DisableLastMoveFX();
 			//save gamestate
 			_gameState_beforeMove = new GameState( game );
 		}
@@ -78,7 +80,7 @@ namespace Shogi{
 		}
 		public abstract bool IsMoveValid( ShogiGame game );
 
-		public abstract UniTask EnableLastMoveFX( GameSettings settings );
-		public abstract void DisableLastMoveFX();
+		// public abstract UniTask EnableLastMoveFX( GameSettings settings );
+		// public abstract void DisableLastMoveFX();
 	}
 }

@@ -19,13 +19,13 @@ namespace Shogi
 			return "Drop "+base.ToString();
 		}
 
-		public override async UniTask EnableLastMoveFX(GameSettings settings){
-			await ActingPiece.GetComponent<IHighlightFx>().EnableHighlight( settings.GetLastMovedPiece_Color( playerId ) );
-		}
+		// public override async UniTask EnableLastMoveFX(GameSettings settings){
+		// 	await ActingPiece.GetComponent<IHighlightFx>().EnableHighlight( settings.GetLastMovedPiece_Color( PlayerId ) );
+		// }
 
-		public override void DisableLastMoveFX() {
-			ActingPiece.GetComponent<IHighlightFx>().DisableHighlight();
-		}
+		// public override void DisableLastMoveFX() {
+		// 	ActingPiece.GetComponent<IHighlightFx>().DisableHighlight();
+		// }
 
 		public override async UniTask ExecuteAction( ShogiGame game ) {
 			base.ExecuteAction(game).Forget();
@@ -34,7 +34,7 @@ namespace Shogi
 			//TODO: replace with animation
 			ActingPiece.PlacePieceOnCell_Immediate( DestinationX, DestinationY );
 			await ActingPiece.GetComponent<IPieceDropActionFX>().DoDropAnimation( DestinationX, DestinationY );
-			await EnableLastMoveFX( game.settings );
+			// await EnableLastMoveFX( game.settings );
 
 			//Update game data structures
 			game.GetSideBoard( ActingPiece.OwnerId ).RemoveCapturedPiece( ActingPiece );

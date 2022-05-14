@@ -25,23 +25,23 @@ namespace Shogi
 			return "Move "+base.ToString();
 		}
 
-		public override async UniTask EnableLastMoveFX(GameSettings settings){
-			var startCell = Cell.GetCell( StartX, StartY );
-			Color highlightColor = settings.GetLastMovedPiece_Color(playerId);
+		// public override async UniTask EnableLastMoveFX(GameSettings settings){
+		// 	var startCell = Cell.GetCell( StartX, StartY );
+		// 	Color highlightColor = settings.GetLastMovedPiece_Color(PlayerId);
 
-			await ActingPiece.GetComponent<IHighlightFx>().EnableHighlight( highlightColor );
-			await startCell.GetComponent<IHighlightFx>().EnableHighlight( highlightColor.SetAlpha( 0.5f ) );
-		}
+		// 	await ActingPiece.GetComponent<IHighlightFx>().EnableHighlight( highlightColor );
+		// 	await startCell.GetComponent<IHighlightFx>().EnableHighlight( highlightColor.SetAlpha( 0.5f ) );
+		// }
 
-		public override void DisableLastMoveFX(){
-			//I'm surprised this line works, since we have moved the piece to a different spot, and it's index is now different
-			//We probably cached the correct one in time. But this one was a risky one, I don't realy like
-			// var actingPiece = GetActingPiece();
-			var startCell = Cell.GetCell( StartX, StartY );
+		// public override void DisableLastMoveFX(){
+		// 	//I'm surprised this line works, since we have moved the piece to a different spot, and it's index is now different
+		// 	//We probably cached the correct one in time. But this one was a risky one, I don't realy like
+		// 	// var actingPiece = GetActingPiece();
+		// 	var startCell = Cell.GetCell( StartX, StartY );
 
-			ActingPiece.GetComponent<IHighlightFx>().DisableHighlight();
-			startCell.GetComponent<IHighlightFx>().DisableHighlight();
-		}
+		// 	ActingPiece.GetComponent<IHighlightFx>().DisableHighlight();
+		// 	startCell.GetComponent<IHighlightFx>().DisableHighlight();
+		// }
 
 		public bool IsCapturingMove( ShogiGame game ){
 			var capturedPiece = game.board [DestinationX, DestinationY];
@@ -53,9 +53,8 @@ namespace Shogi
 
 			UnityEngine.Debug.Log( $"Moving piece {ActingPiece} to cell ({DestinationX},{DestinationY})" );
 			
-			EnableLastMoveFX( game.settings );
+			// EnableLastMoveFX( game.settings );
 
-			// var startCell = Cell.GetCell( StartX, StartY );
 			var capturedPiece = game.board[DestinationX, DestinationY];
 
 			await ActingPiece.Move( DestinationX, DestinationY );
@@ -63,7 +62,6 @@ namespace Shogi
 				//A piece was killed. Such cruelty. 
 				await capturedPiece.CapturePiece();
 			}
-
 
 			UpdateBoard( game.board );
 			

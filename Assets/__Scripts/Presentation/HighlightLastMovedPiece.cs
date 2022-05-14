@@ -9,14 +9,11 @@ namespace Shogi
 		private IHighlightFx prevMovedPiece_highlighter;
 		private IHighlightFx prevStartCell_highlighter;
 
-		// private Cell[] cells;
 
 		void Start() {
 			shogiGame = FindObjectOfType<ShogiGame>();
 			shogiGame.OnActionExecuted += DoHighlightLastMovedPiece;
 			shogiGame.OnActionExecuted += DoHighlightStartMoveCell;
-
-			// cells = FindObjectsOfType<Cell>(true);
 		}
 
 		public void DoHighlightLastMovedPiece(IShogiAction action){

@@ -15,7 +15,5 @@ namespace Shogi
 		UniTask UndoAction( ShogiGame game );
 		bool IsMoveValid( ShogiGame game );
 		
-		UniTask EnableLastMoveFX( GameSettings settings );
-		void DisableLastMoveFX();
 	}
 }

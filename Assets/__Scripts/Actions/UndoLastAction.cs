@@ -30,8 +30,5 @@ namespace Shogi
 			return "Undo " + base.ToString();
 		}
 
-		public override void DisableLastMoveFX() { }
-
-		public override async UniTask EnableLastMoveFX( GameSettings settings ) { }
 	}
 }
