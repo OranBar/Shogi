@@ -15,11 +15,11 @@ namespace Shogi
 			var lastMove = game.gameHistory.playedMoves [playedMovesCount - 1];
 			await lastMove.UndoAction( game );
 
-			if (playedMovesCount >= 2) {
-				var secondToLastMove = game.gameHistory.playedMoves [playedMovesCount - 2];
-				await secondToLastMove.UndoAction( game );
-				await secondToLastMove.ExecuteAction( game );
-			}
+			// if (playedMovesCount >= 2) {
+			// 	var secondToLastMove = game.gameHistory.playedMoves [playedMovesCount - 2];
+			// 	await secondToLastMove.UndoAction( game );
+			// 	await secondToLastMove.ExecuteAction( game );
+			// }
 		}
 
 		public override bool IsMoveValid( ShogiGame game ) {

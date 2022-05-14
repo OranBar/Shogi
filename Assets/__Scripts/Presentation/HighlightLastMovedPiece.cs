@@ -12,13 +12,14 @@ namespace Shogi
 
 		void Start() {
 			shogiGame = FindObjectOfType<ShogiGame>();
-			shogiGame.OnActionExecuted += DoHighlightLastMovedPiece;
-			shogiGame.OnActionExecuted += DoHighlightStartMoveCell;
+			shogiGame.OnBeforeActionExecuted += DoHighlightLastMovedPiece;
+			shogiGame.OnBeforeActionExecuted += DoHighlightStartMoveCell;
 		}
 
 		public void DoHighlightLastMovedPiece(IShogiAction action){
 			switch (action) {
 				case UndoLastAction undoAction:
+					DoHighlightLastMovedPiece( undoAction );
 					break;
 				case DropPieceAction dropPieceAction:
 					DoHighlightLastMovedPiece( dropPieceAction );
@@ -65,9 +66,21 @@ namespace Shogi
 			prevMovedPiece_highlighter = pieceHighlight;
 		}
 
+		public void DoHighlightLastMovedPiece( UndoLastAction action ) {
+			prevMovedPiece_highlighter?.DisableHighlight();
+			
+			if(shogiGame.gameHistory.playedMoves.Count >= 2){
+				IShogiAction actionBefore_undoneAction = shogiGame.gameHistory.playedMoves[^2];
+				DoHighlightLastMovedPiece( actionBefore_undoneAction );
+			}
+		}
+
 		public void DoHighlightStartMoveCell( UndoLastAction action ) {
-			if (shogiGame.gameHistory.playedMoves.Count < 1) {
-				prevStartCell_highlighter?.DisableHighlight();
+			prevStartCell_highlighter?.DisableHighlight();
+			
+			if (shogiGame.gameHistory.playedMoves.Count >= 2) {
+				IShogiAction actionBefore_undoneAction = shogiGame.gameHistory.playedMoves [^2];
+				DoHighlightStartMoveCell( actionBefore_undoneAction );
 			}
 		}
 
