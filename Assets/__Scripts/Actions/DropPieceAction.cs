@@ -67,10 +67,12 @@ namespace Shogi
 			bool AnyUnpromotedPawns_OnColumn(){
 				for (int y = 0 ; y < 9 ; y++) {
 					Piece piece = game.board [DestinationX, y];
+					bool isAlliedPiece = piece?.OwnerId == ActingPiece.OwnerId;
+
 					bool isPawn = piece?.PieceType == PieceType.Pawn;
 					bool isUnpromotedPawn = isPawn && piece.IsPromoted == false;
 
-					if (isUnpromotedPawn) {
+					if (isAlliedPiece && isUnpromotedPawn) {
 						return true;
 					}
 				}

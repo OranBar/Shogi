@@ -4175,6 +4175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a46b24e2951ae143bbe33b2944f353d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  duration: 0.6
 --- !u!1 &301470732
 GameObject:
   m_ObjectHideFlags: 0
@@ -4738,6 +4739,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a46b24e2951ae143bbe33b2944f353d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  duration: 0.6
 --- !u!1001 &391001800
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13373,6 +13375,7 @@ GameObject:
   - component: {fileID: 1014225919}
   - component: {fileID: 1014225920}
   - component: {fileID: 1014225921}
+  - component: {fileID: 1014225922}
   m_Layer: 0
   m_Name: Logic
   m_TagString: Untagged
@@ -13461,7 +13464,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   autosaveRootName: AutoSave
-  gameId: 153
+  gameId: 171
   turnIndex: 0
 --- !u!114 &1014225921
 MonoBehaviour:
@@ -13479,6 +13482,18 @@ MonoBehaviour:
   selectedPiece_color: {r: 0, g: 0.4862745, b: 1, a: 1}
   lastMovedPiece_color_player1: {r: 0.31563476, g: 0.7176471, b: 0.2588235, a: 1}
   lastMovedPiece_color_player2: {r: 0.7176471, g: 0.25882354, b: 0.25882354, a: 1}
+--- !u!114 &1014225922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1014225915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90ad9208fdb3f6a4ebce49e43cc30508, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1019125591
 GameObject:
   m_ObjectHideFlags: 0

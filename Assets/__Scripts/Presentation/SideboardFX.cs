@@ -8,6 +8,7 @@ namespace Shogi
 {
 	public class SideboardFX : MonoBehaviour, ISideboardPieceAdded
 	{
+		public float duration = 1.5f;
 		[AutoParent] private SideBoard_UI sideboard;
 
 		public async UniTask OnNewPieceAdded( Piece newPiece ) {
@@ -22,7 +23,7 @@ namespace Shogi
 				.AppendCallback( () => newPiece.transform.GetChild( 0 ).gameObject.SetActive( true ) )
 				.AppendCallback( () => newPiece.transform.localScale = Vector3.one * 2 )
 				.AppendCallback( () => sideboard.IncreaseText( newPiece ) )
-				.Append( newPiece.transform.DOScale( Vector3.one, 1.5f ).SetEase( Ease.OutCubic ) )
+				.Append( newPiece.transform.DOScale( Vector3.one, duration ).SetEase( Ease.OutCubic ) )
 				.AsyncWaitForCompletion();
 		}
 	}
