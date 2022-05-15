@@ -17,9 +17,7 @@ namespace Shogi{
 		private int _destinationY;
 		private int _destinationX;
 
-		//TODO: Mark this field as [NonSerialized] to gain tons of space when serializing
-		//I'm leaving it here for debugging purposes, it could prove useful
-		private GameState _gameState_beforeMove;
+		[NonSerialized] private GameState _gameState_beforeMove;
 		public GameState GameState_beforeMove => _gameState_beforeMove;
 		private PlayerId _playerId;
 
