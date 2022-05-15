@@ -10,10 +10,13 @@ namespace Shogi
 		public PlayerId firstToMove;
 		public GameData gameData;
 		public List<IShogiAction> playedMoves = new List<IShogiAction>();
+		public float player1_time;
+		public float player2_time;
 
 		public GameHistory( GameState initialGameState, PlayerId firstToMove, ShogiGame game) {
 			this.initialGameState = initialGameState;
 			this.firstToMove = firstToMove;
+			this.gameData = new GameData( game );
 		}
 
 		public void RegisterNewMove( IShogiAction action ) {
@@ -26,12 +29,18 @@ namespace Shogi
 
 		#region Binary Serialization and Deserialization
 		public void SerializeToBinaryFile( string savePath ) {
-			this.gameData = new GameData( GameObject.FindObjectOfType<ShogiGame>() );
-			SerializationUtils.SerializeToBinaryFile(this, savePath);
+			SaveTimers_ClockTime();
+			SerializationUtils.SerializeToBinaryFile( this, savePath );
 		}
 
 		public static GameHistory DeserializeFromBinaryFile( string filePath ) {
 			return SerializationUtils.DeserializeFromBinaryFile<GameHistory>( filePath );
+		}
+
+		private void SaveTimers_ClockTime() {
+			var shogiClock = GameObject.FindObjectOfType<ShogiGame>().shogiClock;
+			this.player1_time = shogiClock.timer_player1.clockTime;
+			this.player2_time = shogiClock.timer_player2.clockTime;
 		}
 
 		#endregion

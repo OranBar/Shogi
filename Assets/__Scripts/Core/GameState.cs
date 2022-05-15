@@ -6,9 +6,11 @@ namespace Shogi
 	[Serializable]
     public class GameState 
     {
-		public GameData gameData;
+		// public GameData gameData;
 		public PlayerId currPlayerTurn;
 		public PieceData[] piecesData;
+		public float player1_time;
+		public float player2_time;
 
 		public GameState(){
 
@@ -16,9 +18,12 @@ namespace Shogi
 
 		public GameState( ShogiGame game)
 		{
-			piecesData = game.AllPieces.Select( p => p.pieceData ).ToArray();
-			currPlayerTurn = game.CurrTurn_Player.PlayerId;
-			gameData = new GameData( game );
+			this.piecesData = game.AllPieces.Select( p => p.pieceData ).ToArray();
+			this.currPlayerTurn = game.CurrTurn_Player.PlayerId;
+			var shogiClock = game.shogiClock;
+			this.player1_time = shogiClock.timer_player1.clockTime;
+			this.player2_time = shogiClock.timer_player2.clockTime;
+			// this.gameData = new GameData( game );
 		}
 
 		#region Binary Serialization and Deserialization
@@ -47,15 +52,11 @@ namespace Shogi
 	{
 		public string player1_name;
 		public string player2_name;
-		public float player1_time;
-		public float player2_time;
 
 		public GameData( ShogiGame game ) {
 			this.player1_name = game.Player1.PlayerName;
 			this.player2_name = game.Player2.PlayerName;
-			var shogiClock = game.shogiClock;
-			this.player1_time = shogiClock.timer_player1.clockTime;
-			this.player2_time = shogiClock.timer_player2.clockTime;
+			
 		}
 	}
 

@@ -192,8 +192,8 @@ namespace Shogi
 				prevMove = move;
 			}
 
-			shogiClock.timer_player1.clockTime = history.gameData.player1_time;
-			shogiClock.timer_player2.clockTime = history.gameData.player2_time;
+			shogiClock.timer_player1.clockTime = history.player1_time;
+			shogiClock.timer_player2.clockTime = history.player2_time;
 			PlayerId nextPlayerTurn = GetPlayer_WhoMovesNext( history );
 			BeginGame( nextPlayerTurn );
 
