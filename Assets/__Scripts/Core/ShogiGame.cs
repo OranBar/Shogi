@@ -73,6 +73,8 @@ namespace Shogi
 		[ReadOnly] public GameSettings settings;
 		[ReadOnly] public ShogiClock shogiClock;
 
+		private int turnCount;
+
 		void Awake(){
 			settings = FindObjectOfType<GameSettings>();
 			shogiClock = FindObjectOfType<ShogiClock>();
@@ -110,18 +112,17 @@ namespace Shogi
 		}
 
 		private async UniTask BeginGameAsync( PlayerId startingPlayer ) {
-			_currTurn_PlayerId = startingPlayer;
-
-			RegisterTimeout_ToGameOver();
-
+			RegisterGameOver_OnClockTimeout();
 			Player1.enabled = false;
 			Player2.enabled = false;
 			Player1.enabled = true;
 			Player2.enabled = true;
 
+			turnCount = 1;
+			_currTurn_PlayerId = startingPlayer;
 			OnNewTurnBegun.Invoke( _currTurn_PlayerId );
 			while(isGameOver == false && manualOverride == false){
-				Debug.Log("Awaiting Turn: "+_currTurn_PlayerId.ToString());
+				Debug.Log($"Turn {turnCount}. Awaiting Move from : "+_currTurn_PlayerId.ToString());
 				IShogiAction action = await CurrTurn_Player.RequestAction().AttachExternalCancellation( gameLoopCancelToken.Token );
 				
 				if (action.IsMoveValid( this )) {
@@ -148,7 +149,7 @@ namespace Shogi
 			}
 		}
 
-		private void RegisterTimeout_ToGameOver() {
+		private void RegisterGameOver_OnClockTimeout() {
 			var shogiClock = FindObjectOfType<ShogiClock>();
 			shogiClock.timer_player1.OnTimerFinished += Player2_HasWon;
 			shogiClock.timer_player2.OnTimerFinished += Player1_HasWon;
@@ -171,6 +172,7 @@ namespace Shogi
 
 		private void AdvanceTurn() {
 			_currTurn_PlayerId = (_currTurn_PlayerId == PlayerId.Player1) ? PlayerId.Player2 : PlayerId.Player1;
+			turnCount++;
 		}
 
 		public void ApplyGameState(GameState state) {
@@ -180,24 +182,26 @@ namespace Shogi
 
 		public async UniTask ApplyGameHistory( GameHistory history ) {
 			ApplyGameState( history.initialGameState );
-			// gameHistory = history;
 
 			//Alter timescale to fast forward?
-
-			IShogiAction prevMove = null;
 			foreach (var move in history.playedMoves) {
-	
 				await move.ExecuteAction( this );
 				gameHistory.RegisterNewMove( move );
-				prevMove = move;
 			}
 
-			shogiClock.timer_player1.clockTime = history.player1_time;
-			shogiClock.timer_player2.clockTime = history.player2_time;
+			Restore_ClockTimers_Values( history );
+
 			PlayerId nextPlayerTurn = GetPlayer_WhoMovesNext( history );
 			BeginGame( nextPlayerTurn );
 
 			Debug.Log( "Finish Apply GameHistory: All moves applied" );
+
+			//----------------------------------------------------------
+			void Restore_ClockTimers_Values( GameHistory history ) {
+				(float player1_time, float player2_time) timers_clockValues = history.timersHistory.Last();
+				shogiClock.timer_player1.clockTime = timers_clockValues.player1_time;
+				shogiClock.timer_player2.clockTime = timers_clockValues.player2_time;
+			}
 
 			PlayerId GetPlayer_WhoMovesNext( GameHistory loadedGameHistory ) {
 				PlayerId nextPlayerTurn;

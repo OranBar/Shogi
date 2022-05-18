@@ -31,9 +31,8 @@ namespace Shogi{
 
 		//Needed for when we restart or reload the game
 		private void ClearCapturedPieces(){
-			//We can't remove from the object we're iterating, so we create a copy with ToList()
-			foreach(Piece capturedPiece in _capturedPieces.ToList()){
-				RemoveCapturedPiece( capturedPiece );
+			while(_capturedPieces.Count != 0){
+				RemoveCapturedPiece( _capturedPieces.First() );
 			}
 			_capturedPieces.Clear();
 			OnCleared?.Invoke();
