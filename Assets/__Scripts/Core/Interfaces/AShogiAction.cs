@@ -19,13 +19,14 @@ namespace Shogi{
 
 		[NonSerialized] private GameState _gameState_beforeMove;
 		public GameState GameState_beforeMove => _gameState_beforeMove;
+		
 		private PlayerId _playerId;
-
-		public Piece ActingPiece => FindActingPiece();
-
 		public PlayerId PlayerId { get => _playerId; set => _playerId = value; }
 
 		[NonSerialized] private Piece _actingPiece;
+		public Piece ActingPiece => FindActingPiece();
+
+
 
 		public AShogiAction(){
 		}

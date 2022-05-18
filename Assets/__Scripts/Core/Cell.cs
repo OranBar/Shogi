@@ -20,6 +20,12 @@ namespace Shogi{
 			return cell;
 		}
 
+		//This overload requests the cells list. This way, we don't have to do FindObjects on all of the scene 
+		public static Cell GetCell( int x, int y, Cell [] cells ) {
+			Cell cell = cells.First( c => c.x == x && c.y == y );
+			return cell;
+		}
+
 		public void OnPointerDown( PointerEventData eventData ) {
 			Cell.OnAnyCellClicked.Invoke( this );
 		}
