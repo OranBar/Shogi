@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Shogi
 {
-	public class SettingsPanel_UI : MonoBehaviour, IPointerDownHandler
+	public class SettingsPanel_UI : MonoBehaviour
 	{
 		public Toggle playSoundOnMove;
 		public Toggle highlightAvailableMoves;
@@ -15,10 +15,6 @@ namespace Shogi
 		[AutoChildren] Animator panelAnimator;
 
 		private ShogiGameSettings settings;
-
-		public void OnPointerDown( PointerEventData eventData ) {
-			Debug.Log("click");
-		}
 
 		void Start() {
 			settings = FindObjectOfType<ShogiGameSettings>();
