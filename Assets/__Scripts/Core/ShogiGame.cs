@@ -70,13 +70,13 @@ namespace Shogi
 
 		private CancellationTokenSource gameLoopCancelToken;
 		public GameHistory gameHistory = null;
-		[ReadOnly] public GameSettings settings;
+		[ReadOnly] public ShogiGameSettings settings;
 		[ReadOnly] public ShogiClock shogiClock;
 
 		private int turnCount;
 
 		void Awake(){
-			settings = FindObjectOfType<GameSettings>();
+			settings = FindObjectOfType<ShogiGameSettings>();
 			shogiClock = FindObjectOfType<ShogiClock>();
 
 			Cell.OnAnyCellClicked = new RefAction<Cell>();

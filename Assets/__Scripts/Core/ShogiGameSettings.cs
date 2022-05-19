@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Shogi
 {
 
-	public class GameSettings : MonoBehaviour
+	public class ShogiGameSettings : MonoBehaviour
 	{
 		public bool playSoundOnMove;
 		public Color selectedPiece_color;

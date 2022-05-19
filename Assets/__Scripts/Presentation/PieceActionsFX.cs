@@ -17,12 +17,12 @@ namespace Shogi
 		public AudioClip movementAudio;
 
 		private AudioSource audioSource;
-		private GameSettings settings;
+		private ShogiGameSettings settings;
 		private ShogiGame shogiGame;
 
 		void Awake() {
 			audioSource = this.gameObject.AddOrGetComponent<AudioSource>();
-			settings = FindObjectOfType<GameSettings>();
+			settings = FindObjectOfType<ShogiGameSettings>();
 			shogiGame = FindObjectOfType<ShogiGame>();
 		}
 

@@ -9,7 +9,7 @@ namespace Shogi
     {
 
 		[Auto] private HumanPlayer player;
-		private GameSettings Settings => player.shogiGame.settings;
+		private ShogiGameSettings Settings => player.shogiGame.settings;
 
 		private List<CellFX> previouslyHighlighted_cells = new List<CellFX>();
 		private IHighlightFx previouslyHighlighted_piece;
