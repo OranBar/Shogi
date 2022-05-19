@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace Mirror.RemoteCalls
@@ -37,14 +38,13 @@ namespace Mirror.RemoteCalls
         // IMPORTANT: cmd/rpc functions are identified via **HASHES**.
         //   an index would requires half the bandwidth, but introduces issues
         //   where static constructors are lazily called, so index order isn't
-        //   guaranteed. keep hashes to avoid:
+        //   guaranteed:
         //     https://github.com/vis2k/Mirror/pull/3135
         //     https://github.com/vis2k/Mirror/issues/3138
-        // BUT: 2 byte hash is enough if we check for collisions. that's what we
-        //      do for NetworkMessage as well.
-        static readonly Dictionary<ushort, Invoker> remoteCallDelegates = new Dictionary<ushort, Invoker>();
+        //   keep the 4 byte hash for stability!
+        static readonly Dictionary<int, Invoker> remoteCallDelegates = new Dictionary<int, Invoker>();
 
-        static bool CheckIfDelegateExists(Type componentType, RemoteCallType remoteCallType, RemoteCallDelegate func, ushort functionHash)
+        static bool CheckIfDelegateExists(Type componentType, RemoteCallType remoteCallType, RemoteCallDelegate func, int functionHash)
         {
             if (remoteCallDelegates.ContainsKey(functionHash))
             {
@@ -65,10 +65,10 @@ namespace Mirror.RemoteCalls
         }
 
         // pass full function name to avoid ClassA.Func & ClassB.Func collisions
-        internal static ushort RegisterDelegate(Type componentType, string functionFullName, RemoteCallType remoteCallType, RemoteCallDelegate func, bool cmdRequiresAuthority = true)
+        internal static int RegisterDelegate(Type componentType, string functionFullName, RemoteCallType remoteCallType, RemoteCallDelegate func, bool cmdRequiresAuthority = true)
         {
             // type+func so Inventory.RpcUse != Equipment.RpcUse
-            ushort hash = (ushort)(functionFullName.GetStableHashCode() & 0xFFFF);
+            int hash = functionFullName.GetStableHashCode();
 
             if (CheckIfDelegateExists(componentType, remoteCallType, func, hash))
                 return hash;
@@ -96,19 +96,19 @@ namespace Mirror.RemoteCalls
             RegisterDelegate(componentType, functionFullName, RemoteCallType.ClientRpc, func);
 
         // to clean up tests
-        internal static void RemoveDelegate(ushort hash) =>
+        internal static void RemoveDelegate(int hash) =>
             remoteCallDelegates.Remove(hash);
 
         // note: no need to throw an error if not found.
         // an attacker might just try to call a cmd with an rpc's hash etc.
         // returning false is enough.
-        static bool GetInvokerForHash(ushort functionHash, RemoteCallType remoteCallType, out Invoker invoker) =>
+        static bool GetInvokerForHash(int functionHash, RemoteCallType remoteCallType, out Invoker invoker) =>
             remoteCallDelegates.TryGetValue(functionHash, out invoker) &&
             invoker != null &&
             invoker.callType == remoteCallType;
 
         // InvokeCmd/Rpc Delegate can all use the same function here
-        internal static bool Invoke(ushort functionHash, RemoteCallType remoteCallType, NetworkReader reader, NetworkBehaviour component, NetworkConnectionToClient senderConnection = null)
+        internal static bool Invoke(int functionHash, RemoteCallType remoteCallType, NetworkReader reader, NetworkBehaviour component, NetworkConnectionToClient senderConnection = null)
         {
             // IMPORTANT: we check if the message's componentIndex component is
             //            actually of the right type. prevents attackers trying
@@ -124,12 +124,12 @@ namespace Mirror.RemoteCalls
         }
 
         // check if the command 'requiresAuthority' which is set in the attribute
-        internal static bool CommandRequiresAuthority(ushort cmdHash) =>
+        internal static bool CommandRequiresAuthority(int cmdHash) =>
             GetInvokerForHash(cmdHash, RemoteCallType.Command, out Invoker invoker) &&
             invoker.cmdRequiresAuthority;
 
         /// <summary>Gets the handler function by hash. Useful for profilers and debuggers.</summary>
-        public static RemoteCallDelegate GetDelegate(ushort functionHash) =>
+        public static RemoteCallDelegate GetDelegate(int functionHash) =>
             remoteCallDelegates.TryGetValue(functionHash, out Invoker invoker)
             ? invoker.function
             : null;

@@ -109,7 +109,7 @@ namespace Mirror
             Transport.activeTransport.OnClientConnected += OnTransportConnected;
             Transport.activeTransport.OnClientDataReceived += OnTransportData;
             Transport.activeTransport.OnClientDisconnected += OnTransportDisconnected;
-            Transport.activeTransport.OnClientError += OnTransportError;
+            Transport.activeTransport.OnClientError += OnError;
         }
 
         static void RemoveTransportHandlers()
@@ -118,7 +118,7 @@ namespace Mirror
             Transport.activeTransport.OnClientConnected -= OnTransportConnected;
             Transport.activeTransport.OnClientDataReceived -= OnTransportData;
             Transport.activeTransport.OnClientDisconnected -= OnTransportDisconnected;
-            Transport.activeTransport.OnClientError -= OnTransportError;
+            Transport.activeTransport.OnClientError -= OnError;
         }
 
         internal static void RegisterSystemHandlers(bool hostMode)
@@ -432,12 +432,9 @@ namespace Mirror
             RemoveTransportHandlers();
         }
 
-        // transport errors are forwarded to high level
-        static void OnTransportError(Exception exception)
+        static void OnError(Exception exception)
         {
-            // transport errors will happen. logging a warning is enough.
-            // make sure the user does not panic.
-            Debug.LogWarning($"Client Transport Error: {exception}. This is fine.");
+            Debug.LogException(exception);
             OnErrorEvent?.Invoke(exception);
         }
 

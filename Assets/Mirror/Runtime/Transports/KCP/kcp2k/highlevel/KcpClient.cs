@@ -10,21 +10,16 @@ namespace kcp2k
         public Action OnConnected;
         public Action<ArraySegment<byte>, KcpChannel> OnData;
         public Action OnDisconnected;
-        // error callback instead of logging.
-        // allows libraries to show popups etc.
-        // (string instead of Exception for ease of use)
-        public Action<string> OnError;
 
         // state
         public KcpClientConnection connection;
         public bool connected;
 
-        public KcpClient(Action OnConnected, Action<ArraySegment<byte>, KcpChannel> OnData, Action OnDisconnected, Action<string> OnError)
+        public KcpClient(Action OnConnected, Action<ArraySegment<byte>, KcpChannel> OnData, Action OnDisconnected)
         {
             this.OnConnected = OnConnected;
             this.OnData = OnData;
             this.OnDisconnected = OnDisconnected;
-            this.OnError = OnError;
         }
 
         // CreateConnection can be overwritten for where-allocation:
@@ -58,23 +53,19 @@ namespace kcp2k
             {
                 Log.Info($"KCP: OnClientConnected");
                 connected = true;
-                OnConnected();
+                OnConnected.Invoke();
             };
             connection.OnData = (message, channel) =>
             {
                 //Log.Debug($"KCP: OnClientData({BitConverter.ToString(message.Array, message.Offset, message.Count)})");
-                OnData(message, channel);
+                OnData.Invoke(message, channel);
             };
             connection.OnDisconnected = () =>
             {
                 Log.Info($"KCP: OnClientDisconnected");
                 connected = false;
                 connection = null;
-                OnDisconnected();
-            };
-            connection.OnError = (exception) =>
-            {
-                OnError(exception);
+                OnDisconnected.Invoke();
             };
 
             // connect
