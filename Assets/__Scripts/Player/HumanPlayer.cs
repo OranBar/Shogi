@@ -58,7 +58,6 @@ namespace Shogi
 		void Select_ActionPiece(Piece piece){
 			if(selectedPiece != null){
 				//We entered this method more then once in the same turn.
-				// selectedPiece.GetComponent<IHighlightFx>().DisableHighlight();
 				shogiGame.Get_OnPieceClickedEvent( OpponentId ).Value -= Select_PieceToCapture;
 				Cell.OnAnyCellClicked -= Select_CellToMove;
 			}
@@ -69,13 +68,7 @@ namespace Shogi
 			} else {
 				currAction = new DropPieceAction( selectedPiece );
 			}
-
-			// piece.LogAvailableMoves();
-			// if(shogiGame.settings.highlightAvailableMoves){
-			// 	HighlightAvailable_MoveCells( piece );
-			// }
 			Debug.Log($"<{PlayerName}> Piece Selected ({piece.X},{piece.Y})", piece.gameObject);
-			// piece.GetComponent<IHighlightFx>().EnableHighlight( shogiGame.settings.selectedPiece_color );
 			OnPiece_Selected.Invoke( selectedPiece );
 
 			shogiGame.Get_OnPieceClickedEvent(OpponentId).Value += Select_PieceToCapture;
@@ -90,11 +83,7 @@ namespace Shogi
 			currAction.DestinationY = cell.y;
 
 			actionReady = true;
-			// selectedPiece.GetComponent<IHighlightFx>().DisableHighlight( );
 			OnMoveCell_Selected.Invoke(cell );
-
-			// Cell.OnAnyCellClicked -= Select_CellToMove;
-			// shogiGame.Get_OnPieceClickedEvent( OpponentId ).Value -= Select_PieceToCapture;
 		}
 
 		private void Select_PieceToCapture( Piece toCapture) {
@@ -103,11 +92,7 @@ namespace Shogi
 			currAction.DestinationY = toCapture.Y;
 
 			actionReady = true;
-			// selectedPiece?.GetComponent<IHighlightFx>().DisableHighlight( );
 			OnCapturePiece_Selected.Invoke( toCapture );
-
-			// shogiGame.Get_OnPieceClickedEvent( OpponentId ).Value -= Select_PieceToCapture;
-			// Cell.OnAnyCellClicked -= Select_CellToMove;
 		}
 
 		public async override UniTask<IShogiAction> RequestAction() {
