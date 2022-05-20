@@ -2066,17 +2066,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42653d238ab1d0c4b9431c154a6fa144, type: 3}
---- !u!114 &185805966 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6024734325903489212, guid: 42653d238ab1d0c4b9431c154a6fa144, type: 3}
-  m_PrefabInstance: {fileID: 185805965}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &185805967 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6024734325903489213, guid: 42653d238ab1d0c4b9431c154a6fa144, type: 3}
@@ -6416,7 +6405,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerName: Gio
   playerId: 2
-  undoButton: {fileID: 185805966}
   selectedPiece: {fileID: 0}
   shogiGame: {fileID: 0}
 --- !u!114 &489550813
@@ -14038,6 +14026,7 @@ MonoBehaviour:
   board: {fileID: 759263462}
   player1_sideboard: {fileID: 1355150549}
   player2_sideboard: {fileID: 966799794}
+  beginGameOnStart: 1
   manualOverride: 0
   winner: {fileID: 0}
   gameHistory:
@@ -19284,7 +19273,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerName: Oran
   playerId: 1
-  undoButton: {fileID: 185805966}
   selectedPiece: {fileID: 0}
   shogiGame: {fileID: 0}
 --- !u!114 &1402779150
@@ -22886,6 +22874,23 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4610554103108687851, guid: 86d1e58cd8c68a242a86f2a6b9e8e8da, type: 3}
   m_PrefabInstance: {fileID: 1732277991}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1736197975 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6024734325903489210, guid: 42653d238ab1d0c4b9431c154a6fa144, type: 3}
+  m_PrefabInstance: {fileID: 185805965}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1736197978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1736197975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0411beb05e3c4924facb46892307695f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1739499572
 GameObject:
   m_ObjectHideFlags: 0

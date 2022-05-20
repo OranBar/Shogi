@@ -11,7 +11,7 @@ namespace Shogi
 		[Auto] private HumanPlayer player;
 		private ShogiGameSettings Settings => player.shogiGame.settings;
 
-		private List<CellFX> previouslyHighlighted_cells = new List<CellFX>();
+		private List<CellFx> previouslyHighlighted_cells = new List<CellFx>();
 		private IHighlightFx previouslyHighlighted_piece;
 
 		void Start()
@@ -19,6 +19,8 @@ namespace Shogi
 			player.OnPiece_Selected += PieceSelected;
 			player.OnMoveCell_Selected += CellSelected;
 			player.OnCapturePiece_Selected += CapturePieceSelected;
+
+			player.shogiGame.OnBeforeActionExecuted += DisableAllHighlights;
 		}
 
         void PieceSelected(Piece piece)
@@ -46,7 +48,7 @@ namespace Shogi
 
 			previouslyHighlighted_cells.Clear();
 			foreach (var cellToHighlight in validCellMoves) {
-				CellFX cellFX = cellToHighlight.GetComponent<CellFX>();
+				CellFx cellFX = cellToHighlight.GetComponent<CellFx>();
 				cellFX.EnableHighlight( Settings.availableMove_HighlightColor );
 				previouslyHighlighted_cells.Add( cellFX );
 			}
@@ -58,6 +60,13 @@ namespace Shogi
 
 		private void CapturePieceSelected( Piece piece ) {
 			player.selectedPiece.GetComponent<IHighlightFx>().DisableHighlight();
+		}
+
+		private void DisableAllHighlights(IShogiAction _){
+			previouslyHighlighted_piece?.DisableHighlight();
+			foreach (var cell in previouslyHighlighted_cells) {
+				cell.DisableHighlight();
+			}
 		}
 	}
 }

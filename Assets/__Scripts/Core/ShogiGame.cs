@@ -63,6 +63,7 @@ namespace Shogi
 
 		public Piece[] AllPieces => FindObjectsOfType<Piece>();
 
+		public bool beginGameOnStart = true;
 
 		public bool manualOverride;
 		private bool isGameOver;
@@ -89,11 +90,10 @@ namespace Shogi
 		}
 
 		void Start() {
-			RefreshMonobehavioursInScene();
-
-			var startingPlayer = PlayerId.Player1;
-			gameHistory = new GameHistory( new GameState( this ), startingPlayer, this );
-			BeginGame( startingPlayer );
+			if(beginGameOnStart){
+				var startingPlayer = PlayerId.Player1;
+				BeginGame( startingPlayer );
+			}
 		}
 
 		void OnDisable(){
@@ -113,6 +113,11 @@ namespace Shogi
 
 		private async UniTask BeginGameAsync( PlayerId startingPlayer ) {
 			RegisterGameOver_OnClockTimeout();
+
+			RefreshMonobehavioursInScene();
+
+			gameHistory = new GameHistory( new GameState( this ), startingPlayer, this );
+
 			Player1.enabled = false;
 			Player2.enabled = false;
 			Player1.enabled = true;

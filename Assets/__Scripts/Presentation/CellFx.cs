@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace Shogi
 {
-    public class CellFX : MonoBehaviour, IHighlightFx
+    public class CellFx : MonoBehaviour, IHighlightFx
     {
 		private Image highlightImage;
 

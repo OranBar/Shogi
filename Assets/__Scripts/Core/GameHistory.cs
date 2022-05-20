@@ -10,7 +10,7 @@ namespace Shogi
 		public PlayerId firstToMove;
 		public GameData gameData;
 		public List<IShogiAction> playedMoves = new List<IShogiAction>();
-		public List<(float player1_time, float player2_time)> timersHistory;
+		public List<(float player1_time, float player2_time)> timersHistory = new List<(float player1_time, float player2_time)>();
 		[NonSerialized] private ShogiGame game;
 
 		public GameHistory( GameState initialGameState, PlayerId firstToMove, ShogiGame game) {

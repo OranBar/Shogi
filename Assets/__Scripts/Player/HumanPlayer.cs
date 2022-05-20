@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
+using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -33,15 +34,16 @@ namespace Shogi
 		public RefAction<Piece> OnCapturePiece_Selected = new RefAction<Piece>();
 		public RefAction<Cell> OnMoveCell_Selected = new RefAction<Cell>();
 
-		public Button undoButton;
+		private Button undoButton;
 
-		public Piece selectedPiece;
+		[ReadOnly] public Piece selectedPiece;
 		private IShogiAction currAction;
-		public ShogiGame shogiGame;
+		[HideInInspector] public ShogiGame shogiGame;
 		private bool actionReady = false;
 
 		void Awake(){
 			shogiGame = FindObjectOfType<ShogiGame>();
+			undoButton = FindObjectOfType<UndoButton>().GetComponent<Button>();
 		}
 
 		private void OnDisable() {
