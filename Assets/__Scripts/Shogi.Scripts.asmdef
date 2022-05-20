@@ -8,7 +8,8 @@
         "barbaro.oblib.runtime",
         "UniTask.DOTween",
         "DOTween.Modules",
-        "NaughtyAttributes.Core"
+        "NaughtyAttributes.Core",
+        "Mirror"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
