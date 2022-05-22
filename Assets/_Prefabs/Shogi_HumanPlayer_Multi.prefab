@@ -358,6 +358,7 @@ GameObject:
   - component: {fileID: 7743024131801991623}
   - component: {fileID: 6430174734543711280}
   - component: {fileID: 6543375593160568439}
+  - component: {fileID: 4427794456468604865}
   m_Layer: 0
   m_Name: Shogi_HumanPlayer_Multi
   m_TagString: Untagged
@@ -388,7 +389,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3731757453555607816}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 81cdf01860968294cb2f3d956bd681f7, type: 3}
   m_Name: 
@@ -404,7 +405,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3731757453555607816}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 12b32f418a3c30f4cb30bd1791c74199, type: 3}
   m_Name: 
@@ -419,7 +420,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3731757453555607816}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 89c48291e53bdfc4e8cc0cf4ce78b46e, type: 3}
   m_Name: 
@@ -441,6 +442,19 @@ MonoBehaviour:
   visible: 0
   m_AssetId: 3faf190849c00d642b42df8a5e231a1c
   hasSpawned: 0
+--- !u!114 &4427794456468604865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3731757453555607816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c70f705a39e09e64692d803e96c4d966, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alsoReferenceChildren: 0
 --- !u!1 &4843408127284375461
 GameObject:
   m_ObjectHideFlags: 0

@@ -42,8 +42,8 @@ namespace Shogi
 		private bool actionReady = false;
 
 		void Awake(){
-			shogiGame = FindObjectOfType<ShogiGame>();
-			undoButton = FindObjectOfType<UndoButton>().GetComponent<Button>();
+			shogiGame = FindObjectOfType<ShogiGame>(true );
+			undoButton = FindObjectOfType<UndoButton>(true).gameObject.GetComponent<Button>(true);
 		}
 
 		private void OnDisable() {
