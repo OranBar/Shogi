@@ -95,24 +95,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 563f5ec0bb1e01945b53b5c827387fc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes:
-    - Name: OnPieceClicked
-      Entry: 7
-      Data: 0|RefAction, barbaro.oblib.runtime
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: owner
-      Entry: 6
-      Data: 
   pieceData:
     x: 0
     y: 3
@@ -120,6 +102,7 @@ MonoBehaviour:
     isPromoted: 0
     owner: 0
     isCaptured: 0
+  owner: {fileID: 0}
   defaultMovement: {fileID: 2017314789468213507}
   promotedMovement: {fileID: 0}
   dropMovement: {fileID: 1093897070549370937}
@@ -162,7 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 641d5e88af924c540a968166d7dd2531, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementAudio: {fileID: 0}
+  audios: {fileID: 11400000, guid: b808a5a95c00ebb4fa038501579fedef, type: 2}
 --- !u!82 &-641568663122999949
 AudioSource:
   m_ObjectHideFlags: 0
@@ -174,7 +157,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

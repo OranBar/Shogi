@@ -2107,8 +2107,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 41.29164, y: -35}
-  m_SizeDelta: {x: 72.58328, y: 20}
+  m_AnchoredPosition: {x: 44.58248, y: -35}
+  m_SizeDelta: {x: 79.16496, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &193277407
 MonoBehaviour:
@@ -11666,8 +11666,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 41.29164, y: -15}
-  m_SizeDelta: {x: 72.58328, y: 20}
+  m_AnchoredPosition: {x: 44.58248, y: -15}
+  m_SizeDelta: {x: 79.16496, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &851168095
 MonoBehaviour:
@@ -14085,8 +14085,8 @@ MonoBehaviour:
   selectedPiece_color: {r: 0, g: 0.4862745, b: 1, a: 1}
   lastMovedPiece_color_player1: {r: 0.31563476, g: 0.7176471, b: 0.2588235, a: 1}
   lastMovedPiece_color_player2: {r: 0.7176471, g: 0.25882354, b: 0.25882354, a: 1}
+  highlightAvailableMoves: 0
   availableMove_HighlightColor: {r: 0, g: 0.9278722, b: 1, a: 0.5019608}
-  highlightAvailableMoves: 1
 --- !u!114 &1014225922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17061,7 +17061,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 20, y: 20}
+  m_AnchoredPosition: {x: 20, y: 35}
   m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.000000044703484, y: 0.000000067797316}
 --- !u!95 &1212057955

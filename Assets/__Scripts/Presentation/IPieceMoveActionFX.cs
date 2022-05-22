@@ -4,6 +4,6 @@ namespace Shogi
 {
 	public interface IPieceMoveActionFX
 	{
-		UniTask DoMoveAnimation( int destinationX, int destinationY );
+		UniTask DoMoveAnimation( MovePieceAction action );
 	}
 }

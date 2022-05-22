@@ -57,7 +57,7 @@ namespace Shogi
 
 			var capturedPiece = game.board[DestinationX, DestinationY];
 
-			await ActingPiece.Move( DestinationX, DestinationY );
+			await ActingPiece.Move( this );
 			if (IsCapturingMove(game)) {
 				//A piece was killed. Such cruelty. 
 				await capturedPiece.CapturePiece();

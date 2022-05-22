@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7d3e64cc01ce824f8abf26468f9b1ec, type: 3}
+  m_Name: GioPack_Audios
+  m_EditorClassIdentifier: 
+  movementAudios:
+  - {fileID: 8300000, guid: 2bbfb868395123742be0b7dd14b5b6b4, type: 3}
+  - {fileID: 8300000, guid: 48baf7c648c6b8145a9a4e98383e26e2, type: 3}
+  - {fileID: 8300000, guid: 7a84ea5464d8d1448b557809e44c83a7, type: 3}
+  - {fileID: 8300000, guid: aef7dac0be5d65140b8bc9b60a0ce0a2, type: 3}
+  - {fileID: 8300000, guid: 984605a6a95ac0247859bdec6958815f, type: 3}
+  deathAudios:
+  - {fileID: 8300000, guid: 6b2c8f5a13b81734bb9e9c6332a49a09, type: 3}
+  - {fileID: 8300000, guid: 48baf7c648c6b8145a9a4e98383e26e2, type: 3}
+  - {fileID: 8300000, guid: 97917780ed9fa8b44941b02fad666215, type: 3}
+  - {fileID: 8300000, guid: 1165183447a5d4a44af003f6aeb33b57, type: 3}
+  - {fileID: 8300000, guid: 9b86ca6583e3bd748822fadceace610f, type: 3}

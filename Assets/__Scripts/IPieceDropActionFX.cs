@@ -5,6 +5,6 @@ namespace Shogi
 {
 	public interface IPieceDropActionFX
 	{
-		UniTask DoDropAnimation( int destinationX, int destinationY );
+		UniTask DoDropAnimation( DropPieceAction action );
 	}
 }

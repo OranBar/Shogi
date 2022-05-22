@@ -33,7 +33,7 @@ namespace Shogi
 
 			//TODO: replace with animation
 			ActingPiece.PlacePieceOnCell_Immediate( DestinationX, DestinationY );
-			await ActingPiece.GetComponent<IPieceDropActionFX>().DoDropAnimation( DestinationX, DestinationY );
+			await ActingPiece.GetComponent<IPieceDropActionFX>().DoDropAnimation( this );
 			// await EnableLastMoveFX( game.settings );
 
 			//Update game data structures

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
@@ -5,7 +6,6 @@ using UnityEngine;
 
 namespace Shogi
 {
-
 	//Se tutti i pezzi fanno la stessa cosa, posso usare questa classe.
 	//Se un giorno devo avere due IPieceMoveActionFx, posso smettere di ereditare qui, e portare il codice in una classe a se', ereditanto di la'
 	//Alla fine dei conti posso arrivare ad avere 3 classi, che implementano rispettivamente ognuna delle 3 interfacce.
@@ -14,11 +14,13 @@ namespace Shogi
 	public class PieceActionsFX : MonoBehaviour, IPieceMoveActionFX, IPieceDropActionFX, IPieceDeathFx
 	{
 		[Auto] Piece piece;
-		public AudioClip movementAudio;
+		public AudiosList audios;
 
 		private AudioSource audioSource;
 		private ShogiGameSettings settings;
 		private ShogiGame shogiGame;
+
+
 
 		void Awake() {
 			audioSource = this.gameObject.AddOrGetComponent<AudioSource>();
@@ -26,25 +28,41 @@ namespace Shogi
 			shogiGame = FindObjectOfType<ShogiGame>();
 		}
 
-		public async UniTask DoMoveAnimation( int destinationX, int destinationY ) {
-			if(settings.playSoundOnMove){ PlayMoveAudio(); }
+		public async UniTask DoMoveAnimation( MovePieceAction action ) {
+			if(settings.playSoundOnMove && action.IsCapturingMove(shogiGame) == false ){ PlayMoveAudio(); }
 			
-			var targetWorldPosition = shogiGame.board.GetCellPosition( destinationX, destinationY );
+			var targetWorldPosition = shogiGame.board.GetCellPosition( action.DestinationX, action.DestinationY );
 			await piece.GetComponent<RectTransform>().DOAnchorPos3D( targetWorldPosition, .15f ).SetEase( Ease.InSine );
 
 			//Tanto per
 			await UniTask.Yield();
 
 			void PlayMoveAudio() {
-				audioSource.clip = movementAudio;
+				audioSource.clip = audios.GetMoveAudio();
 				audioSource.Play();
 			}
 		}
 
-		public async UniTask DoDropAnimation( int destinationX, int destinationY ) {
+		//Temporary
+		public async UniTask DoMoveAnimation( DropPieceAction action ) {
+			if (settings.playSoundOnMove) { PlayMoveAudio(); }
+
+			var targetWorldPosition = shogiGame.board.GetCellPosition( action.DestinationX, action.DestinationY );
+			await piece.GetComponent<RectTransform>().DOAnchorPos3D( targetWorldPosition, .15f ).SetEase( Ease.InSine );
+
+			//Tanto per
+			await UniTask.Yield();
+
+			void PlayMoveAudio() {
+				audioSource.clip = audios.movementAudios.GetRandomElement();
+				audioSource.Play();
+			}
+		}
+
+		public async UniTask DoDropAnimation( DropPieceAction action ) {
 			ReparentPiece_ToOwner( piece );
 			//temporary 
-			await DoMoveAnimation( destinationX, destinationY );
+			await DoMoveAnimation( action );
 		}
 
 		private void ReparentPiece_ToOwner( Piece piece ) {
@@ -58,6 +76,12 @@ namespace Shogi
 			//TODO: Do cool particle stuff
 			// piece.transform.parent = this.transform;
 			// piece.transform.SetParent( this.transform, true );
+			if (settings.playSoundOnMove) { PlayDeathAudio(); }
+
+			void PlayDeathAudio() {
+				audioSource.clip = audios.GetDeathAudio();
+				audioSource.Play();
+			}
 		}
 	}
 }
