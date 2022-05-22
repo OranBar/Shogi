@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 namespace Shogi
 {
+	[Serializable]
 	public enum PlayerId{
 		Player1 = 1,
 		Player2
@@ -25,10 +26,13 @@ namespace Shogi
 		[SerializeField] private string _playerName;
 		public override string PlayerName { get => _playerName; set => _playerName = value; }
 
-		[SerializeField] private PlayerId playerId;
-		public override PlayerId PlayerId => playerId;
+		public PlayerId _playerId;
+		public override PlayerId PlayerId {
+			get { return _playerId; }
+			set { _playerId = value; }
+		}
 
-		public PlayerId OpponentId => playerId == PlayerId.Player1 ? PlayerId.Player2 : PlayerId.Player1;
+		public PlayerId OpponentId => _playerId == PlayerId.Player1 ? PlayerId.Player2 : PlayerId.Player1;
 
 		public RefAction<Piece> OnPiece_Selected = new RefAction<Piece>();
 		public RefAction<Piece> OnCapturePiece_Selected = new RefAction<Piece>();
@@ -52,7 +56,7 @@ namespace Shogi
 
 		private void UnregisterAllCallbacks() {
 			Cell.OnAnyCellClicked -= Select_CellToMove;
-			shogiGame.Get_OnPieceClickedEvent( playerId ).Value -= Select_ActionPiece;
+			shogiGame.Get_OnPieceClickedEvent( _playerId ).Value -= Select_ActionPiece;
 			shogiGame.Get_OnPieceClickedEvent( OpponentId ).Value -= Select_PieceToCapture;
 			undoButton.onClick.RemoveListener( RequestUndo );
 		}
@@ -99,7 +103,7 @@ namespace Shogi
 
 		public async override UniTask<IShogiAction> RequestAction() {
 			undoButton.onClick.AddListener( RequestUndo );
-			shogiGame.Get_OnPieceClickedEvent( playerId ).Value += Select_ActionPiece;
+			shogiGame.Get_OnPieceClickedEvent( _playerId ).Value += Select_ActionPiece;
 
 			actionReady = false;
 			currAction = null;

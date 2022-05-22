@@ -45,7 +45,7 @@ namespace Shogi
 
 		public bool IsCapturingMove( ShogiGame game ){
 			var capturedPiece = game.board [DestinationX, DestinationY];
-			return capturedPiece != null && capturedPiece.owner != ActingPiece.owner;
+			return capturedPiece != null && capturedPiece.OwnerId != ActingPiece.OwnerId;
 		}
 
 		public override async UniTask ExecuteAction( ShogiGame game ) {

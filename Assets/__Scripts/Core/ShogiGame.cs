@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Mirror;
 using NaughtyAttributes;
 using UnityEngine;
 
 namespace Shogi
 {
-	public class ShogiGame : MonoBehaviour
+	public class ShogiGame : NetworkBehaviour
 	{
 		#region Events
 		// public RefAction<Cell> OnAnyCellClicked => Cell.OnAnyCellClicked;
@@ -37,8 +38,8 @@ namespace Shogi
 		
 		#endregion
 
-		public APlayer Player1;
-		public APlayer Player2;
+		[Mirror.SyncVar] public APlayer Player1;
+		[Mirror.SyncVar] public APlayer Player2;
 		#region ToSerialize
 
 		[SerializeField] private PlayerId _currTurn_PlayerId;
@@ -105,13 +106,17 @@ namespace Shogi
 			}
 		}
 
+		[ClientRpc]
 		public void BeginGame( PlayerId startingPlayer ) {
+
+			Debug.Log("Beginning Shogi Game "+startingPlayer.ToString());
 			gameLoopCancelToken?.Cancel();
 			gameLoopCancelToken = new CancellationTokenSource();
 			BeginGameAsync( startingPlayer ).AttachExternalCancellation( gameLoopCancelToken.Token );
 		}
 
 		private async UniTask BeginGameAsync( PlayerId startingPlayer ) {
+			_currTurn_PlayerId = startingPlayer;
 			RegisterGameOver_OnClockTimeout();
 
 			RefreshMonobehavioursInScene();
@@ -124,7 +129,6 @@ namespace Shogi
 			Player2.enabled = true;
 
 			turnCount = 1;
-			_currTurn_PlayerId = startingPlayer;
 			OnNewTurnBegun.Invoke( _currTurn_PlayerId );
 			while(isGameOver == false && manualOverride == false){
 				Debug.Log($"Turn {turnCount}. Awaiting Move from : "+_currTurn_PlayerId.ToString());

@@ -49,7 +49,7 @@ namespace Shogi
 			get { return pieceData.owner; }
 			set {
 				pieceData.owner = value;
-				owner = GameObject.FindObjectsOfType<APlayer>().First( p => p.PlayerId == value );
+				// owner = GameObject.FindObjectsOfType<APlayer>().First( p => p.PlayerId == value );
 				if(value == PlayerId.Player1){
 					this.transform.SetLocalRotationZ( 0f );
 				} else {
@@ -64,7 +64,7 @@ namespace Shogi
 			}
 		}
 
-		public APlayer owner;
+		// public APlayer owner;
 
 		[SerializeReference] public AMovementStrategy defaultMovement;
 		[SerializeReference] public AMovementStrategy promotedMovement;
@@ -95,9 +95,8 @@ namespace Shogi
 		void Awake() {
 			board = FindObjectOfType<Board>();
 			gameManager = FindObjectOfType<ShogiGame>();
-			// dropMovement = this.gameObject.AddOrGetComponent<DropMovement>();
 			
-			owner = FindObjectsOfType<HumanPlayer>().First( p => p.PlayerId == OwnerId );
+			// owner = FindObjectsOfType<HumanPlayer>().First( p => p.PlayerId == OwnerId );
 		}
 
 		public List<(int x, int y)> GetValidMoves() {
@@ -111,7 +110,7 @@ namespace Shogi
 			}
 		}
 
-		public async UniTask Move( MovePieceAction action){
+		public async UniTask Move( MovePieceAction action ){
 			await GetComponent<PieceActionsFX>().DoMoveAnimation( action );
 			this.X = action.DestinationX;
 			this.Y = action.DestinationY;

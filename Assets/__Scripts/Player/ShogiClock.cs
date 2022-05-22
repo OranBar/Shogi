@@ -12,30 +12,31 @@ namespace Shogi
 		public RefAction OnPlayer1Timer_Finished;
 		private ShogiGame shogiGame;
 
-		private void OnValidate(){
-			Debug.Assert( timer_player1.enabled == false );
-			Debug.Assert( timer_player2.enabled == false );
+		private void OnValidate() {
+			if ( Application.isPlaying == false ) {
+				Debug.Assert( timer_player1.enabled == false );
+				Debug.Assert( timer_player2.enabled == false );
+			}
 		}
 
-		void Awake()
-		{
+		void Awake() {
 			shogiGame = FindObjectOfType<ShogiGame>();
 		}
 
-		public void Start(){
+		public void Start() {
 			OnValidate();
 		}
 
-		void OnEnable(){
-			Debug.Log("Registered");
+		void OnEnable() {
+			Debug.Log( "Registered" );
 			shogiGame.OnNewTurnBegun += ToggleBothTimers;
 		}
 
-		void OnDisable(){
+		void OnDisable() {
 			shogiGame.OnNewTurnBegun -= ToggleBothTimers;
 		}
 
-		public void ToggleBothTimers( PlayerId playerId ){
+		public void ToggleBothTimers( PlayerId playerId ) {
 			Timer currPlayerTimer = GetPlayerTimer( playerId );
 			currPlayerTimer.enabled = true;
 
@@ -44,11 +45,11 @@ namespace Shogi
 
 		public Timer GetPlayerTimer( PlayerId playerId ) {
 			return ( playerId == PlayerId.Player1 ) ? timer_player1 : timer_player2;
-		}		
-		
-		
+		}
+
+
 		//TODO: Hook methods to buttons
-		public void Pause(){
+		public void Pause() {
 			timer_player1.enabled = timer_player2.enabled = false;
 			this.enabled = false;
 		}
@@ -57,6 +58,6 @@ namespace Shogi
 			this.enabled = true;
 		}
 
-		
+
 	}
 }

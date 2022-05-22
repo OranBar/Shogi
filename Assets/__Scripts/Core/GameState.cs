@@ -19,6 +19,7 @@ namespace Shogi
 		public GameState( ShogiGame game)
 		{
 			this.piecesData = game.AllPieces.Select( p => p.pieceData ).ToArray();
+			UnityEngine.Debug.Log("[DB] "+(game.CurrTurn_Player == null));
 			this.currPlayerTurn = game.CurrTurn_Player.PlayerId;
 			var shogiClock = game.shogiClock;
 			this.player1_time = shogiClock.timer_player1.clockTime;
