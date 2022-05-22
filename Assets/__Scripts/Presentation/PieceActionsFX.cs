@@ -30,9 +30,8 @@ namespace Shogi
 
 		public async UniTask DoMoveAnimation( MovePieceAction action ) {
 			if(settings.playSoundOnMove && action.IsCapturingMove(shogiGame) == false ){ PlayMoveAudio(); }
-			
-			var targetWorldPosition = shogiGame.board.GetCellPosition( action.DestinationX, action.DestinationY );
-			await piece.GetComponent<RectTransform>().DOAnchorPos3D( targetWorldPosition, .15f ).SetEase( Ease.InSine );
+
+			await MovementAnimation( action );
 
 			//Tanto per
 			await UniTask.Yield();
@@ -43,26 +42,15 @@ namespace Shogi
 			}
 		}
 
-		//Temporary
-		public async UniTask DoMoveAnimation( DropPieceAction action ) {
-			if (settings.playSoundOnMove) { PlayMoveAudio(); }
-
+		private async UniTask MovementAnimation(IShogiAction action){
 			var targetWorldPosition = shogiGame.board.GetCellPosition( action.DestinationX, action.DestinationY );
 			await piece.GetComponent<RectTransform>().DOAnchorPos3D( targetWorldPosition, .15f ).SetEase( Ease.InSine );
-
-			//Tanto per
-			await UniTask.Yield();
-
-			void PlayMoveAudio() {
-				audioSource.clip = audios.movementAudios.GetRandomElement();
-				audioSource.Play();
-			}
 		}
 
 		public async UniTask DoDropAnimation( DropPieceAction action ) {
 			ReparentPiece_ToOwner( piece );
 			//temporary 
-			await DoMoveAnimation( action );
+			await MovementAnimation( action );
 		}
 
 		private void ReparentPiece_ToOwner( Piece piece ) {
