@@ -3,17 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using Mirror;
 using NaughtyAttributes;
 using UnityEngine;
 
 namespace Shogi
 {
-	public class ShogiGame : NetworkBehaviour
+	public class ShogiGame : MonoBehaviour
 	{
 		#region Events
-		// public RefAction<Cell> OnAnyCellClicked => Cell.OnAnyCellClicked;
-		// public RefAction<Piece> OnAnyPieceClicked => Piece.OnAnyPieceClicked;
 		public RefAction<Piece> OnPlayer1_PieceClicked = new RefAction<Piece>();
 		public RefAction<Piece> OnPlayer2_PieceClicked = new RefAction<Piece>();
 		public RefAction<PlayerId> OnNewTurnBegun = new RefAction<PlayerId>();
@@ -38,8 +35,8 @@ namespace Shogi
 		
 		#endregion
 
-		[Mirror.SyncVar] public APlayer Player1;
-		[Mirror.SyncVar] public APlayer Player2;
+		public APlayer Player1;
+		public APlayer Player2;
 		#region ToSerialize
 
 		[SerializeField] private PlayerId _currTurn_PlayerId;
@@ -106,7 +103,6 @@ namespace Shogi
 			}
 		}
 
-		[ClientRpc]
 		public void BeginGame( PlayerId startingPlayer ) {
 
 			Debug.Log("Beginning Shogi Game "+startingPlayer.ToString());
