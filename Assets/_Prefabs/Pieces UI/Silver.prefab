@@ -103,7 +103,6 @@ MonoBehaviour:
     isPromoted: 0
     owner: 0
     isCaptured: 0
-  owner: {fileID: 0}
   defaultMovement: {fileID: 396733328691097896}
   promotedMovement: {fileID: 7740655529641541704}
   dropMovement: {fileID: 6804708721590863164}
@@ -158,7 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 641d5e88af924c540a968166d7dd2531, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audios: {fileID: 11400000, guid: b808a5a95c00ebb4fa038501579fedef, type: 2}
+  audios: {fileID: 11400000, guid: 9b8f6078ce983114788a5b82062aadf3, type: 2}
 --- !u!82 &-2673635355845748191
 AudioSource:
   m_ObjectHideFlags: 0

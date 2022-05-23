@@ -6315,7 +6315,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerName: Gio
-  playerId: 2
+  _playerId: 2
   selectedPiece: {fileID: 0}
   shogiGame: {fileID: 0}
 --- !u!114 &489550813
@@ -19171,7 +19171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerName: Oran
-  playerId: 1
+  _playerId: 1
   selectedPiece: {fileID: 0}
   shogiGame: {fileID: 0}
 --- !u!114 &1402779150
