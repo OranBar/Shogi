@@ -8,9 +8,11 @@
 // <author>developer@exitgames.com</author>
 // --------------------------------------------------------------------------------------------------------------------
 
+using NaughtyAttributes;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -35,6 +37,10 @@ public class ShogiLauncher : MonoBehaviourPunCallbacks
 	[Tooltip("The UI Loader Anime")]
 	[SerializeField]
 	private LoaderAnime loaderAnime;
+
+	public bool loadSceneOnConnected;
+	[HideIf("loadSceneOnConnected")]
+	public UnityEvent OnConnectedEvent;
 
 	/// <summary>
 	/// Keep track of the current process. Since connection is asynchronous and is based on several callbacks from Photon, 
@@ -195,11 +201,14 @@ public class ShogiLauncher : MonoBehaviourPunCallbacks
 	{
 		LogFeedback("<Color=Green>OnJoinedRoom</Color> with "+PhotonNetwork.CurrentRoom.PlayerCount+" Player(s)");
 		Debug.Log("<Pun Shogi Launcher>: OnJoinedRoom() called by PUN. Now this client is in a room.\nFrom here on, your game would be running.");
-	
+
 		// #Critical: We only load if we are the first player, else we rely on  PhotonNetwork.AutomaticallySyncScene to sync our instance scene.
-		if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
-		{
-			PhotonNetwork.LoadLevel(multiplayerScene_name);
+		if (loadSceneOnConnected) {
+			if (PhotonNetwork.CurrentRoom.PlayerCount == 1){
+				PhotonNetwork.LoadLevel(multiplayerScene_name);
+			} 
+		} else {
+			OnConnectedEvent.Invoke();
 		}
 	}
 
