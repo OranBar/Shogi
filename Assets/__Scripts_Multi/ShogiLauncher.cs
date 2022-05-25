@@ -8,12 +8,11 @@
 // <author>developer@exitgames.com</author>
 // --------------------------------------------------------------------------------------------------------------------
 
-using UnityEngine;
-using UnityEngine.UI;
-
-using Photon.Realtime;
 using Photon.Pun;
+using Photon.Realtime;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 #pragma warning disable 649
 
@@ -47,8 +46,8 @@ public class ShogiLauncher : MonoBehaviourPunCallbacks
 	/// <summary>
 	/// This client's version number. Users are separated from each other by gameVersion (which allows you to make breaking changes).
 	/// </summary>
-	string gameVersion = "1";
-
+	public string gameVersion = "1";
+	public bool autoConnect;
 
 	void Awake()
 	{
@@ -63,6 +62,11 @@ public class ShogiLauncher : MonoBehaviourPunCallbacks
 
 	}
 
+	void Start(){
+		if(autoConnect){
+			Connect();
+		}
+	}
 
 	/// <summary>
 	/// Start the connection process. 

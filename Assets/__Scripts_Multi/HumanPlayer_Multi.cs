@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using Photon.Pun;
 using UnityEngine;
 
@@ -18,22 +19,31 @@ namespace Shogi
 				yield return new WaitForSeconds( 0.5f );
 			} while (players.Length != 2);
 
-			photonView.RPC( nameof( RegisterPlayer_ToShogiGame_RPC ), RpcTarget.All );
+			var myPlayerId = PhotonNetwork.IsMasterClient ? PlayerId.Player1 : PlayerId.Player2;
+			photonView.RPC( nameof( RegisterPlayer_ToShogiGame_RPC ), RpcTarget.AllBuffered, myPlayerId );
 		}
 
 		[PunRPC]
-		public void RegisterPlayer_ToShogiGame_RPC() {
+		public void RegisterPlayer_ToShogiGame_RPC(PlayerId playerId) {
 			ShogiGame shogiGame = FindObjectOfType<ShogiGame>();
-			if (shogiGame.Player1 == null) {
-				shogiGame.Player1 = GetComponent<APlayer>();
-				this.PlayerId = PlayerId.Player1;
-			} else if (shogiGame.Player2 == null) {
-				shogiGame.Player2 = GetComponent<APlayer>();
-				this.PlayerId = PlayerId.Player2;
 
-				shogiGame.BeginGame(PlayerId.Player1);
+			this.PlayerId = playerId;
+			if(playerId == PlayerId.Player1){
+				shogiGame.Player1 = GetComponent<APlayer>();
 			} else {
-				Debug.LogError( "Do we have 3 players? What's going on" );
+				shogiGame.Player2 = GetComponent<APlayer>();
+			}
+		}
+
+		private IShogiAction opponentMove;
+
+		public async override UniTask<IShogiAction> RequestAction() {
+			if(photonView.IsMine){
+				return await base.RequestAction();
+			} else {
+				opponentMove = null;
+				await UniTask.WaitUntil( () => opponentMove != null );
+				return opponentMove;
 			}
 		}
 	}
