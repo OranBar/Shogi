@@ -72,18 +72,11 @@ public class ShogiMultiplayerLauncher : MonoBehaviourPunCallbacks
 			QuitApplication();
 		}
 	}
-
-
-	/// <summary>
-	/// Called when a Photon Player got connected. We need to then load a bigger scene.
-	/// </summary>
-	/// <param name="other">Other.</param>
 	public override void OnPlayerEnteredRoom( Player other ) {
 		Debug.Log( "OnPlayerEnteredRoom() " + other.NickName ); // not seen if you're the player connecting
 
 		if (PhotonNetwork.IsMasterClient) {
 			Debug.LogFormat( "OnPlayerEnteredRoom IsMasterClient {0}", PhotonNetwork.IsMasterClient ); // called before OnPlayerLeftRoom
-	
 		}
 	}
 
