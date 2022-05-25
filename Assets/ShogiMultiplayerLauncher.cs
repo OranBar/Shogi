@@ -8,6 +8,7 @@
 // <author>developer@exitgames.com</author>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System.Collections;
 using Photon.Pun;
 using Photon.Realtime;
 using Shogi;
@@ -28,13 +29,13 @@ public class ShogiMultiplayerLauncher : MonoBehaviourPunCallbacks
 	public GameObject playerPrefab;
 
 
-	void Start() {
+	IEnumerator Start() {
 
 		// in case we started this demo with the wrong scene being active, simply load the menu scene
 		if (!PhotonNetwork.IsConnected) {
 			// SceneManager.LoadScene( "PunBasics-Launcher" );
 			Debug.LogError("Not connected to PUN");
-			return;
+			yield break;;
 		}
 
 		// if (PlayerManager.LocalPlayerInstance == null) {
@@ -42,23 +43,25 @@ public class ShogiMultiplayerLauncher : MonoBehaviourPunCallbacks
 
 		// we're in a room. spawn a character for the local player. it gets synced by using PhotonNetwork.Instantiate
 		var newPlayer = PhotonNetwork.Instantiate( this.playerPrefab.name, new Vector3( 0f, 5f, 0f ), Quaternion.identity, 0 );
-		// } else {
+		var shogiGame = FindObjectOfType<ShogiGame>();
+		
+		yield return new WaitUntil( () => shogiGame.Player1 != null && shogiGame.Player2 != null );
 
-		// 	Debug.LogFormat( "Ignoring scene load for {0}", SceneManagerHelper.ActiveSceneName );
-		// }
+		shogiGame.BeginGame( PlayerId.Player1 );
 	}
 
-	[PunRPC]
-	public void RegisterPlayer_ToShogiGame_RPC(PhotonView playerView){
-		ShogiGame shogiGame = FindObjectOfType<ShogiGame>();
-		if(shogiGame.Player1 == null){
-			shogiGame.Player1 = playerView.GetComponent<APlayer>();
-		} else if(shogiGame.Player2 == null){
-			shogiGame.Player2 = playerView.GetComponent<APlayer>();
-		} else {
-			Debug.LogError("Do we have 3 players? What's going on");
-		}
-	}
+
+	// [PunRPC]
+	// public void RegisterPlayer_ToShogiGame_RPC(PhotonView playerView){
+	// 	ShogiGame shogiGame = FindObjectOfType<ShogiGame>();
+	// 	if(shogiGame.Player1 == null){
+	// 		shogiGame.Player1 = playerView.GetComponent<APlayer>();
+	// 	} else if(shogiGame.Player2 == null){
+	// 		shogiGame.Player2 = playerView.GetComponent<APlayer>();
+	// 	} else {
+	// 		Debug.LogError("Do we have 3 players? What's going on");
+	// 	}
+	// }
 
 	/// <summary>
 	/// MonoBehaviour method called on GameObject by Unity on every frame.
@@ -80,8 +83,7 @@ public class ShogiMultiplayerLauncher : MonoBehaviourPunCallbacks
 
 		if (PhotonNetwork.IsMasterClient) {
 			Debug.LogFormat( "OnPlayerEnteredRoom IsMasterClient {0}", PhotonNetwork.IsMasterClient ); // called before OnPlayerLeftRoom
-
-			
+	
 		}
 	}
 

@@ -45,12 +45,12 @@ namespace Shogi
 		[HideInInspector] public ShogiGame shogiGame;
 		private bool actionReady = false;
 
-		void Awake(){
+		protected virtual void Awake(){
 			shogiGame = FindObjectOfType<ShogiGame>(true );
 			undoButton = FindObjectOfType<UndoButton>(true).gameObject.GetComponent<Button>(true);
 		}
 
-		private void OnDisable() {
+		protected virtual void OnDisable() {
 			UnregisterAllCallbacks();
 		}
 
