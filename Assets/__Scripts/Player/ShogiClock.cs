@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Shogi
 {
@@ -11,6 +12,8 @@ namespace Shogi
 
 		public RefAction OnPlayer1Timer_Finished;
 		private ShogiGame shogiGame;
+
+		public Button unpauseButton, pauseButton;
 
 		private void OnValidate() {
 			if ( Application.isPlaying == false ) {
@@ -25,6 +28,8 @@ namespace Shogi
 
 		public void Start() {
 			OnValidate();
+			pauseButton.onClick.AddListener( Pause );
+			unpauseButton.onClick.AddListener( Unpause );
 		}
 
 		void OnEnable() {
@@ -49,13 +54,19 @@ namespace Shogi
 
 
 		//TODO: Hook methods to buttons
-		public void Pause() {
+		public virtual void Pause() {
 			timer_player1.enabled = timer_player2.enabled = false;
 			this.enabled = false;
+
+			pauseButton.gameObject.SetActive( false );
+			unpauseButton.gameObject.SetActive( true );
 		}
-		public void Unpause() {
+		public virtual void Unpause() {
 			ToggleBothTimers( shogiGame.CurrTurn_Player.PlayerId );
 			this.enabled = true;
+
+			pauseButton.gameObject.SetActive( true );
+			unpauseButton.gameObject.SetActive( false );
 		}
 
 

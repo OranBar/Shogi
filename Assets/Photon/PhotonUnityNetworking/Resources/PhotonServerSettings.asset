@@ -43,6 +43,8 @@ MonoBehaviour:
   - Log_MovePieceAction_RPC
   - Log_APieceAction_RPC
   - SendMove_ToOpponent_RPC
+  - Pause_RPC
+  - Unpause_RPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
