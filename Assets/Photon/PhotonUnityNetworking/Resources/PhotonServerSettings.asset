@@ -41,6 +41,7 @@ MonoBehaviour:
   - RespawnSpaceship
   - RegisterPlayer_ToShogiGame_RPC
   - Log_MovePieceAction_RPC
+  - Log_APieceAction_RPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

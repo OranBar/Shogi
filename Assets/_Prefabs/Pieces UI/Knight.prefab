@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: -3969054757755096329}
   - component: {fileID: 1513015707528515731}
   - component: {fileID: 4657932722818505559}
+  - component: {fileID: 6135449980669458347}
   m_Layer: 5
   m_Name: Knight
   m_TagString: Untagged
@@ -266,11 +267,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea7097b595940c7429dbaab880da4137, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6135449980669458347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9087074038610965226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1001 &2544808472750248668
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 2
     m_TransformParent: {fileID: 9087074038610965227}
     m_Modifications:
     - target: {fileID: 2359069208255818760, guid: 71372188ad9cb2a4cab64f45c4746afc, type: 3}
@@ -422,6 +446,7 @@ PrefabInstance:
       value: Piece Graphics UI
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 71372188ad9cb2a4cab64f45c4746afc, type: 3}
 --- !u!114 &283129881314246357 stripped
 MonoBehaviour:
