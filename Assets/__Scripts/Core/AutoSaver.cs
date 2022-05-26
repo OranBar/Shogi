@@ -21,9 +21,13 @@ namespace Shogi
 		private int CurrGameIndex;
 
 		private int ComputeGameIndex() {
-			DirectoryInfo [] autoSave_Directories = new DirectoryInfo( AutoSaveDir_RootPath ).GetDirectories();
+			try{
+				DirectoryInfo [] autoSave_Directories = new DirectoryInfo( AutoSaveDir_RootPath ).GetDirectories();
+				return autoSave_Directories.Length;
+			}catch(DirectoryNotFoundException){
+				return 0;
+			}
 
-			return autoSave_Directories.Length;
 		}
 
 		private int autoSaveCounter;
