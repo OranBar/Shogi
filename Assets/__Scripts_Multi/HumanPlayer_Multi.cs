@@ -11,8 +11,23 @@ namespace Shogi
     {
 		[Auto] private PhotonView photonView;
 
+		public void DisableUndoButton_OnOpponentTurn(PlayerId currTurn_playerId){
+			if(currTurn_playerId != this.PlayerId){
+				undoButton.interactable = false;
+			}
+		}
+
+		public void EnableUndoButton_OnOurTurn( PlayerId currTurn_playerId ) {
+			if (currTurn_playerId == this.PlayerId) {
+				undoButton.interactable = true;
+			}
+		}
+
 		IEnumerator Start(){
-			if ( photonView.IsMine == false ) { yield break; }
+			if ( photonView.IsMine == false ) {	yield break; }
+			
+			FindObjectOfType<ShogiGame>().OnNewTurnBegun += DisableUndoButton_OnOpponentTurn;
+			FindObjectOfType<ShogiGame>().OnNewTurnBegun += EnableUndoButton_OnOurTurn;
 
 			HumanPlayer_Multi [] players;
 			do {

@@ -38,7 +38,7 @@ namespace Shogi
 		public RefAction<Piece> OnCapturePiece_Selected = new RefAction<Piece>();
 		public RefAction<Cell> OnMoveCell_Selected = new RefAction<Cell>();
 
-		private Button undoButton;
+		protected Button undoButton;
 
 		[ReadOnly] public Piece selectedPiece;
 		protected IShogiAction currAction;
