@@ -1,0 +1,23 @@
+{
+    "name": "Shogi.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:0ab87cc7be74ae542811bdfd807f444e",
+        "GUID:2bafac87e7f4b9b418d9448d219b01ab",
+        "GUID:776d03a35f1b52c4a9aed9f56d7b4229",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:c2f440c9fef6c8c40ac5c50eea18c599",
+        "GUID:c2f440c9fef6c8c40ac5c50eea18c5a2"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
