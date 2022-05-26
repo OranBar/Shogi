@@ -11,9 +11,43 @@ namespace Shogi
         void Start()
         {
 			PhotonPeer.RegisterType( typeof( MovePieceAction ), (byte)'M', Serialize_MovePieceAction, Deserialize_MovePieceAction );
+			PhotonPeer.RegisterType( typeof( AShogiAction ), (byte)'A', Serialize_AShogiAction, Deserialize_AShogiAction );
         }
 
+		private static short Serialize_AShogiAction( StreamBuffer outStream, object customobject ) {
+			switch (customobject) {
+				case UndoLastAction undoAction:
+					break;
+				case DropPieceAction dropPieceAction:
+					break;
+				case MovePieceAction movePieceAction:
+					return Serialize_MovePieceAction( outStream, movePieceAction );
+				default:
+					break;
+			}
+			return -1;
+		}
 
+		public static readonly byte [] memShogiActionType = new byte [5];
+
+		private static object Deserialize_AShogiAction( StreamBuffer inStream, short length ) {
+			inStream.Read( memShogiActionType, 0, 5 );
+			int typeInt = 0;
+			int index = 0;
+			Protocol.Deserialize( out typeInt, memShogiActionType, ref index );
+
+			char type = (char)typeInt;
+			switch(type){
+				case 'M':
+					return Deserialize_MovePieceAction( inStream, length );
+				default:
+					break;
+			}
+
+			return -1;
+		}
+
+		#region Move Piece Action
 		public const int MOVEACTION_BYTESIZE = 15;
 		public static readonly byte [] memMovePieceAction = new byte [MOVEACTION_BYTESIZE];
 		private static short Serialize_MovePieceAction(StreamBuffer outStream, object customobject)
@@ -49,5 +83,6 @@ namespace Shogi
 
 			return result;
 		}
+		#endregion
     }
 }

@@ -21,6 +21,17 @@ namespace Shogi
 			Debug.Log("Received action: "+action);
 		}
 
+		[Button]
+		public void RunTest_APieceAction() {
+			AShogiAction action = new MovePieceAction( actingPiece, 4, 5 );
+			photonView.RPC( nameof( Log_APieceAction_RPC ), RpcTarget.All, action );
+		}
+
+		[PunRPC]
+		public void Log_APieceAction_RPC( AShogiAction action ) {
+			Debug.Log( "Received action: " + action );
+		}
+
 		
     }
 }
