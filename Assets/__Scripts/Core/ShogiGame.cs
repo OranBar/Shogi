@@ -141,6 +141,7 @@ namespace Shogi
 					} else {
 						//We don't want to register the UndoAction, and also we want to remove the last action. 
 						gameHistory.playedMoves.Pop();
+						gameHistory.timersHistory.Pop();
 					}
 
 					Debug.Log( "Finish Move Execution" );
