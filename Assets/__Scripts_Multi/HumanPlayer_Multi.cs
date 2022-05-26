@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
@@ -35,16 +36,22 @@ namespace Shogi
 			}
 		}
 
-		private IShogiAction opponentMove;
-
 		public async override UniTask<IShogiAction> RequestAction() {
 			if(photonView.IsMine){
-				return await base.RequestAction();
+				var chosenAction = await base.RequestAction();
+				photonView.RPC( nameof(SendMove_ToOpponent_RPC) , RpcTarget.Others, chosenAction);
+				return chosenAction;
 			} else {
-				opponentMove = null;
-				await UniTask.WaitUntil( () => opponentMove != null );
-				return opponentMove;
+				currAction = null;
+				await UniTask.WaitUntil( () => currAction != null );
+				return currAction;
 			}
+		}
+
+		[PunRPC]
+		private void SendMove_ToOpponent_RPC( AShogiAction chosenAction ) {
+			currAction = chosenAction;
+			actionReady = true;
 		}
 	}
 }

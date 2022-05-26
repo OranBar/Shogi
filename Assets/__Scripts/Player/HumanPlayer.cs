@@ -41,9 +41,9 @@ namespace Shogi
 		private Button undoButton;
 
 		[ReadOnly] public Piece selectedPiece;
-		private IShogiAction currAction;
+		protected IShogiAction currAction;
 		[HideInInspector] public ShogiGame shogiGame;
-		private bool actionReady = false;
+		protected bool actionReady = false;
 
 		protected virtual void Awake(){
 			shogiGame = FindObjectOfType<ShogiGame>(true );
