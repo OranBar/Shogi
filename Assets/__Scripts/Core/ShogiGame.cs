@@ -78,11 +78,6 @@ namespace Shogi
 			settings = FindObjectOfType<ShogiGameSettings>();
 			shogiClock = FindObjectOfType<ShogiClock>();
 
-			Cell.OnAnyCellClicked = new RefAction<Cell>();
-			Piece.OnAnyPieceClicked = new RefAction<Piece>();
-			// OnPlayer1_PieceClicked = new RefAction<Piece>();
-			// OnPlayer2_PieceClicked = new RefAction<Piece>();
-			// OnNewTurnBegun = new RefAction<PlayerId>();
 			Debug.Log("Event init");
 			RegisterPieceClickedEvents_Invocation();
 		}
@@ -136,14 +131,8 @@ namespace Shogi
 					await action.ExecuteAction( this ).AttachExternalCancellation( gameLoopCancelToken.Token );
 					OnActionExecuted.Invoke(action);
 
-					if (action is not UndoLastAction) {
-						gameHistory.RegisterNewMove( action );
-					} else {
-						//We don't want to register the UndoAction, and also we want to remove the last action. 
-						gameHistory.playedMoves.Pop();
-						gameHistory.timersHistory.Pop();
-					}
-
+					gameHistory.RegisterNewMove( action );
+					
 					Debug.Log( "Finish Move Execution" );
 				} else {
 					Debug.Log("Invalid Action: Try again");
@@ -202,7 +191,7 @@ namespace Shogi
 
 			Debug.Log( "Finish Apply GameHistory: All moves applied" );
 
-			//----------------------------------------------------------
+			#region ApplyGameHistory Local Methods
 			void Restore_ClockTimers_Values( GameHistory history ) {
 				(float player1_time, float player2_time) timers_clockValues = history.timersHistory.Last();
 				shogiClock.timer_player1.clockTime = timers_clockValues.player1_time;
@@ -219,6 +208,7 @@ namespace Shogi
 
 				return nextPlayerTurn;
 			}
+			#endregion
 		}
 
 
