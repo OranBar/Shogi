@@ -127,7 +127,7 @@ namespace Shogi
 			await SendToSideboard();
 			
 			async UniTask SendToSideboard() {
-				if (OwnerId == PlayerId.Player1) {
+				if (OwnerId == PlayerId.Player1) {	
 					OwnerId = PlayerId.Player2;
 					await gameManager.player2_sideboard.AddCapturedPiece( this );
 				} else {
@@ -173,6 +173,12 @@ namespace Shogi
 		}
 
 		public void PlacePieceOnCell_Immediate( int x, int y ) {
+			if(Application.isPlaying == false){
+				//By doing this, we allow this method to be called when not in play
+				rectTransform = GetComponent<RectTransform>();
+				board = FindObjectOfType<Board>();
+			}
+
 			rectTransform.anchoredPosition = board.GetCellPosition( x, y );
 		}
 		

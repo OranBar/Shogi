@@ -212,6 +212,7 @@ namespace Shogi
 		}
 
 
+		[Button]
 		private void RefreshMonobehavioursInScene() {
 			player1_sideboard.RefreshWithPiecesInScene();
 			player2_sideboard.RefreshWithPiecesInScene();

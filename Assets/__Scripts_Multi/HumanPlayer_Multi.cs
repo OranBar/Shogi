@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Auto.Utils;
+using BarbarO.ExtensionMethods;
 using Cysharp.Threading.Tasks;
 using Photon.Pun;
 using UnityEngine;
@@ -67,14 +68,18 @@ namespace Shogi
 			ShogiGame shogiGame = FindObjectOfType<ShogiGame>();
 
 			this.PlayerId = playerId;
-			if(playerId == PlayerId.Player1){
+			if (playerId == PlayerId.Player1) {
 				shogiGame.Player1 = GetComponent<APlayer>();
 			} else {
 				shogiGame.Player2 = GetComponent<APlayer>();
 			}
-			shogiGame.AllPieces.Where( p => p.OwnerId == PlayerId ).ForEach( p => p.SetPiecesGraphicsActive(true));
-			Debug.Log( "EnablePieces "+PlayerId );
+			this.gameObject.ExecuteDelayed( ShowOwnedPieces, .6f );
+			Debug.Log( "EnablePieces " + PlayerId );
 
+
+			void ShowOwnedPieces( ) {
+				shogiGame.AllPieces.Where( p => p.OwnerId == PlayerId ).ForEach( p => p.SetPiecesGraphicsActive( true ) );
+			}
 		}
 
 		public async override UniTask<IShogiAction> RequestAction() {
