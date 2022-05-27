@@ -5,6 +5,7 @@ using NaughtyAttributes;
 using UnityEditor;
 using UnityEngine;
 
+#if UNITY_EDITOR
 namespace Shogi
 {
     public class BoardGenerator : MonoBehaviour
@@ -33,3 +34,4 @@ namespace Shogi
 		}
 	}
 }
+#endif

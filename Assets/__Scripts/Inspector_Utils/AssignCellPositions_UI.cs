@@ -5,6 +5,7 @@ using NaughtyAttributes;
 using UnityEditor;
 using UnityEngine;
 
+#if UNITY_EDITOR
 namespace Shogi{
 	public class AssignCellPositions_UI : MonoBehaviour
 	{
@@ -31,3 +32,4 @@ namespace Shogi{
 		}	
 	}
 }
+#endif

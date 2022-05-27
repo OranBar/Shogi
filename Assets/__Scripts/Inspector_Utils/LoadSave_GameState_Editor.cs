@@ -2,6 +2,7 @@ using Cysharp.Threading.Tasks;
 using NaughtyAttributes;
 using UnityEngine;
 
+#if UNITY_EDITOR
 namespace Shogi
 {
 	public class LoadSave_GameState_Editor : MonoBehaviour {
@@ -40,3 +41,4 @@ namespace Shogi
 		#endregion
 	}
 }
+#endif
