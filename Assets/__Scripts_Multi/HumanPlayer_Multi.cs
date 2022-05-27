@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Auto.Utils;
 using Cysharp.Threading.Tasks;
 using Photon.Pun;
 using UnityEngine;
@@ -30,11 +31,11 @@ namespace Shogi
 			FindObjectOfType<ShogiGame>().OnNewTurnBegun += DisableUndoButton_OnOpponentTurn;
 			FindObjectOfType<ShogiGame>().OnNewTurnBegun += EnableUndoButton_OnOurTurn;
 
-			HumanPlayer_Multi [] players;
-			do {
-				players = FindObjectsOfType<HumanPlayer_Multi>();
-				yield return new WaitForSeconds( 0.5f );
-			} while (players.Length != 2);
+			// HumanPlayer_Multi [] players;
+			// do {
+			// 	players = FindObjectsOfType<HumanPlayer_Multi>();
+			// 	yield return new WaitForSeconds( 0.5f );
+			// } while (players.Length != 2);
 
 			var myPlayerId = PhotonNetwork.IsMasterClient ? PlayerId.Player1 : PlayerId.Player2;
 			photonView.RPC( nameof( RegisterPlayer_ToShogiGame_RPC ), RpcTarget.AllBuffered, myPlayerId );
@@ -44,6 +45,7 @@ namespace Shogi
 				RotateSideboards();
 			}
 
+			#region Start Local Methods
 			void RotateBoard() {
 				var boardRect = FindObjectOfType<Board>().GetComponent<RectTransform>();
 				var newRotation = boardRect.localEulerAngles;
@@ -57,6 +59,7 @@ namespace Shogi
 				sideBoards [0].transform.localEulerAngles = newRotation;
 				sideBoards [1].transform.localEulerAngles = newRotation;
 			}
+			#endregion
 		}
 
 		[PunRPC]
@@ -69,6 +72,9 @@ namespace Shogi
 			} else {
 				shogiGame.Player2 = GetComponent<APlayer>();
 			}
+			shogiGame.AllPieces.Where( p => p.OwnerId == PlayerId ).ForEach( p => p.SetPiecesGraphicsActive(true));
+			Debug.Log( "EnablePieces "+PlayerId );
+
 		}
 
 		public async override UniTask<IShogiAction> RequestAction() {

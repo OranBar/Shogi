@@ -85,6 +85,8 @@ namespace Shogi
 		public Image defaultImage;
 		public Image promotedImage;
 
+		public GameObject pieceGraphics;
+
 		private Board board;
 		private ShogiGame gameManager;
 
@@ -166,6 +168,9 @@ namespace Shogi
 			return $"Piece ({X}, {Y})";
 		}
 
+		public void SetPiecesGraphicsActive(bool enable){
+			this.pieceGraphics.gameObject.SetActive( enable );
+		}
 
 		public void PlacePieceOnCell_Immediate( int x, int y ) {
 			rectTransform.anchoredPosition = board.GetCellPosition( x, y );

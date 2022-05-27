@@ -40,7 +40,7 @@ RectTransform:
   m_Children:
   - {fileID: 8089025212732588913}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -109,6 +109,7 @@ MonoBehaviour:
   dropMovement: {fileID: 6804708721590863164}
   defaultImage: {fileID: 9086648457476451824}
   promotedImage: {fileID: 0}
+  pieceGraphics: {fileID: 4345548866980668557}
 --- !u!114 &396733328691097896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -431,6 +432,11 @@ PrefabInstance:
 --- !u!1 &87747073048367632 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6886258007810413545, guid: 71372188ad9cb2a4cab64f45c4746afc, type: 3}
+  m_PrefabInstance: {fileID: 6820519473944609273}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4345548866980668557 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7127271833918874996, guid: 71372188ad9cb2a4cab64f45c4746afc, type: 3}
   m_PrefabInstance: {fileID: 6820519473944609273}
   m_PrefabAsset: {fileID: 0}
 --- !u!224 &8089025212732588913 stripped

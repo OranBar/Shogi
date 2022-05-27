@@ -18,7 +18,7 @@ using UnityEngine.UI;
 
 #pragma warning disable 649
 
-public class ShogiLauncher : MonoBehaviourPunCallbacks
+public class ShogiLobby : MonoBehaviourPunCallbacks
 {
 	public string multiplayerScene_name;
 
