@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using Photon.Pun;
 using UnityEngine;
@@ -25,7 +26,7 @@ namespace Shogi
 
 		IEnumerator Start(){
 			if ( photonView.IsMine == false ) {	yield break; }
-			
+
 			FindObjectOfType<ShogiGame>().OnNewTurnBegun += DisableUndoButton_OnOpponentTurn;
 			FindObjectOfType<ShogiGame>().OnNewTurnBegun += EnableUndoButton_OnOurTurn;
 
@@ -37,6 +38,25 @@ namespace Shogi
 
 			var myPlayerId = PhotonNetwork.IsMasterClient ? PlayerId.Player1 : PlayerId.Player2;
 			photonView.RPC( nameof( RegisterPlayer_ToShogiGame_RPC ), RpcTarget.AllBuffered, myPlayerId );
+
+			if(PhotonNetwork.IsMasterClient == false) {
+				RotateBoard();
+				RotateSideboards();
+			}
+
+			void RotateBoard() {
+				var boardRect = FindObjectOfType<Board>().GetComponent<RectTransform>();
+				var newRotation = boardRect.localEulerAngles;
+				newRotation.z = 180;
+				boardRect.localEulerAngles = newRotation;
+			}
+
+			void RotateSideboards(){
+				var sideBoards = FindObjectsOfType<SideBoard>();
+				var newRotation = new Vector3(0,0,180);
+				sideBoards [0].transform.localEulerAngles = newRotation;
+				sideBoards [1].transform.localEulerAngles = newRotation;
+			}
 		}
 
 		[PunRPC]
