@@ -12,11 +12,10 @@ GameObject:
   - component: {fileID: 4490819224235694846}
   - component: {fileID: 4490819224235694845}
   - component: {fileID: 616716056290781961}
-  - component: {fileID: 7201974291566888489}
-  - component: {fileID: 3520198828721213000}
   - component: {fileID: 1098324303169232284}
   - component: {fileID: 8053709205010322037}
   - component: {fileID: 3240562404171369263}
+  - component: {fileID: -3966495202640134762}
   m_Layer: 5
   m_Name: Pawn_3D
   m_TagString: Untagged
@@ -52,6 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 563f5ec0bb1e01945b53b5c827387fc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pieceFx: {fileID: 0}
   pieceData:
     x: 0
     y: 0
@@ -90,32 +90,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 113b924576b25574aa6178587b631cce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7201974291566888489
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4490819224235694840}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c02c223cce0cb264e85663b2177a68f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  highlightObj: {fileID: 0}
---- !u!114 &3520198828721213000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4490819224235694840}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 641d5e88af924c540a968166d7dd2531, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audios: {fileID: 11400000, guid: 9b8f6078ce983114788a5b82062aadf3, type: 2}
 --- !u!82 &1098324303169232284
 AudioSource:
   m_ObjectHideFlags: 0
@@ -246,6 +220,19 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &-3966495202640134762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4490819224235694840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4a34af87da0dc54cb99b79c037b7c8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audios: {fileID: 11400000, guid: 9b8f6078ce983114788a5b82062aadf3, type: 2}
 --- !u!1001 &5756571338351232941
 PrefabInstance:
   m_ObjectHideFlags: 0

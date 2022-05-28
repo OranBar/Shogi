@@ -25,7 +25,7 @@ namespace Shogi
 	{
 		public static RefAction<Piece> OnAnyPieceClicked = new RefAction<Piece>();
 		[HideInInspector] public RefAction OnPieceClicked = new RefAction();
-		[Auto] public PieceActionsFX pieceFx;
+		[Auto] public IPieceActionsFX pieceFx;
 
 		public PieceData pieceData;
 

@@ -6,12 +6,21 @@ using UnityEngine;
 
 namespace Shogi
 {
+	public interface IPieceActionsFX
+	{
+		UniTask DoDropAnimation( DropPieceAction action );
+		UniTask DoMoveAnimation( MovePieceAction action );
+		UniTask DoPieceDeathAnimation();
+		void PlacePieceOnCell_Immediate( int x, int y );
+		void RotatePiece( PlayerId value );
+	}
+
 	//Se tutti i pezzi fanno la stessa cosa, posso usare questa classe.
 	//Se un giorno devo avere due IPieceMoveActionFx, posso smettere di ereditare qui, e portare il codice in una classe a se', ereditanto di la'
 	//Alla fine dei conti posso arrivare ad avere 3 classi, che implementano rispettivamente ognuna delle 3 interfacce.
 	//Tantovale gia' creare la differenziazione fin da subito, e accettare il fatto che i miei gameobject saranno pieni di componenti?
 	//O fa parte dello scrivere codice scalabile farlo cosi', e ?
-	public class PieceActionsFX : MonoBehaviour
+	public class PieceActionsFX_2D : MonoBehaviour, IPieceActionsFX
 	{
 		[Auto] Piece piece;
 		public AudiosList audios;
@@ -31,24 +40,24 @@ namespace Shogi
 		}
 
 		public async UniTask DoMoveAnimation( MovePieceAction action ) {
-			if(settings.playSoundOnMove && action.IsCapturingMove(shogiGame) == false ){ PlayMoveAudio(); }
+			if (settings.playSoundOnMove && action.IsCapturingMove( shogiGame ) == false) { PlayMoveAudio(); }
 
 			await MovementAnimation( action );
-			// board.PlacePieceOnCell_Immediate( action.DestinationX, action.DestinationY, this );
 
-			//Tanto per
-			await UniTask.Yield();
+			#region Local Methods -----------------------------
 
 			void PlayMoveAudio() {
 				audioSource.clip = audios.GetMoveAudio();
 				audioSource.Play();
 			}
+
+			#endregion -----------------------------------------
 		}
 
-		private async UniTask MovementAnimation(IShogiAction action){
+		private async UniTask MovementAnimation( IShogiAction action ) {
 			var targetWorldPosition = shogiGame.board.GetCellPosition( action.DestinationX, action.DestinationY );
 			//Here we need to call PlacePieceOnCell_Immediate for the animation instead of directly changing anchor, so it works for 3d too
-			await piece.GetComponent<RectTransform>().DOAnchorPos3D( targetWorldPosition, .15f ).SetEase( Ease.InSine );
+			await rectTransform.DOAnchorPos3D( targetWorldPosition, .15f ).SetEase( Ease.InSine );
 		}
 
 		public async UniTask DoDropAnimation( DropPieceAction action ) {
@@ -61,7 +70,7 @@ namespace Shogi
 			string parentTag = piece.OwnerId == PlayerId.Player1 ? "Player1_Pieces" : "Player2_Pieces";
 			Transform newParent = GameObject.FindGameObjectWithTag( parentTag ).transform;
 			// piece.transform.parent = newParent;
-			piece.transform.SetParent(newParent, true);
+			piece.transform.SetParent( newParent, true );
 		}
 
 		public async UniTask DoPieceDeathAnimation() {
