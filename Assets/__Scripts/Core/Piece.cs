@@ -50,7 +50,6 @@ namespace Shogi
 			get { return pieceData.owner; }
 			set {
 				pieceData.owner = value;
-				// owner = GameObject.FindObjectsOfType<APlayer>().First( p => p.PlayerId == value );
 				if(value == PlayerId.Player1){
 					this.transform.SetLocalRotationZ( 0f );
 				} else {
@@ -64,8 +63,6 @@ namespace Shogi
 				pieceData.isCaptured = value;
 			}
 		}
-
-		// public APlayer owner;
 
 		[SerializeReference] public AMovementStrategy defaultMovement;
 		[SerializeReference] public AMovementStrategy promotedMovement;
@@ -93,10 +90,6 @@ namespace Shogi
 		private ABoard board;
 		private ShogiGame gameManager;
 
-		#region Presentation
-		[Auto] private RectTransform rectTransform;
-		#endregion
-
 		private void OnValidate() {
 			if(Application.isPlaying == false){
 				if(pieceIconImage != null) { pieceIconImage.sprite = defaultSprite; }
@@ -106,8 +99,6 @@ namespace Shogi
 		void Awake() {
 			board = FindObjectOfType<ABoard>();
 			gameManager = FindObjectOfType<ShogiGame>();
-			
-			// owner = FindObjectsOfType<HumanPlayer>().First( p => p.PlayerId == OwnerId );
 		}
 
 		public List<(int x, int y)> GetValidMoves() {
