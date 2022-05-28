@@ -4,6 +4,7 @@ using System.Linq;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Shogi
@@ -82,8 +83,10 @@ namespace Shogi
 			}
 		}
 
-		public Image defaultImage;
-		public Image promotedImage;
+		[FormerlySerializedAs("defaultImage")]
+		public Image pieceIconImage;
+		public Sprite defaultSprite;
+		public Sprite promotedSprite;
 
 		public GameObject pieceGraphics;
 
@@ -93,6 +96,12 @@ namespace Shogi
 		#region Presentation
 		[Auto] private RectTransform rectTransform;
 		#endregion
+
+		private void OnValidate() {
+			if(Application.isPlaying == false){
+				if(pieceIconImage != null) { pieceIconImage.sprite = defaultSprite; }
+			}
+		}
 
 		void Awake() {
 			board = FindObjectOfType<Board>();
@@ -145,13 +154,13 @@ namespace Shogi
 		private void Promote() {
 			Debug.Log( "Piece Promoted" );
 			//TODO: change icon
-			defaultImage.color = Color.red;
+			pieceIconImage.color = Color.red;
 		}
 
 		private void Unpromote() {
 			Debug.Log( "Piece Unromoted =(" );
 			//TODO: change icon
-			defaultImage.color = Color.black;
+			pieceIconImage.color = Color.black;
 		}
 
 		public void OnPointerClick( PointerEventData eventData ) {

@@ -7887,6 +7887,7 @@ GameObject:
   - component: {fileID: 759263461}
   - component: {fileID: 759263460}
   - component: {fileID: 759263462}
+  - component: {fileID: 759263464}
   - component: {fileID: 759263463}
   m_Layer: 5
   m_Name: Board
@@ -7970,7 +7971,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ec09805fd09f72459b4c7cab6485018, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cellSizeUnit: 101.2
+  cellPostionStrategy: {fileID: 759263464}
 --- !u!114 &759263463
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7985,6 +7986,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AspectMode: 2
   m_AspectRatio: 1
+--- !u!114 &759263464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 759263458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cfbf748bbb625c4eb3b59890c1d3672, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellSizeUnit: 101.2
 --- !u!1001 &767794747
 PrefabInstance:
   m_ObjectHideFlags: 0
