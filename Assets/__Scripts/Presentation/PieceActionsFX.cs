@@ -44,6 +44,7 @@ namespace Shogi
 
 		private async UniTask MovementAnimation(IShogiAction action){
 			var targetWorldPosition = shogiGame.board.GetCellPosition( action.DestinationX, action.DestinationY );
+			//Here we need to call PlacePIeceOnCell_Immediate for the animation instead of directly changing anchor, so it works for 3d too
 			await piece.GetComponent<RectTransform>().DOAnchorPos3D( targetWorldPosition, .15f ).SetEase( Ease.InSine );
 		}
 

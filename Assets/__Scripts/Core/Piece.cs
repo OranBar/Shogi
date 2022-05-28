@@ -48,15 +48,23 @@ namespace Shogi
 
 		public PlayerId OwnerId {
 			get { return pieceData.owner; }
-			set {
+			set
+			{
 				pieceData.owner = value;
-				if(value == PlayerId.Player1){
-					this.transform.SetLocalRotationZ( 0f );
-				} else {
-					this.transform.SetLocalRotationZ( 180f );
-				}
+				//Maybe here invoke an event, and let PieceActionsFX_*D react by rotating the piece
+				RotatePiece( value );
 			}
 		}
+
+		//put this in PieceActionsFX_*D?
+		private void RotatePiece( PlayerId value ) {
+			if (value == PlayerId.Player1) {
+				this.transform.SetLocalRotationZ( 0f );
+			} else {
+				this.transform.SetLocalRotationZ( 180f );
+			}
+		}
+
 		public bool IsCaptured{ 
 			get { return pieceData.isCaptured; }
 			set { 
@@ -170,6 +178,11 @@ namespace Shogi
 
 		public void SetPiecesGraphicsActive(bool enable){
 			this.pieceGraphics.gameObject.SetActive( enable );
+		}
+
+		//Doesn't this need to go into PieceActionFx_*D?
+		public void PlacePieceOnCell_Immediate( int x, int y ) {
+			GetComponent<RectTransform>().anchoredPosition = board.GetCellPosition( x, y );
 		}
 	}
 }
