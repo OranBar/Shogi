@@ -30,6 +30,7 @@ namespace Shogi
 			board = new Piece [9, 9];
 		}
 
+		[Button]
 		public void RefreshWithPiecesInScene() {
 			ClearBoard();
 			foreach (var piece in FindObjectsOfType<Piece>()) {
@@ -61,6 +62,11 @@ namespace Shogi
 		public Vector3 GetCellPosition( int x, int y ) {
 			return cellPostionStrategy.GetCellPosition(x,y);
 		}
+
+		public Vector3 PlacePiece_OnCell( int x, int y ) {
+			return cellPostionStrategy.PlacePiece_OnCell( x, y );
+		}
+
 
 		public bool IsValidBoardPosition( (int x, int y) pos ) {
 			return IsValidBoardPosition( pos.x, pos.y );
