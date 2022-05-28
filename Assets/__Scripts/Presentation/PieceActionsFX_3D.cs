@@ -11,16 +11,20 @@ namespace Shogi
 		[Auto] Piece piece;
 		public AudiosList audios;
 
+		[Auto] private MeshRenderer meshRenderer;
 		private AudioSource audioSource;
 		private ShogiGameSettings settings;
 		private ShogiGame shogiGame;
 		private ABoard board;
+
+		private Color defaultColor;
 
 		void Awake() {
 			audioSource = this.gameObject.AddOrGetComponent<AudioSource>();
 			settings = FindObjectOfType<ShogiGameSettings>();
 			shogiGame = FindObjectOfType<ShogiGame>();
 			board = FindObjectOfType<ABoard>();
+			defaultColor = meshRenderer.material.color;
 		}
 
 		public async UniTask DoMoveAnimation( MovePieceAction action ) {
@@ -81,9 +85,12 @@ namespace Shogi
 		}
 
 		public async UniTask EnableHighlight( Color color ) {
+			meshRenderer.material.color = Color.blue;
 		}
 
+
 		public async UniTask DisableHighlight() {
+			meshRenderer.material.color = defaultColor;
 		}
 	}
 }
