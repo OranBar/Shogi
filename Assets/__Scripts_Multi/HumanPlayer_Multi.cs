@@ -32,12 +32,6 @@ namespace Shogi
 			FindObjectOfType<ShogiGame>().OnNewTurnBegun += DisableUndoButton_OnOpponentTurn;
 			FindObjectOfType<ShogiGame>().OnNewTurnBegun += EnableUndoButton_OnOurTurn;
 
-			// HumanPlayer_Multi [] players;
-			// do {
-			// 	players = FindObjectsOfType<HumanPlayer_Multi>();
-			// 	yield return new WaitForSeconds( 0.5f );
-			// } while (players.Length != 2);
-
 			var myPlayerId = PhotonNetwork.IsMasterClient ? PlayerId.Player1 : PlayerId.Player2;
 			photonView.RPC( nameof( RegisterPlayer_ToShogiGame_RPC ), RpcTarget.AllBuffered, myPlayerId );
 
@@ -46,21 +40,24 @@ namespace Shogi
 				RotateSideboards();
 			}
 
-			#region Start Local Methods
-			void RotateBoard() {
-				var boardRect = FindObjectOfType<ABoard>().GetComponent<RectTransform>();
-				var newRotation = boardRect.localEulerAngles;
-				newRotation.z = 180;
-				boardRect.localEulerAngles = newRotation;
-			}
+			#region Local Methods -----------------------------
 
-			void RotateSideboards(){
-				var sideBoards = FindObjectsOfType<SideBoard>();
-				var newRotation = new Vector3(0,0,180);
-				sideBoards [0].transform.localEulerAngles = newRotation;
-				sideBoards [1].transform.localEulerAngles = newRotation;
-			}
-			#endregion
+				void RotateBoard() {
+					var boardRect = FindObjectOfType<ABoard>().GetComponent<RectTransform>();
+					var newRotation = boardRect.localEulerAngles;
+					newRotation.z = 180;
+					boardRect.localEulerAngles = newRotation;
+				}
+
+				void RotateSideboards(){
+					var sideBoards = FindObjectsOfType<SideBoard>();
+					var newRotation = new Vector3(0,0,180);
+					sideBoards [0].transform.localEulerAngles = newRotation;
+					sideBoards [1].transform.localEulerAngles = newRotation;
+				}
+				
+			#endregion -----------------------------------------
+
 		}
 
 		[PunRPC]
@@ -74,12 +71,17 @@ namespace Shogi
 				shogiGame.Player2 = GetComponent<APlayer>();
 			}
 			this.gameObject.ExecuteDelayed( ShowOwnedPieces, .6f );
-			Debug.Log( "EnablePieces " + PlayerId );
 
 
-			void ShowOwnedPieces( ) {
-				shogiGame.AllPieces.Where( p => p.OwnerId == PlayerId ).ForEach( p => p.SetPiecesGraphicsActive( true ) );
-			}
+			#region Local Methods -----------------------------
+
+				void ShowOwnedPieces( ) {
+						shogiGame.AllPieces.Where( p => p.OwnerId == PlayerId ).ForEach( p => p.SetPieceGraphicsActive( true ) );
+						Debug.Log( "EnablePieces " + PlayerId );
+				}
+			
+			#endregion -----------------------------------------
+
 		}
 
 		public async override UniTask<IShogiAction> RequestAction() {

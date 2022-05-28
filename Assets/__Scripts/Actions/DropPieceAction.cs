@@ -19,34 +19,34 @@ namespace Shogi
 			return "Drop "+base.ToString();
 		}
 
-		// public override async UniTask EnableLastMoveFX(GameSettings settings){
-		// 	await ActingPiece.GetComponent<IHighlightFx>().EnableHighlight( settings.GetLastMovedPiece_Color( PlayerId ) );
-		// }
-
-		// public override void DisableLastMoveFX() {
-		// 	ActingPiece.GetComponent<IHighlightFx>().DisableHighlight();
-		// }
-
 		public override async UniTask ExecuteAction( ShogiGame game ) {
-			base.ExecuteAction(game).Forget();
-			UnityEngine.Debug.Log($"Dropping piece {ActingPiece} on ({DestinationX},{DestinationY})");
+			base.ExecuteAction( game ).Forget();
+			UnityEngine.Debug.Log( $"Dropping piece {ActingPiece} on ({DestinationX},{DestinationY})" );
 
 			//TODO: replace with animation
 			game.board.PlacePieceOnCell_Immediate( DestinationX, DestinationY, ActingPiece );
-			await ActingPiece.GetComponent<IPieceDropActionFX>().DoDropAnimation( this );
-			// await EnableLastMoveFX( game.settings );
-
-			//Update game data structures
+			await ActingPiece.pieceFx.DoDropAnimation( this );
+			
 			game.GetSideBoard( ActingPiece.OwnerId ).RemoveCapturedPiece( ActingPiece );
 			UpdateBoard( game );
-			ActingPiece.X = DestinationX;
-			ActingPiece.Y = DestinationY;
-			ActingPiece.IsCaptured = false;
+			UpdatePiece();
+
+
+			#region Local Methods -----------------------------
+
+				void UpdateBoard( ShogiGame game ) {
+					game.board [DestinationX, DestinationY] = ActingPiece;
+				}
+
+				void UpdatePiece() {
+					ActingPiece.X = DestinationX;
+					ActingPiece.Y = DestinationY;
+					ActingPiece.IsCaptured = false;
+				}
+				
+			#endregion -----------------------------------------
 		}
 
-		public void UpdateBoard( ShogiGame game ) {
-			game.board [DestinationX, DestinationY] = ActingPiece;
-		}
 
 		//TODO: Maybe I should create a DropPawnAction class, and move this code there. 
 		//I don't need to do pawn validation if I'm dropping other pieces. It might make sense

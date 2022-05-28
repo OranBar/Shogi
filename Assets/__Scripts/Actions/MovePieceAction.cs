@@ -25,24 +25,6 @@ namespace Shogi
 			return "Move "+base.ToString();
 		}
 
-		// public override async UniTask EnableLastMoveFX(GameSettings settings){
-		// 	var startCell = Cell.GetCell( StartX, StartY );
-		// 	Color highlightColor = settings.GetLastMovedPiece_Color(PlayerId);
-
-		// 	await ActingPiece.GetComponent<IHighlightFx>().EnableHighlight( highlightColor );
-		// 	await startCell.GetComponent<IHighlightFx>().EnableHighlight( highlightColor.SetAlpha( 0.5f ) );
-		// }
-
-		// public override void DisableLastMoveFX(){
-		// 	//I'm surprised this line works, since we have moved the piece to a different spot, and it's index is now different
-		// 	//We probably cached the correct one in time. But this one was a risky one, I don't realy like
-		// 	// var actingPiece = GetActingPiece();
-		// 	var startCell = Cell.GetCell( StartX, StartY );
-
-		// 	ActingPiece.GetComponent<IHighlightFx>().DisableHighlight();
-		// 	startCell.GetComponent<IHighlightFx>().DisableHighlight();
-		// }
-
 		public bool IsCapturingMove( ShogiGame game ){
 			var capturedPiece = game.board [DestinationX, DestinationY];
 			return capturedPiece != null && capturedPiece.OwnerId != ActingPiece.OwnerId;
@@ -52,26 +34,33 @@ namespace Shogi
 			base.ExecuteAction( game ).Forget();
 
 			UnityEngine.Debug.Log( $"Moving piece {ActingPiece} to cell ({DestinationX},{DestinationY})" );
-			
-			// EnableLastMoveFX( game.settings );
 
-			var capturedPiece = game.board[DestinationX, DestinationY];
+			var capturedPiece = game.board [DestinationX, DestinationY];
 
-			await ActingPiece.Move( this );
-			if (IsCapturingMove(game)) {
+			await ActingPiece.pieceFx.DoMoveAnimation( this );
+			if (IsCapturingMove( game )) {
 				//A piece was killed. Such cruelty. 
 				await capturedPiece.CapturePiece();
 			}
 
 			UpdateBoard( game.board );
-			
+			UpdatePiece();
 			HandlePromotion( game, ActingPiece );
+
+
+			#region Local Methods -----------------------------
+				void UpdateBoard( ABoard board ) {
+					board [StartX, StartY] = null;
+					board [DestinationX, DestinationY] = ActingPiece;
+				}
+
+				void UpdatePiece() {
+					ActingPiece.X = DestinationX;
+					ActingPiece.Y = DestinationY;
+				}
+			#endregion -----------------------------------------
 		}
 
-		public void UpdateBoard( ABoard board ) {
-			board [StartX, StartY] = null;
-			board [DestinationX, DestinationY] = ActingPiece;
-		}
 
 		public override bool IsMoveValid( ShogiGame game ) {
 			var actingPiece = ActingPiece;

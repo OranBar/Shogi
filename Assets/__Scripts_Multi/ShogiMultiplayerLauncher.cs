@@ -31,7 +31,7 @@ public class ShogiMultiplayerLauncher : MonoBehaviourPunCallbacks
 
 	void Awake(){
 		shogiGame = FindObjectOfType<ShogiGame>();
-		shogiGame.AllPieces.ForEach( p => p.SetPiecesGraphicsActive( false ) );
+		shogiGame.AllPieces.ForEach( p => p.SetPieceGraphicsActive( false ) );
 	}
 
 	IEnumerator Start() {
@@ -43,16 +43,10 @@ public class ShogiMultiplayerLauncher : MonoBehaviourPunCallbacks
 			yield break;
 		}
 
-		// if (PlayerManager.LocalPlayerInstance == null) {
 		Debug.LogFormat( "We are Instantiating LocalPlayer from {0}", SceneManagerHelper.ActiveSceneName );
-		
-		
-		Debug.Log( "DisablePieces" );
-
 
 		// we're in a room. spawn a character for the local player. it gets synced by using PhotonNetwork.Instantiate
 		var newPlayer = PhotonNetwork.Instantiate( this.playerPrefab.name, new Vector3( 0f, 5f, 0f ), Quaternion.identity, 0 );
-
 
 		yield return new WaitUntil( () => shogiGame.Player1 != null && shogiGame.Player2 != null );
 
@@ -65,6 +59,7 @@ public class ShogiMultiplayerLauncher : MonoBehaviourPunCallbacks
 			QuitApplication();
 		}
 	}
+	
 	public override void OnPlayerEnteredRoom( Player other ) {
 		Debug.Log( "OnPlayerEnteredRoom() " + other.NickName ); // not seen if you're the player connecting
 

@@ -25,6 +25,7 @@ namespace Shogi
 	{
 		public static RefAction<Piece> OnAnyPieceClicked = new RefAction<Piece>();
 		[HideInInspector] public RefAction OnPieceClicked = new RefAction();
+		[Auto] public PieceActionsFX pieceFx;
 
 		public PieceData pieceData;
 
@@ -52,16 +53,7 @@ namespace Shogi
 			{
 				pieceData.owner = value;
 				//Maybe here invoke an event, and let PieceActionsFX_*D react by rotating the piece
-				RotatePiece( value );
-			}
-		}
-
-		//put this in PieceActionsFX_*D?
-		private void RotatePiece( PlayerId value ) {
-			if (value == PlayerId.Player1) {
-				this.transform.SetLocalRotationZ( 0f );
-			} else {
-				this.transform.SetLocalRotationZ( 180f );
+				pieceFx.RotatePiece(value);
 			}
 		}
 
@@ -120,18 +112,19 @@ namespace Shogi
 			}
 		}
 
-		public async UniTask Move( MovePieceAction action ){
-			await GetComponent<PieceActionsFX>().DoMoveAnimation( action );
-			this.X = action.DestinationX;
-			this.Y = action.DestinationY;
-			board.PlacePieceOnCell_Immediate( action.DestinationX, action.DestinationY, this );
+		public void SetPieceGraphicsActive( bool enable ) {
+			this.pieceGraphics.gameObject.SetActive( enable );
+		}
+
+		public void PlacePieceOnCell_Immediate( int x, int y ) {
+			pieceFx.PlacePieceOnCell_Immediate( x, y );
 		}
 
 		public async UniTask CapturePiece() {
 			//Thou shall live again
 			this.IsCaptured = true;
 			this.IsPromoted = false;
-			await GetComponent<IPieceDeathFx>().DoPieceDeathAnimation();
+			await pieceFx.DoPieceDeathAnimation();
 			await SendToSideboard();
 			
 			async UniTask SendToSideboard() {
@@ -174,15 +167,6 @@ namespace Shogi
 
 		public override string ToString() {
 			return $"Piece ({X}, {Y})";
-		}
-
-		public void SetPiecesGraphicsActive(bool enable){
-			this.pieceGraphics.gameObject.SetActive( enable );
-		}
-
-		//Doesn't this need to go into PieceActionFx_*D?
-		public void PlacePieceOnCell_Immediate( int x, int y ) {
-			GetComponent<RectTransform>().anchoredPosition = board.GetCellPosition( x, y );
 		}
 	}
 }
