@@ -8,7 +8,7 @@ namespace Shogi
 	public abstract class AMovementStrategy : MonoBehaviour
 	{
 		protected Piece piece;
-		protected Board board;
+		protected ABoard board;
 
 		public abstract List<(int x, int y)> GetAvailableMoves( int x, int y );
 

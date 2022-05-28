@@ -48,7 +48,7 @@ namespace Shogi
 
 			#region Start Local Methods
 			void RotateBoard() {
-				var boardRect = FindObjectOfType<Board>().GetComponent<RectTransform>();
+				var boardRect = FindObjectOfType<ABoard>().GetComponent<RectTransform>();
 				var newRotation = boardRect.localEulerAngles;
 				newRotation.z = 180;
 				boardRect.localEulerAngles = newRotation;

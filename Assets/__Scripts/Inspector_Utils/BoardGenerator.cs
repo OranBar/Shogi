@@ -11,7 +11,7 @@ namespace Shogi
     public class BoardGenerator : MonoBehaviour
     {
 		private const int BOARD_SIZE = 9;
-		public Board board;
+		public ABoard board;
 		public GameObject cellPrefab;
 
 		[Button]

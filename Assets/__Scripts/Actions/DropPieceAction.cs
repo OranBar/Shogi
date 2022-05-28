@@ -32,7 +32,7 @@ namespace Shogi
 			UnityEngine.Debug.Log($"Dropping piece {ActingPiece} on ({DestinationX},{DestinationY})");
 
 			//TODO: replace with animation
-			ActingPiece.PlacePieceOnCell_Immediate( DestinationX, DestinationY );
+			game.board.PlacePieceOnCell_Immediate( DestinationX, DestinationY, ActingPiece );
 			await ActingPiece.GetComponent<IPieceDropActionFX>().DoDropAnimation( this );
 			// await EnableLastMoveFX( game.settings );
 

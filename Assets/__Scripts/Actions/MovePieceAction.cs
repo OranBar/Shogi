@@ -68,7 +68,7 @@ namespace Shogi
 			HandlePromotion( game, ActingPiece );
 		}
 
-		public void UpdateBoard( Board board ) {
+		public void UpdateBoard( ABoard board ) {
 			board [StartX, StartY] = null;
 			board [DestinationX, DestinationY] = ActingPiece;
 		}

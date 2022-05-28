@@ -4,26 +4,14 @@ using UnityEngine;
 
 namespace Shogi
 {
-	public abstract class ACellPosition_Provider : MonoBehaviour
-	{
-		public abstract Vector3 GetCellPosition( int x, int y );
-	}
-
-	public class Board : MonoBehaviour
+	public abstract class ABoard : MonoBehaviour
 	{
 		private Piece [,] board = new Piece [9, 9];
-		public ACellPosition_Provider cellPostionStrategy;
 
 		public Piece this [int x, int y]
 		{
 			get { return board [x, y]; }
 			set { board [x, y] = value; }
-		}
-
-		void Awake(){
-			if(cellPostionStrategy == null){
-				cellPostionStrategy = GetComponent<ACellPosition_Provider>();
-			}
 		}
 
 		private void ClearBoard() {
@@ -47,8 +35,9 @@ namespace Shogi
 			}
 
 			board [x, y] = piece;
-			piece.PlacePieceOnCell_Immediate( x, y );
+			PlacePieceOnCell_Immediate( x, y, piece );
 		}
+
 
 		private bool IsPieceOnBoard( Piece newPiece ) {
 			foreach (var piece in board) {
@@ -59,14 +48,8 @@ namespace Shogi
 			return false;
 		}
 
-		public Vector3 GetCellPosition( int x, int y ) {
-			return cellPostionStrategy.GetCellPosition(x,y);
-		}
-
-		public Vector3 PlacePiece_OnCell( int x, int y ) {
-			return cellPostionStrategy.PlacePiece_OnCell( x, y );
-		}
-
+		public abstract Vector3 GetCellPosition( int x, int y );
+		public abstract void PlacePieceOnCell_Immediate( int x, int y, Piece piece );
 
 		public bool IsValidBoardPosition( (int x, int y) pos ) {
 			return IsValidBoardPosition( pos.x, pos.y );

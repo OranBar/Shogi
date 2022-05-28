@@ -51,7 +51,7 @@ namespace Shogi
 			return playerId == PlayerId.Player1 ? Player1 : Player2;
 		}
 
-		public Board board;
+		public ABoard board;
 		#endregion
 		public SideBoard player1_sideboard;
 		public SideBoard player2_sideboard;

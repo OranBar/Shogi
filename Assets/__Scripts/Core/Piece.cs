@@ -90,7 +90,7 @@ namespace Shogi
 
 		public GameObject pieceGraphics;
 
-		private Board board;
+		private ABoard board;
 		private ShogiGame gameManager;
 
 		#region Presentation
@@ -104,7 +104,7 @@ namespace Shogi
 		}
 
 		void Awake() {
-			board = FindObjectOfType<Board>();
+			board = FindObjectOfType<ABoard>();
 			gameManager = FindObjectOfType<ShogiGame>();
 			
 			// owner = FindObjectsOfType<HumanPlayer>().First( p => p.PlayerId == OwnerId );
@@ -125,7 +125,7 @@ namespace Shogi
 			await GetComponent<PieceActionsFX>().DoMoveAnimation( action );
 			this.X = action.DestinationX;
 			this.Y = action.DestinationY;
-			PlacePieceOnCell_Immediate( action.DestinationX, action.DestinationY );
+			board.PlacePieceOnCell_Immediate( action.DestinationX, action.DestinationY, this );
 		}
 
 		public async UniTask CapturePiece() {
@@ -180,16 +180,5 @@ namespace Shogi
 		public void SetPiecesGraphicsActive(bool enable){
 			this.pieceGraphics.gameObject.SetActive( enable );
 		}
-
-		public void PlacePieceOnCell_Immediate( int x, int y ) {
-			if(Application.isPlaying == false){
-				//By doing this, we allow this method to be called when not in play
-				rectTransform = GetComponent<RectTransform>();
-				board = FindObjectOfType<Board>();
-			}
-
-			rectTransform.anchoredPosition = board.GetCellPosition( x, y );
-		}
-		
 	}
 }
