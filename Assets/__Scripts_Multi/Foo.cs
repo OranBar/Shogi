@@ -32,6 +32,13 @@ namespace Shogi
 			Debug.Log( "Received action: " + action );
 		}
 
+		public GameObject piecePrefab;
+		[Button]
+		public void Test3DSideboard(){
+
+			GetComponent<SideBoard>().AddCapturedPiece( piecePrefab.GetComponent<Piece>() );
+		}
+
 		
     }
 }
