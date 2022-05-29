@@ -45,7 +45,6 @@ namespace Shogi
 		}
 
 		private async UniTask MovementAnimation(IShogiAction action){
-			Debug.Log("MeHere");
 			var targetWorldPosition = board.GetCellPosition( action.DestinationX, action.DestinationY );
 			await transform.DOMove( targetWorldPosition, .15f ).SetEase( Ease.InSine );
 		}
@@ -85,7 +84,7 @@ namespace Shogi
 		}
 
 		public async UniTask EnableHighlight( Color color ) {
-			meshRenderer.material.color = Color.blue;
+			meshRenderer.material.color = color;
 		}
 
 

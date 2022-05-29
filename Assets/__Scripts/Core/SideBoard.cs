@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -39,13 +40,23 @@ namespace Shogi{
 		}
 
 		public void RefreshWithPiecesInScene() {
-			ClearCapturedPieces();
+			// ClearCapturedPieces();
 
+			HashSet<Piece> targetSideboardPieces = new HashSet<Piece>();
 			foreach (var piece in FindObjectsOfType<Piece>()) {
 				if (piece.IsCaptured && piece.OwnerId == ownerId) {
 					//Maybe I don't want to call the animation in here?
-					AddCapturedPiece( piece );
+					targetSideboardPieces.Add( piece );
+					// AddCapturedPiece( piece );
 				}
+			}
+
+			foreach(var pieceToRemove in CapturedPieces.Except(targetSideboardPieces ).ToList()){
+				RemoveCapturedPiece( pieceToRemove );
+			}
+
+			foreach (var pieceToRemove in targetSideboardPieces.Except( CapturedPieces ).ToList()) {
+				AddCapturedPiece( pieceToRemove );
 			}
 		}
 
@@ -54,6 +65,7 @@ namespace Shogi{
 			piece.X = piece.OwnerId == PlayerId.Player1 ? -1 : -2;
 			piece.Y = _capturedPieces.Count;
 			
+
 			foreach(var newPieceAdded_listener in GetComponentsInChildren<ISideboardPieceAdded>()){
 				await newPieceAdded_listener.OnNewPieceAdded(piece);
 			}
