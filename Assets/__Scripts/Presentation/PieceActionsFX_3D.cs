@@ -45,7 +45,8 @@ namespace Shogi
 		}
 
 		private async UniTask MovementAnimation(IShogiAction action){
-			var targetWorldPosition = shogiGame.board.GetCellPosition( action.DestinationX, action.DestinationY );
+			Debug.Log("MeHere");
+			var targetWorldPosition = board.GetCellPosition( action.DestinationX, action.DestinationY );
 			await transform.DOMove( targetWorldPosition, .15f ).SetEase( Ease.InSine );
 		}
 

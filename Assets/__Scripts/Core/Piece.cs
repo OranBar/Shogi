@@ -25,7 +25,7 @@ namespace Shogi
 	{
 		public static RefAction<Piece> OnAnyPieceClicked = new RefAction<Piece>();
 		[HideInInspector] public RefAction OnPieceClicked = new RefAction();
-		[Auto] public IPieceActionsFX pieceFx;
+		public IPieceActionsFX pieceFx;
 
 		public PieceData pieceData;
 
@@ -99,6 +99,7 @@ namespace Shogi
 		void Awake() {
 			board = FindObjectOfType<ABoard>();
 			gameManager = FindObjectOfType<ShogiGame>();
+			pieceFx = GetComponent<IPieceActionsFX>();
 		}
 
 		public List<(int x, int y)> GetValidMoves() {
