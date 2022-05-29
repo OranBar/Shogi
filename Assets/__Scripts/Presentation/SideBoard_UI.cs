@@ -45,7 +45,6 @@ namespace Shogi
 		[Auto] private SideBoard sideBoard;
 
 		void OnEnable(){
-			// sideBoard.OnNewPieceAdded += PieceAddedToSideboardFx;
 			sideBoard.OnNewPieceRemoved += DecreaseText;
 			sideBoard.OnCleared += ResetAllTextsToZero;
 		}

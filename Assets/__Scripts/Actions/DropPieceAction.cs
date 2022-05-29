@@ -43,7 +43,7 @@ namespace Shogi
 					ActingPiece.Y = DestinationY;
 					ActingPiece.IsCaptured = false;
 				}
-				
+
 			#endregion -----------------------------------------
 		}
 
@@ -61,9 +61,11 @@ namespace Shogi
 					isValidPieceMovement = false;
 				}
 			}
+			//TODO: King can't move to square that an opponent piece on board can move to. 
 			return isValidPieceMovement && willBeAbleToMove_FromDestination;
 
-			//Local methods
+			#region Local Methods -----------------------------
+
 			bool AnyUnpromotedPawns_OnColumn(){
 				for (int y = 0 ; y < 9 ; y++) {
 					Piece piece = game.board [DestinationX, y];
@@ -78,6 +80,8 @@ namespace Shogi
 				}
 				return false;
 			}
+
+			#endregion -----------------------------------------
 		}
 
 

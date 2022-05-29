@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Shogi
 {
-	public class SideboardFX : MonoBehaviour, ISideboardPieceAdded
+	public class SideboardFX_2D : MonoBehaviour, ISideboardPieceAdded
 	{
 		public float duration = 1.5f;
 		[AutoParent] private SideBoard_UI sideboard;
@@ -15,7 +15,7 @@ namespace Shogi
 			if (this.enabled == false) { return; }
 			// Make the piece higher in z position based on the number of pieces of the same type in the sideboard, to ensure we always click the topmost
 			//Don't disable the gameobject. It breaks a lot of stuff. Disable the child
-			newPiece.transform.GetChild(0).gameObject.SetActive( false );
+			newPiece.SetPieceGraphicsActive(false);
 
 			var sequence = DOTween.Sequence();
 			await sequence

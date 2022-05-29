@@ -11,7 +11,7 @@ namespace Shogi
 		[Auto] Piece piece;
 		public AudiosList audios;
 
-		[Auto] private MeshRenderer meshRenderer;
+		[AutoChildren] private MeshRenderer meshRenderer;
 		private AudioSource audioSource;
 		private ShogiGameSettings settings;
 		private ShogiGame shogiGame;
@@ -46,7 +46,6 @@ namespace Shogi
 
 		private async UniTask MovementAnimation(IShogiAction action){
 			var targetWorldPosition = shogiGame.board.GetCellPosition( action.DestinationX, action.DestinationY );
-			//Here we need to call PlacePieceOnCell_Immediate for the animation instead of directly changing anchor, so it works for 3d too
 			await transform.DOMove( targetWorldPosition, .15f ).SetEase( Ease.InSine );
 		}
 
