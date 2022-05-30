@@ -40,23 +40,19 @@ namespace Shogi{
 		}
 
 		public void RefreshWithPiecesInScene() {
-			// ClearCapturedPieces();
-
 			HashSet<Piece> targetSideboardPieces = new HashSet<Piece>();
 			foreach (var piece in FindObjectsOfType<Piece>()) {
 				if (piece.IsCaptured && piece.OwnerId == ownerId) {
-					//Maybe I don't want to call the animation in here?
 					targetSideboardPieces.Add( piece );
-					// AddCapturedPiece( piece );
 				}
 			}
 
-			foreach(var pieceToRemove in CapturedPieces.Except(targetSideboardPieces ).ToList()){
+			foreach(var pieceToRemove in CapturedPieces.Except( targetSideboardPieces ).ToList()){
 				RemoveCapturedPiece( pieceToRemove );
 			}
 
-			foreach (var pieceToRemove in targetSideboardPieces.Except( CapturedPieces ).ToList()) {
-				AddCapturedPiece( pieceToRemove );
+			foreach (var pieceToAdd in targetSideboardPieces.Except( CapturedPieces ).ToList()) {
+				AddCapturedPiece( pieceToAdd );
 			}
 		}
 
