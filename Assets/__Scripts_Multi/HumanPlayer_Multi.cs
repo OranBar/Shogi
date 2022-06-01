@@ -84,7 +84,7 @@ namespace Shogi
 
 		}
 
-		public async override UniTask<IShogiAction> RequestAction() {
+		public async override UniTask<AShogiAction> RequestAction() {
 			if(photonView.IsMine){
 				var chosenAction = await base.RequestAction();
 				photonView.RPC( nameof(SendMove_ToOpponent_RPC) , RpcTarget.Others, chosenAction);

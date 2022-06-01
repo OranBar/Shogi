@@ -9,7 +9,7 @@ namespace Shogi
 		public GameState initialGameState;
 		public PlayerId firstToMove;
 		public GameData gameData;
-		public List<IShogiAction> playedMoves = new List<IShogiAction>();
+		public List<AShogiAction> playedMoves = new List<AShogiAction>();
 		public List<(float player1_time, float player2_time)> timersHistory = new List<(float player1_time, float player2_time)>();
 		[NonSerialized] private ShogiGame game;
 
@@ -20,7 +20,7 @@ namespace Shogi
 			this.gameData = new GameData( game );
 		}
 
-		public void RegisterNewMove( IShogiAction action ) {
+		public void RegisterNewMove( AShogiAction action ) {
 			if (action is UndoLastAction) {
 				playedMoves.Pop();
 				timersHistory.Pop();

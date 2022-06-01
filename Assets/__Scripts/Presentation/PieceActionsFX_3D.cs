@@ -44,7 +44,7 @@ namespace Shogi
 			#endregion -----------------------------------------
 		}
 
-		private async UniTask MovementAnimation(IShogiAction action){
+		private async UniTask MovementAnimation(AShogiAction action){
 			var targetWorldPosition = board.GetCellPosition( action.DestinationX, action.DestinationY );
 			await transform.DOMove( targetWorldPosition, .15f ).SetEase( Ease.InSine );
 		}

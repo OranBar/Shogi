@@ -14,8 +14,8 @@ namespace Shogi
 		public RefAction<Piece> OnPlayer1_PieceClicked = new RefAction<Piece>();
 		public RefAction<Piece> OnPlayer2_PieceClicked = new RefAction<Piece>();
 		public RefAction<PlayerId> OnNewTurnBegun = new RefAction<PlayerId>();
-		public RefAction<IShogiAction> OnActionExecuted = new RefAction<IShogiAction>();
-		public RefAction<IShogiAction> OnBeforeActionExecuted = new RefAction<IShogiAction>();
+		public RefAction<AShogiAction> OnActionExecuted = new RefAction<AShogiAction>();
+		public RefAction<AShogiAction> OnBeforeActionExecuted = new RefAction<AShogiAction>();
 
 		public RefAction<Piece> Get_OnPieceClickedEvent( PlayerId player ) {
 			return player == PlayerId.Player1 ? OnPlayer1_PieceClicked : OnPlayer2_PieceClicked;
@@ -123,7 +123,7 @@ namespace Shogi
 			OnNewTurnBegun.Invoke( _currTurn_PlayerId );
 			while(isGameOver == false && manualOverride == false){
 				Debug.Log($"Turn {turnCount}. Awaiting Move from : "+_currTurn_PlayerId.ToString());
-				IShogiAction action = await CurrTurn_Player.RequestAction().AttachExternalCancellation( gameLoopCancelToken.Token );
+				AShogiAction action = await CurrTurn_Player.RequestAction().AttachExternalCancellation( gameLoopCancelToken.Token );
 				
 				if (action.IsMoveValid( this )) {
 					Debug.Log("Valid Move: Executing");

@@ -16,7 +16,7 @@ namespace Shogi
 			shogiGame.OnBeforeActionExecuted += DoHighlightStartMoveCell;
 		}
 
-		public void DoHighlightLastMovedPiece(IShogiAction action){
+		public void DoHighlightLastMovedPiece(AShogiAction action){
 			switch (action) {
 				case UndoLastAction undoAction:
 					DoHighlightLastMovedPiece( undoAction );
@@ -32,7 +32,7 @@ namespace Shogi
 			}
 		}
 
-		public void DoHighlightStartMoveCell( IShogiAction action ) {
+		public void DoHighlightStartMoveCell( AShogiAction action ) {
 			switch (action) {
 				case UndoLastAction undoAction:
 					DoHighlightStartMoveCell( undoAction );
@@ -70,7 +70,7 @@ namespace Shogi
 			prevMovedPiece_highlighter?.DisableHighlight();
 			
 			if(shogiGame.gameHistory.playedMoves.Count >= 2){
-				IShogiAction actionBefore_undoneAction = shogiGame.gameHistory.playedMoves[^2];
+				AShogiAction actionBefore_undoneAction = shogiGame.gameHistory.playedMoves[^2];
 				DoHighlightLastMovedPiece( actionBefore_undoneAction );
 			}
 		}
@@ -79,7 +79,7 @@ namespace Shogi
 			prevStartCell_highlighter?.DisableHighlight();
 			
 			if (shogiGame.gameHistory.playedMoves.Count >= 2) {
-				IShogiAction actionBefore_undoneAction = shogiGame.gameHistory.playedMoves [^2];
+				AShogiAction actionBefore_undoneAction = shogiGame.gameHistory.playedMoves [^2];
 				DoHighlightStartMoveCell( actionBefore_undoneAction );
 			}
 		}

@@ -39,7 +39,7 @@ namespace Shogi
 			return choiceIsPromotion;
 		}
 
-		public async UniTask<bool> GetPromotionChoice( IShogiAction action ) {
+		public async UniTask<bool> GetPromotionChoice( AShogiAction action ) {
 			choiceWasMade = false;
 			choiceIsPromotion = false;
 
@@ -50,7 +50,7 @@ namespace Shogi
 			dialogWindow.gameObject.SetActive( false );
 			return choiceIsPromotion;
 
-			void SetDialogPosition_RelativeToTargetCell( IShogiAction action ) {
+			void SetDialogPosition_RelativeToTargetCell( AShogiAction action ) {
 				Cell destinationCell = FindObjectsOfType<Cell>().First( c => c.x == action.DestinationX && c.y == action.DestinationY );
 				float offsetDirection = action.ActingPiece.OwnerId == PlayerId.Player1 ? -1 : 1;
 				var targetDialogPosition = destinationCell.transform.position + Vector3.up * 70 * offsetDirection;

@@ -285,6 +285,7 @@ GameObject:
   - component: {fileID: 4867438272904191336}
   - component: {fileID: 9067160311271900639}
   - component: {fileID: 5934443288883540403}
+  - component: {fileID: 1107606646039539068}
   m_Layer: 5
   m_Name: Entry
   m_TagString: Untagged
@@ -393,6 +394,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberText: {fileID: 5290744255867405357}
   moveText: {fileID: 5043549307295082100}
+  shogiGame: {fileID: 0}
+--- !u!114 &1107606646039539068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4867438272904191338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c70f705a39e09e64692d803e96c4d966, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alsoReferenceChildren: 1
 --- !u!1 &4867438273656652584
 GameObject:
   m_ObjectHideFlags: 0

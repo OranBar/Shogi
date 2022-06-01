@@ -20,11 +20,12 @@ namespace Shogi
 
 		public void CreateEntryForLastMove(PlayerId id) { 
 			if(shogiGame.gameHistory.playedMoves.Count != 0){
-				IShogiAction lastMove = shogiGame.gameHistory.playedMoves.Last();
+				AShogiAction lastMove = shogiGame.gameHistory.playedMoves.Last();
 				GameObject newEntryObj = Instantiate( entryPrefab, scrollRect.content );
-				newEntryObj.GetComponent<AnalysisEntry>().SetEntryText(shogiGame.gameHistory.playedMoves.Count, lastMove.ToString());
+				newEntryObj.GetComponent<AnalysisEntry>().SetEntryText(shogiGame.gameHistory.playedMoves.Count, lastMove);
 			}
 		}
+		
 
 	}
 }

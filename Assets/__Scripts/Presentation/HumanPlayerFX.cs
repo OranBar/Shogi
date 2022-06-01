@@ -62,7 +62,7 @@ namespace Shogi
 			player.selectedPiece.GetComponent<IHighlightFx>().DisableHighlight();
 		}
 
-		private void DisableAllHighlights(IShogiAction _){
+		private void DisableAllHighlights(AShogiAction _){
 			previouslyHighlighted_piece?.DisableHighlight();
 			foreach (var cell in previouslyHighlighted_cells) {
 				cell.DisableHighlight();

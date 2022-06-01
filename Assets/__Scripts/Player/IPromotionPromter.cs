@@ -5,6 +5,6 @@ namespace Shogi
 {
 	public interface IPromotionPromter
 	{
-		UniTask<bool> GetPromotionChoice(IShogiAction action);
+		UniTask<bool> GetPromotionChoice(AShogiAction action);
 	}
 }

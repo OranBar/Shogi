@@ -41,7 +41,7 @@ namespace Shogi
 		protected Button undoButton;
 
 		[ReadOnly] public Piece selectedPiece;
-		protected IShogiAction currAction;
+		protected AShogiAction currAction;
 		[HideInInspector] public ShogiGame shogiGame;
 		protected bool actionReady = false;
 
@@ -101,7 +101,7 @@ namespace Shogi
 			OnCapturePiece_Selected.Invoke( toCapture );
 		}
 
-		public async override UniTask<IShogiAction> RequestAction() {
+		public async override UniTask<AShogiAction> RequestAction() {
 			undoButton.onClick.AddListener( RequestUndo );
 			shogiGame.Get_OnPieceClickedEvent( _playerId ).Value += Select_ActionPiece;
 

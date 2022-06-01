@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Shogi{
 	[Serializable]
-	public abstract class AShogiAction : IShogiAction
+	public abstract class AShogiAction 
 	{
 		public int StartY { get => _startY; set => _startY = value; }
 		public int StartX { get => _startX; set => _startX = value; }

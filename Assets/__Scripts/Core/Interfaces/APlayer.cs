@@ -9,6 +9,6 @@ namespace Shogi
 	{
 		public abstract string PlayerName { get; set; }
 		public abstract PlayerId PlayerId { get; set; }
-		public abstract UniTask<IShogiAction> RequestAction();
+		public abstract UniTask<AShogiAction> RequestAction();
 	}
 }
