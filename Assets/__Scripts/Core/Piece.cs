@@ -167,7 +167,7 @@ namespace Shogi
 		}
 
 		public override string ToString() {
-			return $"Piece ({X}, {Y})";
+			return $"Piece {PieceType.ToString()} ({X}, {Y})";
 		}
 	}
 }
