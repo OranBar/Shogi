@@ -60,7 +60,7 @@ namespace Shogi{
 		}
 
 		public override string ToString() {
-			return $"From ({StartX}, {StartY}) to ({DestinationX}, {DestinationY})";
+			return $"{ActingPiece.PieceType.ToString()} From ({StartX}, {StartY}) to ({DestinationX}, {DestinationY})";
 		}
 
 		public virtual async UniTask ExecuteAction( ShogiGame game ){
