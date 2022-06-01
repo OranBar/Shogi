@@ -5,12 +5,16 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Shogi{
-	public class AnalysisEntry : MonoBehaviour, IPointerUpHandler
+	public class AnalysisEntry : MonoBehaviour, IPointerDownHandler
 	{
+		public static RefAction<AnalysisEntry> OnEntrySelected = new RefAction<AnalysisEntry>();
+		public static AnalysisEntry currentlySelectedEntry = null;
+
 		public TMP_Text numberText;
 		public TMP_Text moveText;
 
 		private AShogiAction associatedMove;
+		private GameState associatedGameState;
 
 		private ShogiGame shogiGame;
 
@@ -34,20 +38,36 @@ namespace Shogi{
 			defaultColor = image.color;
 		}
 
-		public void SetEntryText( int moveNumber, AShogiAction associatedMove ) {
+		public void InitEntry(int moveNumber, AShogiAction associatedMove){
+			// associatedGameState = gameState;
 			this.associatedMove = associatedMove;
-
-			numberText.text = moveNumber.ToString();
-			moveText.text = associatedMove.ToString();
+			SetEntryText( moveNumber, associatedMove );
 		}
 
-		public void OnPointerUp(PointerEventData data){
-			shogiGame.ApplyGameState(associatedMove.GameState_beforeMove);
+		private void SetEntryText( int moveNumber, AShogiAction associatedMove ) {
+			numberText.text = moveNumber.ToString();
+			moveText.text = associatedMove?.ToString() ?? "Game Begin";
+		}
+
+		public void OnPointerDown(PointerEventData data){
+			Debug.Log("MeHere");
 			DoSelectionEffect();
+
+			// shogiGame.ApplyGameState( associatedGameState );
+			shogiGame.ApplyGameState( associatedMove.GameState_beforeMove );
+			shogiGame.ExecuteAction_AndCallEvents( associatedMove );
 		}
 
 		private void DoSelectionEffect(){
-			
+			AnalysisEntry.currentlySelectedEntry?.DoNormalEffect();
+			AnalysisEntry.currentlySelectedEntry = this;
+
+			// AnalysisEntry.OnEntrySelected.Invoke( this );
+			image.color = selectedColor;
+		}
+
+		private void DoNormalEffect() {
+			image.color = defaultColor;
 		}
 		
 	}

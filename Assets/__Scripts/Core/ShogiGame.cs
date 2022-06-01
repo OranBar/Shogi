@@ -67,12 +67,13 @@ namespace Shogi
 		private bool isGameOver;
 		[ReadOnly] public APlayer winner = null;
 
-		private CancellationTokenSource gameLoopCancelToken;
+		public CancellationTokenSource gameLoopCancelToken;
 		public GameHistory gameHistory = null;
 		[ReadOnly] public ShogiGameSettings settings;
 		[ReadOnly] public ShogiClock shogiClock;
 
 		private int turnCount;
+		public int TurnCount => turnCount;
 
 		void Awake(){
 			settings = FindObjectOfType<ShogiGameSettings>();
@@ -127,9 +128,7 @@ namespace Shogi
 				
 				if (action.IsMoveValid( this )) {
 					Debug.Log("Valid Move: Executing");
-					OnBeforeActionExecuted.Invoke( action );
-					await action.ExecuteAction( this ).AttachExternalCancellation( gameLoopCancelToken.Token );
-					OnActionExecuted.Invoke(action);
+					await ExecuteAction_AndCallEvents( action );
 
 					gameHistory.RegisterNewMove( action );
 					
@@ -142,6 +141,12 @@ namespace Shogi
 				AdvanceTurn();
 				OnNewTurnBegun.Invoke( _currTurn_PlayerId );
 			}
+		}
+
+		public async UniTask ExecuteAction_AndCallEvents( AShogiAction action ){
+			OnBeforeActionExecuted.Invoke( action );
+			await action.ExecuteAction( this ).AttachExternalCancellation( gameLoopCancelToken.Token );
+			OnActionExecuted.Invoke( action );
 		}
 
 		private void RegisterGameOver_OnClockTimeout() {
