@@ -7616,7 +7616,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cfbf748bbb625c4eb3b59890c1d3672, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cellSizeUnit: 101.2
 --- !u!1001 &767794747
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21463,6 +21462,10 @@ PrefabInstance:
     - target: {fileID: 9130503715193700627, guid: fcfe58f8422b3d94f98c64de44f48b6b, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9130503715193700637, guid: fcfe58f8422b3d94f98c64de44f48b6b, type: 3}
+      propertyPath: autoConnect
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9130503715193700637, guid: fcfe58f8422b3d94f98c64de44f48b6b, type: 3}
       propertyPath: loadSceneOnConnected
