@@ -17,7 +17,6 @@ namespace Shogi
 
 		void Awake(){
 			shogiGame = FindObjectOfType<ShogiGame>();
-			// shogiGame.OnNewTurnBegun += Foo;
 		}
 
 		void OnEnable(){
@@ -34,17 +33,6 @@ namespace Shogi
 			int currTurn = shogiGame.TurnCount;
 			newEntryObj.GetComponent<AnalysisEntry>().InitEntry( currTurn, lastMove );
 			entries.Add( newEntryObj.GetComponent<AnalysisEntry>() );
-		}
-
-		public void Foo( PlayerId id ) {
-			if (shogiGame.gameHistory.playedMoves.Count != 0) {
-				GameObject newEntryObj = Instantiate( entryPrefab, scrollRect.content );
-				AShogiAction lastMove = null;
-				int currTurn = shogiGame.TurnCount;
-				lastMove = shogiGame.gameHistory.playedMoves.Last();
-				newEntryObj.GetComponent<AnalysisEntry>().InitEntry( currTurn, lastMove );
-				entries.Add( newEntryObj.GetComponent<AnalysisEntry>() );
-			}
 		}
 	}
 
