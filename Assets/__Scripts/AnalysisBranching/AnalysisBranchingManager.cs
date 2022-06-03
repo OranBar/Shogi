@@ -15,8 +15,13 @@ namespace Shogi{
 
 		[Button]
 		public void CreateNewBranch() {
-			var newBranchObj = Instantiate( newBranchPrefab );
-			EnableBranch( newBranchObj.GetComponent<AnalysisBranching>() );
+			var newBranchObj = Instantiate( newBranchPrefab, this.transform );
+			var newBranchName = "Branch "+(this.transform.childCount-1);
+			
+			AnalysisBranching branch = newBranchObj.GetComponent<AnalysisBranching>();
+			branch.BranchName = newBranchName;
+
+			EnableBranch( branch );
 		}
 
 		public void EnableBranch( AnalysisBranching branchToEnable ) {
@@ -34,10 +39,6 @@ namespace Shogi{
 			branchToEnable.gameObject.SetActive( true );
 			
 			//TODO: update game history
-			// var entriesToDelete = branchToEnable.entries.Skip( entryIndex );
-			// foreach(var toDelete in entriesToDelete){
-			// 	Destroy( toDelete.gameObject );
-			// }
 			var entriesToCarryOver = currBranch.entries.Take( entryIndex );
 			foreach(var entry in entriesToCarryOver){
 				branchToEnable.CreateAndAppend_MoveEntry( entry.associatedMove, entry.moveNumber );

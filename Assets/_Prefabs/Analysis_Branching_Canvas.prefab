@@ -467,7 +467,7 @@ RectTransform:
   m_Children:
   - {fileID: 5320215686485797381}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -551,6 +551,7 @@ MonoBehaviour:
   scrollRect: {fileID: 5320215687134437297}
   entryPrefab: {fileID: 4867438272904191338, guid: 78e13392f7270524b94d564ab6283b39, type: 3}
   currentlySelectedEntry: {fileID: 0}
+  branchNameText: {fileID: 5320215686728419548}
   entries: []
 --- !u!114 &5320215686274811332
 MonoBehaviour:

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,17 @@ namespace Shogi
 		public GameObject entryPrefab;
 		private ShogiGame shogiGame;
 		public AnalysisEntry currentlySelectedEntry = null;
+		public TMP_Text branchNameText;
+
+		public string BranchName{
+			get{
+				return this.name;
+			}
+			set{
+				this.name = value;
+				branchNameText.text = value;
+			}
+		}
 
 		public List<AnalysisEntry> entries = new List<AnalysisEntry>();
 
