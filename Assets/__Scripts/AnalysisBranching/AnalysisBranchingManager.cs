@@ -45,7 +45,6 @@ namespace Shogi{
 
 			var selectedEntry = branchToEnable.entries.Last();
 			selectedEntry.SelectEntry();
-			//branchToEnable.UpdateCurrentlySelectedEntry( selectedEntry );
 
 			currBranch = branchToEnable;
 		}

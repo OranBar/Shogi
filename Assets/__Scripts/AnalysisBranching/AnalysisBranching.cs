@@ -16,15 +16,6 @@ namespace Shogi
 
 		void Awake(){
 			shogiGame = FindObjectOfType<ShogiGame>();
-			// entries = GetComponentsInChildren<AnalysisEntry>()
-			// 	.OrderBy(entry => entry.moveNumber)
-			// 	.ToList();
-
-			// foreach(var entry in entries){
-			// 	entry.OnEntrySelected = new RefAction<AnalysisEntry>();
-			// 	entry.OnEntrySelected += UpdateCurrentlySelectedEntry;
-			// }
-			
 		}
 
 		void OnEnable(){
@@ -55,9 +46,17 @@ namespace Shogi
 			newEntry.OnEntrySelected += UpdateCurrentlySelectedEntry;
 		}
 
-		public void UpdateCurrentlySelectedEntry(AnalysisEntry entry){
+		public async void UpdateCurrentlySelectedEntry(AnalysisEntry entry){
 			currentlySelectedEntry?.DoNormalEffect();
 			currentlySelectedEntry = entry;
+
+			shogiGame.OnActionExecuted -= CreateAndAppend_MoveEntry;
+
+			shogiGame.ApplyGameState( entry.associatedMove.GameState_beforeMove );
+			await shogiGame.ExecuteAction_AndCallEvents( entry.associatedMove );
+
+			shogiGame.OnActionExecuted += CreateAndAppend_MoveEntry;
+
 		}
 	}
 

@@ -55,11 +55,6 @@ namespace Shogi{
 		public void OnPointerDown(PointerEventData data){
 			Debug.Log("MeHere");
 			SelectEntry();
-
-			// shogiGame.ApplyGameState( associatedGameState );
-			shogiGame.ApplyGameState( associatedMove.GameState_beforeMove );
-			shogiGame.ExecuteAction_AndCallEvents( associatedMove );
-			
 		}
 
 		public void SelectEntry(){
