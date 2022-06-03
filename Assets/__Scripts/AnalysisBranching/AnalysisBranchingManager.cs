@@ -11,17 +11,54 @@ namespace Shogi{
 		private List<AnalysisBranching> branches = new List<AnalysisBranching>();
 		public AnalysisBranching currBranch;
 
+		public Transform branchesContainer;
+
 		public GameObject newBranchPrefab;
+		public Button prevBranch_btn;
+		public Button nextBranch_btn;
+		public Button createNewBranch_btn;
+
+		void Start()
+		{
+			if(currBranch != null){
+				EnableBranch( currBranch );
+			}
+		}
+
+		void OnEnable(){
+			prevBranch_btn.onClick.AddListener( GoToPreviousBranching );
+			nextBranch_btn.onClick.AddListener( GoToNextBranching );
+			createNewBranch_btn.onClick.AddListener( CreateNewBranch );
+		}
+
+		void OnDisable(){
+			prevBranch_btn.onClick.RemoveListener( GoToPreviousBranching );
+			nextBranch_btn.onClick.RemoveListener( GoToNextBranching );
+			createNewBranch_btn.onClick.RemoveListener( CreateNewBranch );
+		}
 
 		[Button]
 		public void CreateNewBranch() {
-			var newBranchObj = Instantiate( newBranchPrefab, this.transform );
-			var newBranchName = "Branch "+(this.transform.childCount-1);
+			var newBranchObj = Instantiate( newBranchPrefab, branchesContainer );
 			
-			AnalysisBranching branch = newBranchObj.GetComponent<AnalysisBranching>();
-			branch.BranchName = newBranchName;
+			AnalysisBranching branch = CopyCurrBranch_UpToCurrSelectedEntry( newBranchObj );
+			branch.BranchName = "Branch " + ( branchesContainer.childCount - 1 ); ;
 
 			EnableBranch( branch );
+		}
+
+		private AnalysisBranching CopyCurrBranch_UpToCurrSelectedEntry( GameObject newBranchObj ) {
+			AnalysisBranching branch = newBranchObj.GetComponent<AnalysisBranching>();
+
+			int entryIndex = currBranch.currentlySelectedEntry.moveNumber;
+
+			var entriesToCarryOver = currBranch.entries.Take( entryIndex );
+			foreach (var entry in entriesToCarryOver) {
+				branch.CreateAndAppend_MoveEntry( entry.associatedMove, entry.moveNumber );
+			}
+
+			branch.currentlySelectedEntry = branch.entries.Last();
+			return branch;
 		}
 
 		public void EnableBranch( AnalysisBranching branchToEnable ) {
@@ -32,22 +69,41 @@ namespace Shogi{
 		}
 
 		public void EnableBranch( int index ) {
-			int entryIndex = currBranch.currentlySelectedEntry.moveNumber;
 			var branchToEnable = branches [index];
 
 			currBranch?.gameObject?.SetActive( false );
 			branchToEnable.gameObject.SetActive( true );
-			
-			//TODO: update game history
-			var entriesToCarryOver = currBranch.entries.Take( entryIndex );
-			foreach(var entry in entriesToCarryOver){
-				branchToEnable.CreateAndAppend_MoveEntry( entry.associatedMove, entry.moveNumber );
-			}
 
-			var selectedEntry = branchToEnable.entries.Last();
-			selectedEntry.SelectEntry();
+			branchToEnable.currentlySelectedEntry?.SelectEntry();
+
+			//TODO: update game history
+			// var entriesToCarryOver = currBranch.entries.Take( entryIndex );
+			// foreach(var entry in entriesToCarryOver){
+			// 	branchToEnable.CreateAndAppend_MoveEntry( entry.associatedMove, entry.moveNumber );
+			// }
+
+			// var selectedEntry = branchToEnable.entries.Last();
+			// selectedEntry.SelectEntry();
 
 			currBranch = branchToEnable;
+		}
+
+		public void GoToNextBranching(){
+			int index = branches.IndexOf( currBranch ) + 1;
+			if(index < 0 || index >= branches.Count){
+				return;
+			}
+
+			EnableBranch( index );
+		}
+
+		public void GoToPreviousBranching(){
+			int index = branches.IndexOf( currBranch ) - 1;
+			if (index < 0 || index >= branches.Count) {
+				return;
+			}
+
+			EnableBranch( index );
 		}
 	}
 }
