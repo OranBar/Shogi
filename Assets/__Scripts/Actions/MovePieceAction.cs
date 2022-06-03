@@ -49,6 +49,7 @@ namespace Shogi
 
 
 			#region Local Methods -----------------------------
+
 				void UpdateBoard( ABoard board ) {
 					board [StartX, StartY] = null;
 					board [DestinationX, DestinationY] = ActingPiece;
@@ -58,6 +59,7 @@ namespace Shogi
 					ActingPiece.X = DestinationX;
 					ActingPiece.Y = DestinationY;
 				}
+				
 			#endregion -----------------------------------------
 		}
 

@@ -1,8 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 
 namespace Shogi
@@ -12,27 +10,54 @@ namespace Shogi
 		public ScrollRect scrollRect;
 		public GameObject entryPrefab;
 		private ShogiGame shogiGame;
+		public AnalysisEntry currentlySelectedEntry = null;
 
-		private List<AnalysisEntry> entries = new List<AnalysisEntry>();
+		public List<AnalysisEntry> entries = new List<AnalysisEntry>();
 
 		void Awake(){
 			shogiGame = FindObjectOfType<ShogiGame>();
+			// entries = GetComponentsInChildren<AnalysisEntry>()
+			// 	.OrderBy(entry => entry.moveNumber)
+			// 	.ToList();
+
+			// foreach(var entry in entries){
+			// 	entry.OnEntrySelected = new RefAction<AnalysisEntry>();
+			// 	entry.OnEntrySelected += UpdateCurrentlySelectedEntry;
+			// }
+			
 		}
 
 		void OnEnable(){
-			shogiGame.OnActionExecuted += CreateEntryForLastMove;
+			shogiGame.OnActionExecuted += CreateAndAppend_MoveEntry;
 		}
 
 		void OnDisable(){
-			shogiGame.OnActionExecuted -= CreateEntryForLastMove;
+			shogiGame.OnActionExecuted -= CreateAndAppend_MoveEntry;
 		}
 
-		public void CreateEntryForLastMove(AShogiAction lastMove) { 
-			Debug.Log("here");
+		public void CreateAndAppend_MoveEntry(AShogiAction lastMove) { 
 			GameObject newEntryObj = Instantiate( entryPrefab, scrollRect.content );
-			int currTurn = shogiGame.TurnCount;
-			newEntryObj.GetComponent<AnalysisEntry>().InitEntry( currTurn, lastMove );
-			entries.Add( newEntryObj.GetComponent<AnalysisEntry>() );
+			AnalysisEntry newEntry = newEntryObj.GetComponent<AnalysisEntry>();
+			
+			newEntry.InitEntry( shogiGame.TurnCount, lastMove );
+			
+			entries.Add( newEntry );
+			newEntry.OnEntrySelected += UpdateCurrentlySelectedEntry;
+		}
+
+		public void CreateAndAppend_MoveEntry( AShogiAction lastMove, int turnCount ) {
+			GameObject newEntryObj = Instantiate( entryPrefab, scrollRect.content );
+			AnalysisEntry newEntry = newEntryObj.GetComponent<AnalysisEntry>();
+
+			newEntry.InitEntry( turnCount, lastMove );
+
+			entries.Add( newEntry );
+			newEntry.OnEntrySelected += UpdateCurrentlySelectedEntry;
+		}
+
+		public void UpdateCurrentlySelectedEntry(AnalysisEntry entry){
+			currentlySelectedEntry?.DoNormalEffect();
+			currentlySelectedEntry = entry;
 		}
 	}
 

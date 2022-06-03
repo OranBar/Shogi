@@ -7,40 +7,41 @@ using UnityEngine.UI;
 namespace Shogi{
 	public class AnalysisEntry : MonoBehaviour, IPointerDownHandler
 	{
-		public static RefAction<AnalysisEntry> OnEntrySelected = new RefAction<AnalysisEntry>();
-		public static AnalysisEntry currentlySelectedEntry = null;
+		public RefAction<AnalysisEntry> OnEntrySelected = new RefAction<AnalysisEntry>();
+
 
 		public TMP_Text numberText;
 		public TMP_Text moveText;
 
-		private AShogiAction associatedMove;
-		private GameState associatedGameState;
-
-		private ShogiGame shogiGame;
-
+		[ReadOnly] public AShogiAction associatedMove;
+		[ReadOnly] public int moveNumber;
 		[ReadOnly] public Color defaultColor;
 		public Color highlightColor;
 		public Color selectedColor;
 
-		[Auto] private Image image;
-		public int moveNumber;
+		[AutoParent] private AnalysisBranching analysisManager;
+		[Auto] public Image myImage;
+		
+		private ShogiGame shogiGame;
 
 		void OnValidate()
 		{
-			image = GetComponent<Image>();
-			if(image != null){
-				defaultColor = image.color;
+			if(Application.isPlaying){
+				return;
+			}
+			myImage = GetComponent<Image>();
+			if(myImage != null){
+				defaultColor = myImage.color;
 			}
 		}
 
 		void Start()
 		{
 			shogiGame = FindObjectOfType<ShogiGame>();
-			defaultColor = image.color;
+			defaultColor = myImage.color;
 		}
 
 		public void InitEntry(int moveNumber, AShogiAction associatedMove){
-			// associatedGameState = gameState;
 			this.associatedMove = associatedMove;
 			this.moveNumber = moveNumber;
 			SetEntryText( moveNumber, associatedMove );
@@ -53,23 +54,25 @@ namespace Shogi{
 
 		public void OnPointerDown(PointerEventData data){
 			Debug.Log("MeHere");
-			DoSelectionEffect();
+			SelectEntry();
 
 			// shogiGame.ApplyGameState( associatedGameState );
 			shogiGame.ApplyGameState( associatedMove.GameState_beforeMove );
 			shogiGame.ExecuteAction_AndCallEvents( associatedMove );
+			
 		}
 
-		private void DoSelectionEffect(){
-			AnalysisEntry.currentlySelectedEntry?.DoNormalEffect();
-			AnalysisEntry.currentlySelectedEntry = this;
-
-			// AnalysisEntry.OnEntrySelected.Invoke( this );
-			image.color = selectedColor;
+		public void SelectEntry(){
+			DoSelectedEffect();
+			OnEntrySelected.Invoke( this );
 		}
 
-		private void DoNormalEffect() {
-			image.color = defaultColor;
+		public void DoSelectedEffect() {
+			myImage.color = selectedColor;
+		}
+
+		public void DoNormalEffect() {
+			myImage.color = defaultColor;
 		}
 		
 	}
