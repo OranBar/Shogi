@@ -128,7 +128,7 @@ namespace Shogi
 				
 				if (action.IsMoveValid( this )) {
 					Debug.Log("Valid Move: Executing");
-					await ExecuteAction_AndCallEvents( action );
+					await ExecuteAction_AndCallEvents( action ).AttachExternalCancellation( gameLoopCancelToken.Token );
 
 					gameHistory.RegisterNewMove( action );
 					

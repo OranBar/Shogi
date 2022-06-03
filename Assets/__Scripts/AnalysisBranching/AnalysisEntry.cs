@@ -23,6 +23,7 @@ namespace Shogi{
 		public Color selectedColor;
 
 		[Auto] private Image image;
+		public int moveNumber;
 
 		void OnValidate()
 		{
@@ -41,6 +42,7 @@ namespace Shogi{
 		public void InitEntry(int moveNumber, AShogiAction associatedMove){
 			// associatedGameState = gameState;
 			this.associatedMove = associatedMove;
+			this.moveNumber = moveNumber;
 			SetEntryText( moveNumber, associatedMove );
 		}
 
