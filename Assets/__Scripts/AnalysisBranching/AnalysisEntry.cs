@@ -23,7 +23,6 @@ namespace Shogi{
 		[Auto] public Image myImage;
 		
 		private ShogiGame shogiGame;
-		public bool isSelected;
 
 		void OnValidate()
 		{
@@ -62,12 +61,10 @@ namespace Shogi{
 		}
 
 		public void DoSelectedEffect() {
-			isSelected = true;
 			myImage.color = selectedColor;
 		}
 
 		public void DoNormalEffect() {
-			isSelected = false;
 			myImage.color = defaultColor;
 		}
 		

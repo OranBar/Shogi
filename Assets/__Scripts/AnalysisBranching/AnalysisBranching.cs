@@ -51,12 +51,14 @@ namespace Shogi
 
 			entries.Add( newEntry );
 			newEntry.OnEntrySelected += UpdateCurrentlySelectedEntry;
-		}
-
-		public async void UpdateCurrentlySelectedEntry(AnalysisEntry entry){
+			
 			currentlySelectedEntry?.DoNormalEffect();
-			currentlySelectedEntry = entry;
-			currentlySelectedEntry?.DoSelectedEffect();
+			currentlySelectedEntry = newEntry;
+			newEntry.DoSelectedEffect();
+		}
+		
+		public async void UpdateCurrentlySelectedEntry(AnalysisEntry entry){
+			UpdateUIEffect( entry );
 
 			shogiGame.OnActionExecuted -= CreateAndAppend_MoveEntry;
 
@@ -66,6 +68,13 @@ namespace Shogi
 			shogiGame.OnActionExecuted += CreateAndAppend_MoveEntry;
 
 		}
+
+		private void UpdateUIEffect( AnalysisEntry newSelectedEntry ) {
+			currentlySelectedEntry?.DoNormalEffect();
+			currentlySelectedEntry = newSelectedEntry;
+			newSelectedEntry.DoSelectedEffect();
+		}
+
 	}
 
 	
