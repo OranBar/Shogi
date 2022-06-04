@@ -23,6 +23,7 @@ namespace Shogi{
 		[Auto] public Image myImage;
 		
 		private ShogiGame shogiGame;
+		public bool isSelected;
 
 		void OnValidate()
 		{
@@ -38,7 +39,6 @@ namespace Shogi{
 		void Start()
 		{
 			shogiGame = FindObjectOfType<ShogiGame>();
-			defaultColor = myImage.color;
 		}
 
 		public void InitEntry(int moveNumber, AShogiAction associatedMove){
@@ -58,15 +58,16 @@ namespace Shogi{
 		}
 
 		public void SelectEntry(){
-			DoSelectedEffect();
 			OnEntrySelected.Invoke( this );
 		}
 
 		public void DoSelectedEffect() {
+			isSelected = true;
 			myImage.color = selectedColor;
 		}
 
 		public void DoNormalEffect() {
+			isSelected = false;
 			myImage.color = defaultColor;
 		}
 		

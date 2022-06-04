@@ -64,6 +64,7 @@ namespace Shogi{
 		}
 
 		public virtual async UniTask ExecuteAction( ShogiGame game ){
+			
 			_actingPiece = FindActingPiece();
 			//save gamestate
 			_gameState_beforeMove = new GameState( game );

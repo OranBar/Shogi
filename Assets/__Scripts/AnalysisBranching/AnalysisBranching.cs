@@ -38,19 +38,14 @@ namespace Shogi
 			shogiGame.OnActionExecuted -= CreateAndAppend_MoveEntry;
 		}
 
-		public void CreateAndAppend_MoveEntry(AShogiAction lastMove) { 
-			GameObject newEntryObj = Instantiate( entryPrefab, scrollRect.content );
-			AnalysisEntry newEntry = newEntryObj.GetComponent<AnalysisEntry>();
-			
-			newEntry.InitEntry( shogiGame.TurnCount, lastMove );
-			
-			entries.Add( newEntry );
-			newEntry.OnEntrySelected += UpdateCurrentlySelectedEntry;
+		public void CreateAndAppend_MoveEntry( AShogiAction lastMove ) {
+			CreateAndAppend_MoveEntry(lastMove, shogiGame.TurnCount);
 		}
 
 		public void CreateAndAppend_MoveEntry( AShogiAction lastMove, int turnCount ) {
 			GameObject newEntryObj = Instantiate( entryPrefab, scrollRect.content );
 			AnalysisEntry newEntry = newEntryObj.GetComponent<AnalysisEntry>();
+			newEntry.name = newEntry.name.Replace( "Clone", "" + ( entries.Count + 1 ) );
 
 			newEntry.InitEntry( turnCount, lastMove );
 
@@ -61,6 +56,7 @@ namespace Shogi
 		public async void UpdateCurrentlySelectedEntry(AnalysisEntry entry){
 			currentlySelectedEntry?.DoNormalEffect();
 			currentlySelectedEntry = entry;
+			currentlySelectedEntry?.DoSelectedEffect();
 
 			shogiGame.OnActionExecuted -= CreateAndAppend_MoveEntry;
 

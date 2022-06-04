@@ -72,8 +72,7 @@ namespace Shogi
 		[ReadOnly] public ShogiGameSettings settings;
 		[ReadOnly] public ShogiClock shogiClock;
 
-		private int turnCount;
-		public int TurnCount => turnCount;
+		public int TurnCount => gameHistory.playedMoves.Count + 1;
 
 		void Awake(){
 			settings = FindObjectOfType<ShogiGameSettings>();
@@ -120,10 +119,9 @@ namespace Shogi
 			Player1.enabled = true;
 			Player2.enabled = true;
 
-			turnCount = 1;
 			OnNewTurnBegun.Invoke( _currTurn_PlayerId );
 			while(isGameOver == false && manualOverride == false){
-				Debug.Log($"Turn {turnCount}. Awaiting Move from : "+_currTurn_PlayerId.ToString());
+				Debug.Log($"Turn {TurnCount}. Awaiting Move from : "+_currTurn_PlayerId.ToString());
 				AShogiAction action = await CurrTurn_Player.RequestAction().AttachExternalCancellation( gameLoopCancelToken.Token );
 				
 				if (action.IsMoveValid( this )) {
@@ -172,7 +170,6 @@ namespace Shogi
 
 		private void AdvanceTurn() {
 			_currTurn_PlayerId = (_currTurn_PlayerId == PlayerId.Player1) ? PlayerId.Player2 : PlayerId.Player1;
-			turnCount++;
 		}
 
 		public void ApplyGameState(GameState state) {
