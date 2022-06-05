@@ -7,12 +7,26 @@ using BarbarO.ExtensionMethods;
 using Cysharp.Threading.Tasks;
 using Photon.Pun;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Shogi
 {
     public class HumanPlayer_Multi : HumanPlayer
     {
 		[Auto] private PhotonView photonView;
+		public Button surrenderButton;
+		void OnEnable() {
+			surrenderButton.onClick.AddListener( Surrender );
+		}
+
+		protected override void OnDisable() {
+			base.OnDisable();
+			surrenderButton.onClick.RemoveListener( Surrender );
+		}
+
+		private void Surrender(){
+			shogiGame.PlayerHasWon(PlayerId.GetOtherPlayer());
+		}
 
 		public void DisableUndoButton_OnOpponentTurn(PlayerId currTurn_playerId){
 			if(currTurn_playerId != this.PlayerId){
@@ -27,6 +41,7 @@ namespace Shogi
 		}
 
 		IEnumerator Start(){
+			surrenderButton.GetComponentInParent<Canvas>().gameObject.SetActive(photonView.IsMine);
 			if ( photonView.IsMine == false ) {	yield break; }
 
 			FindObjectOfType<ShogiGame>().OnNewTurnBegun += DisableUndoButton_OnOpponentTurn;

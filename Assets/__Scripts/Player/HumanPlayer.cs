@@ -130,5 +130,6 @@ namespace Shogi
 			currAction = new UndoLastAction();
 			actionReady = true;
 		}
+
 	}
 }

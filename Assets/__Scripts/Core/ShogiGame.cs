@@ -108,7 +108,7 @@ namespace Shogi
 
 		private async UniTask BeginGameAsync( PlayerId startingPlayer ) {
 			_currTurn_PlayerId = startingPlayer;
-			
+
 			RegisterGameOver_OnClockTimeout();
 			RefreshMonobehavioursInScene();
 			ReInitialize_Players();
@@ -155,6 +155,10 @@ namespace Shogi
 
 			shogiClock.timer_player1.OnTimerFinished += Player2_HasWon;
 			shogiClock.timer_player2.OnTimerFinished += Player1_HasWon;
+		}
+
+		public void PlayerHasWon( PlayerId playerId ){
+			GameOver( GetPlayer( playerId ) );
 		}
 
 		private void Player1_HasWon(){
