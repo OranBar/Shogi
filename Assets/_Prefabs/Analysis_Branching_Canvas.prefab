@@ -233,6 +233,16 @@ MonoBehaviour:
   entryPrefab: {fileID: 4867438272904191338, guid: 78e13392f7270524b94d564ab6283b39, type: 3}
   currentlySelectedEntry: {fileID: 0}
   branchNameText: {fileID: 5320215686728419548}
+  branchGameHistory:
+    initialGameState:
+      currPlayerTurn: 0
+      piecesData: []
+      player1_time: 0
+      player2_time: 0
+    firstToMove: 0
+    gameData:
+      player1_name: 
+      player2_name: 
   entries: []
 --- !u!114 &5320215686274811332
 MonoBehaviour:

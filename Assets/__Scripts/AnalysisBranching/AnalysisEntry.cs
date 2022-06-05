@@ -52,7 +52,6 @@ namespace Shogi{
 		}
 
 		public void OnPointerDown(PointerEventData data){
-			Debug.Log("MeHere");
 			SelectEntry();
 		}
 

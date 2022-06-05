@@ -20,6 +20,13 @@ namespace Shogi
 			this.gameData = new GameData( game );
 		}
 
+		public GameHistory Clone(){
+			GameHistory result = new GameHistory( this.initialGameState, this.firstToMove, this.game );
+			result.playedMoves = new List<AShogiAction>( this.playedMoves );
+			result.timersHistory = new List<(float player1_time, float player2_time)>( this.timersHistory );
+			return result;
+		}
+
 		public void RegisterNewMove( AShogiAction action ) {
 			if (action is UndoLastAction) {
 				playedMoves.Pop();
@@ -47,6 +54,17 @@ namespace Shogi
 
 		public static GameHistory DeserializeFromBinaryFile( string filePath ) {
 			return SerializationUtils.DeserializeFromBinaryFile<GameHistory>( filePath );
+		}
+
+		public PlayerId GetPlayer_WhoMovesNext( ) {
+			PlayerId nextPlayerTurn;
+			if (this.playedMoves.Count % 2 == 0) {
+				nextPlayerTurn = this.firstToMove;
+			} else {
+				nextPlayerTurn = this.firstToMove == PlayerId.Player1 ? PlayerId.Player2 : PlayerId.Player1;
+			}
+
+			return nextPlayerTurn;
 		}
 
 		#endregion

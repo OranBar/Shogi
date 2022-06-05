@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -14,6 +15,8 @@ namespace Shogi
 		public AnalysisEntry currentlySelectedEntry = null;
 		public TMP_Text branchNameText;
 
+		[NonSerialized] public GameHistory branchGameHistory = null;
+
 		public string BranchName{
 			get{
 				return this.name;
@@ -28,6 +31,13 @@ namespace Shogi
 
 		void Awake(){
 			shogiGame = FindObjectOfType<ShogiGame>();
+			
+		}
+		
+		void Start(){
+			if (branchGameHistory == null) {
+				branchGameHistory = shogiGame.gameHistory;
+			}
 		}
 
 		void OnEnable(){
@@ -63,6 +73,7 @@ namespace Shogi
 			shogiGame.OnActionExecuted -= CreateAndAppend_MoveEntry;
 
 			shogiGame.ApplyGameState( entry.associatedMove.GameState_beforeMove );
+			Debug.Log("Debug!");
 			await shogiGame.ExecuteAction_AndCallEvents( entry.associatedMove );
 
 			shogiGame.OnActionExecuted += CreateAndAppend_MoveEntry;

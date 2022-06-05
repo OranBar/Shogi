@@ -71,20 +71,21 @@ namespace Shogi
 		public GameHistory gameHistory = null;
 		[ReadOnly] public ShogiGameSettings settings;
 		[ReadOnly] public ShogiClock shogiClock;
+		public PlayerId startingPlayer;
 
 		public int TurnCount => gameHistory.playedMoves.Count + 1;
 
 		void Awake(){
 			settings = FindObjectOfType<ShogiGameSettings>();
 			shogiClock = FindObjectOfType<ShogiClock>();
+			startingPlayer = PlayerId.Player1;
+			gameHistory = new GameHistory( new GameState( this ), startingPlayer, this );
 
-			Debug.Log("Event init");
 			RegisterPieceClickedEvents_Invocation();
 		}
 
 		void Start() {
 			if(beginGameOnStart){
-				var startingPlayer = PlayerId.Player1;
 				BeginGame( startingPlayer );
 			}
 		}
@@ -99,7 +100,6 @@ namespace Shogi
 		}
 
 		public void BeginGame( PlayerId startingPlayer ) {
-
 			Debug.Log("Beginning Shogi Game "+startingPlayer.ToString());
 			gameLoopCancelToken?.Cancel();
 			gameLoopCancelToken = new CancellationTokenSource();
@@ -111,8 +111,6 @@ namespace Shogi
 			RegisterGameOver_OnClockTimeout();
 
 			RefreshMonobehavioursInScene();
-
-			gameHistory = new GameHistory( new GameState( this ), startingPlayer, this );
 
 			Player1.enabled = false;
 			Player2.enabled = false;
@@ -149,6 +147,9 @@ namespace Shogi
 
 		private void RegisterGameOver_OnClockTimeout() {
 			var shogiClock = FindObjectOfType<ShogiClock>();
+			shogiClock.timer_player1.OnTimerFinished -= Player2_HasWon;
+			shogiClock.timer_player2.OnTimerFinished -= Player1_HasWon;
+			
 			shogiClock.timer_player1.OnTimerFinished += Player2_HasWon;
 			shogiClock.timer_player2.OnTimerFinished += Player1_HasWon;
 		}
@@ -188,7 +189,7 @@ namespace Shogi
 
 			Restore_ClockTimers_Values( history );
 
-			PlayerId nextPlayerTurn = GetPlayer_WhoMovesNext( history );
+			PlayerId nextPlayerTurn = history.GetPlayer_WhoMovesNext();
 			BeginGame( nextPlayerTurn );
 
 			Debug.Log( "Finish Apply GameHistory: All moves applied" );
@@ -200,16 +201,6 @@ namespace Shogi
 				shogiClock.timer_player2.clockTime = timers_clockValues.player2_time;
 			}
 
-			PlayerId GetPlayer_WhoMovesNext( GameHistory loadedGameHistory ) {
-				PlayerId nextPlayerTurn;
-				if (loadedGameHistory.playedMoves.Count % 2 == 0) {
-					nextPlayerTurn = loadedGameHistory.firstToMove;
-				} else {
-					nextPlayerTurn = loadedGameHistory.firstToMove == PlayerId.Player1 ? PlayerId.Player2 : PlayerId.Player1;
-				}
-
-				return nextPlayerTurn;
-			}
 			#endregion
 		}
 

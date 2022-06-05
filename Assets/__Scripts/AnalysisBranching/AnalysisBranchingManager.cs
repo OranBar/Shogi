@@ -17,11 +17,18 @@ namespace Shogi{
 		public Button prevBranch_btn;
 		public Button nextBranch_btn;
 		public Button createNewBranch_btn;
+		public Button deleteBranch_btn;
+
+		private ShogiGame shogiGame;
+
+		void Awake(){
+			shogiGame = FindObjectOfType<ShogiGame>();
+		}
 
 		void Start()
 		{
 			if(currBranch != null){
-				EnableBranch( currBranch );
+				branches.Add( currBranch );
 			}
 		}
 
@@ -29,12 +36,14 @@ namespace Shogi{
 			prevBranch_btn.onClick.AddListener( GoToPreviousBranching );
 			nextBranch_btn.onClick.AddListener( GoToNextBranching );
 			createNewBranch_btn.onClick.AddListener( CreateNewBranch );
+			deleteBranch_btn.onClick.AddListener( DeleteCurrentBranch );
 		}
 
 		void OnDisable(){
 			prevBranch_btn.onClick.RemoveListener( GoToPreviousBranching );
 			nextBranch_btn.onClick.RemoveListener( GoToNextBranching );
 			createNewBranch_btn.onClick.RemoveListener( CreateNewBranch );
+			deleteBranch_btn.onClick.RemoveListener( DeleteCurrentBranch );
 		}
 
 		[Button]
@@ -57,8 +66,21 @@ namespace Shogi{
 				branch.CreateAndAppend_MoveEntry( entry.associatedMove, entry.moveNumber );
 			}
 
+			//Copy game history
+			GameHistory trimmedGameHistory = CopyGameHistory( entryIndex );
+			branch.branchGameHistory = trimmedGameHistory;
+
 			branch.currentlySelectedEntry = branch.entries.Last();
 			return branch;
+
+			#region Local Methods -----------------------------------------
+			GameHistory CopyGameHistory( int entryIndex ) {
+				GameHistory newGameHistory = currBranch.branchGameHistory.Clone();
+				newGameHistory.playedMoves.Take( entryIndex ).ToList();
+				newGameHistory.timersHistory.Take( entryIndex ).ToList();
+				return newGameHistory;
+			}
+			#endregion -----------------------------------------
 		}
 
 		public void EnableBranch( AnalysisBranching branchToEnable ) {
@@ -74,17 +96,14 @@ namespace Shogi{
 			currBranch?.gameObject?.SetActive( false );
 			branchToEnable.gameObject.SetActive( true );
 
-			branchToEnable.currentlySelectedEntry?.SelectEntry();
 
 			//TODO: update game history
-			// var entriesToCarryOver = currBranch.entries.Take( entryIndex );
-			// foreach(var entry in entriesToCarryOver){
-			// 	branchToEnable.CreateAndAppend_MoveEntry( entry.associatedMove, entry.moveNumber );
-			// }
+			shogiGame.gameHistory = branchToEnable.branchGameHistory;
+			//Restart the game from this turn
 
-			// var selectedEntry = branchToEnable.entries.Last();
-			// selectedEntry.SelectEntry();
+			shogiGame.BeginGame( branchToEnable.branchGameHistory.GetPlayer_WhoMovesNext() );
 
+			branchToEnable.currentlySelectedEntry?.SelectEntry();
 			currBranch = branchToEnable;
 		}
 
@@ -104,6 +123,19 @@ namespace Shogi{
 			}
 
 			EnableBranch( index );
+		}
+
+		public void DeleteCurrentBranch(){
+			if(branches.Count == 1){
+				Debug.LogError("NO! You can't delete ALL of the branches. That would be genocide. Leave at least 1 alive please");
+				return;
+			}
+
+			int currBranchIndex = branches.IndexOf( currBranch );
+			branches.RemoveAt( currBranchIndex );
+			Destroy( currBranch.gameObject );
+
+			EnableBranch( currBranchIndex - 1);
 		}
 	}
 }
