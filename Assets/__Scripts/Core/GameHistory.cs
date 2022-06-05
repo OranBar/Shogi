@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Shogi
@@ -24,6 +25,13 @@ namespace Shogi
 			GameHistory result = new GameHistory( this.initialGameState, this.firstToMove, this.game );
 			result.playedMoves = new List<AShogiAction>( this.playedMoves );
 			result.timersHistory = new List<(float player1_time, float player2_time)>( this.timersHistory );
+			return result;
+		}
+
+		public GameHistory Clone(int movesCount_toClone) {
+			GameHistory result = new GameHistory( this.initialGameState, this.firstToMove, this.game );
+			result.playedMoves = this.playedMoves.Take( movesCount_toClone ).ToList();
+			result.timersHistory = this.timersHistory.Take( movesCount_toClone ).ToList();
 			return result;
 		}
 

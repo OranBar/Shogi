@@ -67,20 +67,11 @@ namespace Shogi{
 			}
 
 			//Copy game history
-			GameHistory trimmedGameHistory = CopyGameHistory( entryIndex );
+			GameHistory trimmedGameHistory = currBranch.branchGameHistory.Clone( entryIndex );
 			branch.branchGameHistory = trimmedGameHistory;
 
 			branch.currentlySelectedEntry = branch.entries.Last();
 			return branch;
-
-			#region Local Methods -----------------------------------------
-			GameHistory CopyGameHistory( int entryIndex ) {
-				GameHistory newGameHistory = currBranch.branchGameHistory.Clone();
-				newGameHistory.playedMoves.Take( entryIndex ).ToList();
-				newGameHistory.timersHistory.Take( entryIndex ).ToList();
-				return newGameHistory;
-			}
-			#endregion -----------------------------------------
 		}
 
 		public void EnableBranch( AnalysisBranching branchToEnable ) {

@@ -108,48 +108,51 @@ namespace Shogi
 
 		private async UniTask BeginGameAsync( PlayerId startingPlayer ) {
 			_currTurn_PlayerId = startingPlayer;
+			
 			RegisterGameOver_OnClockTimeout();
-
 			RefreshMonobehavioursInScene();
-
-			Player1.enabled = false;
-			Player2.enabled = false;
-			Player1.enabled = true;
-			Player2.enabled = true;
+			ReInitialize_Players();
 
 			OnNewTurnBegun.Invoke( _currTurn_PlayerId );
-			while(isGameOver == false && manualOverride == false){
-				Debug.Log($"Turn {TurnCount}. Awaiting Move from : "+_currTurn_PlayerId.ToString());
+			while (isGameOver == false && manualOverride == false) {
+				Debug.Log( $"Turn {TurnCount}. Awaiting Move from : " + _currTurn_PlayerId.ToString() );
 				AShogiAction action = await CurrTurn_Player.RequestAction().AttachExternalCancellation( gameLoopCancelToken.Token );
-				
-				if (action.IsMoveValid( this )) {
-					Debug.Log("Valid Move: Executing");
-					await ExecuteAction_AndCallEvents( action ).AttachExternalCancellation( gameLoopCancelToken.Token );
 
-					gameHistory.RegisterNewMove( action );
-					
-					Debug.Log( "Finish Move Execution" );
+				if (action.IsMoveValid( this )) {
+					Debug.Log( "<Start> ExecuteAction_AndCallEvents" );
+					await ExecuteAction( action ).AttachExternalCancellation( gameLoopCancelToken.Token );
+
+					Debug.Log( "<Finish> ExecuteAction_AndCallEvents" );
 				} else {
-					Debug.Log("Invalid Action: Try again");
+					Debug.Log( "Invalid Action: Try again" );
 					continue;
 				}
 
 				AdvanceTurn();
 				OnNewTurnBegun.Invoke( _currTurn_PlayerId );
 			}
+
+			void ReInitialize_Players() {
+				Player1.enabled = false;
+				Player2.enabled = false;
+				Player1.enabled = true;
+				Player2.enabled = true;
+			}
 		}
 
-		public async UniTask ExecuteAction_AndCallEvents( AShogiAction action ){
+		public async UniTask ExecuteAction( AShogiAction action ){
 			OnBeforeActionExecuted.Invoke( action );
 			await action.ExecuteAction( this ).AttachExternalCancellation( gameLoopCancelToken.Token );
 			OnActionExecuted.Invoke( action );
+
+			gameHistory.RegisterNewMove( action );
 		}
 
 		private void RegisterGameOver_OnClockTimeout() {
 			var shogiClock = FindObjectOfType<ShogiClock>();
 			shogiClock.timer_player1.OnTimerFinished -= Player2_HasWon;
 			shogiClock.timer_player2.OnTimerFinished -= Player1_HasWon;
-			
+
 			shogiClock.timer_player1.OnTimerFinished += Player2_HasWon;
 			shogiClock.timer_player2.OnTimerFinished += Player1_HasWon;
 		}

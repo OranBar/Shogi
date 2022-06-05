@@ -72,12 +72,15 @@ namespace Shogi
 
 			shogiGame.OnActionExecuted -= CreateAndAppend_MoveEntry;
 
+			shogiGame.gameHistory = branchGameHistory.Clone(entry.moveNumber - 1 );
+			Debug.Log("GameHistory Count "+shogiGame.gameHistory.playedMoves.Count);
+			//TODO: update timers?
 			shogiGame.ApplyGameState( entry.associatedMove.GameState_beforeMove );
-			Debug.Log("Debug!");
-			await shogiGame.ExecuteAction_AndCallEvents( entry.associatedMove );
+			await shogiGame.ExecuteAction( entry.associatedMove );
 
 			shogiGame.OnActionExecuted += CreateAndAppend_MoveEntry;
 
+			shogiGame.BeginGame( shogiGame.gameHistory.GetPlayer_WhoMovesNext() );
 		}
 
 		private void UpdateUIEffect( AnalysisEntry newSelectedEntry ) {
