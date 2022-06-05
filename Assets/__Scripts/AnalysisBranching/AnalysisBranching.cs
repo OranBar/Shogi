@@ -15,6 +15,8 @@ namespace Shogi
 		public AnalysisEntry currentlySelectedEntry = null;
 		public TMP_Text branchNameText;
 
+		public RefAction<AnalysisEntry> OnHeadDetached = new RefAction<AnalysisEntry>();
+
 		[NonSerialized] public GameHistory branchGameHistory = null;
 
 		public string BranchName{
@@ -49,9 +51,10 @@ namespace Shogi
 		}
 
 		public void CreateAndAppend_MoveEntry( AShogiAction lastMove ) {
-			CreateAndAppend_MoveEntry(lastMove, shogiGame.TurnCount);
+			CreateAndAppend_MoveEntry(lastMove, entries.Count + 1);
 		}
 
+		//TODO: I don't think I need this method. 
 		public void CreateAndAppend_MoveEntry( AShogiAction lastMove, int turnCount ) {
 			GameObject newEntryObj = Instantiate( entryPrefab, scrollRect.content );
 			AnalysisEntry newEntry = newEntryObj.GetComponent<AnalysisEntry>();
@@ -78,9 +81,23 @@ namespace Shogi
 			shogiGame.ApplyGameState( entry.associatedMove.GameState_beforeMove );
 			await shogiGame.ExecuteAction( entry.associatedMove );
 
-			shogiGame.OnActionExecuted += CreateAndAppend_MoveEntry;
+			if(shogiGame.gameHistory.playedMoves.Count == branchGameHistory.playedMoves.Count){
+				Debug.Log("Okay");
+				shogiGame.OnActionExecuted += CreateAndAppend_MoveEntry;
+			} else {
+				Debug.Log("Head detached");
+				OnHeadDetached.Invoke( entry );
+			}
 
 			shogiGame.BeginGame( shogiGame.gameHistory.GetPlayer_WhoMovesNext() );
+		}
+
+		internal void ClearEntries() {
+			foreach(var entry in entries){
+				Destroy( entry.gameObject );
+			}
+			entries.Clear();
+			currentlySelectedEntry = null;
 		}
 
 		private void UpdateUIEffect( AnalysisEntry newSelectedEntry ) {
