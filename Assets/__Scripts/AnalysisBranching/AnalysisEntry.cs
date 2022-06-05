@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Shogi{
-	public class AnalysisEntry : MonoBehaviour, IPointerDownHandler
+	public class AnalysisEntry : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 	{
 		public RefAction<AnalysisEntry> OnEntrySelected = new RefAction<AnalysisEntry>();
 
@@ -52,7 +52,7 @@ namespace Shogi{
 		}
 
 		public void OnPointerDown(PointerEventData data){
-			SelectEntry();
+			
 		}
 
 		public void SelectEntry(){
@@ -66,6 +66,11 @@ namespace Shogi{
 		public void DoNormalEffect() {
 			myImage.color = defaultColor;
 		}
-		
+
+		public void OnPointerUp( PointerEventData eventData ) {
+			if(eventData.dragging == false){
+				SelectEntry();
+			}
+		}
 	}
 }
