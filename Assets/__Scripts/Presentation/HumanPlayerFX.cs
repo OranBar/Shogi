@@ -20,7 +20,7 @@ namespace Shogi
 			player.OnMoveCell_Selected += CellSelected;
 			player.OnCapturePiece_Selected += CapturePieceSelected;
 
-			player.shogiGame.OnBeforeActionExecuted += DisableAllHighlights;
+			player.shogiGame.OnBeforeActionExecuted += Disable_AvailableMoveCells_Highlights;
 		}
 
         void PieceSelected(Piece piece)
@@ -28,7 +28,7 @@ namespace Shogi
 			previouslyHighlighted_piece?.DisableHighlight();
 			
 			if (Settings.highlightAvailableMoves) {
-				HighlightAvailable_MoveCells( piece );
+				Highlight_AvailableMoveCells( piece );
 			}
 
 			IHighlightFx piece_highlightFx = piece.GetComponent<IHighlightFx>();
@@ -37,7 +37,7 @@ namespace Shogi
 
 		}
 
-		private void HighlightAvailable_MoveCells( Piece piece ) {
+		private void Highlight_AvailableMoveCells( Piece piece ) {
 			foreach(var cell in previouslyHighlighted_cells){
 				cell.DisableHighlight();
 			}
@@ -62,8 +62,7 @@ namespace Shogi
 			player.selectedPiece.GetComponent<IHighlightFx>().DisableHighlight();
 		}
 
-		private void DisableAllHighlights(AShogiAction _){
-			previouslyHighlighted_piece?.DisableHighlight();
+		private void Disable_AvailableMoveCells_Highlights(AShogiAction _){
 			foreach (var cell in previouslyHighlighted_cells) {
 				cell.DisableHighlight();
 			}
