@@ -2859,12 +2859,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 489550809}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12b32f418a3c30f4cb30bd1791c74199, type: 3}
+  m_Script: {fileID: 11500000, guid: d794929f89648574c823680cbdd38d6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dialogWindow: {fileID: 517242511}
   promoteBtn: {fileID: 1752273037}
   dontPromoteBtn: {fileID: 583347791}
+  yOffset: 1
 --- !u!1001 &506533651
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9468,12 +9469,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1402779146}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12b32f418a3c30f4cb30bd1791c74199, type: 3}
+  m_Script: {fileID: 11500000, guid: d794929f89648574c823680cbdd38d6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dialogWindow: {fileID: 517242511}
   promoteBtn: {fileID: 1752273037}
   dontPromoteBtn: {fileID: 583347791}
+  yOffset: 1
 --- !u!1001 &1427736529
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -20,7 +20,7 @@ namespace Shogi
 
 			dialogWindow.gameObject.SetActive( true );
 			
-			var targetDialogPosition = GetTargetDialogPosition( action );
+			var targetDialogPosition = GetTargetDialogPosition(action);
 			dialogWindow.transform.position = targetDialogPosition;
 
 			await UniTask.WaitUntil( () => choiceWasMade );
