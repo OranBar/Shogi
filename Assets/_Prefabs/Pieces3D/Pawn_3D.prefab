@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 8053709205010322037}
   - component: {fileID: 3240562404171369263}
   - component: {fileID: -3966495202640134762}
+  - component: {fileID: -3546450340510168542}
   m_Layer: 5
   m_Name: Pawn_3D
   m_TagString: Untagged
@@ -232,6 +233,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audios: {fileID: 11400000, guid: 9b8f6078ce983114788a5b82062aadf3, type: 2}
+--- !u!114 &-3546450340510168542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4490819224235694840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7be504bde51f5a40a433e1a81cd0d51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5756571338351232941
 PrefabInstance:
   m_ObjectHideFlags: 0

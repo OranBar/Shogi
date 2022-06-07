@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 6931892743713467077}
   - component: {fileID: 3578399951263161013}
   - component: {fileID: 4962907137044926697}
+  - component: {fileID: -7821685788726052601}
   m_Layer: 5
   m_Name: Lancer_3D
   m_TagString: Untagged
@@ -51,7 +52,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 563f5ec0bb1e01945b53b5c827387fc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pieceFx: {fileID: 0}
   pieceData:
     x: 0
     y: 3
@@ -233,6 +233,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audios: {fileID: 11400000, guid: 9b8f6078ce983114788a5b82062aadf3, type: 2}
+--- !u!114 &-7821685788726052601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 845178179423815313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7be504bde51f5a40a433e1a81cd0d51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4991754160023689366
 PrefabInstance:
   m_ObjectHideFlags: 0

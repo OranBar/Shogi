@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 7946714403687538557}
   - component: {fileID: 2424614400260310699}
   - component: {fileID: -1308227318247023041}
+  - component: {fileID: -6430866030471777734}
   m_Layer: 5
   m_Name: Bishop_3D
   m_TagString: Untagged
@@ -232,6 +233,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audios: {fileID: 11400000, guid: 9b8f6078ce983114788a5b82062aadf3, type: 2}
+--- !u!114 &-6430866030471777734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4116467676760397116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7be504bde51f5a40a433e1a81cd0d51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8708820173885923822
 PrefabInstance:
   m_ObjectHideFlags: 0

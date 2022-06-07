@@ -19,10 +19,10 @@ namespace Shogi
 		void Start() {
 			settings = FindObjectOfType<ShogiGameSettings>();
 			playSoundOnMove.isOn = settings.playSoundOnMove;
-			highlightAvailableMoves.isOn = settings.highlightAvailableMoves;
+			highlightAvailableMoves.isOn = settings.highlightAvailableMoves_selectedPiece;
 
 			playSoundOnMove.onValueChanged.AddListener(val => settings.playSoundOnMove = val);
-			highlightAvailableMoves.onValueChanged.AddListener( val => settings.highlightAvailableMoves = val );
+			highlightAvailableMoves.onValueChanged.AddListener( val => settings.highlightAvailableMoves_selectedPiece = val );
 
 			openPanel_btn.onClick.AddListener( ()=>panelAnimator.SetBool( "IsOpen", true ) );
 			closePanel_btn.onClick.AddListener( () => panelAnimator.SetBool( "IsOpen", false ) );

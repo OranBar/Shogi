@@ -27,7 +27,7 @@ namespace Shogi
         {
 			previouslyHighlighted_piece?.DisableHighlight();
 			
-			if (Settings.highlightAvailableMoves) {
+			if (Settings.highlightAvailableMoves_selectedPiece) {
 				Highlight_AvailableMoveCells( piece );
 			}
 
@@ -49,7 +49,7 @@ namespace Shogi
 			previouslyHighlighted_cells.Clear();
 			foreach (var cellToHighlight in validCellMoves) {
 				CellFx cellFX = cellToHighlight.GetComponent<CellFx>();
-				cellFX.EnableHighlight( Settings.availableMove_HighlightColor );
+				cellFX.EnableHighlight( Settings.availableMove_selectedPiece_highlightColor );
 				previouslyHighlighted_cells.Add( cellFX );
 			}
 		}

@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: -1735431935040453400}
   - component: {fileID: -3216912847850767650}
   - component: {fileID: 198504444873149102}
+  - component: {fileID: 9055376812960229951}
   m_Layer: 5
   m_Name: Lancer_2D
   m_TagString: Untagged
@@ -260,6 +261,18 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &9055376812960229951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4094493778057303690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7be504bde51f5a40a433e1a81cd0d51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1389409568475916360
 PrefabInstance:
   m_ObjectHideFlags: 0

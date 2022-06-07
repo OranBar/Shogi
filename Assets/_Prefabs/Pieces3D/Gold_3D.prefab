@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7286265365188484815}
   - component: {fileID: 5880630346775581762}
   - component: {fileID: -5724254316801265731}
+  - component: {fileID: -3286414040557660243}
   m_Layer: 5
   m_Name: Gold_3D
   m_TagString: Untagged
@@ -50,7 +51,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 563f5ec0bb1e01945b53b5c827387fc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pieceFx: {fileID: 0}
   pieceData:
     x: 0
     y: 3
@@ -220,6 +220,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audios: {fileID: 11400000, guid: 9b8f6078ce983114788a5b82062aadf3, type: 2}
+--- !u!114 &-3286414040557660243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4453635534556392731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7be504bde51f5a40a433e1a81cd0d51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1286726990107045613
 PrefabInstance:
   m_ObjectHideFlags: 0

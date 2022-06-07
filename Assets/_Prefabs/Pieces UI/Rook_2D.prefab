@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: -8616752547793295653}
   - component: {fileID: 5074151337790925953}
   - component: {fileID: -8711052218491825745}
+  - component: {fileID: -2336235929246588375}
   m_Layer: 5
   m_Name: Rook_2D
   m_TagString: Untagged
@@ -260,6 +261,18 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &-2336235929246588375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9129131603899054107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7be504bde51f5a40a433e1a81cd0d51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4636270602519706265
 PrefabInstance:
   m_ObjectHideFlags: 0

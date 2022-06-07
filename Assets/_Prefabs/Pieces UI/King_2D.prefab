@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 2968846191801268064}
   - component: {fileID: -249549251931550126}
   - component: {fileID: 872208699999695795}
+  - component: {fileID: -2262873165478361142}
   m_Layer: 5
   m_Name: King_2D
   m_TagString: Untagged
@@ -247,6 +248,18 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &-2262873165478361142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4610554103108687850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7be504bde51f5a40a433e1a81cd0d51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &639472706539135019
 PrefabInstance:
   m_ObjectHideFlags: 0

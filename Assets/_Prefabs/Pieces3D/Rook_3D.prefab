@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 8644030889393069472}
   - component: {fileID: 3927954314684031118}
   - component: {fileID: -2301104938390321983}
+  - component: {fileID: -3598492846671270683}
   m_Layer: 5
   m_Name: Rook_3D
   m_TagString: Untagged
@@ -232,6 +233,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audios: {fileID: 11400000, guid: 9b8f6078ce983114788a5b82062aadf3, type: 2}
+--- !u!114 &-3598492846671270683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5706049015811868986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7be504bde51f5a40a433e1a81cd0d51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &250448155160222179
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -14137,6 +14137,7 @@ MonoBehaviour:
       player2_name: 
   settings: {fileID: 1014225921}
   shogiClock: {fileID: 0}
+  startingPlayer: 0
 --- !u!114 &1014225919
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14178,11 +14179,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playSoundOnMove: 0
-  selectedPiece_color: {r: 0, g: 0.4862745, b: 1, a: 1}
+  selectedPiece_color: {r: 0, g: 0.80485034, b: 1, a: 1}
   lastMovedPiece_color_player1: {r: 0.31563476, g: 0.7176471, b: 0.2588235, a: 1}
   lastMovedPiece_color_player2: {r: 0.7176471, g: 0.25882354, b: 0.25882354, a: 1}
-  highlightAvailableMoves: 0
-  availableMove_HighlightColor: {r: 0, g: 0.9278722, b: 1, a: 0.5019608}
+  highlightAvailableMoves_selectedPiece: 1
+  highlightAvailableMoves_hoverPiece: 1
+  availableMove_selectedPiece_highlightColor: {r: 0, g: 0.8039216, b: 1, a: 0.5019608}
+  availableMove_hoverPiece_highlightColor: {r: 0.42554712, g: 0, b: 1, a: 0.78431374}
 --- !u!114 &1014225922
 MonoBehaviour:
   m_ObjectHideFlags: 0
