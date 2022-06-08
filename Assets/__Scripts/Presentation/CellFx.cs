@@ -10,6 +10,7 @@ namespace Shogi
     public class CellFx : MonoBehaviour, IHighlightFx
     {
 		private Image highlightImage;
+		public bool isHighlighted = false;
 
 		void Start()
 		{
@@ -18,12 +19,16 @@ namespace Shogi
 		}
 
 		public async UniTask EnableHighlight( Color color ) {
+			if(isHighlighted){ return; }
+
 			highlightImage.enabled = true;
 			highlightImage.color = color;
+			isHighlighted = true;
 		}
 
 		public async UniTask DisableHighlight() {
 			highlightImage.enabled = false;
+			isHighlighted = false;
 		}
 	}
 }

@@ -11,7 +11,7 @@ namespace Shogi{
 	{
 		[Auto] private Piece piece;
 		private ShogiGameSettings settings;
-		private List<Cell> highlightedCells = new List<Cell>();
+		private List<CellFx> highlightedCells = new List<CellFx>();
 
 		void Awake()
 		{
@@ -30,9 +30,9 @@ namespace Shogi{
 			Debug.Log("Pointer Enter");
 			if (settings.highlightAvailableMoves_hoverPiece == false) { return; }
 
-			List<Cell> availableMoveCells = GetMovesCells();
+			List<CellFx> availableMoveCells = GetMovesCells().Select( c => c.GetComponent<CellFx>() ).Where( c => c.isHighlighted == false ).ToList();
 			foreach(var cell in availableMoveCells)	{
-				cell.GetComponent<IHighlightFx>().EnableHighlight(settings.availableMove_hoverPiece_highlightColor);
+				cell.EnableHighlight(settings.availableMove_hoverPiece_highlightColor);
 			}
 			highlightedCells = availableMoveCells;
 		}
@@ -48,8 +48,9 @@ namespace Shogi{
 
 		private void DisableCellsHighlight() {
 			foreach (var cell in highlightedCells) {
-				cell.GetComponent<IHighlightFx>().DisableHighlight();
+				cell.DisableHighlight();
 			}
+			highlightedCells.Clear();
 		}
 
 		private void DisableCellsHighlight(AShogiAction action) {
