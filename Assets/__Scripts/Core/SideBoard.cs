@@ -30,15 +30,15 @@ namespace Shogi
 			}
 		}
 
-		public async UniTask AddCapturedPiece( Piece piece ) {
+		public void AddCapturedPiece( Piece piece ) {
 			capturedPieces.Add( piece );
 			piece.X = piece.OwnerId == PlayerId.Player1 ? -1 : -2;
 			piece.Y = capturedPieces.Count;
 
 			//TODO: So... I think I want to make an abstract method in this class: async DoNewPieceAddedAnimation()
-			foreach (var newPieceAdded_listener in GetComponentsInChildren<ISideboardPieceAdded>()) {
-				await newPieceAdded_listener.OnNewPieceAdded( piece );
-			}
+			// foreach (var newPieceAdded_listener in GetComponentsInChildren<ISideboardFX>()) {
+			// 	await newPieceAdded_listener.OnNewPieceAdded( piece );
+			// }
 		}
 
 		public void RemoveCapturedPiece( Piece piece ) {

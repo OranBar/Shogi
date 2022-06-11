@@ -79,7 +79,7 @@ namespace Shogi
 
 		[SerializeReference] public AMovementStrategy defaultMovement;
 		[SerializeReference] public AMovementStrategy promotedMovement;
-		[ReadOnly] private AMovementStrategy dropMovement;
+		[SerializeReference] private AMovementStrategy dropMovement;
 
 		public AMovementStrategy MovementStrategy{
 			get{
@@ -131,23 +131,11 @@ namespace Shogi
 			this.pieceGraphics.gameObject.SetActive( enable );
 		}
 
-		public async UniTask CapturePiece() {
+		public void CapturePiece() {
 			//Thou shall live again
 			this.IsCaptured = true;
 			this.IsPromoted = false;
-			await pieceFx.DoPieceDeathAnimation();
-			await SendToSideboard();
-
-			
-			async UniTask SendToSideboard() {
-				if (OwnerId == PlayerId.Player1) {	
-					OwnerId = PlayerId.Player2;
-					await gameManager.player2_sideboard.AddCapturedPiece( this );
-				} else {
-					OwnerId = PlayerId.Player1;
-					await gameManager.player1_sideboard.AddCapturedPiece( this );
-				}
-			}
+			OwnerId = OwnerId.GetOtherPlayer();
 		}
 
 		public bool HasPromotion() {

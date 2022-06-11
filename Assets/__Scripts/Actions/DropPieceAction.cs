@@ -19,13 +19,13 @@ namespace Shogi
 			return "Drop "+base.ToString();
 		}
 
-		public override async UniTask ExecuteAction( ShogiGame game ) {
-			base.ExecuteAction( game ).Forget();
+		public override void ExecuteAction( ShogiGame game ) {
+			base.ExecuteAction( game );
 			UnityEngine.Debug.Log( $"Dropping piece {ActingPiece} on ({DestinationX},{DestinationY})" );
 
 			//TODO: replace with animation
-			game.board.PlacePieceOnCell_Immediate( DestinationX, DestinationY, ActingPiece );
-			await ActingPiece.pieceFx.DoDropAnimation( this );
+			// game.board.PlacePieceOnCell_Immediate( DestinationX, DestinationY, ActingPiece );
+			// await ActingPiece.pieceFx.DoDropAnimation( this );
 			
 			game.GetSideBoard( ActingPiece.OwnerId ).RemoveCapturedPiece( ActingPiece );
 			UpdateBoard( game );
@@ -33,7 +33,6 @@ namespace Shogi
 
 
 			#region Local Methods -----------------------------
-
 				void UpdateBoard( ShogiGame game ) {
 					game.board [DestinationX, DestinationY] = ActingPiece;
 				}
@@ -43,8 +42,11 @@ namespace Shogi
 					ActingPiece.Y = DestinationY;
 					ActingPiece.IsCaptured = false;
 				}
-
 			#endregion -----------------------------------------
+		}
+
+		public override async UniTask ExecuteAction_FX() {
+			await ActingPiece.pieceFx.DoDropAnimation( this );
 		}
 
 

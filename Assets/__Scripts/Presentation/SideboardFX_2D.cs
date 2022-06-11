@@ -6,12 +6,12 @@ using UnityEngine;
 
 namespace Shogi
 {
-	public class SideboardFX_2D : MonoBehaviour, ISideboardPieceAdded
+	public class SideboardFX_2D : MonoBehaviour, ISideboardFX
 	{
 		public float duration = 1.5f;
 		[AutoParent] private SideBoard_UI sideboard;
 
-		public async UniTask OnNewPieceAdded( Piece newPiece ) {
+		public async UniTask PieceAddedToSideboard_FX( Piece newPiece ) {
 			if (this.enabled == false) { return; }
 			// Make the piece higher in z position based on the number of pieces of the same type in the sideboard, to ensure we always click the topmost
 			//Don't disable the gameobject. It breaks a lot of stuff. Disable the child

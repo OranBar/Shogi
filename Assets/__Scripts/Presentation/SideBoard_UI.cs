@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Shogi
 {
 	[Serializable]
-	public class SideBoard_UI : MonoBehaviour, ISideboardPieceAdded
+	public class SideBoard_UI : MonoBehaviour, ISideboardFX
 	{
 
 		public TMP_Text pawnText;
@@ -54,7 +54,7 @@ namespace Shogi
 			sideBoard.OnNewPieceRemoved.Value -= DecreaseText;
 		}
 
-		public async UniTask OnNewPieceAdded( Piece newPiece ) {
+		public async UniTask PieceAddedToSideboard_FX( Piece newPiece ) {
 			PieceAddedToSideboardFx( newPiece );
 
 			

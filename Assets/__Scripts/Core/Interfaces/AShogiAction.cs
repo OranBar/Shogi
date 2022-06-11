@@ -63,14 +63,16 @@ namespace Shogi{
 			return $"{ActingPiece.PieceType.ToString()} From ({StartX}, {StartY}) to ({DestinationX}, {DestinationY})";
 		}
 
-		public virtual async UniTask ExecuteAction( ShogiGame game ){
+		public virtual void ExecuteAction( ShogiGame game ){
 			
 			_actingPiece = FindActingPiece();
 			//save gamestate
 			_gameState_beforeMove = new GameState( game );
 		}
 
-		public async UniTask UndoAction( ShogiGame game ){
+		public virtual async UniTask ExecuteAction_FX() { }
+
+		public void UndoAction( ShogiGame game ){
 			//reload gamestate
 			if(_gameState_beforeMove == null){
 				throw new System.Exception( "Can't undo a move that was not executed. Did you call base.ExecuteAction()?" );

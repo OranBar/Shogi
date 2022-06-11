@@ -6,6 +6,11 @@ using UnityEngine;
 
 namespace Shogi
 {
+	//Se tutti i pezzi fanno la stessa cosa, posso usare questa classe.
+	//Se un giorno devo avere due IPieceMoveActionFx, posso smettere di ereditare qui, e portare il codice in una classe a se', ereditanto di la'
+	//Alla fine dei conti posso arrivare ad avere 3 classi, che implementano rispettivamente ognuna delle 3 interfacce.
+	//Tantovale gia' creare la differenziazione fin da subito, e accettare il fatto che i miei gameobject saranno pieni di componenti?
+	//O fa parte dello scrivere codice scalabile farlo cosi', e ?
 	public interface IPieceActionsFX
 	{
 		UniTask DoDropAnimation( DropPieceAction action );
@@ -15,11 +20,6 @@ namespace Shogi
 		void RotatePiece( PlayerId value );
 	}
 
-	//Se tutti i pezzi fanno la stessa cosa, posso usare questa classe.
-	//Se un giorno devo avere due IPieceMoveActionFx, posso smettere di ereditare qui, e portare il codice in una classe a se', ereditanto di la'
-	//Alla fine dei conti posso arrivare ad avere 3 classi, che implementano rispettivamente ognuna delle 3 interfacce.
-	//Tantovale gia' creare la differenziazione fin da subito, e accettare il fatto che i miei gameobject saranno pieni di componenti?
-	//O fa parte dello scrivere codice scalabile farlo cosi', e ?
 	public class PieceActionsFX_2D : MonoBehaviour, IPieceActionsFX
 	{
 		[Auto] Piece piece;

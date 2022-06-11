@@ -79,7 +79,9 @@ namespace Shogi
 			Debug.Log("GameHistory Count "+shogiGame.gameHistory.playedMoves.Count);
 			//TODO: update timers?
 			shogiGame.ApplyGameState( entry.associatedMove.GameState_beforeMove );
-			await shogiGame.ExecuteAction( entry.associatedMove );
+			// await shogiGame.ExecuteAction( entry.associatedMove );
+			//TODO: make this work
+			await entry.associatedMove.ExecuteAction_FX();
 
 			if(shogiGame.gameHistory.playedMoves.Count == branchGameHistory.playedMoves.Count){
 				Debug.Log("Okay");

@@ -120,7 +120,13 @@ namespace Shogi
 
 				if (action.IsMoveValid( this )) {
 					Debug.Log( "<Start> ExecuteAction_AndCallEvents" );
-					await ExecuteAction( action ).AttachExternalCancellation( gameLoopCancelToken.Token );
+					OnBeforeActionExecuted.Invoke( action );
+
+					action.ExecuteAction( this );
+					await action.ExecuteAction_FX().AttachExternalCancellation( gameLoopCancelToken.Token );
+					OnActionExecuted.Invoke( action );
+
+					gameHistory.RegisterNewMove( action );
 
 					Debug.Log( "<Finish> ExecuteAction_AndCallEvents" );
 				} else {
@@ -138,14 +144,6 @@ namespace Shogi
 				Player1.enabled = true;
 				Player2.enabled = true;
 			}
-		}
-
-		public async UniTask ExecuteAction( AShogiAction action ){
-			OnBeforeActionExecuted.Invoke( action );
-			await action.ExecuteAction( this ).AttachExternalCancellation( gameLoopCancelToken.Token );
-			OnActionExecuted.Invoke( action );
-
-			gameHistory.RegisterNewMove( action );
 		}
 
 		private void RegisterGameOver_OnClockTimeout() {
@@ -190,7 +188,7 @@ namespace Shogi
 
 			//Alter timescale to fast forward?
 			foreach (var move in history.playedMoves) {
-				await move.ExecuteAction( this );
+				move.ExecuteAction( this );
 				gameHistory.RegisterNewMove( move );
 			}
 

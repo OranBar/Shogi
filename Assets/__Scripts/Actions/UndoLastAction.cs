@@ -9,17 +9,11 @@ namespace Shogi
 		public UndoLastAction() : base() {
 		}
 
-		public override async UniTask ExecuteAction( ShogiGame game ) {
+		public override void ExecuteAction( ShogiGame game ) {
 			int playedMovesCount = game.gameHistory.playedMoves.Count;
 
 			var lastMove = game.gameHistory.playedMoves [playedMovesCount - 1];
-			await lastMove.UndoAction( game );
-
-			// if (playedMovesCount >= 2) {
-			// 	var secondToLastMove = game.gameHistory.playedMoves [playedMovesCount - 2];
-			// 	await secondToLastMove.UndoAction( game );
-			// 	await secondToLastMove.ExecuteAction( game );
-			// }
+			lastMove.UndoAction( game );
 		}
 
 		public override bool IsMoveValid( ShogiGame game ) {

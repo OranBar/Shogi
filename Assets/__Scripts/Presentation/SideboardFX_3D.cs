@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Shogi
 {
-	public class SideboardFX_3D : MonoBehaviour, ISideboardPieceAdded
+	public class SideboardFX_3D : MonoBehaviour, ISideboardFX
 	{
 		public float duration = 1.5f;
 
@@ -32,7 +32,7 @@ namespace Shogi
 
 		}
 
-		public async UniTask OnNewPieceAdded( Piece newPiece ) {
+		public async UniTask PieceAddedToSideboard_FX( Piece newPiece ) {
 			if (this.enabled == false) { return; }
 
 			// newPiece.SetPieceGraphicsActive(false);

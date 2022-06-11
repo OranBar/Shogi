@@ -10,6 +10,7 @@ namespace Shogi
 	{
 		public bool Request_PromotePiece { get => _promotePiece; set => _promotePiece = value; }
 		private bool _promotePiece = false;
+		[NonSerialized] private Piece capturedPiece;
 
 		public MovePieceAction() : base(){
 		}
@@ -26,28 +27,28 @@ namespace Shogi
 		}
 
 		public bool IsCapturingMove( ShogiGame game ){
-			var capturedPiece = game.board [DestinationX, DestinationY];
 			return capturedPiece != null && capturedPiece.OwnerId != ActingPiece.OwnerId;
 		}
 
-		public override async UniTask ExecuteAction( ShogiGame game ) {
-			base.ExecuteAction( game ).Forget();
-
+		public override void ExecuteAction( ShogiGame game ) {
+			base.ExecuteAction( game );
 			UnityEngine.Debug.Log( $"Moving piece {ActingPiece} to cell ({DestinationX},{DestinationY})" );
 
-			var capturedPiece = game.board [DestinationX, DestinationY];
-
-			await ActingPiece.pieceFx.DoMoveAnimation( this );
-			if (IsCapturingMove( game )) {
-				//A piece was killed. Such cruelty. 
-				await capturedPiece.CapturePiece();
-			}
+			capturedPiece = game.board [DestinationX, DestinationY];
 
 			UpdateBoard( game.board );
 			UpdatePiece();
 			HandlePromotion( game, ActingPiece );
 
+			bool isCapturingMove = capturedPiece != null;
+			if (isCapturingMove) {
+				//A piece was killed. Such cruelty. 
+				capturedPiece.CapturePiece();
+				var sideboard = GameObject.FindObjectsOfType<SideBoard>().First( s => s.ownerId == capturedPiece.OwnerId );
+				sideboard.AddCapturedPiece( capturedPiece );
+			}
 
+			
 			#region Local Methods -----------------------------
 
 				void UpdateBoard( ABoard board ) {
@@ -63,10 +64,19 @@ namespace Shogi
 			#endregion -----------------------------------------
 		}
 
+		public override async UniTask ExecuteAction_FX( ) {
+			await ActingPiece.pieceFx.DoMoveAnimation( this );
+			bool isCapturingMove = capturedPiece != null;
+			if (isCapturingMove) {
+				await capturedPiece.pieceFx.DoPieceDeathAnimation();
+				
+				var sideboard = GameObject.FindObjectsOfType<SideBoard>().First( s => s.ownerId == capturedPiece.OwnerId );
+				await sideboard.GetComponent<ISideboardFX>().PieceAddedToSideboard_FX( capturedPiece );
+			}
+		}
 
 		public override bool IsMoveValid( ShogiGame game ) {
-			var actingPiece = ActingPiece;
-			bool isValidPieceMovement = actingPiece.GetValidMoves().Any( m => m.x == DestinationX && m.y == DestinationY );
+			bool isValidPieceMovement = ActingPiece.GetValidMoves().Any( m => m.x == DestinationX && m.y == DestinationY );
 
 			return isValidPieceMovement;
 		}

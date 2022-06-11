@@ -3,8 +3,8 @@ using Cysharp.Threading.Tasks;
 
 namespace Shogi
 {
-	public interface ISideboardPieceAdded
+	public interface ISideboardFX
 	{
-		public UniTask OnNewPieceAdded(Piece piece);
+		public UniTask PieceAddedToSideboard_FX(Piece piece);
 	}
 }
