@@ -1,9 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 namespace Shogi{
 
@@ -11,18 +9,18 @@ namespace Shogi{
 	{
 		public int x, y;
 		public static RefAction<Cell> OnAnyCellClicked = new RefAction<Cell>();
-		
+		private static readonly HashSet<Cell> CELLS = new HashSet<Cell>();
 
-
-		public static Cell GetCell(int x, int y){
-			Cell[] cells = FindObjectsOfType<Cell>();
-			Cell cell = cells.First( c => c.x == x && c.y == y );
-			return cell;
+		void Awake(){
+			CELLS.Add( this );
 		}
 
-		//This overload requests the cells list. This way, we don't have to do FindObjects on all of the scene 
-		public static Cell GetCell( int x, int y, Cell [] cells ) {
-			Cell cell = cells.First( c => c.x == x && c.y == y );
+		void OnDestroy(){
+			CELLS.Remove( this );
+		}
+
+		public static Cell GetCell( int x, int y ){
+			Cell cell = CELLS.First( c => c.x == x && c.y == y );
 			return cell;
 		}
 

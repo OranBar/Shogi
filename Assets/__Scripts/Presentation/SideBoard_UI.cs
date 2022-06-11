@@ -1,10 +1,7 @@
 using System;
-using System.Linq;
 using Cysharp.Threading.Tasks;
-using DG.Tweening;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 
 namespace Shogi
@@ -46,33 +43,32 @@ namespace Shogi
 
 		void OnEnable(){
 			sideBoard.OnNewPieceRemoved += DecreaseText;
-			sideBoard.OnCleared += ResetAllTextsToZero;
-		}
-
-		public async UniTask OnNewPieceAdded( Piece newPiece ) {
-			PieceAddedToSideboardFx( newPiece );
-		}
-
-		private void PieceAddedToSideboardFx( Piece newPiece ) {
-			Transform sideboardPiece = GetText( newPiece.PieceType ).transform.parent;
-			newPiece.transform.position = sideboardPiece.transform.position;
-		}
-
-		void OnDisable(){
-			sideBoard.OnNewPieceAdded.Value -= IncreaseText;
-			sideBoard.OnNewPieceRemoved.Value -= DecreaseText;
-			sideBoard.OnCleared.Value -= ResetAllTextsToZero;
 		}
 
 		void Start() {
 			ResetAllTextsToZero();
 		}
 
-		private void OnPieceButtonClicked( PieceType pieceType ) {
-			Debug.Log( "Ho clickato" );
-			Piece piece = sideBoard.CapturedPieces.First( p => p.PieceType == pieceType );
-			piece.OnPointerClick( new PointerEventData( null ) );
+		void OnDisable(){
+			sideBoard.OnNewPieceAdded.Value -= IncreaseText;
+			sideBoard.OnNewPieceRemoved.Value -= DecreaseText;
 		}
+
+		public async UniTask OnNewPieceAdded( Piece newPiece ) {
+			PieceAddedToSideboardFx( newPiece );
+
+			
+			void PieceAddedToSideboardFx( Piece newPiece ) {
+				Transform sideboardPiece = GetText( newPiece.PieceType ).transform.parent;
+				newPiece.transform.position = sideboardPiece.transform.position;
+			}
+		}
+
+		// private void OnPieceButtonClicked( PieceType pieceType ) {
+		// 	Debug.Log( "Ho clickato" );
+		// 	Piece piece = sideBoard.capturedPieces.First( p => p.PieceType == pieceType );
+		// 	piece.OnPointerClick( new PointerEventData( null ) );
+		// }
 
 		private void ResetAllTextsToZero(){
 			pawnText.text = "x0";
@@ -91,29 +87,31 @@ namespace Shogi
 		public void IncreaseText( Piece newCapturedPiece) {
 			TMP_Text targetText = GetText( newCapturedPiece.PieceType );
 			IncreaseNumberLabel( targetText );
+
+
+			void IncreaseNumberLabel( TMP_Text text ) {
+				int number = GetNumberFromLabel( text ) + 1;
+
+				if (number > 0) {
+					text.transform.gameObject.SetActive( true );
+				}
+				text.text = "x" + number.ToString();
+			}
 		}
 
 		public void DecreaseText( Piece newCapturedPiece ) {
 			TMP_Text targetText = GetText( newCapturedPiece.PieceType );
 			DecreaseNumberLabel( targetText );
-		}
 
-		private void IncreaseNumberLabel(TMP_Text text){
-			int number = GetNumberFromLabel( text ) + 1;
-			
-			if (number > 0) {
-				text.transform.gameObject.SetActive( true );
+
+			void DecreaseNumberLabel( TMP_Text text ) {
+				int number = GetNumberFromLabel( text ) - 1;
+
+				if (number <= 0) {
+					text.transform.gameObject.SetActive( false );
+				}
+				text.text = "x" + number.ToString();
 			}
-			text.text = "x"+number.ToString();
-		}
-
-		private void DecreaseNumberLabel( TMP_Text text ) {
-			int number = GetNumberFromLabel( text ) - 1;
-
-			if (number <= 0) {
-				text.transform.gameObject.SetActive( false );
-			}
-			text.text = "x" + number.ToString();
 		}
 
 		private int GetNumberFromLabel( TMP_Text text ) {
@@ -122,13 +120,6 @@ namespace Shogi
 			return number;
 		}
 
-		//TODO: Prendere Sideboard, leggere tutti i pezzi, aggiornare la UI
-		public void RefreshUI(){
-			ResetAllTextsToZero();
-			foreach(var capturedPiece in sideBoard.CapturedPieces){
-				IncreaseText( capturedPiece );
-			}
-		}
 	}
 
 }

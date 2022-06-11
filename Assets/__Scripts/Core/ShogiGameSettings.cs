@@ -2,7 +2,6 @@ using UnityEngine;
 
 namespace Shogi
 {
-
 	public class ShogiGameSettings : MonoBehaviour
 	{
 		public bool playSoundOnMove;

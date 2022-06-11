@@ -1,8 +1,5 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using DG.Tweening;
 using UnityEngine;
 
 namespace Shogi
@@ -18,13 +15,13 @@ namespace Shogi
 		[Auto] private SideBoard sideBoard;
 		private List<Vector3> piecesPositions = new List<Vector3>();
 
-		void Awake(){
+		void Awake() {
 			piecesPositions = ComputePiecesPositions();
 		}
 
 		private List<Vector3> ComputePiecesPositions() {
 			List<Vector3> result = new List<Vector3>();
-			for (int i = 0 ; i < piecesPerRow * piecesPerColumn; i++){
+			for (int i = 0 ; i < piecesPerRow * piecesPerColumn ; i++) {
 				float xPos = ( i % piecesPerRow ) * distanceBetweenPieces;
 				float yPos = ( i / piecesPerRow ) * distanceBetweenPieces;
 				var positionVector = piecePlacementTransform.position + new Vector3( xPos, 0, -yPos );
@@ -42,8 +39,8 @@ namespace Shogi
 			newPiece.transform.position = GetNextAvailablePosition();
 		}
 
-		private Vector3 GetNextAvailablePosition(){
-			var targetPos = piecesPositions [sideBoard.CapturedPieces.Count-1];
+		private Vector3 GetNextAvailablePosition() {
+			var targetPos = piecesPositions [sideBoard.capturedPieces.Count - 1];
 			return targetPos;
 		}
 	}

@@ -1,10 +1,9 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 namespace Shogi
 {
-
 	public class ShogiClock : MonoBehaviour
 	{
 		public Timer timer_player1;
@@ -26,14 +25,13 @@ namespace Shogi
 			shogiGame = FindObjectOfType<ShogiGame>();
 		}
 
-		public void Start() {
-			OnValidate();
-			pauseButton.onClick.AddListener( Pause );
-			unpauseButton.onClick.AddListener( Unpause );
-		}
-
 		void OnEnable() {
 			shogiGame.OnNewTurnBegun += ToggleBothTimers;
+		}
+
+		public void Start() {
+			pauseButton.onClick.AddListener( Pause );
+			unpauseButton.onClick.AddListener( Unpause );
 		}
 
 		void OnDisable() {
@@ -52,14 +50,16 @@ namespace Shogi
 		}
 
 
-		//TODO: Hook methods to buttons
+		//Hook methods to buttons
 		public virtual void Pause() {
-			timer_player1.enabled = timer_player2.enabled = false;
+			timer_player1.enabled = false;
+			timer_player2.enabled = false;
 			this.enabled = false;
 
 			pauseButton.gameObject.SetActive( false );
 			unpauseButton.gameObject.SetActive( true );
 		}
+
 		public virtual void Unpause() {
 			ToggleBothTimers( shogiGame.CurrTurn_Player.PlayerId );
 			this.enabled = true;

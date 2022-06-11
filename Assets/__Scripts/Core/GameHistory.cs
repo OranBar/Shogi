@@ -54,16 +54,6 @@ namespace Shogi
 			return timers;
 		}
 
-		#region Binary Serialization and Deserialization
-		public void SerializeToBinaryFile( string savePath ) {
-			Debug.Assert( playedMoves.Count == timersHistory.Count );
-			SerializationUtils.SerializeToBinaryFile( this, savePath );
-		}
-
-		public static GameHistory DeserializeFromBinaryFile( string filePath ) {
-			return SerializationUtils.DeserializeFromBinaryFile<GameHistory>( filePath );
-		}
-
 		public PlayerId GetPlayer_WhoMovesNext( ) {
 			PlayerId nextPlayerTurn;
 			if (this.playedMoves.Count % 2 == 0) {
@@ -75,7 +65,19 @@ namespace Shogi
 			return nextPlayerTurn;
 		}
 
+		#region Binary Serialization and Deserialization
+		public void SerializeToBinaryFile( string savePath ) {
+			Debug.Assert( playedMoves.Count == timersHistory.Count );
+			SerializationUtils.SerializeToBinaryFile( this, savePath );
+		}
+
+		public static GameHistory DeserializeFromBinaryFile( string filePath ) {
+			return SerializationUtils.DeserializeFromBinaryFile<GameHistory>( filePath );
+		}
 		#endregion
+
+		
+
 	}
 	
 }

@@ -6,6 +6,11 @@ namespace Shogi
 {
 	public abstract class ABoard : MonoBehaviour
 	{
+		#region Abstract
+		public abstract Vector3 GetCellPosition( int x, int y );
+		public abstract void PlacePieceOnCell_Immediate( int x, int y, Piece piece );
+		#endregion
+
 		private Piece [,] board = new Piece [9, 9];
 
 		public Piece this [int x, int y]
@@ -14,13 +19,9 @@ namespace Shogi
 			set { board [x, y] = value; }
 		}
 
-		private void ClearBoard() {
-			board = new Piece [9, 9];
-		}
-
 		[Button]
 		public void RefreshWithPiecesInScene() {
-			ClearBoard();
+			board = new Piece [9, 9];
 			foreach (var piece in FindObjectsOfType<Piece>()) {
 				if (piece.IsCaptured == false) {
 					PlacePiece( piece, piece.X, piece.Y );
@@ -38,8 +39,7 @@ namespace Shogi
 			PlacePieceOnCell_Immediate( x, y, piece );
 		}
 
-
-		private bool IsPieceOnBoard( Piece newPiece ) {
+		public bool IsPieceOnBoard( Piece newPiece ) {
 			foreach (var piece in board) {
 				if (piece == newPiece) {
 					return true;
@@ -47,9 +47,6 @@ namespace Shogi
 			}
 			return false;
 		}
-
-		public abstract Vector3 GetCellPosition( int x, int y );
-		public abstract void PlacePieceOnCell_Immediate( int x, int y, Piece piece );
 
 		public bool IsValidBoardPosition( (int x, int y) pos ) {
 			return IsValidBoardPosition( pos.x, pos.y );

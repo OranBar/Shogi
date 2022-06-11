@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -14,13 +13,21 @@ namespace Shogi
 		private List<CellFx> previouslyHighlighted_cells = new List<CellFx>();
 		private IHighlightFx previouslyHighlighted_piece;
 
-		void Start()
+		void OnEnable()
         {
 			player.OnPiece_Selected += PieceSelected;
 			player.OnMoveCell_Selected += CellSelected;
 			player.OnCapturePiece_Selected += CapturePieceSelected;
 
 			player.shogiGame.OnBeforeActionExecuted += Disable_AvailableMoveCells_Highlights;
+		}
+
+		void OnDisable(){
+			player.OnPiece_Selected -= PieceSelected;
+			player.OnMoveCell_Selected -= CellSelected;
+			player.OnCapturePiece_Selected -= CapturePieceSelected;
+
+			player.shogiGame.OnBeforeActionExecuted -= Disable_AvailableMoveCells_Highlights;
 		}
 
         void PieceSelected(Piece piece)
@@ -43,8 +50,7 @@ namespace Shogi
 			}
 
 			var availableMoves = piece.GetValidMoves();
-			Cell [] cells = GameObject.FindObjectsOfType<Cell>();
-			IEnumerable<Cell> validCellMoves = availableMoves.Select( m => Cell.GetCell( m.x, m.y, cells ) );
+			IEnumerable<Cell> validCellMoves = availableMoves.Select( m => Cell.GetCell( m.x, m.y) );
 
 			previouslyHighlighted_cells.Clear();
 			foreach (var cellToHighlight in validCellMoves) {
