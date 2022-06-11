@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
+using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
@@ -9,6 +10,17 @@ using UnityEngine.UI;
 
 namespace Shogi
 {
+	public enum PieceType
+	{
+		Pawn = 1,
+		Lancer,
+		Knight,
+		Silver,
+		Gold,
+		King,
+		Rook,
+		Bishop
+	}
 	//Does it make sense to ahve a pieceId assigned to every piece, considering they never actually die/get destroyed?
 	//This way I can reference them using id instead of x and y position (those change with moves, which makes it hard to do undo, for example)
 	[Serializable]
@@ -24,15 +36,16 @@ namespace Shogi
 	public class Piece : MonoBehaviour, IPointerClickHandler
 	{
 		public static RefAction<Piece> OnAnyPieceClicked = new RefAction<Piece>();
-		[HideInInspector] public RefAction OnPieceClicked = new RefAction();
-		public IPieceActionsFX pieceFx;
+
+		public RefAction OnPieceClicked = new RefAction();
+		[ReadOnly] public IPieceActionsFX pieceFx;
 
 		public PieceData pieceData;
-
 		public int X { get => pieceData.x; set => pieceData.x = value; }
 		public int Y { get => pieceData.y; set => pieceData.y = value; }
 		public PieceType PieceType { get => pieceData.pieceType; set => pieceData.pieceType = value; }
 		
+		//Not sure I like this
 		public bool IsPromoted { 
 			get { return pieceData.isPromoted; }
 			set {
@@ -66,7 +79,7 @@ namespace Shogi
 
 		[SerializeReference] public AMovementStrategy defaultMovement;
 		[SerializeReference] public AMovementStrategy promotedMovement;
-		[SerializeReference] private AMovementStrategy dropMovement;
+		[ReadOnly] private AMovementStrategy dropMovement;
 
 		public AMovementStrategy MovementStrategy{
 			get{
@@ -80,12 +93,12 @@ namespace Shogi
 			}
 		}
 
-		[FormerlySerializedAs("defaultImage")]
+		//TODO: probably this needs to go into the graphics class
 		public Image pieceIconImage;
 		public Sprite defaultSprite;
 		public Sprite promotedSprite;
+		public GameObject pieceGraphics;	//TODO: This becomes a reference to a monobehaviour
 
-		public GameObject pieceGraphics;
 
 		private ABoard board;
 		private ShogiGame gameManager;
@@ -107,6 +120,7 @@ namespace Shogi
 			
 			result = result.Where( Destination_IsNot_OccupiedByAlliedPiece ).ToList();
 			return result;
+
 			
 			bool Destination_IsNot_OccupiedByAlliedPiece( (int x, int y) move ){ 
 				return board [move.x, move.y]?.OwnerId != OwnerId;
@@ -117,16 +131,13 @@ namespace Shogi
 			this.pieceGraphics.gameObject.SetActive( enable );
 		}
 
-		public void PlacePieceOnCell_Immediate( int x, int y ) {
-			pieceFx.PlacePieceOnCell_Immediate( x, y );
-		}
-
 		public async UniTask CapturePiece() {
 			//Thou shall live again
 			this.IsCaptured = true;
 			this.IsPromoted = false;
 			await pieceFx.DoPieceDeathAnimation();
 			await SendToSideboard();
+
 			
 			async UniTask SendToSideboard() {
 				if (OwnerId == PlayerId.Player1) {	
@@ -160,10 +171,6 @@ namespace Shogi
 			Debug.Log("Piece Clicked");
 			Piece.OnAnyPieceClicked.Invoke(this);
 			OnPieceClicked.Invoke();
-		}
-
-		public void LogAvailableMoves() {
-			Debug.Log( "Available moves: \n" + GetValidMoves().ToStringPretty() );
 		}
 
 		public override string ToString() {

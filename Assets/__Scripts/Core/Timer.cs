@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -24,7 +22,7 @@ namespace Shogi
 			}
 		}
 
-		private string ConvertToTime( float time ) {
+		public string ConvertToTime( float time ) {
 			var minutes = Mathf.FloorToInt( time / 60 );
 			var seconds = Mathf.FloorToInt( time % 60 );
 			return string.Format( "{0:00}:{1:00}", minutes, seconds );
