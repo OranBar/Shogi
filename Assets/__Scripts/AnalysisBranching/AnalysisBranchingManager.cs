@@ -75,7 +75,7 @@ namespace Shogi{
 			var entriesToCarryOver = currBranch.entries.Take( entryIndex );
 			targetBranch.ClearEntries();
 			foreach (var entry in entriesToCarryOver) {
-				targetBranch.CreateAndAppend_MoveEntry( entry.associatedMove, entry.moveNumber );
+				targetBranch.CreateAndAppend_MoveEntry( entry.associatedMove );
 			}
 
 			//Copy game history

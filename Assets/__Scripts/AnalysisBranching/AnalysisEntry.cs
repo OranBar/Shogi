@@ -14,6 +14,7 @@ namespace Shogi{
 		public TMP_Text moveText;
 
 		[ReadOnly] public AShogiAction associatedMove;
+		[ReadOnly] public GameState gameState_afterMove;
 		[ReadOnly] public int moveNumber;
 		[ReadOnly] public Color defaultColor;
 		public Color highlightColor;

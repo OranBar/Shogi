@@ -50,21 +50,20 @@ namespace Shogi
 			shogiGame.OnActionExecuted -= CreateAndAppend_MoveEntry;
 		}
 
-		public void CreateAndAppend_MoveEntry( AShogiAction lastMove ) {
-			CreateAndAppend_MoveEntry(lastMove, entries.Count + 1);
-		}
-
-		//TODO: I don't think I need this method. 
-		public void CreateAndAppend_MoveEntry( AShogiAction lastMove, int turnCount ) {
+		public void CreateAndAppend_MoveEntry( AShogiAction playedMove ) {
 			GameObject newEntryObj = Instantiate( entryPrefab, scrollRect.content );
 			AnalysisEntry newEntry = newEntryObj.GetComponent<AnalysisEntry>();
 			newEntry.name = newEntry.name.Replace( "Clone", "" + ( entries.Count + 1 ) );
 
-			newEntry.InitEntry( turnCount, lastMove );
+			newEntry.InitEntry( entries.Count + 1, playedMove );
 
+			var lastEntry = entries.LastOrDefault();
 			entries.Add( newEntry );
+			if(lastEntry != null){
+				lastEntry.gameState_afterMove = playedMove.GameState_beforeMove;
+			}
 			newEntry.OnEntrySelected += UpdateCurrentlySelectedEntry;
-			
+
 			currentlySelectedEntry?.DoNormalEffect();
 			currentlySelectedEntry = newEntry;
 			newEntry.DoSelectedEffect();
@@ -82,6 +81,8 @@ namespace Shogi
 			// await shogiGame.ExecuteAction( entry.associatedMove );
 			//TODO: make this work
 			await entry.associatedMove.ExecuteAction_FX();
+			shogiGame.ApplyGameState( entry.gameState_afterMove );
+
 
 			if(shogiGame.gameHistory.playedMoves.Count == branchGameHistory.playedMoves.Count){
 				Debug.Log("Okay");
