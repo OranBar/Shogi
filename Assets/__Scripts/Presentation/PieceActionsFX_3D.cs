@@ -1,8 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Splines;
 
 namespace Shogi
 {
@@ -19,6 +22,10 @@ namespace Shogi
 
 		private Color defaultColor;
 
+		public SplineContainer movementSpline;
+		public float movementDuration;
+		public AnimationCurve curve;
+
 		void Awake() {
 			audioSource = this.gameObject.AddOrGetComponent<AudioSource>();
 			settings = FindObjectOfType<ShogiGameSettings>();
@@ -33,10 +40,11 @@ namespace Shogi
 			}
 
 			await MovementAnimation( action );
+			Enable_BoardCrack_FX( action );
 
 			#region Local Methods -----------------------------
 
-				void PlayMoveAudio() {
+			void PlayMoveAudio() {
 					audioSource.clip = audios.GetMoveAudio();
 					audioSource.Play();
 				}
@@ -44,9 +52,33 @@ namespace Shogi
 			#endregion -----------------------------------------
 		}
 
+		private void Enable_BoardCrack_FX( MovePieceAction action ) {
+			GameObject crackObj = GameObject.FindGameObjectWithTag("CrackFX");
+			crackObj.transform.position = shogiGame.board.GetCellPosition( action.DestinationX, action.DestinationY );
+
+			crackObj.GetComponentInChildren<ParticleSystem>().Stop();
+			crackObj.GetComponentInChildren<ParticleSystem>().Play();
+		}
+
 		private async UniTask MovementAnimation(AShogiAction action){
 			var targetWorldPosition = board.GetCellPosition( action.DestinationX, action.DestinationY );
-			await transform.DOMove( targetWorldPosition, .15f ).SetEase( Ease.InSine );
+
+			await DoSplineMovement( targetWorldPosition );
+			// Tween sequence = DOTween.Sequence()
+			// 	.Append( transform.DOMove( targetWorldPosition, .15f ).SetEase( Ease.InSine ) )
+			// 	.Append( transform.DOMove( targetWorldPosition, .15f ).SetEase( Ease.InSine ) )
+			// await transform.DOMove( targetWorldPosition, .15f ).SetEase( Ease.InSine );
+			// await sequence.AsyncWaitForCompletion();
+		}
+
+		private async UniTask DoSplineMovement( Vector3 targetWorldPosition ) {
+			// movementSpline.Spline.Knots.Last().Position = targetWorldPosition;
+			float t = 0;
+			while(t < 1){
+				transform.position = movementSpline.EvaluatePosition( curve.Evaluate(t) );
+				await UniTask.Yield();
+				t += Time.deltaTime / movementDuration;
+			}
 		}
 
 		public async UniTask DoDropAnimation( DropPieceAction action ) {
@@ -84,12 +116,12 @@ namespace Shogi
 		}
 
 		public async UniTask EnableHighlight( Color color ) {
-			meshRenderer.material.color = color;
+			// meshRenderer.material.color = color;
 		}
 
 
 		public async UniTask DisableHighlight() {
-			meshRenderer.material.color = defaultColor;
+			// meshRenderer.material.color = defaultColor;
 		}
 	}
 }

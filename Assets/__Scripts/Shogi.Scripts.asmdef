@@ -8,7 +8,9 @@
         "barbaro.oblib.runtime",
         "UniTask.DOTween",
         "DOTween.Modules",
-        "NaughtyAttributes.Core"
+        "NaughtyAttributes.Core",
+        "Unity.Splines",
+        "Unity.Mathematics"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
