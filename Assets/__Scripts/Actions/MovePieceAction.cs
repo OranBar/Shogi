@@ -65,6 +65,9 @@ namespace Shogi
 		}
 
 		public override async UniTask ExecuteAction_FX( ) {
+			DoHighlightLastMovedPiece();
+
+
 			await ActingPiece.pieceFx.DoMoveAnimation( this );
 			bool isCapturingMove = capturedPiece != null;
 			if (isCapturingMove) {
@@ -72,6 +75,12 @@ namespace Shogi
 				
 				var sideboard = GameObject.FindObjectsOfType<SideBoard>().First( s => s.ownerId == capturedPiece.OwnerId );
 				await sideboard.GetComponent<ISideboardFX>().PieceAddedToSideboard_FX( capturedPiece );
+			}
+
+
+			void DoHighlightLastMovedPiece() {
+				IHighlightFx pieceHighlight = ActingPiece.GetComponent<IHighlightFx>();
+				pieceHighlight.EnableHighlight( GameObject.FindObjectOfType<ShogiGameSettings>().GetLastMovedPiece_Color( PlayerId ) );
 			}
 		}
 

@@ -120,7 +120,7 @@ namespace Shogi
 
 				if (action.IsMoveValid( this )) {
 					Debug.Log( "<Start> ExecuteAction_AndCallEvents" );
-					OnBeforeActionExecuted.Invoke( action );
+					OnBeforeActionExecuted.Invoke( action ); 
 
 					action.ExecuteAction( this );
 					await action.ExecuteAction_FX().AttachExternalCancellation( gameLoopCancelToken.Token );

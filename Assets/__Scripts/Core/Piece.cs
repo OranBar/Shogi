@@ -156,7 +156,6 @@ namespace Shogi
 		}
 
 		public void OnPointerClick( PointerEventData eventData ) {
-			Debug.Log("Piece Clicked");
 			Piece.OnAnyPieceClicked.Invoke(this);
 			OnPieceClicked.Invoke();
 		}

@@ -27,7 +27,6 @@ namespace Shogi{
 		}
 
 		public void OnPointerEnter( PointerEventData eventData ) {
-			Debug.Log("Pointer Enter");
 			if (settings.highlightAvailableMoves_hoverPiece == false) { return; }
 
 			List<CellFx> availableMoveCells = GetMovesCells().Select( c => c.GetComponent<CellFx>() ).Where( c => c.isHighlighted == false ).ToList();
@@ -39,8 +38,6 @@ namespace Shogi{
 		
 
 		public void OnPointerExit( PointerEventData eventData ) {
-			Debug.Log( "Pointer Exit" );
-
 			if (settings.highlightAvailableMoves_hoverPiece == false) { return; }
 
 			DisableCellsHighlight();

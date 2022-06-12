@@ -12,8 +12,7 @@ namespace Shogi
 
 		void Start() {
 			shogiGame = FindObjectOfType<ShogiGame>();
-			shogiGame.OnBeforeActionExecuted += DoHighlightLastMovedPiece;
-			shogiGame.OnBeforeActionExecuted += DoHighlightStartMoveCell;
+			shogiGame.OnBeforeActionExecuted += DoHighlight;
 		}
 
 		public void DoHighlightLastMovedPiece(AShogiAction action){
@@ -30,6 +29,11 @@ namespace Shogi
 				default:
 					break;
 			}
+		}
+
+		public void DoHighlight(AShogiAction action){
+			DoHighlightLastMovedPiece( action );
+			DoHighlightStartMoveCell( action );
 		}
 
 		public void DoHighlightStartMoveCell( AShogiAction action ) {

@@ -30,10 +30,12 @@ namespace Shogi
 		}
 
 		public List<AnalysisEntry> entries = new List<AnalysisEntry>();
+		private HighlightLastMovedPiece highlightLastMovedPiece;
 
 		void Awake(){
 			shogiGame = FindObjectOfType<ShogiGame>();
-			
+			highlightLastMovedPiece = FindObjectOfType<HighlightLastMovedPiece>();
+
 		}
 		
 		void Start(){
@@ -56,12 +58,9 @@ namespace Shogi
 			newEntry.name = newEntry.name.Replace( "Clone", "" + ( entries.Count + 1 ) );
 
 			newEntry.InitEntry( entries.Count + 1, playedMove );
+			newEntry.gameState_afterMove = new GameState( shogiGame );
 
-			var lastEntry = entries.LastOrDefault();
 			entries.Add( newEntry );
-			if(lastEntry != null){
-				lastEntry.gameState_afterMove = playedMove.GameState_beforeMove;
-			}
 			newEntry.OnEntrySelected += UpdateCurrentlySelectedEntry;
 
 			currentlySelectedEntry?.DoNormalEffect();
@@ -74,13 +73,14 @@ namespace Shogi
 
 			shogiGame.OnActionExecuted -= CreateAndAppend_MoveEntry;
 
-			shogiGame.gameHistory = branchGameHistory.Clone(entry.moveNumber - 1 );
+			shogiGame.gameHistory = branchGameHistory.Clone( entry.moveNumber );
 			Debug.Log("GameHistory Count "+shogiGame.gameHistory.playedMoves.Count);
 			//TODO: update timers?
+
 			shogiGame.ApplyGameState( entry.associatedMove.GameState_beforeMove );
-			// await shogiGame.ExecuteAction( entry.associatedMove );
-			//TODO: make this work
+			highlightLastMovedPiece?.DoHighlight(entry.associatedMove);
 			await entry.associatedMove.ExecuteAction_FX();
+
 			shogiGame.ApplyGameState( entry.gameState_afterMove );
 
 

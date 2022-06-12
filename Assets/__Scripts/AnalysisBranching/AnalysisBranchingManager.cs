@@ -64,25 +64,24 @@ namespace Shogi{
 			var newBranchObj = Instantiate( newBranchPrefab );
 			var branch = newBranchObj.GetComponent<AnalysisBranching>();
 
-			CopyCurrBranch_UpToCurrSelectedEntry( branch );
+			CopyCurrBranch_UpToCurrSelectedEntry( ref branch );
 			
 			EnableBranch( branch );
 		}
 
-		private void CopyCurrBranch_UpToCurrSelectedEntry( AnalysisBranching targetBranch ) {
-			int entryIndex = currBranch.currentlySelectedEntry.moveNumber;
+		private void CopyCurrBranch_UpToCurrSelectedEntry( ref AnalysisBranching targetBranch ) {
+			int selectedEntry_turn = currBranch.currentlySelectedEntry.moveNumber;
 
-			var entriesToCarryOver = currBranch.entries.Take( entryIndex );
+			var entriesToCarryOver = currBranch.entries.Take( selectedEntry_turn );
 			targetBranch.ClearEntries();
 			foreach (var entry in entriesToCarryOver) {
 				targetBranch.CreateAndAppend_MoveEntry( entry.associatedMove );
 			}
+			targetBranch.currentlySelectedEntry = targetBranch.entries.Last();
 
 			//Copy game history
-			GameHistory trimmedGameHistory = currBranch.branchGameHistory.Clone( entryIndex );
+			GameHistory trimmedGameHistory = currBranch.branchGameHistory.Clone( selectedEntry_turn );
 			targetBranch.branchGameHistory = trimmedGameHistory;
-
-			targetBranch.currentlySelectedEntry = targetBranch.entries.Last();
 		}
 
 		public void EnableBranch( AnalysisBranching branchToEnable ) {
@@ -100,11 +99,8 @@ namespace Shogi{
 			currBranch?.gameObject?.SetActive( false );
 			branchToEnable.gameObject.SetActive( true );
 
-
 			shogiGame.gameHistory = branchToEnable.branchGameHistory;
 			shogiGame.BeginGame( branchToEnable.branchGameHistory.GetPlayer_WhoMovesNext() );
-
-			// branchToEnable.currentlySelectedEntry?.SelectEntry();
 
 			if (currBranch != null) { 
 				currBranch.OnHeadDetached -= UpdateDetachedBranch; 
@@ -116,7 +112,7 @@ namespace Shogi{
 
 		private void UpdateDetachedBranch(AnalysisEntry entry){
 			Debug.Log( "New Branch" );
-			CopyCurrBranch_UpToCurrSelectedEntry( detachedHeadBranch );
+			CopyCurrBranch_UpToCurrSelectedEntry( ref detachedHeadBranch );
 			shogiGame.OnBeforeActionExecuted -= ForkSelectedEntry_ToNewBranch;
 			shogiGame.OnBeforeActionExecuted += ForkSelectedEntry_ToNewBranch;
 		}
@@ -124,8 +120,6 @@ namespace Shogi{
 		private void ForkSelectedEntry_ToNewBranch(AShogiAction action){
 			Debug.Log("Move detected: Fork");
 			detachedHeadBranch.GetComponent<Canvas>().enabled = true;
-			// detachedHeadBranch.enabled = true;
-			// detachedHeadBranch.CreateAndAppend_MoveEntry( action );
 
 			shogiGame.OnBeforeActionExecuted -= ForkSelectedEntry_ToNewBranch;
 			EnableBranch( detachedHeadBranch );
