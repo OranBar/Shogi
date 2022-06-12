@@ -8,7 +8,8 @@ using UnityEngine.UI;
 namespace Shogi{
 	public class AnalysisBranchingManager : MonoBehaviour
 	{
-		private List<AnalysisBranching> branches = new List<AnalysisBranching>();
+		public RefAction<AnalysisBranching> OnNewBranchSelected = new RefAction<AnalysisBranching>();
+		public List<AnalysisBranching> branches = new List<AnalysisBranching>();
 		public AnalysisBranching currBranch;
 		private AnalysisBranching detachedHeadBranch;
 
@@ -25,11 +26,11 @@ namespace Shogi{
 		void Awake() {
 			shogiGame = FindObjectOfType<ShogiGame>();
 
-			detachedHeadBranch = InitiDetachedBranch();
+			detachedHeadBranch = CreateDetachedBranch();
 			currBranch.OnHeadDetached += UpdateDetachedBranch;
 
 		}
-		private AnalysisBranching InitiDetachedBranch() {
+		private AnalysisBranching CreateDetachedBranch() {
 			var newBranchObj = Instantiate( newBranchPrefab, this.transform );
 			var branch = newBranchObj.GetComponent<AnalysisBranching>();
 			// branch.enabled = false;
@@ -43,6 +44,8 @@ namespace Shogi{
 			if(currBranch != null){
 				branches.Add( currBranch );
 			}
+
+			prevBranch_btn.interactable = false;
 		}
 
 		void OnEnable(){
@@ -95,19 +98,37 @@ namespace Shogi{
 
 		public void EnableBranch( int index ) {
 			var branchToEnable = branches [index];
-			
+
 			currBranch?.gameObject?.SetActive( false );
 			branchToEnable.gameObject.SetActive( true );
 
 			shogiGame.gameHistory = branchToEnable.branchGameHistory;
 			shogiGame.BeginGame( branchToEnable.branchGameHistory.GetPlayer_WhoMovesNext() );
 
-			if (currBranch != null) { 
-				currBranch.OnHeadDetached -= UpdateDetachedBranch; 
+			if (currBranch != null) {
+				currBranch.OnHeadDetached -= UpdateDetachedBranch;
 			}
 			branchToEnable.OnHeadDetached += UpdateDetachedBranch;
 
 			currBranch = branchToEnable;
+			OnNewBranchSelected.Invoke( branchToEnable );
+			SetButtonsInteractable( index );
+
+
+			void SetButtonsInteractable( int index ) {
+				if (index == 0) {
+					prevBranch_btn.interactable = false;
+				}
+				if (index == branches.Count - 1) {
+					nextBranch_btn.interactable = false;
+				}
+				if (index - 1 >= 0) {
+					prevBranch_btn.interactable = true;
+				}
+				if (index + 1 <= branches.Count - 1) {
+					nextBranch_btn.interactable = true;
+				}
+			}
 		}
 
 		private void UpdateDetachedBranch(AnalysisEntry entry){
@@ -124,7 +145,7 @@ namespace Shogi{
 			shogiGame.OnBeforeActionExecuted -= ForkSelectedEntry_ToNewBranch;
 			EnableBranch( detachedHeadBranch );
 
-			detachedHeadBranch = InitiDetachedBranch();
+			detachedHeadBranch = CreateDetachedBranch();
 		}
 
 		public void GoToNextBranching(){
