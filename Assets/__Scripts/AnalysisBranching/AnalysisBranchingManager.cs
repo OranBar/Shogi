@@ -8,10 +8,10 @@ using UnityEngine.UI;
 namespace Shogi{
 	public class AnalysisBranchingManager : MonoBehaviour
 	{
-		public RefAction<AnalysisBranching> OnNewBranchSelected = new RefAction<AnalysisBranching>();
-		public List<AnalysisBranching> branches = new List<AnalysisBranching>();
-		public AnalysisBranching currBranch;
-		private AnalysisBranching detachedHeadBranch;
+		public RefAction<AnalysisBranch> OnNewBranchSelected = new RefAction<AnalysisBranch>();
+		public List<AnalysisBranch> branches = new List<AnalysisBranch>();
+		public AnalysisBranch currBranch;
+		private AnalysisBranch detachedHeadBranch;
 
 		public Transform branchesContainer;
 
@@ -30,11 +30,12 @@ namespace Shogi{
 			currBranch.OnHeadDetached += UpdateDetachedBranch;
 
 		}
-		private AnalysisBranching CreateDetachedBranch() {
+		private AnalysisBranch CreateDetachedBranch() {
 			var newBranchObj = Instantiate( newBranchPrefab, this.transform );
-			var branch = newBranchObj.GetComponent<AnalysisBranching>();
+			var branch = newBranchObj.GetComponent<AnalysisBranch>();
 			// branch.enabled = false;
-			branch.GetComponentInChildren<Canvas>().enabled = false;
+			// branch.GetComponentInChildren<Canvas>().enabled = false;
+			branch.gameObject.SetActive( false );
 			branch.BranchName = "Detached Branch";
 			return branch;
 		}
@@ -65,14 +66,14 @@ namespace Shogi{
 		[Button]
 		public void CreateNewBranch() {
 			var newBranchObj = Instantiate( newBranchPrefab );
-			var branch = newBranchObj.GetComponent<AnalysisBranching>();
+			var branch = newBranchObj.GetComponent<AnalysisBranch>();
 
 			CopyCurrBranch_UpToCurrSelectedEntry( ref branch );
 			
 			EnableBranch( branch );
 		}
 
-		private void CopyCurrBranch_UpToCurrSelectedEntry( ref AnalysisBranching targetBranch ) {
+		private void CopyCurrBranch_UpToCurrSelectedEntry( ref AnalysisBranch targetBranch ) {
 			int selectedEntry_turn = currBranch.currentlySelectedEntry.moveNumber;
 
 			var entriesToCarryOver = currBranch.entries.Take( selectedEntry_turn );
@@ -87,11 +88,16 @@ namespace Shogi{
 			targetBranch.branchGameHistory = trimmedGameHistory;
 		}
 
-		public void EnableBranch( AnalysisBranching branchToEnable ) {
+		public void EnableBranch( AnalysisBranch branchToEnable ) {
 			if (branches.Contains( branchToEnable ) == false) {
 				branches.Add( branchToEnable );
-				branchToEnable.transform.SetParent(branchesContainer);
 				branchToEnable.BranchName = "Branch " + ( branchesContainer.childCount - 1 );
+				
+				branchToEnable.transform.SetParent(branchesContainer);
+				branchToEnable.GetComponent<RectTransform>().SetAnchor( AnchorPresets.StretchAll );
+				branchToEnable.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
+				branchToEnable.GetComponent<RectTransform>().sizeDelta = Vector3.zero;
+				
 			}
 			EnableBranch( branches.IndexOf( branchToEnable ) );
 		}
@@ -140,7 +146,8 @@ namespace Shogi{
 
 		private void ForkSelectedEntry_ToNewBranch(AShogiAction action){
 			Debug.Log("Move detected: Fork");
-			detachedHeadBranch.GetComponent<Canvas>().enabled = true;
+			// detachedHeadBranch.GetComponent<Canvas>().enabled = true;
+			detachedHeadBranch.gameObject.SetActive( true );
 
 			shogiGame.OnBeforeActionExecuted -= ForkSelectedEntry_ToNewBranch;
 			EnableBranch( detachedHeadBranch );

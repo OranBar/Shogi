@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace Shogi
 {
-	public class AnalysisBranching : MonoBehaviour
+	public class AnalysisBranch : MonoBehaviour
 	{
 		public ScrollRect scrollRect;
 		public GameObject entryPrefab;
