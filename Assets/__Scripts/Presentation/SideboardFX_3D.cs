@@ -23,6 +23,9 @@ namespace Shogi
 			List<Vector3> result = new List<Vector3>();
 			for (int i = 0 ; i < piecesPerRow * piecesPerColumn ; i++) {
 				float xPos = ( i % piecesPerRow ) * distanceBetweenPieces;
+				if(sideBoard.ownerId == PlayerId.Player2){
+					xPos = xPos * -1;
+				}
 				float yPos = ( i / piecesPerRow ) * distanceBetweenPieces;
 				var positionVector = piecePlacementTransform.position + new Vector3( xPos, 0, -yPos );
 				result.Add( positionVector );
