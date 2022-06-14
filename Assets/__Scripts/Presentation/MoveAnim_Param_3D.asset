@@ -14,15 +14,87 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   forwardAnimCurve:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.1452246
+      value: -0.15280426
+      inSlope: 0.10347623
+      outSlope: 0.10347623
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.26610404
+      value: -0.00059949514
+      inSlope: 1.4896948
+      outSlope: 0.8797654
+      tangentMode: 1
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.117241904
+    - serializedVersion: 3
+      time: 1.0038452
+      value: 1
+      inSlope: 0.62464774
+      outSlope: 0.62464774
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.1593144
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  animDuration: 0
-  yLift_onMovement: 0
+  animDuration: 0.8
+  yLift_onMovement: 0.4
   liftPieceAnimCurve:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.37
+      value: 1
+      inSlope: -0.38469574
+      outSlope: -0.38469574
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.13861944
+    - serializedVersion: 3
+      time: 0.9634067
+      value: 0.1270378
+      inSlope: -2.1772199
+      outSlope: -1.591211
+      tangentMode: 1
+      weightedMode: 0
+      inWeight: 0.06880269
+      outWeight: 1
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -4.8134737
+      outSlope: -3.1758268
+      tangentMode: 1
+      weightedMode: 0
+      inWeight: 0.31502923
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
