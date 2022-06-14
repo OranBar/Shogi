@@ -22,9 +22,7 @@ namespace Shogi
 
 		private Color defaultColor;
 
-		public SplineContainer movementSpline;
-		public float movementDuration;
-		public AnimationCurve curve;
+		public MoveAnimation_Params_3D_ScriptableObj moveAnimParams;
 
 		void Awake() {
 			audioSource = this.gameObject.AddOrGetComponent<AudioSource>();
@@ -63,23 +61,22 @@ namespace Shogi
 		private async UniTask MovementAnimation(AShogiAction action){
 			var targetWorldPosition = board.GetCellPosition( action.DestinationX, action.DestinationY );
 
-			await DoSplineMovement( targetWorldPosition );
-			// Tween sequence = DOTween.Sequence()
-			// 	.Append( transform.DOMove( targetWorldPosition, .15f ).SetEase( Ease.InSine ) )
-			// 	.Append( transform.DOMove( targetWorldPosition, .15f ).SetEase( Ease.InSine ) )
+			float t = 0;
+			Vector3 startPosition = this.transform.position;
+			while(t < 1){
+				Vector3 lerpedPosition = Vector3.LerpUnclamped( startPosition, targetWorldPosition, moveAnimParams.forwardAnimCurve.Evaluate(t) );
+				lerpedPosition.y = Mathf.LerpUnclamped( startPosition.y, startPosition.y + moveAnimParams.yLift_onMovement, moveAnimParams.liftPieceAnimCurve.Evaluate( t ) );
+				this.transform.position = lerpedPosition;
+				await UniTask.Yield();
+				t += Time.deltaTime / moveAnimParams.animDuration;
+			}
+			this.transform.position = targetWorldPosition;
+
 			// await transform.DOMove( targetWorldPosition, .15f ).SetEase( Ease.InSine );
-			// await sequence.AsyncWaitForCompletion();
+
 		}
 
-		private async UniTask DoSplineMovement( Vector3 targetWorldPosition ) {
-			// movementSpline.Spline.Knots.Last().Position = targetWorldPosition;
-			float t = 0;
-			while(t < 1){
-				transform.position = movementSpline.EvaluatePosition( curve.Evaluate(t) );
-				await UniTask.Yield();
-				t += Time.deltaTime / movementDuration;
-			}
-		}
+		
 
 		public async UniTask DoDropAnimation( DropPieceAction action ) {
 			ReparentPiece_ToOwner( piece );
