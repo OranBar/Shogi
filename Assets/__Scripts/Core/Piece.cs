@@ -66,7 +66,7 @@ namespace Shogi
 			{
 				pieceData.owner = value;
 				//Maybe here invoke an event, and let PieceActionsFX_*D react by rotating the piece
-				pieceFx.RotatePiece(value);
+				// pieceFx.RotatePiece(value);
 			}
 		}
 

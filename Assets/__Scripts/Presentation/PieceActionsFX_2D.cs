@@ -40,7 +40,7 @@ namespace Shogi
 		}
 
 		public async UniTask DoMoveAnimation( MovePieceAction action ) {
-			if (settings.playSoundOnMove && action.IsCapturingMove( shogiGame ) == false) { PlayMoveAudio(); }
+			if (settings.playSoundOnMove && action.IsCapturingMove() == false) { PlayMoveAudio(); }
 
 			await MovementAnimation( action );
 
@@ -76,6 +76,7 @@ namespace Shogi
 		public async UniTask DoPieceDeathAnimation() {
 			//TODO: Do cool particle stuff
 			if (settings.playSoundOnMove) { PlayDeathAudio(); }
+			RotatePiece(piece.OwnerId);
 
 			void PlayDeathAudio() {
 				audioSource.clip = audios.GetDeathAudio();

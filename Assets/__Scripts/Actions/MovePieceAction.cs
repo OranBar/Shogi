@@ -10,7 +10,7 @@ namespace Shogi
 	{
 		public bool Request_PromotePiece { get => _promotePiece; set => _promotePiece = value; }
 		private bool _promotePiece = false;
-		[NonSerialized] private Piece capturedPiece;
+		[NonSerialized] public Piece capturedPiece;
 
 		public MovePieceAction() : base(){
 		}
@@ -26,8 +26,8 @@ namespace Shogi
 			return "Move "+base.ToString();
 		}
 
-		public bool IsCapturingMove( ShogiGame game ){
-			return capturedPiece != null && capturedPiece.OwnerId != ActingPiece.OwnerId;
+		public bool IsCapturingMove( ){
+			return capturedPiece != null;
 		}
 
 		public override void ExecuteAction( ShogiGame game ) {
@@ -40,8 +40,7 @@ namespace Shogi
 			UpdatePiece();
 			HandlePromotion( game, ActingPiece );
 
-			bool isCapturingMove = capturedPiece != null;
-			if (isCapturingMove) {
+			if (IsCapturingMove()) {
 				//A piece was killed. Such cruelty. 
 				capturedPiece.CapturePiece();
 				var sideboard = GameObject.FindObjectsOfType<SideBoard>().First( s => s.ownerId == capturedPiece.OwnerId );
@@ -69,8 +68,7 @@ namespace Shogi
 
 
 			await ActingPiece.pieceFx.DoMoveAnimation( this );
-			bool isCapturingMove = capturedPiece != null;
-			if (isCapturingMove) {
+			if (IsCapturingMove()) {
 				await capturedPiece.pieceFx.DoPieceDeathAnimation();
 				
 				var sideboard = GameObject.FindObjectsOfType<SideBoard>().First( s => s.ownerId == capturedPiece.OwnerId );

@@ -33,13 +33,25 @@ namespace Shogi
 		}
 
 		public async UniTask DoMoveAnimation( MovePieceAction action ) {
-			if(settings.playSoundOnMove && action.IsCapturingMove(shogiGame) == false ){ 
+			if(settings.playSoundOnMove && action.IsCapturingMove() == false ){ 
 				PlayMoveAudio(); 
 			}
+
+			// if(action.IsCapturingMove()){
+			// 	action.capturedPiece.SetPieceGraphicsActive( false );
+			// }
 
 			await MovementAnimation( action );
 			Enable_BoardCrack_FX( action );
 
+			if (action.IsCapturingMove()) {
+				await action.capturedPiece.pieceFx.DoPieceDeathAnimation();
+
+				var sideboard = GameObject.FindObjectsOfType<SideBoard>().First( s => s.ownerId == action.capturedPiece.OwnerId );
+				await sideboard.GetComponent<ISideboardFX>().PieceAddedToSideboard_FX( action.capturedPiece );
+			}
+
+			
 			#region Local Methods -----------------------------
 
 			void PlayMoveAudio() {

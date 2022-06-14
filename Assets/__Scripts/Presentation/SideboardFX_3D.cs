@@ -38,7 +38,7 @@ namespace Shogi
 		public async UniTask PieceAddedToSideboard_FX( Piece newPiece ) {
 			if (this.enabled == false) { return; }
 
-			// newPiece.SetPieceGraphicsActive(false);
+			newPiece.SetPieceGraphicsActive(true);
 			newPiece.transform.position = GetNextAvailablePosition();
 		}
 
