@@ -21,6 +21,7 @@ namespace Shogi
 		private ABoard board;
 
 		private Color defaultColor;
+		private CrackFXPool crackFx_pool;
 
 		public MoveAnimation_Params_3D_ScriptableObj moveAnimParams;
 
@@ -29,6 +30,7 @@ namespace Shogi
 			settings = FindObjectOfType<ShogiGameSettings>();
 			shogiGame = FindObjectOfType<ShogiGame>();
 			board = FindObjectOfType<ABoard>();
+			crackFx_pool = FindObjectOfType<CrackFXPool>();
 			defaultColor = meshRenderer.material.color;
 		}
 
@@ -36,10 +38,6 @@ namespace Shogi
 			if(settings.playSoundOnMove && action.IsCapturingMove() == false ){ 
 				PlayMoveAudio(); 
 			}
-
-			// if(action.IsCapturingMove()){
-			// 	action.capturedPiece.SetPieceGraphicsActive( false );
-			// }
 
 			await MovementAnimation( action );
 			Enable_BoardCrack_FX( action );
@@ -63,7 +61,7 @@ namespace Shogi
 		}
 
 		private void Enable_BoardCrack_FX( MovePieceAction action ) {
-			GameObject crackObj = GameObject.FindGameObjectWithTag("CrackFX");
+			var crackObj = crackFx_pool.pool.Get();
 			crackObj.transform.position = shogiGame.board.GetCellPosition( action.DestinationX, action.DestinationY );
 
 			crackObj.GetComponentInChildren<ParticleSystem>().Stop();
