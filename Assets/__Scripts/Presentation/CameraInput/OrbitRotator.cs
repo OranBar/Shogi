@@ -43,7 +43,7 @@ namespace Shogi
 
 		private void DragRotate() {
 			mouseOffset = ( Input.mousePosition - mouseReference );
-			rotation.y = -( mouseOffset.x ) * xSensitivity;
+			rotation.y = ( mouseOffset.x ) * xSensitivity;
 			rotation.x = ( mouseOffset.y ) * ySensitivity;
 			transform.Rotate( rotation );
 			var tmp = this.transform.eulerAngles;

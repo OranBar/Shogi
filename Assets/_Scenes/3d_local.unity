@@ -12842,7 +12842,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xSensitivity: 0.16
   ySensitivity: 0.08
-  magnetThreshold: 10
+  yMaxAngleOffset: 30
+  magnetThreshold: 20
   magnetAnimSpeed: 0.25
 --- !u!4 &1474028402
 Transform:
