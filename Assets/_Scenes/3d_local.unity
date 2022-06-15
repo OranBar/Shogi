@@ -12840,7 +12840,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a76715c4b79f774db55f270d2a6cd10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivity: 0.17
+  xSensitivity: 0.16
+  ySensitivity: 0.08
   magnetThreshold: 10
   magnetAnimSpeed: 0.25
 --- !u!4 &1474028402
