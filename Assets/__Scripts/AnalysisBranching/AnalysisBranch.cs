@@ -53,6 +53,15 @@ namespace Shogi
 		}
 
 		public void CreateAndAppend_MoveEntry( AShogiAction playedMove ) {
+			if(playedMove is UndoLastAction){
+				var entryToUndo = entries.Last();
+				entries.Remove( entryToUndo );
+				Destroy( entryToUndo.gameObject );
+
+				currentlySelectedEntry = entryToUndo;
+				entries.Last()?.DoSelectedEffect();
+				return;
+			}
 			GameObject newEntryObj = Instantiate( entryPrefab, scrollRect.content );
 			AnalysisEntry newEntry = newEntryObj.GetComponent<AnalysisEntry>();
 			newEntry.name = newEntry.name.Replace( "Clone", "" + ( entries.Count + 1 ) );
