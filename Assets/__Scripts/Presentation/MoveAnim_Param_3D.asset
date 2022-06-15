@@ -55,7 +55,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   animDuration: 0.8
-  yLift_onMovement: 0.4
+  yLift_onMovement: 0.5
   liftPieceAnimCurve:
     serializedVersion: 2
     m_Curve:

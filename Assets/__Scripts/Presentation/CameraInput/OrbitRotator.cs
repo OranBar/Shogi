@@ -25,6 +25,8 @@ namespace Shogi
 			rotation = Vector3.zero;
 			defaultRotation_quaternion = this.transform.rotation;
 			defaultRotation = this.transform.eulerAngles;
+
+			Piece.OnAnyPieceClicked += (_) => this.isRotating = false;
 		}
 
 		void OnDisable() {
@@ -54,8 +56,6 @@ namespace Shogi
 				tmp.x = tmp.x - 360;
 			}
 			tmp.x = Mathf.Clamp( tmp.x, defaultRotation.x - yMaxAngleOffset, defaultRotation.x + yMaxAngleOffset );
-
-			//TODO limit rotation x 
 
 			transform.eulerAngles = tmp;
 
