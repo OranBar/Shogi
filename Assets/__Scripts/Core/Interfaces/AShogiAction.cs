@@ -63,6 +63,16 @@ namespace Shogi{
 			return $"{ActingPiece.PieceType.ToString()} From ({StartX}, {StartY}) to ({DestinationX}, {DestinationY})";
 		}
 
+		public virtual string ToString(ActionStringFormat format){
+			if(format == ActionStringFormat.Minimized){
+				return $"({StartX}, {StartY}) => ({DestinationX}, {DestinationY})";
+			} else if(format == ActionStringFormat.Full){
+				return ToString();
+			}
+
+			throw new NotImplementedException();
+		}
+
 		public virtual void ExecuteAction( ShogiGame game ){
 			
 			_actingPiece = FindActingPiece();
@@ -84,5 +94,10 @@ namespace Shogi{
 
 		// public abstract UniTask EnableLastMoveFX( GameSettings settings );
 		// public abstract void DisableLastMoveFX();
+	}
+
+	public enum ActionStringFormat{
+		Minimized,
+		Full
 	}
 }

@@ -19,6 +19,17 @@ namespace Shogi
 			return "Drop "+base.ToString();
 		}
 
+		public override string ToString( ActionStringFormat format ) {
+			if (format == ActionStringFormat.Minimized) {
+				return $"Drop => ({DestinationX}, {DestinationY})";
+			} else if (format == ActionStringFormat.Full) {
+				return ToString();
+			}
+
+			throw new NotImplementedException();
+		}
+
+
 		public override void ExecuteAction( ShogiGame game ) {
 			base.ExecuteAction( game );
 			UnityEngine.Debug.Log( $"Dropping piece {ActingPiece} on ({DestinationX},{DestinationY})" );

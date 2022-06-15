@@ -12,6 +12,8 @@ namespace Shogi{
 
 		public TMP_Text numberText;
 		public TMP_Text moveText;
+		public Image actingPieceIcon;
+		public Image capturedPieceIcon;
 
 		[ReadOnly] public AShogiAction associatedMove;
 		[ReadOnly] public GameState gameState_afterMove;
@@ -49,7 +51,20 @@ namespace Shogi{
 
 		private void SetEntryText( int moveNumber, AShogiAction associatedMove ) {
 			numberText.text = moveNumber.ToString();
-			moveText.text = associatedMove?.ToString() ?? "Game Begin";
+			moveText.text = associatedMove.ToString(ActionStringFormat.Minimized);
+			actingPieceIcon.sprite = associatedMove?.ActingPiece?.defaultSprite;
+			actingPieceIcon.color = associatedMove.PlayerId == PlayerId.Player1 ? Color.white : Color.black;
+
+
+			capturedPieceIcon.gameObject.SetActive( false );
+			if(associatedMove is MovePieceAction){
+				var moveAction = associatedMove as MovePieceAction;
+				if(moveAction.IsCapturingMove()){
+					capturedPieceIcon.gameObject.SetActive(true);
+					capturedPieceIcon.sprite = moveAction.capturedPiece.defaultSprite;
+					capturedPieceIcon.color = associatedMove.PlayerId != PlayerId.Player1 ? Color.white : Color.black;
+				}
+			} 
 		}
 
 		public void OnPointerDown(PointerEventData data){

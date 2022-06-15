@@ -4403,56 +4403,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 293479157}
   m_CullTransparentMesh: 1
---- !u!1 &296552049
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 296552050}
-  - component: {fileID: 296552051}
-  m_Layer: 5
-  m_Name: Sideboard FX
-  m_TagString: Untagged
-  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &296552050
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 296552049}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1355150548}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &296552051
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 296552049}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a46b24e2951ae143bbe33b2944f353d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  duration: 0.6
 --- !u!1 &300032940
 GameObject:
   m_ObjectHideFlags: 0
@@ -4970,56 +4920,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 9129131603899054106, guid: 630f5336552ff994ba01979093083c20, type: 3}
   m_PrefabInstance: {fileID: 339176578}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &381000037
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 381000038}
-  - component: {fileID: 381000039}
-  m_Layer: 5
-  m_Name: Sideboard FX (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &381000038
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 381000037}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 966799792}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1412.9001, y: -642.9701}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &381000039
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 381000037}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a46b24e2951ae143bbe33b2944f353d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  duration: 0.6
 --- !u!1001 &391001800
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13830,7 +13730,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 33709915}
-  - {fileID: 381000038}
   m_Father: {fileID: 759263459}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -13881,11 +13780,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 966799791}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0aaf496ad0336841b01e9d747465757, type: 3}
+  m_Script: {fileID: 11500000, guid: 2a46b24e2951ae143bbe33b2944f353d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ownerId: 2
-  capturedPieces: []
+  duration: 0.6
 --- !u!1 &970006886
 GameObject:
   m_ObjectHideFlags: 0
@@ -19122,7 +19020,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 755911785}
-  - {fileID: 296552050}
   m_Father: {fileID: 759263459}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -19173,11 +19070,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1355150547}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0aaf496ad0336841b01e9d747465757, type: 3}
+  m_Script: {fileID: 11500000, guid: 2a46b24e2951ae143bbe33b2944f353d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ownerId: 1
-  capturedPieces: []
+  duration: 0.6
 --- !u!1 &1366838016
 GameObject:
   m_ObjectHideFlags: 0
@@ -29544,6 +29440,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7290101070340125589, guid: c6263e66777425f4780687382ad590d7, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7290101070431096064, guid: c6263e66777425f4780687382ad590d7, type: 3}
       propertyPath: m_RootOrder
       value: 10

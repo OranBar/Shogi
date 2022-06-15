@@ -9,7 +9,7 @@ namespace Shogi
 	public class SideboardFX_2D : MonoBehaviour, ISideboardFX
 	{
 		public float duration = 1.5f;
-		[AutoParent] private SideBoard_UI sideboard;
+		[Auto] private SideBoard_UI sideboard;
 
 		public async UniTask PieceAddedToSideboard_FX( Piece newPiece ) {
 			if (this.enabled == false) { return; }
@@ -20,7 +20,7 @@ namespace Shogi
 			var sequence = DOTween.Sequence();
 			await sequence
 				.PrependInterval( .3f )
-				.AppendCallback( () => newPiece.transform.GetChild( 0 ).gameObject.SetActive( true ) )
+				.AppendCallback( () => newPiece.SetPieceGraphicsActive( true ) )
 				.AppendCallback( () => newPiece.transform.localScale = Vector3.one * 2 )
 				.AppendCallback( () => sideboard.IncreaseText( newPiece ) )
 				.Append( newPiece.transform.DOScale( Vector3.one, duration ).SetEase( Ease.OutCubic ) )

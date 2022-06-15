@@ -165,7 +165,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollRect: {fileID: 5320215687134437297}
-  entryPrefab: {fileID: 4867438272904191338, guid: 78e13392f7270524b94d564ab6283b39, type: 3}
+  entryPrefab: {fileID: 2669565522330719960, guid: f4b5c276c84d712449043f7f4ddc706c, type: 3}
   currentlySelectedEntry: {fileID: 0}
   branchNameText: {fileID: 5320215686728419548}
   entries: []
