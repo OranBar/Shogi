@@ -13,7 +13,7 @@ namespace Shogi
 		public GameObject entryPrefab;
 		private ShogiGame shogiGame;
 		public AnalysisEntry currentlySelectedEntry = null;
-		public TMP_Text branchNameText;
+		public TMP_InputField branchNameText;
 
 		public RefAction<AnalysisEntry> OnHeadDetached = new RefAction<AnalysisEntry>();
 
