@@ -44,8 +44,8 @@ namespace Shogi
 			surrenderButton.GetComponentInParent<Canvas>().gameObject.SetActive(photonView.IsMine);
 			if ( photonView.IsMine == false ) {	yield break; }
 
-			FindObjectOfType<ShogiGame>().OnNewTurnBegun += DisableUndoButton_OnOpponentTurn;
-			FindObjectOfType<ShogiGame>().OnNewTurnBegun += EnableUndoButton_OnOurTurn;
+			shogiGame.OnNewTurnBegun += DisableUndoButton_OnOpponentTurn;
+			shogiGame.OnNewTurnBegun += EnableUndoButton_OnOurTurn;
 
 			var myPlayerId = PhotonNetwork.IsMasterClient ? PlayerId.Player1 : PlayerId.Player2;
 			photonView.RPC( nameof( RegisterPlayer_ToShogiGame_RPC ), RpcTarget.AllBuffered, myPlayerId );
@@ -77,13 +77,11 @@ namespace Shogi
 
 		[PunRPC]
 		public void RegisterPlayer_ToShogiGame_RPC(PlayerId playerId) {
-			ShogiGame shogiGame = FindObjectOfType<ShogiGame>();
-
 			this.PlayerId = playerId;
 			if (playerId == PlayerId.Player1) {
-				shogiGame.Player1 = GetComponent<APlayer>();
+				shogiGame.Player1 = gameObject.GetComponent<APlayer>(true);
 			} else {
-				shogiGame.Player2 = GetComponent<APlayer>();
+				shogiGame.Player2 = gameObject.GetComponent<APlayer>(true);
 			}
 			this.gameObject.ExecuteDelayed( ShowOwnedPieces, .6f );
 

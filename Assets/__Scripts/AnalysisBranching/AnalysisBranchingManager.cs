@@ -1,16 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using BarbarO.Utils;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Shogi{
+	[ScriptTiming(501)]
 	public class AnalysisBranchingManager : MonoBehaviour
 	{
 		public RefAction<AnalysisBranch> OnNewBranchSelected = new RefAction<AnalysisBranch>();
 		public List<AnalysisBranch> branches = new List<AnalysisBranch>();
-		public AnalysisBranch currBranch;
+		
+		protected AnalysisBranch currBranch;
 		private AnalysisBranch detachedHeadBranch;
 
 		public Transform branchesContainer;
@@ -27,17 +30,8 @@ namespace Shogi{
 			shogiGame = FindObjectOfType<ShogiGame>();
 
 			detachedHeadBranch = CreateDetachedBranch();
-			currBranch.OnHeadDetached += UpdateDetachedBranch;
-
-		}
-		private AnalysisBranch CreateDetachedBranch() {
-			var newBranchObj = Instantiate( newBranchPrefab, this.transform );
-			var branch = newBranchObj.GetComponent<AnalysisBranch>();
-			// branch.enabled = false;
-			// branch.GetComponentInChildren<Canvas>().enabled = false;
-			branch.gameObject.SetActive( false );
-			branch.BranchName = "Detached Branch";
-			return branch;
+			//Doesn't work, game began is called every time we reload a gamestate. 
+			// shogiGame.OnGameBegan += CreateMainBranch;
 		}
 
 		void Start()
@@ -47,30 +41,54 @@ namespace Shogi{
 			}
 
 			prevBranch_btn.interactable = false;
+			CreateMainBranch();
 		}
 
 		void OnEnable(){
 			prevBranch_btn.onClick.AddListener( GoToPreviousBranching );
 			nextBranch_btn.onClick.AddListener( GoToNextBranching );
-			createNewBranch_btn.onClick.AddListener( CreateNewBranch );
+			createNewBranch_btn.onClick.AddListener( ForkCurrentBranch_UpToSelectedEntry );
 			deleteBranch_btn.onClick.AddListener( DeleteCurrentBranch );
+
+			branches.ForEach( b => b.gameObject.SetActive(false));
 		}
 
 		void OnDisable(){
 			prevBranch_btn.onClick.RemoveListener( GoToPreviousBranching );
 			nextBranch_btn.onClick.RemoveListener( GoToNextBranching );
-			createNewBranch_btn.onClick.RemoveListener( CreateNewBranch );
+			createNewBranch_btn.onClick.RemoveListener( ForkCurrentBranch_UpToSelectedEntry );
 			deleteBranch_btn.onClick.RemoveListener( DeleteCurrentBranch );
+
+			currBranch?.gameObject?.SetActive(true);
+		}
+
+		private AnalysisBranch CreateDetachedBranch() {
+			var newBranchObj = Instantiate( newBranchPrefab, this.transform );
+			var branch = newBranchObj.GetComponent<AnalysisBranch>();
+			branch.gameObject.SetActive( false );
+			branch.BranchName = "Detached Branch";
+			return branch;
 		}
 
 		[Button]
-		public void CreateNewBranch() {
+		public void ForkCurrentBranch_UpToSelectedEntry() {
+			var newBranch = CreateNewBranch();
+			CopyCurrBranch_UpToCurrSelectedEntry( ref newBranch );
+			
+			EnableBranch( newBranch );
+		}
+
+		public void CreateMainBranch(){
+			var newBranch = CreateNewBranch();
+			newBranch.BranchName = "Stein;s Gate";
+
+			EnableBranch( newBranch );
+		}
+
+		private AnalysisBranch CreateNewBranch(){
 			var newBranchObj = Instantiate( newBranchPrefab );
 			var branch = newBranchObj.GetComponent<AnalysisBranch>();
-
-			CopyCurrBranch_UpToCurrSelectedEntry( ref branch );
-			
-			EnableBranch( branch );
+			return branch;
 		}
 
 		private void CopyCurrBranch_UpToCurrSelectedEntry( ref AnalysisBranch targetBranch ) {
@@ -83,9 +101,8 @@ namespace Shogi{
 			}
 			targetBranch.currentlySelectedEntry = targetBranch.entries.Last();
 
-			//Copy game history
-			GameHistory trimmedGameHistory = currBranch.branchGameHistory.Clone( selectedEntry_turn );
-			targetBranch.branchGameHistory = trimmedGameHistory;
+			GameHistory trimmedGameHistory_copy = currBranch.BranchGameHistory.Clone( selectedEntry_turn );
+			targetBranch.BranchGameHistory = trimmedGameHistory_copy;
 		}
 
 		public void EnableBranch( AnalysisBranch branchToEnable ) {
@@ -107,14 +124,15 @@ namespace Shogi{
 
 			currBranch?.gameObject?.SetActive( false );
 			branchToEnable.gameObject.SetActive( true );
+			// branch.enabled = true;
 
-			shogiGame.gameHistory = branchToEnable.branchGameHistory;
-			shogiGame.BeginGame( branchToEnable.branchGameHistory.GetPlayer_WhoMovesNext() );
+			shogiGame.gameHistory = branchToEnable.BranchGameHistory;
+			shogiGame.BeginGame( branchToEnable.BranchGameHistory.GetPlayer_WhoMovesNext(), branchToEnable.BranchGameHistory);
 
 			if (currBranch != null) {
-				currBranch.OnHeadDetached -= UpdateDetachedBranch;
+				currBranch.OnHeadDetached -= HandleHeadDetached;
 			}
-			branchToEnable.OnHeadDetached += UpdateDetachedBranch;
+			branchToEnable.OnHeadDetached += HandleHeadDetached;
 
 			currBranch = branchToEnable;
 			OnNewBranchSelected.Invoke( branchToEnable );
@@ -137,14 +155,14 @@ namespace Shogi{
 			}
 		}
 
-		private void UpdateDetachedBranch(AnalysisEntry entry){
+		protected virtual void HandleHeadDetached(AnalysisEntry entry){
 			Debug.Log( "New Branch" );
 			CopyCurrBranch_UpToCurrSelectedEntry( ref detachedHeadBranch );
 			shogiGame.OnBeforeActionExecuted -= ForkSelectedEntry_ToNewBranch;
 			shogiGame.OnBeforeActionExecuted += ForkSelectedEntry_ToNewBranch;
 		}
 
-		private void ForkSelectedEntry_ToNewBranch(AShogiAction action){
+		protected void ForkSelectedEntry_ToNewBranch(AShogiAction action){
 			Debug.Log("Move detected: Fork");
 			// detachedHeadBranch.GetComponent<Canvas>().enabled = true;
 			detachedHeadBranch.gameObject.SetActive( true );

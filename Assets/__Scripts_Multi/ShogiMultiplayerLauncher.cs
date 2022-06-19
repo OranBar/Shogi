@@ -28,17 +28,15 @@ public class ShogiMultiplayerLauncher : MonoBehaviourPunCallbacks
 	[Tooltip( "The prefab to use for representing the player" )]
 	public GameObject playerPrefab;
 	private ShogiGame shogiGame;
+	public GameObject scene;
 
 	void Awake(){
-		shogiGame = FindObjectOfType<ShogiGame>();
-		shogiGame.AllPieces.ForEach( p => p.SetPieceGraphicsActive( false ) );
+		shogiGame = FindObjectOfType<ShogiGame>(true);
+		FindObjectsOfType<Piece>(true).ForEach( p => p.SetPieceGraphicsActive( false ) );
 	}
 
 	IEnumerator Start() {
-
-		// in case we started this demo with the wrong scene being active, simply load the menu scene
 		if (!PhotonNetwork.IsConnected) {
-			// SceneManager.LoadScene( "PunBasics-Launcher" );
 			Debug.LogError("Not connected to PUN");
 			yield break;
 		}
@@ -50,7 +48,8 @@ public class ShogiMultiplayerLauncher : MonoBehaviourPunCallbacks
 
 		yield return new WaitUntil( () => shogiGame.Player1 != null && shogiGame.Player2 != null );
 
-		shogiGame.BeginGame( PlayerId.Player1 );
+		// shogiGame.BeginGame( PlayerId.Player1 );
+		scene.SetActive(true);
 	}
 
 	void Update() {

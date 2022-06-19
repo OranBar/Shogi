@@ -133,7 +133,6 @@ namespace Shogi
 		}
 		#endregion
 
-
 		#region Undo last Action
 		// public static readonly byte [] memUndoAction = new byte [0];
 
@@ -142,6 +141,34 @@ namespace Shogi
 		}
 		private static object Deserialize_UndoLastAction( StreamBuffer inStream, short length ) {
 			return new UndoLastAction();
+		}
+		#endregion
+
+		#region Analysis Entry Action
+		public const int ANALYSISENTRY_BYTESIZE = 5;
+		public static readonly byte [] memAnalysisEntry = new byte [ANALYSISENTRY_BYTESIZE];
+		private static short Serialize_AnalysisEntry( StreamBuffer outStream, object customobject ) {
+			AnalysisEntry analysisEntry = (AnalysisEntry)customobject;
+			lock (memAnalysisEntry) {
+				byte [] bytes = memAnalysisEntry;
+				int index = 0;
+				int piecePhotonId = analysisEntry.GetComponent<PhotonView>().ViewID;
+				Protocol.Serialize( piecePhotonId, bytes, ref index );
+				outStream.Write( bytes, 0, ANALYSISENTRY_BYTESIZE );
+			}
+
+			return ANALYSISENTRY_BYTESIZE;
+		}
+
+		private static object Deserialize_AnalysisEntry( StreamBuffer inStream, short length ) {
+			int piecePhotonId;
+			lock (memAnalysisEntry) {
+				inStream.Read( memMovePieceAction, 0, ANALYSISENTRY_BYTESIZE );
+				int index = 0;
+				Protocol.Deserialize( out piecePhotonId, memMovePieceAction, ref index );
+			}
+			AnalysisEntry analysisEntry = PhotonView.Find( piecePhotonId ).GetComponent<AnalysisEntry>();
+			return analysisEntry;
 		}
 		#endregion
 

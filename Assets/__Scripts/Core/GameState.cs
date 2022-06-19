@@ -22,6 +22,7 @@ namespace Shogi
 			this.player2_time = shogiClock.timer_player2.clockTime;
 		}
 
+
 		#region Binary Serialization and Deserialization
 		public void SerializeToBinaryFile( string savePath ) {
 			SerializationUtils.SerializeToBinaryFile( this, savePath );

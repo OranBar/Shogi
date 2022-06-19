@@ -17,7 +17,20 @@ namespace Shogi
 
 		public RefAction<AnalysisEntry> OnHeadDetached = new RefAction<AnalysisEntry>();
 
-		[NonSerialized] public GameHistory branchGameHistory = null;
+		[NonSerialized] private GameHistory _branchGameHistory;
+		
+		public GameHistory BranchGameHistory {
+			get
+			{
+				if (_branchGameHistory == null) {
+					_branchGameHistory = shogiGame.gameHistory;
+				}
+				return _branchGameHistory;
+			}
+			set {
+				_branchGameHistory = value;
+			}
+		}
 
 		public string BranchName{
 			get{
@@ -38,30 +51,26 @@ namespace Shogi
 
 		}
 		
-		void Start(){
-			if (branchGameHistory == null) {
-				branchGameHistory = shogiGame.gameHistory;
-			}
-		}
-
 		void OnEnable(){
 			shogiGame.OnActionExecuted += CreateAndAppend_MoveEntry;
+
+			//TODO: I need to make a RefAction that does not allow duplicates of the same function, so I can stop doing this
+			entries.ForEach( e => e.OnEntrySelected -= UpdateCurrentlySelectedEntry );
+			entries.ForEach( e => e.OnEntrySelected += UpdateCurrentlySelectedEntry );
 		}
 
 		void OnDisable(){
 			shogiGame.OnActionExecuted -= CreateAndAppend_MoveEntry;
+			entries.ForEach( e => e.OnEntrySelected -= UpdateCurrentlySelectedEntry );
+			Debug.Log("Branch deactivated");
 		}
 
 		public void CreateAndAppend_MoveEntry( AShogiAction playedMove ) {
-			if(playedMove is UndoLastAction){
-				var entryToUndo = entries.Last();
-				entries.Remove( entryToUndo );
-				Destroy( entryToUndo.gameObject );
-
-				currentlySelectedEntry = entryToUndo;
-				entries.Last()?.DoSelectedEffect();
+			if(playedMove is UndoLastAction) {
+				HandleUndoAction();
 				return;
 			}
+
 			GameObject newEntryObj = Instantiate( entryPrefab, scrollRect.content );
 			AnalysisEntry newEntry = newEntryObj.GetComponent<AnalysisEntry>();
 			newEntry.name = newEntry.name.Replace( "Clone", "" + ( entries.Count + 1 ) );
@@ -75,6 +84,16 @@ namespace Shogi
 			currentlySelectedEntry?.DoNormalEffect();
 			currentlySelectedEntry = newEntry;
 			newEntry.DoSelectedEffect();
+
+
+			void HandleUndoAction() {
+				var entryToUndo = entries.Last();
+				entries.Remove( entryToUndo );
+				Destroy( entryToUndo.gameObject );
+
+				currentlySelectedEntry = entryToUndo;
+				entries.Last()?.DoSelectedEffect();
+			}
 		}
 		
 		public async void UpdateCurrentlySelectedEntry(AnalysisEntry entry){
@@ -82,7 +101,7 @@ namespace Shogi
 
 			shogiGame.OnActionExecuted -= CreateAndAppend_MoveEntry;
 
-			shogiGame.gameHistory = branchGameHistory.Clone( entry.moveNumber );
+			var newGameHistory = BranchGameHistory.Clone( entry.moveNumber );
 			Debug.Log("GameHistory Count "+shogiGame.gameHistory.playedMoves.Count);
 			//TODO: update timers?
 
@@ -93,7 +112,7 @@ namespace Shogi
 			shogiGame.ApplyGameState( entry.gameState_afterMove );
 
 
-			if(shogiGame.gameHistory.playedMoves.Count == branchGameHistory.playedMoves.Count){
+			if(shogiGame.gameHistory.playedMoves.Count == BranchGameHistory.playedMoves.Count){
 				Debug.Log("Okay");
 				shogiGame.OnActionExecuted += CreateAndAppend_MoveEntry;
 			} else {
@@ -101,7 +120,7 @@ namespace Shogi
 				OnHeadDetached.Invoke( entry );
 			}
 
-			shogiGame.BeginGame( shogiGame.gameHistory.GetPlayer_WhoMovesNext() );
+			shogiGame.BeginGame( newGameHistory.GetPlayer_WhoMovesNext(), newGameHistory );
 		}
 
 		internal void ClearEntries() {

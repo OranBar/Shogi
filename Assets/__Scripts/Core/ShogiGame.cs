@@ -16,6 +16,8 @@ namespace Shogi
 		public RefAction<PlayerId> OnNewTurnBegun = new RefAction<PlayerId>();
 		public RefAction<AShogiAction> OnActionExecuted = new RefAction<AShogiAction>();
 		public RefAction<AShogiAction> OnBeforeActionExecuted = new RefAction<AShogiAction>();
+		public RefAction OnGameBegan = new RefAction();
+		public RefAction OnGameFinished = new RefAction();
 
 		public RefAction<Piece> Get_OnPieceClickedEvent( PlayerId player ) {
 			return player == PlayerId.Player1 ? OnPlayer1_PieceClicked : OnPlayer2_PieceClicked;
@@ -79,13 +81,14 @@ namespace Shogi
 			settings = FindObjectOfType<ShogiGameSettings>();
 			shogiClock = FindObjectOfType<ShogiClock>();
 			startingPlayer = PlayerId.Player1;
-			gameHistory = new GameHistory( new GameState( this ), startingPlayer, this );
 
 			RegisterPieceClickedEvents_Invocation();
+			RegisterGameOver_OnClockTimeout();
 		}
 
 		void Start() {
 			if(beginGameOnStart){
+				// FindObjectOfType<AnalysisBranchingManager>().gameObject.SetActive( false );
 				BeginGame( startingPlayer );
 			}
 		}
@@ -99,20 +102,27 @@ namespace Shogi
 			}
 		}
 
+		//TODO: I think BeginGame should take as parameter the gamestate of the beginning of the game.
 		public void BeginGame( PlayerId startingPlayer ) {
 			Debug.Log("Beginning Shogi Game "+startingPlayer.ToString());
 			gameLoopCancelToken?.Cancel();
 			gameLoopCancelToken = new CancellationTokenSource();
+			gameHistory = new GameHistory( new GameState( this ), startingPlayer, this );
 			BeginGameAsync( startingPlayer ).AttachExternalCancellation( gameLoopCancelToken.Token );
+		}
+
+		public void BeginGame( PlayerId startingPlayer, GameHistory gameHistorySeed ) {
+			BeginGame(startingPlayer);
+			gameHistory = gameHistorySeed;
 		}
 
 		private async UniTask BeginGameAsync( PlayerId startingPlayer ) {
 			_currTurn_PlayerId = startingPlayer;
 
-			RegisterGameOver_OnClockTimeout();
 			RefreshMonobehavioursInScene();
 			ReInitialize_Players();
 
+			OnGameBegan.Invoke();
 			OnNewTurnBegun.Invoke( _currTurn_PlayerId );
 			while (isGameOver == false && manualOverride == false) {
 				Debug.Log( $"Turn {TurnCount}. Awaiting Move from : " + _currTurn_PlayerId.ToString() );
@@ -137,6 +147,7 @@ namespace Shogi
 				AdvanceTurn();
 				OnNewTurnBegun.Invoke( _currTurn_PlayerId );
 			}
+
 
 			void ReInitialize_Players() {
 				Player1.enabled = false;
@@ -172,6 +183,7 @@ namespace Shogi
 			isGameOver = true;
 			gameLoopCancelToken.Cancel();
 			Debug.Log( "Game Finished" );
+			OnGameFinished.Invoke();
 		}
 
 		private void AdvanceTurn() {

@@ -45,6 +45,8 @@ MonoBehaviour:
   - SendMove_ToOpponent_RPC
   - Pause_RPC
   - Unpause_RPC
+  - UpdateDetachedBranch_RPC
+  - SyncBranch_RPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
