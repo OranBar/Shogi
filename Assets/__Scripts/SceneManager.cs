@@ -9,6 +9,12 @@ public enum ShogiSceneStates{
 	PlayingGame
 	
 }
+
+public enum PlayerActions{
+	ReloadGame_AtGameState,
+
+}
+
 namespace Shogi
 {
 	[ScriptTiming(500)]
@@ -23,16 +29,18 @@ namespace Shogi
         {
 			shogiGame = FindObjectOfType<ShogiGame>();
 			analysisBranchingManager = FindObjectOfType<AnalysisBranchingManager>();
+			
+			Debug.Assert(analysisBranchingManager != null);
 		}
 
 		protected virtual void Start(){
-			OnInitialization_Enter();
+			StartCoroutine( OnInitialization_Enter() );
 		}
 
 		protected IEnumerator OnInitialization_Enter(){
 
 			yield return new WaitUntil( () => shogiGame.Player1 != null && shogiGame.Player2 != null );
-			analysisBranchingManager.CreateMainBranch();
+			analysisBranchingManager.enabled = true;
 		}
 
     }

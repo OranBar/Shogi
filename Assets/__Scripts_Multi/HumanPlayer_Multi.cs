@@ -48,7 +48,7 @@ namespace Shogi
 			shogiGame.OnNewTurnBegun += EnableUndoButton_OnOurTurn;
 
 			var myPlayerId = PhotonNetwork.IsMasterClient ? PlayerId.Player1 : PlayerId.Player2;
-			photonView.RPC( nameof( RegisterPlayer_ToShogiGame_RPC ), RpcTarget.AllBuffered, myPlayerId );
+			photonView.RPC( nameof( RegisterPlayer_ToShogiGame_RPC ), RpcTarget.AllBufferedViaServer, myPlayerId );
 
 			if(PhotonNetwork.IsMasterClient == false) {
 				RotateBoard();

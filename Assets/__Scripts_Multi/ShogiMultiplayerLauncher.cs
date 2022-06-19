@@ -48,8 +48,7 @@ public class ShogiMultiplayerLauncher : MonoBehaviourPunCallbacks
 
 		yield return new WaitUntil( () => shogiGame.Player1 != null && shogiGame.Player2 != null );
 
-		// shogiGame.BeginGame( PlayerId.Player1 );
-		scene.SetActive(true);
+		shogiGame.BeginGame( PlayerId.Player1 );
 	}
 
 	void Update() {

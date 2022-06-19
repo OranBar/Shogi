@@ -29,9 +29,6 @@ namespace Shogi{
 		void Awake() {
 			shogiGame = FindObjectOfType<ShogiGame>();
 
-			detachedHeadBranch = CreateDetachedBranch();
-			//Doesn't work, game began is called every time we reload a gamestate. 
-			// shogiGame.OnGameBegan += CreateMainBranch;
 		}
 
 		void Start()
@@ -40,6 +37,7 @@ namespace Shogi{
 				branches.Add( currBranch );
 			}
 
+			detachedHeadBranch = CreateDetachedBranch();
 			prevBranch_btn.interactable = false;
 			CreateMainBranch();
 		}
@@ -80,9 +78,10 @@ namespace Shogi{
 
 		public void CreateMainBranch(){
 			var newBranch = CreateNewBranch();
-			newBranch.BranchName = "Stein;s Gate";
+			newBranch.BranchGameHistory = shogiGame.gameHistory;
 
 			EnableBranch( newBranch );
+			newBranch.BranchName = "Stein;s Gate";
 		}
 
 		private AnalysisBranch CreateNewBranch(){
@@ -126,6 +125,7 @@ namespace Shogi{
 			branchToEnable.gameObject.SetActive( true );
 			// branch.enabled = true;
 
+			//TODO: bug here
 			shogiGame.gameHistory = branchToEnable.BranchGameHistory;
 			shogiGame.BeginGame( branchToEnable.BranchGameHistory.GetPlayer_WhoMovesNext(), branchToEnable.BranchGameHistory);
 

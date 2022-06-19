@@ -88,7 +88,6 @@ namespace Shogi
 
 		void Start() {
 			if(beginGameOnStart){
-				// FindObjectOfType<AnalysisBranchingManager>().gameObject.SetActive( false );
 				BeginGame( startingPlayer );
 			}
 		}
