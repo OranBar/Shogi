@@ -90,7 +90,7 @@ namespace Shogi
 
 				void ShowOwnedPieces( ) {
 						shogiGame.AllPieces.Where( p => p.OwnerId == PlayerId ).ForEach( p => p.SetPieceGraphicsActive( true ) );
-						Debug.Log( "EnablePieces " + PlayerId );
+						Logger.Log( "EnablePieces " + PlayerId );
 				}
 			
 			#endregion -----------------------------------------

@@ -11,7 +11,7 @@ namespace Shogi
 			Stream stream = new FileStream( savePath, FileMode.Create, FileAccess.Write, FileShare.None );
 			formatter.Serialize( stream, toSerialize );
 			stream.Close();
-			UnityEngine.Debug.Log( "File serialized at " + savePath );
+			Logger.Log( "[I/O] File serialized at " + savePath );
 		}
 
 		public static T DeserializeFromBinaryFile<T>( string filePath ) {

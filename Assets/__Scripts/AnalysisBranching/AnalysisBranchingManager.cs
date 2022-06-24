@@ -29,6 +29,7 @@ namespace Shogi{
 		void Awake() {
 			shogiGame = FindObjectOfType<ShogiGame>();
 
+			Debug.Assert(FindObjectOfType<SceneManager>() != null, "No Scene Manager in the scene. \nSomeone needs to enable AnalysisBranchingManager to make it work. It's supposed to be the SceneManager's job" );
 		}
 
 		void Start()
@@ -156,14 +157,14 @@ namespace Shogi{
 		}
 
 		protected virtual void HandleHeadDetached(AnalysisEntry entry){
-			Debug.Log( "New Branch" );
+			Logger.Log( "[Analysis] New Branch" );
 			CopyCurrBranch_UpToCurrSelectedEntry( ref detachedHeadBranch );
 			shogiGame.OnBeforeActionExecuted -= ForkSelectedEntry_ToNewBranch;
 			shogiGame.OnBeforeActionExecuted += ForkSelectedEntry_ToNewBranch;
 		}
 
 		protected void ForkSelectedEntry_ToNewBranch(AShogiAction action){
-			Debug.Log("Move detected: Fork");
+			Logger.Log("[Analysis] Move detected: Fork");
 			// detachedHeadBranch.GetComponent<Canvas>().enabled = true;
 			detachedHeadBranch.gameObject.SetActive( true );
 

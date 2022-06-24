@@ -74,7 +74,7 @@ namespace Shogi
 			} else {
 				currAction = new DropPieceAction( selectedPiece );
 			}
-			Debug.Log($"<{PlayerName}> Piece Selected ({piece.X},{piece.Y})", piece.gameObject);
+			Logger.Log($"[Player] <{PlayerName}> Piece Selected ({piece.X},{piece.Y})", piece.gameObject);
 			OnPiece_Selected.Invoke( selectedPiece );
 
 			shogiGame.Get_OnPieceClickedEvent(OpponentId).Value += Select_PieceToCapture;
@@ -84,7 +84,7 @@ namespace Shogi
 		
 
 		private void Select_CellToMove( Cell cell ) {
-			Debug.Log($"<{PlayerName}> Move action to cell ({cell.x},{cell.y})");
+			Logger.Log($"[Player] <{PlayerName}> Move action to cell ({cell.x},{cell.y})");
 			currAction.DestinationX = cell.x;
 			currAction.DestinationY = cell.y;
 
@@ -93,7 +93,7 @@ namespace Shogi
 		}
 
 		private void Select_PieceToCapture( Piece toCapture) {
-			Debug.Log($"<{PlayerName}> Capture action: Piece on ({toCapture.X},{toCapture.Y})");
+			Logger.Log($"[Player] <{PlayerName}> Capture action: Piece on ({toCapture.X},{toCapture.Y})");
 			currAction.DestinationX = toCapture.X;
 			currAction.DestinationY = toCapture.Y;
 

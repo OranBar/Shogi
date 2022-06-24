@@ -27,7 +27,7 @@ namespace Shogi
 					PlacePiece( piece, piece.X, piece.Y );
 				}
 			}
-			Debug.Log( "Board Init complete" );
+			Logger.Log( "[Board] Init complete" );
 		}
 
 		public void PlacePiece( Piece piece, int x, int y ) {

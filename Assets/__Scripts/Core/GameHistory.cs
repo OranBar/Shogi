@@ -44,7 +44,7 @@ namespace Shogi
 			
 			timersHistory.Add( GetClockTimes() );
 			playedMoves.Push( action );
-			Debug.Log( "<GameHistory> New move Registered" );
+			Logger.Log( "[ShogiGame] New move registered in gamehistory" );
 		}
 
 		private (float player1_time, float player2_time) GetClockTimes() {

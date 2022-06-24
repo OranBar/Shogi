@@ -32,7 +32,7 @@ namespace Shogi
 
 		public override void ExecuteAction( ShogiGame game ) {
 			base.ExecuteAction( game );
-			UnityEngine.Debug.Log( $"Moving piece {ActingPiece} to cell ({DestinationX},{DestinationY})" );
+			Logger.Log( $"[Action] Moving piece {ActingPiece} to cell ({DestinationX},{DestinationY})" );
 
 			capturedPiece = game.board [DestinationX, DestinationY];
 

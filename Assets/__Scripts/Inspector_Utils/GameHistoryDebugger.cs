@@ -11,7 +11,7 @@ namespace Shogi
 		[Button]
 		public void LogGameHistory_Moves() {
 			var gameHistory = FindObjectOfType<ShogiGame>().gameHistory;
-			Debug.Log( gameHistory.playedMoves.ToStringPretty() );
+			Logger.Log( gameHistory.playedMoves.ToStringPretty() );
 		}
 	}
 }

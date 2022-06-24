@@ -15,6 +15,7 @@ namespace Shogi
 			PhotonPeer.RegisterType( typeof( MovePieceAction ), (byte)'M', Serialize_MovePieceAction, Deserialize_MovePieceAction );
 			PhotonPeer.RegisterType( typeof( DropPieceAction ), (byte)'D', Serialize_DropPieceAction, Deserialize_DropPieceAction );
 			PhotonPeer.RegisterType( typeof( UndoLastAction ), (byte)'U', Serialize_UndoLastAction, Deserialize_UndoLastAction );
+			PhotonPeer.RegisterType( typeof( AnalysisEntry ), (byte)'E', Serialize_AnalysisEntry, Deserialize_AnalysisEntry );
         }
 
 		public static readonly byte [] memShogiActionType = new byte [5];

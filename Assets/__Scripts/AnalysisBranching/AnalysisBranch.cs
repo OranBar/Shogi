@@ -62,11 +62,11 @@ namespace Shogi
 		void OnDisable(){
 			shogiGame.OnActionExecuted -= CreateAndAppend_MoveEntry;
 			entries.ForEach( e => e.OnEntrySelected -= UpdateCurrentlySelectedEntry );
-			Debug.Log("Branch deactivated");
+			Logger.Log("[Analysis] Branch deactivated");
 		}
 
 		public void CreateAndAppend_MoveEntry( AShogiAction playedMove ) {
-			if(playedMove is UndoLastAction) {
+			if (playedMove is UndoLastAction) {
 				HandleUndoAction();
 				return;
 			}
@@ -98,11 +98,12 @@ namespace Shogi
 		
 		public async void UpdateCurrentlySelectedEntry(AnalysisEntry entry){
 			UpdateUIEffect( entry );
-
 			shogiGame.OnActionExecuted -= CreateAndAppend_MoveEntry;
 
+			bool shouldDetachHead = shogiGame.gameHistory.playedMoves.Count == entry.moveNumber;
+
 			var newGameHistory = BranchGameHistory.Clone( entry.moveNumber );
-			Debug.Log("GameHistory Count "+shogiGame.gameHistory.playedMoves.Count);
+			Logger.Log("[Analysis] GameHistory Count "+shogiGame.gameHistory.playedMoves.Count);
 			//TODO: update timers?
 
 			shogiGame.ApplyGameState( entry.associatedMove.GameState_beforeMove );
@@ -112,11 +113,11 @@ namespace Shogi
 			shogiGame.ApplyGameState( entry.gameState_afterMove );
 
 
-			if(shogiGame.gameHistory.playedMoves.Count == BranchGameHistory.playedMoves.Count){
-				Debug.Log("Okay");
+			if(shouldDetachHead){
+				Logger.Log("[Analysis] Okay");
 				shogiGame.OnActionExecuted += CreateAndAppend_MoveEntry;
 			} else {
-				Debug.Log("Head detached");
+				Logger.Log("[Analysis] Head detached");
 				OnHeadDetached.Invoke( entry );
 			}
 

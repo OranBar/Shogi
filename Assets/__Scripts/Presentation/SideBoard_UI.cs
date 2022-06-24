@@ -65,7 +65,7 @@ namespace Shogi
 		}
 
 		// private void OnPieceButtonClicked( PieceType pieceType ) {
-		// 	Debug.Log( "Ho clickato" );
+		// 	Logger.Log( "Ho clickato" );
 		// 	Piece piece = sideBoard.capturedPieces.First( p => p.PieceType == pieceType );
 		// 	piece.OnPointerClick( new PointerEventData( null ) );
 		// }

@@ -144,13 +144,13 @@ namespace Shogi
 		}
 
 		private void Promote() {
-			Debug.Log( "Piece Promoted" );
+			Logger.Log( "Piece Promoted" );
 			//TODO: change icon
 			pieceIconImage.color = Color.red;
 		}
 
 		private void Unpromote() {
-			Debug.Log( "Piece Unromoted =(" );
+			Logger.Log( "Piece Unromoted =(" );
 			//TODO: change icon
 			pieceIconImage.color = Color.black;
 		}

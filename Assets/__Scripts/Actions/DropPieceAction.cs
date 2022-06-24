@@ -32,7 +32,7 @@ namespace Shogi
 
 		public override void ExecuteAction( ShogiGame game ) {
 			base.ExecuteAction( game );
-			UnityEngine.Debug.Log( $"Dropping piece {ActingPiece} on ({DestinationX},{DestinationY})" );
+			Logger.Log( $"[Action] Dropping piece {ActingPiece} on ({DestinationX},{DestinationY})" );
 
 			//TODO: replace with animation
 			// game.board.PlacePieceOnCell_Immediate( DestinationX, DestinationY, ActingPiece );

@@ -53,7 +53,7 @@ namespace Shogi{
 		//Or maybe use a pieceId?
 		private Piece FindActingPiece() {
 			if(_actingPiece == null){
-				Debug.Log($"Looking for piece {StartX}, {StartY}");
+				Logger.Log($"[Action] Looking for piece {StartX}, {StartY}");
 				_actingPiece = GameObject.FindObjectsOfType<Piece>(true).First( p => p.X == StartX && p.Y == StartY );
 			}
 			return _actingPiece;
@@ -91,9 +91,6 @@ namespace Shogi{
 
 		}
 		public abstract bool IsMoveValid( ShogiGame game );
-
-		// public abstract UniTask EnableLastMoveFX( GameSettings settings );
-		// public abstract void DisableLastMoveFX();
 	}
 
 	public enum ActionStringFormat{

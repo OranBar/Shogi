@@ -103,7 +103,7 @@ namespace Shogi
 
 		//TODO: I think BeginGame should take as parameter the gamestate of the beginning of the game.
 		public void BeginGame( PlayerId startingPlayer ) {
-			Debug.Log("Beginning Shogi Game "+startingPlayer.ToString());
+			Logger.Log("[ShogiGame] Beginning Shogi Game "+startingPlayer.ToString());
 			gameLoopCancelToken?.Cancel();
 			gameLoopCancelToken = new CancellationTokenSource();
 			gameHistory = new GameHistory( new GameState( this ), startingPlayer, this );
@@ -124,11 +124,11 @@ namespace Shogi
 			OnGameBegan.Invoke();
 			OnNewTurnBegun.Invoke( _currTurn_PlayerId );
 			while (isGameOver == false && manualOverride == false) {
-				Debug.Log( $"Turn {TurnCount}. Awaiting Move from : " + _currTurn_PlayerId.ToString() );
+				Logger.Log( $"[ShogiGame] Turn {TurnCount}. Awaiting Move from : " + _currTurn_PlayerId.ToString() );
 				AShogiAction action = await CurrTurn_Player.RequestAction().AttachExternalCancellation( gameLoopCancelToken.Token );
 
 				if (action.IsMoveValid( this )) {
-					Debug.Log( "<Start> ExecuteAction_AndCallEvents" );
+					Logger.Log( "[ShogiGame] Valid Move: Executing" );
 					OnBeforeActionExecuted.Invoke( action ); 
 
 					action.ExecuteAction( this );
@@ -137,9 +137,9 @@ namespace Shogi
 
 					gameHistory.RegisterNewMove( action );
 
-					Debug.Log( "<Finish> ExecuteAction_AndCallEvents" );
+					Logger.Log( "[ShogiGame] Action Executed" );
 				} else {
-					Debug.Log( "Invalid Action: Try again" );
+					Logger.Log( "[ShogiGame] Invalid Action: Try again" );
 					continue;
 				}
 
@@ -181,7 +181,7 @@ namespace Shogi
 			this.winner = winner;
 			isGameOver = true;
 			gameLoopCancelToken.Cancel();
-			Debug.Log( "Game Finished" );
+			Logger.Log( "[ShogiGame] Game Finished" );
 			OnGameFinished.Invoke();
 		}
 
@@ -208,7 +208,7 @@ namespace Shogi
 			PlayerId nextPlayerTurn = history.GetPlayer_WhoMovesNext();
 			BeginGame( nextPlayerTurn );
 
-			Debug.Log( "Finish Apply GameHistory: All moves applied" );
+			Logger.Log( "[ShogiGame] Finish Apply GameHistory: All moves applied" );
 
 			#region ApplyGameHistory Local Methods
 			void Restore_ClockTimers_Values( GameHistory history ) {
