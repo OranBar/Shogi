@@ -71,12 +71,7 @@ namespace Shogi
 				return;
 			}
 
-			GameObject newEntryObj = Instantiate( entryPrefab, scrollRect.content );
-			AnalysisEntry newEntry = newEntryObj.GetComponent<AnalysisEntry>();
-			newEntry.name = newEntry.name.Replace( "Clone", "" + ( entries.Count + 1 ) );
-
-			newEntry.InitEntry( entries.Count + 1, playedMove );
-			newEntry.gameState_afterMove = new GameState( shogiGame );
+			AnalysisEntry newEntry = InstantiateEntry_AndInit( playedMove );
 
 			entries.Add( newEntry );
 			newEntry.OnEntrySelected += UpdateCurrentlySelectedEntry;
@@ -95,7 +90,24 @@ namespace Shogi
 				entries.Last()?.DoSelectedEffect();
 			}
 		}
-		
+
+		protected virtual AnalysisEntry InstantiateEntry_AndInit( AShogiAction playedMove ){
+			GameObject newEntryObj = Instantiate( entryPrefab, scrollRect.content );
+			AnalysisEntry newEntry = newEntryObj.GetComponent<AnalysisEntry>();
+			
+			InitEntry(ref newEntry, playedMove);
+			
+			return newEntryObj.GetComponent<AnalysisEntry>();
+		}
+
+		protected void InitEntry( ref AnalysisEntry newEntryObj, AShogiAction playedMove ) {
+			AnalysisEntry newEntry = newEntryObj.GetComponent<AnalysisEntry>();
+			newEntry.name = newEntry.name.Replace( "Clone", "" + ( entries.Count + 1 ) );
+
+			newEntry.InitEntry( entries.Count + 1, playedMove );
+			newEntry.gameState_afterMove = new GameState( shogiGame );
+		}
+
 		public async void UpdateCurrentlySelectedEntry(AnalysisEntry entry){
 			UpdateUIEffect( entry );
 			shogiGame.OnActionExecuted -= CreateAndAppend_MoveEntry;

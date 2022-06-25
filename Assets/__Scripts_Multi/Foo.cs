@@ -19,7 +19,7 @@ namespace Shogi
 
 		[PunRPC]
 		public void Log_MovePieceAction_RPC( MovePieceAction action ){
-			Debug.Log("Received action: "+action);
+			Logger.Log("Received action: "+action);
 		}
 
 		[Button]
@@ -30,7 +30,7 @@ namespace Shogi
 
 		[PunRPC]
 		public void Log_APieceAction_RPC( AShogiAction action ) {
-			Debug.Log( "Received action: " + action );
+			Logger.Log( "Received action: " + action );
 		}
 
 		public GameObject piecePrefab;
@@ -50,7 +50,7 @@ namespace Shogi
 
 			};
 			var result = mockData.Where(str => str.Substring(0, input.Length).IndexOf(input) >= 0).ToList();
-			Debug.Log( result.Count );
+			Logger.Log( result.Count );
 			//return mockData.FindAll( (str) => str.IndexOf( input.ToLower() ) >= 0 );
 		}
 

@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7290101070431096064, guid: c6263e66777425f4780687382ad590d7, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7290101070431096064, guid: c6263e66777425f4780687382ad590d7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -229,7 +229,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   branches: []
   branchesContainer: {fileID: 6999132887411932484}
-  newBranchPrefab: {fileID: 5320215686274811326, guid: bec6114052d9389429511c8d6e084e51, type: 3}
+  newBranchPrefab: {fileID: 8638932225587623630, guid: 42e13b72498af78439ce5cef7ea05336, type: 3}
   prevBranch_btn: {fileID: 6999132887763793396}
   nextBranch_btn: {fileID: 6999132888692821143}
   createNewBranch_btn: {fileID: 6999132887981515808}

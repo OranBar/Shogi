@@ -7,6 +7,15 @@ namespace Shogi
 	public class AnalysisBranchingManager_Multi : AnalysisBranchingManager
 	{
 		[Auto] PhotonView photonView;
+
+
+		protected override AnalysisBranch CreateNewBranch() {
+			var newBranchObj = PhotonNetwork.Instantiate( newBranchPrefab.name, newBranchPrefab.transform.position, newBranchPrefab.transform.rotation );
+			var branch = newBranchObj.GetComponent<AnalysisBranch>();
+			return branch;			
+		}
+
+
 		public List<AnalysisBranch> synchedBranches = new List<AnalysisBranch>();
 		protected override void HandleHeadDetached(AnalysisEntry entry){
 			if(synchedBranches.Contains(currBranch)){

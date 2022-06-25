@@ -153,8 +153,9 @@ namespace Shogi
 			lock (memAnalysisEntry) {
 				byte [] bytes = memAnalysisEntry;
 				int index = 0;
-				int piecePhotonId = analysisEntry.GetComponent<PhotonView>().ViewID;
-				Protocol.Serialize( piecePhotonId, bytes, ref index );
+				int branchPhotonId = analysisEntry.analysisManager.GetComponent<PhotonView>().ViewID;
+				int moveNumber = analysisEntry.moveNumber;
+				Protocol.Serialize( branchPhotonId, bytes, ref index );
 				outStream.Write( bytes, 0, ANALYSISENTRY_BYTESIZE );
 			}
 
@@ -162,13 +163,15 @@ namespace Shogi
 		}
 
 		private static object Deserialize_AnalysisEntry( StreamBuffer inStream, short length ) {
-			int piecePhotonId;
+			int branchPhotonId;
+			int moveNumber;
 			lock (memAnalysisEntry) {
 				inStream.Read( memMovePieceAction, 0, ANALYSISENTRY_BYTESIZE );
 				int index = 0;
-				Protocol.Deserialize( out piecePhotonId, memMovePieceAction, ref index );
+				Protocol.Deserialize( out branchPhotonId, memMovePieceAction, ref index );
+				Protocol.Deserialize( out moveNumber, memMovePieceAction, ref index );
 			}
-			AnalysisEntry analysisEntry = PhotonView.Find( piecePhotonId ).GetComponent<AnalysisEntry>();
+			AnalysisEntry analysisEntry = PhotonView.Find( branchPhotonId ).GetComponent<AnalysisBranch>().entries[moveNumber-1];
 			return analysisEntry;
 		}
 		#endregion
