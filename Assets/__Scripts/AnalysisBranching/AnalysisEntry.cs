@@ -22,7 +22,7 @@ namespace Shogi{
 		public Color highlightColor;
 		public Color selectedColor;
 
-		[AutoParent] public AnalysisBranch analysisManager;
+		[AutoParent] public AnalysisBranch analysisBranch;
 		[Auto] public Image myImage;
 		
 		private ShogiGame shogiGame;

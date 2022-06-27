@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using NaughtyAttributes;
 using Photon.Pun;
 
@@ -19,10 +20,13 @@ namespace Shogi
 		public List<AnalysisBranch> synchedBranches = new List<AnalysisBranch>();
 		protected override void HandleHeadDetached(AnalysisEntry entry){
 			if(synchedBranches.Contains(currBranch)){
-				base.HandleHeadDetached(entry);
-				base.ForkSelectedEntry_ToNewBranch(entry.associatedMove);
+				// base.HandleHeadDetached(entry);
+				entry.analysisBranch.UpdateCurrentlySelectedEntry(entry.analysisBranch.entries.Last());
+				base.ForkEntry_ToNewBranch(entry);
+				// shogiGame.OnBeforeActionExecuted -= ForkSelectedEntry_ToNewBranch;
 			} else {
-				photonView.RPC(nameof(UpdateDetachedBranch_RPC), RpcTarget.All, entry);
+				base.HandleHeadDetached(entry);
+				// photonView.RPC(nameof(UpdateDetachedBranch_RPC), RpcTarget.All, entry);
 			}
 		}
 

@@ -11,7 +11,6 @@ namespace Shogi
     {
         void Start()
         {
-			// PhotonPeer.RegisterType( typeof( AShogiAction ), (byte)'A', Serialize_AShogiAction, Deserialize_AShogiAction );
 			PhotonPeer.RegisterType( typeof( MovePieceAction ), (byte)'M', Serialize_MovePieceAction, Deserialize_MovePieceAction );
 			PhotonPeer.RegisterType( typeof( DropPieceAction ), (byte)'D', Serialize_DropPieceAction, Deserialize_DropPieceAction );
 			PhotonPeer.RegisterType( typeof( UndoLastAction ), (byte)'U', Serialize_UndoLastAction, Deserialize_UndoLastAction );
@@ -153,7 +152,7 @@ namespace Shogi
 			lock (memAnalysisEntry) {
 				byte [] bytes = memAnalysisEntry;
 				int index = 0;
-				int branchPhotonId = analysisEntry.analysisManager.GetComponent<PhotonView>().ViewID;
+				int branchPhotonId = analysisEntry.analysisBranch.GetComponent<PhotonView>().ViewID;
 				int moveNumber = analysisEntry.moveNumber;
 				Protocol.Serialize( branchPhotonId, bytes, ref index );
 				outStream.Write( bytes, 0, ANALYSISENTRY_BYTESIZE );

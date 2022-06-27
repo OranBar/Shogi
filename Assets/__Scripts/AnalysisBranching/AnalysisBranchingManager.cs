@@ -23,7 +23,7 @@ namespace Shogi{
 		public Button createNewBranch_btn;
 		public Button deleteBranch_btn;
 
-		private ShogiGame shogiGame;
+		protected ShogiGame shogiGame;
 
 		void Awake() {
 			shogiGame = FindObjectOfType<ShogiGame>();
@@ -142,14 +142,18 @@ namespace Shogi{
 			shogiGame.OnBeforeActionExecuted += ForkSelectedEntry_ToNewBranch;
 		}
 
-		protected void ForkSelectedEntry_ToNewBranch(AShogiAction action){
+		protected void ForkSelectedEntry_ToNewBranch( AShogiAction _ ) {
 			ForkSelectedEntry_ToNewBranch();
 		}
 
-		protected void ForkSelectedEntry_ToNewBranch() {
+		protected void ForkSelectedEntry_ToNewBranch(){
+			ForkEntry_ToNewBranch(currBranch.currentlySelectedEntry);
+		}
+
+		protected void ForkEntry_ToNewBranch(AnalysisEntry entry){
 			Logger.Log( "[Analysis] Move detected: Fork" );
 
-			var forkedBranch = CloneBranch_UpToMove(currBranch, currBranch.currentlySelectedEntry.moveNumber);
+			var forkedBranch = CloneBranch_UpToMove(currBranch, entry.moveNumber);
 
 			shogiGame.OnBeforeActionExecuted -= ForkSelectedEntry_ToNewBranch;
 			EnableBranch( forkedBranch );
