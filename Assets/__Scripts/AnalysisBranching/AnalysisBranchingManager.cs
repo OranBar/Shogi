@@ -110,20 +110,6 @@ namespace Shogi{
 			targetBranch.BranchGameHistory = trimmedGameHistory_copy;
 		}
 
-		private void CopyCurrBranch_UpToCurrSelectedEntry( ref AnalysisBranch targetBranch ) {
-			int selectedEntry_turn = currBranch.currentlySelectedEntry.moveNumber;
-
-			var entriesToCarryOver = currBranch.entries.Take( selectedEntry_turn );
-			targetBranch.ClearEntries();
-			foreach (var entry in entriesToCarryOver) {
-				targetBranch.CreateAndAppend_MoveEntry( entry.associatedMove );
-			}
-			targetBranch.currentlySelectedEntry = targetBranch.entries.Last();
-
-			GameHistory trimmedGameHistory_copy = currBranch.BranchGameHistory.Clone( selectedEntry_turn );
-			targetBranch.BranchGameHistory = trimmedGameHistory_copy;
-		}
-
 		public void EnableBranch( AnalysisBranch branchToEnable ) {
 			if (branches.Contains( branchToEnable ) == false) {
 				branches.Add( branchToEnable );
@@ -177,7 +163,8 @@ namespace Shogi{
 
 		protected virtual void HandleHeadDetached(AnalysisEntry entry){
 			Logger.Log( "[Analysis] New Branch" );
-			CopyCurrBranch_UpToCurrSelectedEntry( ref detachedHeadBranch );
+			CopyBranch_UpToMove( currBranch, entry.moveNumber, ref detachedHeadBranch);
+			// CopyCurrBranch_UpToCurrSelectedEntry( ref detachedHeadBranch );
 			shogiGame.OnBeforeActionExecuted -= ForkSelectedEntry_ToNewBranch;
 			shogiGame.OnBeforeActionExecuted += ForkSelectedEntry_ToNewBranch;
 		}
