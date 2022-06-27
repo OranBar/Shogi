@@ -47,7 +47,7 @@ namespace Shogi{
 		void OnEnable(){
 			prevBranch_btn.onClick.AddListener( GoToPreviousBranching );
 			nextBranch_btn.onClick.AddListener( GoToNextBranching );
-			createNewBranch_btn.onClick.AddListener( ForkCurrentBranch_UpToSelectedEntry );
+			createNewBranch_btn.onClick.AddListener( ForkSelectedEntry_ToNewBranch );
 			deleteBranch_btn.onClick.AddListener( DeleteCurrentBranch );
 
 			branches.ForEach( b => b.gameObject.SetActive(false));
@@ -56,7 +56,7 @@ namespace Shogi{
 		void OnDisable(){
 			prevBranch_btn.onClick.RemoveListener( GoToPreviousBranching );
 			nextBranch_btn.onClick.RemoveListener( GoToNextBranching );
-			createNewBranch_btn.onClick.RemoveListener( ForkCurrentBranch_UpToSelectedEntry );
+			createNewBranch_btn.onClick.RemoveListener( ForkSelectedEntry_ToNewBranch );
 			deleteBranch_btn.onClick.RemoveListener( DeleteCurrentBranch );
 
 			currBranch?.gameObject?.SetActive(true);
