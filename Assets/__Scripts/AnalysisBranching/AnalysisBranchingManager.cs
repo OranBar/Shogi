@@ -14,7 +14,6 @@ namespace Shogi{
 		public List<AnalysisBranch> branches = new List<AnalysisBranch>();
 		
 		public AnalysisBranch currBranch;
-		private AnalysisBranch detachedHeadBranch;
 
 		public Transform branchesContainer;
 
@@ -38,7 +37,6 @@ namespace Shogi{
 				branches.Add( currBranch );
 			}
 
-			detachedHeadBranch = CreateDetachedBranch();
 			prevBranch_btn.interactable = false;
 	
 			EnableBranch( currBranch );
@@ -61,29 +59,6 @@ namespace Shogi{
 
 			currBranch?.gameObject?.SetActive(true);
 		}
-
-		private AnalysisBranch CreateDetachedBranch() {
-			var newBranchObj = Instantiate( newBranchPrefab, this.transform );
-			var branch = newBranchObj.GetComponent<AnalysisBranch>();
-			branch.gameObject.SetActive( false );
-			branch.BranchName = "Detached Branch";
-			return branch;
-		}
-
-		// [Button]
-		// public void ForkCurrentBranch_UpToSelectedEntry() {
-		// 	var newBranch = CloneBranch_UpToMove(currBranch, currBranch.currentlySelectedEntry.moveNumber);
-			
-		// 	EnableBranch( newBranch );
-		// }
-
-		// public void CreateMainBranch(){
-		// 	var newBranch = CreateNewBranch();
-		// 	newBranch.BranchGameHistory = shogiGame.gameHistory;
-
-		// 	EnableBranch( newBranch );
-		// 	newBranch.BranchName = "Stein;s Gate";
-		// }
 
 		protected virtual AnalysisBranch CreateNewBranch(){
 			var newBranchObj = Instantiate( newBranchPrefab );
@@ -163,8 +138,6 @@ namespace Shogi{
 
 		protected virtual void HandleHeadDetached(AnalysisEntry entry){
 			Logger.Log( "[Analysis] New Branch" );
-			CopyBranch_UpToMove( currBranch, entry.moveNumber, ref detachedHeadBranch);
-			// CopyCurrBranch_UpToCurrSelectedEntry( ref detachedHeadBranch );
 			shogiGame.OnBeforeActionExecuted -= ForkSelectedEntry_ToNewBranch;
 			shogiGame.OnBeforeActionExecuted += ForkSelectedEntry_ToNewBranch;
 		}
@@ -175,13 +148,11 @@ namespace Shogi{
 
 		protected void ForkSelectedEntry_ToNewBranch() {
 			Logger.Log( "[Analysis] Move detected: Fork" );
-			// detachedHeadBranch.GetComponent<Canvas>().enabled = true;
-			detachedHeadBranch.gameObject.SetActive( true );
+
+			var forkedBranch = CloneBranch_UpToMove(currBranch, currBranch.currentlySelectedEntry.moveNumber);
 
 			shogiGame.OnBeforeActionExecuted -= ForkSelectedEntry_ToNewBranch;
-			EnableBranch( detachedHeadBranch );
-
-			detachedHeadBranch = CreateDetachedBranch();
+			EnableBranch( forkedBranch );
 		}
 
 		public void GoToNextBranching(){
