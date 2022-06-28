@@ -3988,6 +3988,7 @@ GameObject:
   - component: {fileID: 489550811}
   - component: {fileID: 489550812}
   - component: {fileID: 489550813}
+  - component: {fileID: 489550814}
   m_Layer: 0
   m_Name: Player 2
   m_TagString: Untagged
@@ -4026,6 +4027,7 @@ MonoBehaviour:
   _playerId: 2
   selectedPiece: {fileID: 0}
   shogiGame: {fileID: 0}
+  actionSelectionStrategy: {fileID: 0}
 --- !u!114 &489550813
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4042,6 +4044,20 @@ MonoBehaviour:
   promoteBtn: {fileID: 1752273037}
   dontPromoteBtn: {fileID: 583347791}
   yOffset: 1
+--- !u!114 &489550814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 489550809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79dd2a3467f68cb4eb86500e4c706a71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedPiece: {fileID: 0}
+  shogiGame: {fileID: 0}
 --- !u!1001 &506533651
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12185,6 +12201,7 @@ GameObject:
   - component: {fileID: 1402779148}
   - component: {fileID: 1402779149}
   - component: {fileID: 1402779150}
+  - component: {fileID: 1402779151}
   m_Layer: 0
   m_Name: Player 1
   m_TagString: Untagged
@@ -12223,6 +12240,7 @@ MonoBehaviour:
   _playerId: 1
   selectedPiece: {fileID: 0}
   shogiGame: {fileID: 0}
+  actionSelectionStrategy: {fileID: 0}
 --- !u!114 &1402779150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12239,6 +12257,20 @@ MonoBehaviour:
   promoteBtn: {fileID: 1752273037}
   dontPromoteBtn: {fileID: 583347791}
   yOffset: 1
+--- !u!114 &1402779151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1402779146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79dd2a3467f68cb4eb86500e4c706a71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedPiece: {fileID: 0}
+  shogiGame: {fileID: 0}
 --- !u!1001 &1427736529
 PrefabInstance:
   m_ObjectHideFlags: 0

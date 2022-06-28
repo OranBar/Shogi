@@ -45,9 +45,12 @@ namespace Shogi
 		[HideInInspector] public ShogiGame shogiGame;
 		protected bool actionReady = false;
 
+		public AActionSelectionStrategy actionSelectionStrategy;
+
 		protected virtual void Awake(){
 			shogiGame = FindObjectOfType<ShogiGame>(true );
 			undoButton = FindObjectOfType<UndoButton>(true).gameObject.GetComponent<Button>(true);
+
 		}
 
 		protected virtual void OnDisable() {
@@ -102,27 +105,7 @@ namespace Shogi
 		}
 
 		public async override UniTask<AShogiAction> RequestAction() {
-			undoButton.onClick.AddListener( RequestUndo );
-			shogiGame.Get_OnPieceClickedEvent( _playerId ).Value += Select_ActionPiece;
-
-			actionReady = false;
-			currAction = null;
-			selectedPiece = null;
-			while (actionReady == false ) {
-				await UniTask.Yield();
-			}
-			UnregisterAllCallbacks();
-
-
-			if (currAction is MovePieceAction) {
-				MovePieceAction moveAction = (MovePieceAction)currAction;
-				if(moveAction.IsMoveValid(shogiGame) && moveAction.CanChooseToPromote_MovedPiece(shogiGame)){
-					moveAction.Request_PromotePiece = await GetComponent<IPromotionPromter>().GetPromotionChoice(moveAction);
-				}
-			}
-
-
-			return currAction;
+			return await actionSelectionStrategy.RequestAction();
 		}
 
 		[ContextMenu("Request Undo")]

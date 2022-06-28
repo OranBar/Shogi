@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 6608175557280133019}
   - component: {fileID: -1837583308555572192}
   - component: {fileID: -6854322241029146040}
+  - component: {fileID: -9104764568245307793}
+  - component: {fileID: -2753714145868005814}
   m_Layer: 0
   m_Name: Player Multi
   m_TagString: Untagged
@@ -54,6 +56,7 @@ MonoBehaviour:
   _playerId: 1
   selectedPiece: {fileID: 0}
   shogiGame: {fileID: 0}
+  actionSelectionStrategy: {fileID: -2753714145868005814}
   surrenderButton: {fileID: 8915720274546281845}
 --- !u!114 &6608175557280133018
 MonoBehaviour:
@@ -117,6 +120,32 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &-9104764568245307793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6608175557280133022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79dd2a3467f68cb4eb86500e4c706a71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedPiece: {fileID: 0}
+  shogiGame: {fileID: 0}
+--- !u!114 &-2753714145868005814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6608175557280133022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1482b908cba63e94ea79f7f54c64b432, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2043817651635324006
 PrefabInstance:
   m_ObjectHideFlags: 0

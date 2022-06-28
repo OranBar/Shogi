@@ -6314,6 +6314,7 @@ GameObject:
   - component: {fileID: 489550812}
   - component: {fileID: 489550813}
   - component: {fileID: 489550814}
+  - component: {fileID: 489550815}
   m_Layer: 0
   m_Name: Player 2
   m_TagString: Untagged
@@ -6352,6 +6353,7 @@ MonoBehaviour:
   _playerId: 2
   selectedPiece: {fileID: 0}
   shogiGame: {fileID: 0}
+  actionSelectionStrategy: {fileID: 489550815}
 --- !u!114 &489550813
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6379,6 +6381,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89c48291e53bdfc4e8cc0cf4ce78b46e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &489550815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 489550809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79dd2a3467f68cb4eb86500e4c706a71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedPiece: {fileID: 0}
+  shogiGame: {fileID: 0}
 --- !u!1001 &495900727
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19361,6 +19377,7 @@ GameObject:
   - component: {fileID: 1402779149}
   - component: {fileID: 1402779150}
   - component: {fileID: 1402779151}
+  - component: {fileID: 1402779152}
   m_Layer: 0
   m_Name: Player 1
   m_TagString: Untagged
@@ -19399,6 +19416,7 @@ MonoBehaviour:
   _playerId: 1
   selectedPiece: {fileID: 0}
   shogiGame: {fileID: 0}
+  actionSelectionStrategy: {fileID: 1402779152}
 --- !u!114 &1402779150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19426,6 +19444,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89c48291e53bdfc4e8cc0cf4ce78b46e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1402779152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1402779146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79dd2a3467f68cb4eb86500e4c706a71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedPiece: {fileID: 0}
+  shogiGame: {fileID: 0}
 --- !u!1 &1421573784
 GameObject:
   m_ObjectHideFlags: 0

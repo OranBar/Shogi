@@ -20537,6 +20537,30 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2951223063947225548, guid: 94f3d7fc155f437489f75d035385b965, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.0000035762787
+      objectReference: {fileID: 0}
+    - target: {fileID: 2951223065013751079, guid: 94f3d7fc155f437489f75d035385b965, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2951223065013751079, guid: 94f3d7fc155f437489f75d035385b965, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2951223065013751079, guid: 94f3d7fc155f437489f75d035385b965, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2951223065200677573, guid: 94f3d7fc155f437489f75d035385b965, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2951223065200677573, guid: 94f3d7fc155f437489f75d035385b965, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2951223065229035431, guid: 94f3d7fc155f437489f75d035385b965, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -20551,6 +20575,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2951223065613208878, guid: 94f3d7fc155f437489f75d035385b965, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2951223065613208878, guid: 94f3d7fc155f437489f75d035385b965, type: 3}
+      propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5611342136302501953, guid: 94f3d7fc155f437489f75d035385b965, type: 3}
