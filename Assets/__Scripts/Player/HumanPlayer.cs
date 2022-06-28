@@ -1,10 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Cysharp.Threading.Tasks;
 using NaughtyAttributes;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Shogi
 {
@@ -38,81 +35,17 @@ namespace Shogi
 		public RefAction<Piece> OnCapturePiece_Selected = new RefAction<Piece>();
 		public RefAction<Cell> OnMoveCell_Selected = new RefAction<Cell>();
 
-		protected Button undoButton;
-
 		[ReadOnly] public Piece selectedPiece;
-		protected AShogiAction currAction;
 		[HideInInspector] public ShogiGame shogiGame;
-		protected bool actionReady = false;
 
 		public AActionSelectionStrategy actionSelectionStrategy;
 
 		protected virtual void Awake(){
 			shogiGame = FindObjectOfType<ShogiGame>(true );
-			undoButton = FindObjectOfType<UndoButton>(true).gameObject.GetComponent<Button>(true);
-
-		}
-
-		protected virtual void OnDisable() {
-			UnregisterAllCallbacks();
-		}
-
-		private void UnregisterAllCallbacks() {
-			Cell.OnAnyCellClicked -= Select_CellToMove;
-			shogiGame.Get_OnPieceClickedEvent( _playerId ).Value -= Select_ActionPiece;
-			shogiGame.Get_OnPieceClickedEvent( OpponentId ).Value -= Select_PieceToCapture;
-			undoButton.onClick.RemoveListener( RequestUndo );
-		}
-
-		void Select_ActionPiece(Piece piece){
-			if(selectedPiece != null){
-				//We entered this method more then once in the same turn.
-				shogiGame.Get_OnPieceClickedEvent( OpponentId ).Value -= Select_PieceToCapture;
-				Cell.OnAnyCellClicked -= Select_CellToMove;
-			}
-
-			selectedPiece = piece;
-			if (selectedPiece.IsCaptured == false) {
-				currAction = new MovePieceAction( selectedPiece );
-			} else {
-				currAction = new DropPieceAction( selectedPiece );
-			}
-			Logger.Log($"[Player] <{PlayerName}> Piece Selected ({piece.X},{piece.Y})", piece.gameObject);
-			OnPiece_Selected.Invoke( selectedPiece );
-
-			shogiGame.Get_OnPieceClickedEvent(OpponentId).Value += Select_PieceToCapture;
-			Cell.OnAnyCellClicked += Select_CellToMove;
-		}
-
-		
-
-		private void Select_CellToMove( Cell cell ) {
-			Logger.Log($"[Player] <{PlayerName}> Move action to cell ({cell.x},{cell.y})");
-			currAction.DestinationX = cell.x;
-			currAction.DestinationY = cell.y;
-
-			actionReady = true;
-			OnMoveCell_Selected.Invoke(cell );
-		}
-
-		private void Select_PieceToCapture( Piece toCapture) {
-			Logger.Log($"[Player] <{PlayerName}> Capture action: Piece on ({toCapture.X},{toCapture.Y})");
-			currAction.DestinationX = toCapture.X;
-			currAction.DestinationY = toCapture.Y;
-
-			actionReady = true;
-			OnCapturePiece_Selected.Invoke( toCapture );
 		}
 
 		public async override UniTask<AShogiAction> RequestAction() {
 			return await actionSelectionStrategy.RequestAction();
 		}
-
-		[ContextMenu("Request Undo")]
-		public void RequestUndo(){
-			currAction = new UndoLastAction();
-			actionReady = true;
-		}
-
 	}
 }
