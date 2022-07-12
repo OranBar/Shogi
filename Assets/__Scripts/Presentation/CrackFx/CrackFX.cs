@@ -1,18 +1,30 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+namespace Shogi{
+
+
 public class CrackFX : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+		public TraumaInducer traumaInducer;
+		void Start()
+		{
+			
+		}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+		// Update is called once per frame
+		void Update()
+		{
+			
+		}
+
+		public void Activate() {
+			gameObject.GetComponentInChildren<ParticleSystem>().Stop();
+			gameObject.GetComponentInChildren<ParticleSystem>().Play();
+			traumaInducer.enabled = false;
+			traumaInducer.enabled = true;
+		}
+	}
 }

@@ -24,6 +24,8 @@ namespace Shogi
 
 		public MoveAnimation_Params_3D_ScriptableObj moveAnimParams;
 
+
+
 		void Awake() {
 			audioSource = this.gameObject.AddOrGetComponent<AudioSource>();
 			settings = FindObjectOfType<ShogiGameSettings>();
@@ -56,8 +58,8 @@ namespace Shogi
 			var crackObj = crackFx_pool.pool.Get();
 			crackObj.transform.position = shogiGame.board.GetCellPosition( action.DestinationX, action.DestinationY );
 
-			crackObj.GetComponentInChildren<ParticleSystem>().Stop();
-			crackObj.GetComponentInChildren<ParticleSystem>().Play();
+			crackObj.GetComponent<CrackFX>().Activate();
+			
 		}
 
 		private async UniTask MovementAnimation(AShogiAction action){
