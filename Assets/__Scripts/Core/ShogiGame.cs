@@ -125,6 +125,7 @@ namespace Shogi
 			OnNewTurnBegun.Invoke( _currTurn_PlayerId );
 			while (isGameOver == false && manualOverride == false) {
 				Logger.Log( $"[ShogiGame] Turn {TurnCount}. Awaiting Move from : " + _currTurn_PlayerId.ToString() );
+				//TODO: Questa await e' una pena. Forse questo main loop non e' stato ideale, ed e' meglio avere un metodo NotifyPlayerAction(AShogiAction)
 				AShogiAction action = await CurrTurn_Player.RequestAction().AttachExternalCancellation( gameLoopCancelToken.Token );
 
 				if (action.IsMoveValid( this )) {

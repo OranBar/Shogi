@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Shogi
 {
@@ -24,6 +25,7 @@ namespace Shogi
 
 		public MoveAnimation_Params_3D_ScriptableObj moveAnimParams;
 
+		public UnityEvent OnMovementAnimBegin;
 
 
 		void Awake() {
@@ -67,6 +69,7 @@ namespace Shogi
 
 			float t = 0;
 			Vector3 startPosition = this.transform.position;
+			OnMovementAnimBegin.Invoke();
 			while(t < 1){
 				Vector3 lerpedPosition = Vector3.LerpUnclamped( startPosition, targetWorldPosition, moveAnimParams.forwardAnimCurve.Evaluate(t) );
 				lerpedPosition.y = Mathf.LerpUnclamped( startPosition.y, startPosition.y + moveAnimParams.yLift_onMovement, moveAnimParams.liftPieceAnimCurve.Evaluate( t ) );

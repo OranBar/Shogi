@@ -19,8 +19,8 @@ namespace Shogi
 			surrenderButton.onClick.AddListener( Surrender );
 		}
 
-		protected override void OnDisable() {
-			base.OnDisable();
+		protected void OnDisable() {
+			// base.OnDisable();
 			surrenderButton.onClick.RemoveListener( Surrender );
 		}
 
@@ -30,13 +30,13 @@ namespace Shogi
 
 		public void DisableUndoButton_OnOpponentTurn(PlayerId currTurn_playerId){
 			if(currTurn_playerId != this.PlayerId){
-				undoButton.interactable = false;
+				// undoButton.interactable = false;
 			}
 		}
 
 		public void EnableUndoButton_OnOurTurn( PlayerId currTurn_playerId ) {
 			if (currTurn_playerId == this.PlayerId) {
-				undoButton.interactable = true;
+				// undoButton.interactable = true;
 			}
 		}
 
@@ -97,24 +97,27 @@ namespace Shogi
 
 		}
 
-		// public async override UniTask<AShogiAction> RequestAction() {
-		// 	if(photonView.IsMine){
-		// 		var chosenAction = await base.RequestAction();
-		// 		//TODO: If we're in the local deatached analysis, we don't want to send RPCs to the other user
-		// 		photonView.RPC( nameof(SendMove_ToOpponent_RPC) , RpcTarget.Others, chosenAction);
-		// 		return chosenAction;
-		// 	} else {
-		// 		//TODO: If we're in local detached analysis, we want to do base.RequestAction to allow for the player to play the opponent's moves
-		// 		currAction = null;
-		// 		await UniTask.WaitUntil( () => currAction != null );
-		// 		return currAction;
-		// 	}
-		// }
+		public AShogiAction currAction;
+		
+		public async override UniTask<AShogiAction> RequestAction() {
+			if(photonView.IsMine){
+				var chosenAction = await base.RequestAction();
+				//Here we send the move to the opponent
+				photonView.RPC( nameof(SendMove_ToOpponent_RPC) , RpcTarget.Others, chosenAction);
+				return chosenAction;
+			} else {
+				currAction = null;
+				await UniTask.WaitUntil( () => currAction != null );
+				//We recieved the move from the other device. return it to the shogigame to advance
+				return currAction;
+			}
+		}
 
-		// [PunRPC]
-		// private void SendMove_ToOpponent_RPC( AShogiAction chosenAction ) {
-		// 	currAction = chosenAction;
-		// 	actionReady = true;
-		// }
+		[PunRPC]
+		private void SendMove_ToOpponent_RPC( AShogiAction chosenAction ) {
+			//Here we recieve the move from opponent.
+			//Now the WaitUntil will break
+			currAction = chosenAction;
+		}
 	}
 }
