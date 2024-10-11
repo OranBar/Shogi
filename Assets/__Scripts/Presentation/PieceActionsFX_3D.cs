@@ -120,12 +120,12 @@ namespace Shogi
 		}
 
 		public async UniTask EnableHighlight( Color color ) {
-			// meshRenderer.material.color = color;
+			meshRenderer.material.color = color;
 		}
 
 
 		public async UniTask DisableHighlight() {
-			// meshRenderer.material.color = defaultColor;
+			meshRenderer.material.color = defaultColor;
 		}
 	}
 }

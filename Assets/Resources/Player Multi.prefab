@@ -151,7 +151,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 2
+    serializedVersion: 3
     m_TransformParent: {fileID: 6608175557280133016}
     m_Modifications:
     - target: {fileID: 7486698958312598195, guid: b000968c821a70d498581a1dcd372464, type: 3}
@@ -243,7 +243,9 @@ PrefabInstance:
       value: Surrender Canvas
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b000968c821a70d498581a1dcd372464, type: 3}
 --- !u!224 &8915720274291715797 stripped
 RectTransform:
@@ -266,7 +268,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 2
+    serializedVersion: 3
     m_TransformParent: {fileID: 6608175557280133016}
     m_Modifications:
     - target: {fileID: 2183575911939411242, guid: 22e9064f3c513b342a408a2bbdf64c57, type: 3}
@@ -406,7 +408,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22e9064f3c513b342a408a2bbdf64c57, type: 3}
 --- !u!114 &1741311741861400577 stripped
 MonoBehaviour:

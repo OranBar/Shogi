@@ -84,7 +84,7 @@ namespace Shogi
 		[BoxGroup("Reload Parameters")] public int gameId;
 		[BoxGroup( "Reload Parameters" )] public int turnIndex;
 
-		[ShowNativeProperty]
+		// [ShowNativeProperty]
 		public int LastAutoSavedGameId
 		{
 			get
