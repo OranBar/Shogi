@@ -96,6 +96,10 @@ namespace Shogi
 			AnalysisEntry newEntry = newEntryObj.GetComponent<AnalysisEntry>();
 			
 			InitEntry(ref newEntry, playedMove);
+
+			Canvas.ForceUpdateCanvases();
+			scrollRect.verticalScrollbar.value = -0.1f;
+			Canvas.ForceUpdateCanvases();
 			
 			return newEntryObj.GetComponent<AnalysisEntry>();
 		}
