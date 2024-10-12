@@ -90,7 +90,7 @@ namespace Shogi{
 				branches.Add( branchToEnable );
 				branchToEnable.BranchName = "Branch " + ( branchesContainer.childCount - 1 );
 				
-				branchToEnable.transform.SetParent(branchesContainer);
+				branchToEnable.transform.SetParent(branchesContainer, false);
 				branchToEnable.GetComponent<RectTransform>().SetAnchor( AnchorPresets.StretchAll );
 				branchToEnable.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
 				branchToEnable.GetComponent<RectTransform>().sizeDelta = Vector3.zero;
