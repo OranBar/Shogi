@@ -101,7 +101,7 @@ namespace Shogi
 
 
 		private ABoard board;
-		private ShogiGame gameManager;
+		public ShogiGame gameManager;
 
 		private void OnValidate() {
 			if(Application.isPlaying == false){

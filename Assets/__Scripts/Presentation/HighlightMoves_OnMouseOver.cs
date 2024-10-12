@@ -28,6 +28,8 @@ namespace Shogi{
 
 		public void OnPointerEnter( PointerEventData eventData ) {
 			if (settings.highlightAvailableMoves_hoverPiece == false) { return; }
+			if (piece.gameManager.CurrTurn_Player.PlayerId != piece.OwnerId){ return; }
+			
 
 			List<CellFx> availableMoveCells = GetMovesCells().Select( c => c.GetComponent<CellFx>() ).Where( c => c.isHighlighted == false ).ToList();
 			foreach(var cell in availableMoveCells)	{
@@ -39,6 +41,7 @@ namespace Shogi{
 
 		public void OnPointerExit( PointerEventData eventData ) {
 			if (settings.highlightAvailableMoves_hoverPiece == false) { return; }
+			if (piece.gameManager.CurrTurn_Player.PlayerId != piece.OwnerId){ return; }
 
 			DisableCellsHighlight();
 		}
