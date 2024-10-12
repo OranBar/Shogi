@@ -245,6 +245,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1366838017}
     m_Modifications:
+    - target: {fileID: 7034216246574121676, guid: aa53eeb0a408aa749bde5fb8375d6064, type: 3}
+      propertyPath: audios
+      value: 
+      objectReference: {fileID: 11400000, guid: c52a95916c6b0294e843930fa6e92592, type: 2}
     - target: {fileID: 8004677805882255526, guid: aa53eeb0a408aa749bde5fb8375d6064, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0.0000076293945
@@ -2405,6 +2409,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 35154790}
     m_Modifications:
+    - target: {fileID: -3969054757755096329, guid: 59b021fd73102d1439bdfc1ce28f5987, type: 3}
+      propertyPath: audios
+      value: 
+      objectReference: {fileID: 11400000, guid: c52a95916c6b0294e843930fa6e92592, type: 2}
     - target: {fileID: 6135449980669458347, guid: 59b021fd73102d1439bdfc1ce28f5987, type: 3}
       propertyPath: sceneViewId
       value: 36
@@ -3708,6 +3716,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 35154790}
     m_Modifications:
+    - target: {fileID: 7034216246574121676, guid: aa53eeb0a408aa749bde5fb8375d6064, type: 3}
+      propertyPath: audios
+      value: 
+      objectReference: {fileID: 11400000, guid: c52a95916c6b0294e843930fa6e92592, type: 2}
     - target: {fileID: 8004677805882255526, guid: aa53eeb0a408aa749bde5fb8375d6064, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0.0000076293945
@@ -4816,6 +4828,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8372008434563202694, guid: 630f5336552ff994ba01979093083c20, type: 3}
+      propertyPath: audios
+      value: 
+      objectReference: {fileID: 11400000, guid: c52a95916c6b0294e843930fa6e92592, type: 2}
     - target: {fileID: 9129131603899054106, guid: 630f5336552ff994ba01979093083c20, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4938,6 +4954,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1366838017}
     m_Modifications:
+    - target: {fileID: 7034216246574121676, guid: aa53eeb0a408aa749bde5fb8375d6064, type: 3}
+      propertyPath: audios
+      value: 
+      objectReference: {fileID: 11400000, guid: c52a95916c6b0294e843930fa6e92592, type: 2}
     - target: {fileID: 8004677805882255526, guid: aa53eeb0a408aa749bde5fb8375d6064, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0.0000076293945
@@ -6580,6 +6600,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 35154790}
     m_Modifications:
+    - target: {fileID: -8539203347971522954, guid: 86d1e58cd8c68a242a86f2a6b9e8e8da, type: 3}
+      propertyPath: audios
+      value: 
+      objectReference: {fileID: 11400000, guid: c52a95916c6b0294e843930fa6e92592, type: 2}
     - target: {fileID: 872208699999695795, guid: 86d1e58cd8c68a242a86f2a6b9e8e8da, type: 3}
       propertyPath: sceneViewId
       value: 27
@@ -7590,6 +7614,10 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 33
       objectReference: {fileID: 0}
+    - target: {fileID: -1978302703270823741, guid: 10dd514ba809ddf4cb4c0bcc5c618ac0, type: 3}
+      propertyPath: audios
+      value: 
+      objectReference: {fileID: 11400000, guid: c52a95916c6b0294e843930fa6e92592, type: 2}
     - target: {fileID: 4932437904274020395, guid: 10dd514ba809ddf4cb4c0bcc5c618ac0, type: 3}
       propertyPath: m_Color.b
       value: 0
@@ -7724,6 +7752,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 35154790}
     m_Modifications:
+    - target: {fileID: 7034216246574121676, guid: aa53eeb0a408aa749bde5fb8375d6064, type: 3}
+      propertyPath: audios
+      value: 
+      objectReference: {fileID: 11400000, guid: c52a95916c6b0294e843930fa6e92592, type: 2}
     - target: {fileID: 8004677805882255526, guid: aa53eeb0a408aa749bde5fb8375d6064, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0.0000076293945
@@ -7894,6 +7926,10 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 19
       objectReference: {fileID: 0}
+    - target: {fileID: -1978302703270823741, guid: 10dd514ba809ddf4cb4c0bcc5c618ac0, type: 3}
+      propertyPath: audios
+      value: 
+      objectReference: {fileID: 11400000, guid: c52a95916c6b0294e843930fa6e92592, type: 2}
     - target: {fileID: 4932437904274020395, guid: 10dd514ba809ddf4cb4c0bcc5c618ac0, type: 3}
       propertyPath: m_Color.b
       value: 0
@@ -8610,6 +8646,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1366838017}
     m_Modifications:
+    - target: {fileID: 516154023898911352, guid: a57209e9a4d81d84e81c343a652ce83d, type: 3}
+      propertyPath: audios
+      value: 
+      objectReference: {fileID: 11400000, guid: c52a95916c6b0294e843930fa6e92592, type: 2}
     - target: {fileID: 4299948141443400372, guid: a57209e9a4d81d84e81c343a652ce83d, type: 3}
       propertyPath: sceneViewId
       value: 39
@@ -8748,6 +8788,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 35154790}
     m_Modifications:
+    - target: {fileID: 516154023898911352, guid: a57209e9a4d81d84e81c343a652ce83d, type: 3}
+      propertyPath: audios
+      value: 
+      objectReference: {fileID: 11400000, guid: c52a95916c6b0294e843930fa6e92592, type: 2}
     - target: {fileID: 4299948141443400372, guid: a57209e9a4d81d84e81c343a652ce83d, type: 3}
       propertyPath: sceneViewId
       value: 15
@@ -8978,6 +9022,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8372008434563202694, guid: 630f5336552ff994ba01979093083c20, type: 3}
+      propertyPath: audios
+      value: 
+      objectReference: {fileID: 11400000, guid: c52a95916c6b0294e843930fa6e92592, type: 2}
     - target: {fileID: 9129131603899054106, guid: 630f5336552ff994ba01979093083c20, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -9446,6 +9494,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1366838017}
     m_Modifications:
+    - target: {fileID: 7034216246574121676, guid: aa53eeb0a408aa749bde5fb8375d6064, type: 3}
+      propertyPath: audios
+      value: 
+      objectReference: {fileID: 11400000, guid: c52a95916c6b0294e843930fa6e92592, type: 2}
     - target: {fileID: 8004677805882255526, guid: aa53eeb0a408aa749bde5fb8375d6064, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0.0000076293945
@@ -10563,6 +10615,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 35154790}
     m_Modifications:
+    - target: {fileID: 7034216246574121676, guid: aa53eeb0a408aa749bde5fb8375d6064, type: 3}
+      propertyPath: audios
+      value: 
+      objectReference: {fileID: 11400000, guid: c52a95916c6b0294e843930fa6e92592, type: 2}
     - target: {fileID: 8004677805882255526, guid: aa53eeb0a408aa749bde5fb8375d6064, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0.0000076293945
@@ -12944,6 +13000,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1366838017}
     m_Modifications:
+    - target: {fileID: 7034216246574121676, guid: aa53eeb0a408aa749bde5fb8375d6064, type: 3}
+      propertyPath: audios
+      value: 
+      objectReference: {fileID: 11400000, guid: c52a95916c6b0294e843930fa6e92592, type: 2}
     - target: {fileID: 8004677805882255526, guid: aa53eeb0a408aa749bde5fb8375d6064, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0.0000076293945
@@ -14327,7 +14387,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f89b0248eb3a05459408fef0d576851, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playSoundOnMove: 0
+  playSoundOnMove: 1
   selectedPiece_color: {r: 0, g: 0.4862745, b: 1, a: 1}
   lastMovedPiece_color_player1: {r: 0.31563476, g: 0.7176471, b: 0.2588235, a: 1}
   lastMovedPiece_color_player2: {r: 0.7176471, g: 0.25882354, b: 0.25882354, a: 1}
@@ -14431,6 +14491,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 35154790}
     m_Modifications:
+    - target: {fileID: 516154023898911352, guid: a57209e9a4d81d84e81c343a652ce83d, type: 3}
+      propertyPath: audios
+      value: 
+      objectReference: {fileID: 11400000, guid: c52a95916c6b0294e843930fa6e92592, type: 2}
     - target: {fileID: 4299948141443400372, guid: a57209e9a4d81d84e81c343a652ce83d, type: 3}
       propertyPath: sceneViewId
       value: 26
@@ -15609,6 +15673,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bishop
       objectReference: {fileID: 0}
+    - target: {fileID: 6113464295935342294, guid: 998c04b99451d974b8566c4384b0fbfc, type: 3}
+      propertyPath: audios
+      value: 
+      objectReference: {fileID: 11400000, guid: c52a95916c6b0294e843930fa6e92592, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -15745,6 +15813,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1366838017}
     m_Modifications:
+    - target: {fileID: 7034216246574121676, guid: aa53eeb0a408aa749bde5fb8375d6064, type: 3}
+      propertyPath: audios
+      value: 
+      objectReference: {fileID: 11400000, guid: c52a95916c6b0294e843930fa6e92592, type: 2}
     - target: {fileID: 8004677805882255526, guid: aa53eeb0a408aa749bde5fb8375d6064, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0.0000076293945
@@ -16450,6 +16522,10 @@ PrefabInstance:
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 4094493778057303692, guid: 089699a568ba9d14eaea0ff37eef0f9a, type: 3}
+    - target: {fileID: 7729831591607784718, guid: 089699a568ba9d14eaea0ff37eef0f9a, type: 3}
+      propertyPath: audios
+      value: 
+      objectReference: {fileID: 11400000, guid: c52a95916c6b0294e843930fa6e92592, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -17976,6 +18052,10 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 28
       objectReference: {fileID: 0}
+    - target: {fileID: -1978302703270823741, guid: 10dd514ba809ddf4cb4c0bcc5c618ac0, type: 3}
+      propertyPath: audios
+      value: 
+      objectReference: {fileID: 11400000, guid: c52a95916c6b0294e843930fa6e92592, type: 2}
     - target: {fileID: 4932437904274020395, guid: 10dd514ba809ddf4cb4c0bcc5c618ac0, type: 3}
       propertyPath: m_Color.b
       value: 0
@@ -18110,6 +18190,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1366838017}
     m_Modifications:
+    - target: {fileID: -3969054757755096329, guid: 59b021fd73102d1439bdfc1ce28f5987, type: 3}
+      propertyPath: audios
+      value: 
+      objectReference: {fileID: 11400000, guid: c52a95916c6b0294e843930fa6e92592, type: 2}
     - target: {fileID: 6135449980669458347, guid: 59b021fd73102d1439bdfc1ce28f5987, type: 3}
       propertyPath: sceneViewId
       value: 9
@@ -18364,6 +18448,10 @@ PrefabInstance:
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 4094493778057303692, guid: 089699a568ba9d14eaea0ff37eef0f9a, type: 3}
+    - target: {fileID: 7729831591607784718, guid: 089699a568ba9d14eaea0ff37eef0f9a, type: 3}
+      propertyPath: audios
+      value: 
+      objectReference: {fileID: 11400000, guid: c52a95916c6b0294e843930fa6e92592, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -18750,6 +18838,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1366838017}
     m_Modifications:
+    - target: {fileID: 516154023898911352, guid: a57209e9a4d81d84e81c343a652ce83d, type: 3}
+      propertyPath: audios
+      value: 
+      objectReference: {fileID: 11400000, guid: c52a95916c6b0294e843930fa6e92592, type: 2}
     - target: {fileID: 4299948141443400372, guid: a57209e9a4d81d84e81c343a652ce83d, type: 3}
       propertyPath: sceneViewId
       value: 38
@@ -18990,6 +19082,10 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: -1978302703270823741, guid: 10dd514ba809ddf4cb4c0bcc5c618ac0, type: 3}
+      propertyPath: audios
+      value: 
+      objectReference: {fileID: 11400000, guid: c52a95916c6b0294e843930fa6e92592, type: 2}
     - target: {fileID: 4932437904274020395, guid: 10dd514ba809ddf4cb4c0bcc5c618ac0, type: 3}
       propertyPath: m_Color.b
       value: 0
@@ -20122,6 +20218,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bishop (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6113464295935342294, guid: 998c04b99451d974b8566c4384b0fbfc, type: 3}
+      propertyPath: audios
+      value: 
+      objectReference: {fileID: 11400000, guid: c52a95916c6b0294e843930fa6e92592, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -20280,6 +20380,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1366838017}
     m_Modifications:
+    - target: {fileID: 7034216246574121676, guid: aa53eeb0a408aa749bde5fb8375d6064, type: 3}
+      propertyPath: audios
+      value: 
+      objectReference: {fileID: 11400000, guid: c52a95916c6b0294e843930fa6e92592, type: 2}
     - target: {fileID: 8004677805882255526, guid: aa53eeb0a408aa749bde5fb8375d6064, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0.0000076293945
@@ -20927,6 +21031,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1366838017}
     m_Modifications:
+    - target: {fileID: -3969054757755096329, guid: 59b021fd73102d1439bdfc1ce28f5987, type: 3}
+      propertyPath: audios
+      value: 
+      objectReference: {fileID: 11400000, guid: c52a95916c6b0294e843930fa6e92592, type: 2}
     - target: {fileID: 6135449980669458347, guid: 59b021fd73102d1439bdfc1ce28f5987, type: 3}
       propertyPath: sceneViewId
       value: 8
@@ -21065,6 +21173,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 35154790}
     m_Modifications:
+    - target: {fileID: 7034216246574121676, guid: aa53eeb0a408aa749bde5fb8375d6064, type: 3}
+      propertyPath: audios
+      value: 
+      objectReference: {fileID: 11400000, guid: c52a95916c6b0294e843930fa6e92592, type: 2}
     - target: {fileID: 8004677805882255526, guid: aa53eeb0a408aa749bde5fb8375d6064, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0.0000076293945
@@ -21491,6 +21603,10 @@ PrefabInstance:
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 4094493778057303692, guid: 089699a568ba9d14eaea0ff37eef0f9a, type: 3}
+    - target: {fileID: 7729831591607784718, guid: 089699a568ba9d14eaea0ff37eef0f9a, type: 3}
+      propertyPath: audios
+      value: 
+      objectReference: {fileID: 11400000, guid: c52a95916c6b0294e843930fa6e92592, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -21721,6 +21837,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1366838017}
     m_Modifications:
+    - target: {fileID: 7034216246574121676, guid: aa53eeb0a408aa749bde5fb8375d6064, type: 3}
+      propertyPath: audios
+      value: 
+      objectReference: {fileID: 11400000, guid: c52a95916c6b0294e843930fa6e92592, type: 2}
     - target: {fileID: 8004677805882255526, guid: aa53eeb0a408aa749bde5fb8375d6064, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0.0000076293945
@@ -21887,6 +22007,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 35154790}
     m_Modifications:
+    - target: {fileID: 7034216246574121676, guid: aa53eeb0a408aa749bde5fb8375d6064, type: 3}
+      propertyPath: audios
+      value: 
+      objectReference: {fileID: 11400000, guid: c52a95916c6b0294e843930fa6e92592, type: 2}
     - target: {fileID: 8004677805882255526, guid: aa53eeb0a408aa749bde5fb8375d6064, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0.0000076293945
@@ -22209,6 +22333,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 35154790}
     m_Modifications:
+    - target: {fileID: 7034216246574121676, guid: aa53eeb0a408aa749bde5fb8375d6064, type: 3}
+      propertyPath: audios
+      value: 
+      objectReference: {fileID: 11400000, guid: c52a95916c6b0294e843930fa6e92592, type: 2}
     - target: {fileID: 8004677805882255526, guid: aa53eeb0a408aa749bde5fb8375d6064, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0.0000076293945
@@ -22537,6 +22665,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 35154790}
     m_Modifications:
+    - target: {fileID: 7034216246574121676, guid: aa53eeb0a408aa749bde5fb8375d6064, type: 3}
+      propertyPath: audios
+      value: 
+      objectReference: {fileID: 11400000, guid: c52a95916c6b0294e843930fa6e92592, type: 2}
     - target: {fileID: 8004677805882255526, guid: aa53eeb0a408aa749bde5fb8375d6064, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0.0000076293945
@@ -23443,6 +23575,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1366838017}
     m_Modifications:
+    - target: {fileID: -8539203347971522954, guid: 86d1e58cd8c68a242a86f2a6b9e8e8da, type: 3}
+      propertyPath: audios
+      value: 
+      objectReference: {fileID: 11400000, guid: c52a95916c6b0294e843930fa6e92592, type: 2}
     - target: {fileID: 872208699999695795, guid: 86d1e58cd8c68a242a86f2a6b9e8e8da, type: 3}
       propertyPath: sceneViewId
       value: 5
@@ -24869,6 +25005,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 35154790}
     m_Modifications:
+    - target: {fileID: 7034216246574121676, guid: aa53eeb0a408aa749bde5fb8375d6064, type: 3}
+      propertyPath: audios
+      value: 
+      objectReference: {fileID: 11400000, guid: c52a95916c6b0294e843930fa6e92592, type: 2}
     - target: {fileID: 8004677805882255526, guid: aa53eeb0a408aa749bde5fb8375d6064, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0.0000076293945
@@ -25133,6 +25273,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1366838017}
     m_Modifications:
+    - target: {fileID: 7034216246574121676, guid: aa53eeb0a408aa749bde5fb8375d6064, type: 3}
+      propertyPath: audios
+      value: 
+      objectReference: {fileID: 11400000, guid: c52a95916c6b0294e843930fa6e92592, type: 2}
     - target: {fileID: 8004677805882255526, guid: aa53eeb0a408aa749bde5fb8375d6064, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0.0000076293945
@@ -27082,6 +27226,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 35154790}
     m_Modifications:
+    - target: {fileID: -3969054757755096329, guid: 59b021fd73102d1439bdfc1ce28f5987, type: 3}
+      propertyPath: audios
+      value: 
+      objectReference: {fileID: 11400000, guid: c52a95916c6b0294e843930fa6e92592, type: 2}
     - target: {fileID: 6135449980669458347, guid: 59b021fd73102d1439bdfc1ce28f5987, type: 3}
       propertyPath: sceneViewId
       value: 34
@@ -27666,6 +27814,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 35154790}
     m_Modifications:
+    - target: {fileID: 7034216246574121676, guid: aa53eeb0a408aa749bde5fb8375d6064, type: 3}
+      propertyPath: audios
+      value: 
+      objectReference: {fileID: 11400000, guid: c52a95916c6b0294e843930fa6e92592, type: 2}
     - target: {fileID: 8004677805882255526, guid: aa53eeb0a408aa749bde5fb8375d6064, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0.0000076293945
@@ -27974,6 +28126,10 @@ PrefabInstance:
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 4094493778057303692, guid: 089699a568ba9d14eaea0ff37eef0f9a, type: 3}
+    - target: {fileID: 7729831591607784718, guid: 089699a568ba9d14eaea0ff37eef0f9a, type: 3}
+      propertyPath: audios
+      value: 
+      objectReference: {fileID: 11400000, guid: c52a95916c6b0294e843930fa6e92592, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -30068,6 +30224,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1366838017}
     m_Modifications:
+    - target: {fileID: 7034216246574121676, guid: aa53eeb0a408aa749bde5fb8375d6064, type: 3}
+      propertyPath: audios
+      value: 
+      objectReference: {fileID: 11400000, guid: c52a95916c6b0294e843930fa6e92592, type: 2}
     - target: {fileID: 8004677805882255526, guid: aa53eeb0a408aa749bde5fb8375d6064, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0.0000076293945
