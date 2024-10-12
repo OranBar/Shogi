@@ -87,9 +87,9 @@ namespace Shogi
 
 		public void RotatePiece( PlayerId value ) {
 			if (value == PlayerId.Player1) {
-				this.transform.SetLocalRotationZ( 0f );
+				this.transform.eulerAngles = new Vector3(0, 0, 0);
 			} else {
-				this.transform.SetLocalRotationZ( 180f );
+				this.transform.eulerAngles = new Vector3(0, 0, 180);
 			}
 		}
 

@@ -11,7 +11,7 @@ namespace Shogi{
 	{
 		public PlayerId owner;
 		public TimerType timerType;
-		[BoxGroup("Increment Timer Settings"), ShowIf( "@timerType == TimerType.Increment" )]
+		[BoxGroup("Increment Timer Settings")]
 		public float incrementAmount;
 
 		[Auto] Image image;
