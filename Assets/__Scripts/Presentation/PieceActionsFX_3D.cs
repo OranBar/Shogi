@@ -48,7 +48,7 @@ namespace Shogi
 			}
 
 			await MovementAnimation( action );
-			if(action.capturedPiece != null){
+			if(action.IsCapturingMove()){
 				Enable_BoardCrack_FX( action );
 			}
 
