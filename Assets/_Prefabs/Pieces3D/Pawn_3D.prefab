@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 4490819224235694845}
   - component: {fileID: 616716056290781961}
   - component: {fileID: 1098324303169232284}
-  - component: {fileID: 8053709205010322037}
   - component: {fileID: 3240562404171369263}
+  - component: {fileID: 4752243466629840683}
   - component: {fileID: -3966495202640134762}
   - component: {fileID: -3546450340510168542}
   m_Layer: 5
@@ -38,7 +38,7 @@ Transform:
   m_Children:
   - {fileID: 4908923419006485583}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &4490819224235694846
 MonoBehaviour:
@@ -61,11 +61,12 @@ MonoBehaviour:
     isCaptured: 0
   defaultMovement: {fileID: 4490819224235694845}
   promotedMovement: {fileID: 616716056290781961}
-  dropMovement: {fileID: 8053709205010322037}
+  dropMovement: {fileID: 4752243466629840683}
   pieceIconImage: {fileID: 6371713650912854624}
   defaultSprite: {fileID: 21300000, guid: 86f4aa39e3b51dc43b0264b9d7d9ddf2, type: 3}
   promotedSprite: {fileID: 0}
   pieceGraphics: {fileID: 5716246035887169269}
+  gameManager: {fileID: 0}
 --- !u!114 &4490819224235694845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,18 +187,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &8053709205010322037
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4490819224235694840}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea7097b595940c7429dbaab880da4137, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3240562404171369263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,6 +209,18 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &4752243466629840683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4490819224235694840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bfbaea36c9c57c4598bc92528afc36c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &-3966495202640134762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,6 +234,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audios: {fileID: 11400000, guid: 9b8f6078ce983114788a5b82062aadf3, type: 2}
+  moveAnimParams: {fileID: 0}
+  OnMovementAnimBegin:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &-3546450340510168542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -250,7 +255,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 2
+    serializedVersion: 3
     m_TransformParent: {fileID: 4490819224235694841}
     m_Modifications:
     - target: {fileID: 51611462947625304, guid: 93c15f88a7340fa4dacc4eae920ea0d9, type: 3}
@@ -330,7 +335,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 93c15f88a7340fa4dacc4eae920ea0d9, type: 3}
 --- !u!4 &4908923419006485583 stripped
 Transform:

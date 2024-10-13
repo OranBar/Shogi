@@ -16,8 +16,8 @@ GameObject:
   - component: {fileID: 3654179833827461805}
   - component: {fileID: 7034216246574121676}
   - component: {fileID: -2415402311314763496}
-  - component: {fileID: -4719691469247045903}
   - component: {fileID: 9060123220512294827}
+  - component: {fileID: 757537204857902191}
   - component: {fileID: -8811052694386280273}
   m_Layer: 5
   m_Name: Pawn_2D
@@ -76,11 +76,12 @@ MonoBehaviour:
     isCaptured: 0
   defaultMovement: {fileID: 8004677806232032889}
   promotedMovement: {fileID: -2752878344998197363}
-  dropMovement: {fileID: -4719691469247045903}
+  dropMovement: {fileID: 757537204857902191}
   pieceIconImage: {fileID: 8004677805882255527}
   defaultSprite: {fileID: 21300000, guid: 86f4aa39e3b51dc43b0264b9d7d9ddf2, type: 3}
   promotedSprite: {fileID: 0}
   pieceGraphics: {fileID: 3261286759888544218}
+  gameManager: {fileID: 0}
 --- !u!114 &8004677806232032889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,18 +228,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &-4719691469247045903
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8004677806232032892}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea7097b595940c7429dbaab880da4137, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &9060123220512294827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -261,6 +250,18 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &757537204857902191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8004677806232032892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bfbaea36c9c57c4598bc92528afc36c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &-8811052694386280273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,7 +279,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 2
+    serializedVersion: 3
     m_TransformParent: {fileID: 8004677806232032893}
     m_Modifications:
     - target: {fileID: 2359069208255818760, guid: 71372188ad9cb2a4cab64f45c4746afc, type: 3}
@@ -414,7 +415,9 @@ PrefabInstance:
       value: Piece Graphics UI
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71372188ad9cb2a4cab64f45c4746afc, type: 3}
 --- !u!1 &1169717453988321095 stripped
 GameObject:
