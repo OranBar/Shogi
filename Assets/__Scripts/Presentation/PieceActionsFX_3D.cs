@@ -107,6 +107,7 @@ namespace Shogi
 		public async UniTask DoPieceDeathAnimation() {
 			//TODO: Do cool particle stuff
 			if (settings.playSoundOnMove) { PlayDeathAudio(); }
+			RotatePiece(piece.OwnerId);
 
 			void PlayDeathAudio() {
 				audioSource.clip = audios.GetDeathAudio();
@@ -116,9 +117,11 @@ namespace Shogi
 
 		public void RotatePiece( PlayerId value ) {
 			if (value == PlayerId.Player1) {
-				this.transform.SetLocalRotationY( 0f );
+				// this.transform.SetLocalRotationY( 0f );
+				this.transform.eulerAngles = new Vector3(0, 0, 0);
 			} else {
-				this.transform.SetLocalRotationY( 180f );
+				// this.transform.SetLocalRotationY( 180f );
+				this.transform.eulerAngles = new Vector3(0, 180, 0);
 			}
 		}
 
