@@ -10,7 +10,7 @@ namespace Shogi
 		[Auto] private HumanPlayer player;
 		private ShogiGameSettings Settings => player.shogiGame.settings;
 
-		private List<CellFx> previouslyHighlighted_cells = new List<CellFx>();
+		private List<IHighlightFx> previouslyHighlighted_cells = new List<IHighlightFx>();
 		private IHighlightFx previouslyHighlighted_piece;
 
 		void OnEnable()
@@ -54,7 +54,7 @@ namespace Shogi
 
 			previouslyHighlighted_cells.Clear();
 			foreach (var cellToHighlight in validCellMoves) {
-				CellFx cellFX = cellToHighlight.GetComponent<CellFx>();
+				IHighlightFx cellFX = cellToHighlight.GetComponent<IHighlightFx>();
 				cellFX.EnableHighlight( Settings.availableMove_selectedPiece_highlightColor );
 				previouslyHighlighted_cells.Add( cellFX );
 			}

@@ -7,5 +7,6 @@ namespace Shogi
 	{
 		UniTask EnableHighlight( Color color );
 		UniTask DisableHighlight();
+		bool IsHighlighted { get; }
 	}
 }

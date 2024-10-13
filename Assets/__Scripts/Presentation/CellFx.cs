@@ -10,7 +10,11 @@ namespace Shogi
     public class CellFx : MonoBehaviour, IHighlightFx
     {
 		private Image highlightImage;
-		public bool isHighlighted = false;
+		private bool isHighlighted = false;
+		public bool IsHighlighted {
+			get => isHighlighted;
+		}
+		
 
 		void Start()
 		{

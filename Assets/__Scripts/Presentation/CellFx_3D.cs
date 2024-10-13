@@ -1,35 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
+using BarbarO.ExtensionMethods;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Shogi
 {
-	public class PieceHighlight : MonoBehaviour, IHighlightFx
-	{
-		public GameObject highlightObj;
+    public class CellFx_3D : MonoBehaviour, IHighlightFx
+    {
+		[AutoChildren] private MeshRenderer meshRenderer;
 
-		private Image highlight;
+		private Color defaultColor;
 		private bool isHighlighted = false;
 		public bool IsHighlighted {
 			get => isHighlighted;
 		}
 
 
-		void Start() {
-			highlight = highlightObj.GetComponent<Image>();
-			highlightObj.SetActive( false );
+		void Awake() {
+			defaultColor = meshRenderer.material.color;
 		}
 
 		public async UniTask EnableHighlight( Color color ) {
-			highlightObj.SetActive( true );
-			highlight.color = color;
+			if(isHighlighted){ return; }
+
+			meshRenderer.material.color = color;
 			isHighlighted = true;
 		}
 
 		public async UniTask DisableHighlight() {
-			highlightObj.SetActive( false );
+			meshRenderer.material.color = defaultColor;
 			isHighlighted = false;
 		}
 	}

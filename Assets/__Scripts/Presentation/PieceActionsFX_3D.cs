@@ -27,6 +27,11 @@ namespace Shogi
 
 		public UnityEvent OnMovementAnimBegin;
 
+		private bool isHighlighted;
+		public bool IsHighlighted {
+			get => isHighlighted;
+		}
+
 
 		void Awake() {
 			audioSource = this.gameObject.AddOrGetComponent<AudioSource>();
@@ -121,11 +126,13 @@ namespace Shogi
 
 		public async UniTask EnableHighlight( Color color ) {
 			meshRenderer.material.color = color;
+			isHighlighted = true;
 		}
 
 
 		public async UniTask DisableHighlight() {
 			meshRenderer.material.color = defaultColor;
+			isHighlighted = false;
 		}
 	}
 }

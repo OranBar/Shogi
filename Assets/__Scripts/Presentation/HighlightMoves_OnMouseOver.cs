@@ -11,7 +11,7 @@ namespace Shogi{
 	{
 		[Auto] private Piece piece;
 		private ShogiGameSettings settings;
-		private List<CellFx> highlightedCells = new List<CellFx>();
+		private List<IHighlightFx> highlightedCells = new List<IHighlightFx>();
 
 		void Awake()
 		{
@@ -31,7 +31,7 @@ namespace Shogi{
 			if (piece.gameManager.CurrTurn_Player.PlayerId != piece.OwnerId){ return; }
 			
 
-			List<CellFx> availableMoveCells = GetMovesCells().Select( c => c.GetComponent<CellFx>() ).Where( c => c.isHighlighted == false ).ToList();
+			List<IHighlightFx> availableMoveCells = GetMovesCells().Select( c => c.GetComponent<IHighlightFx>() ).Where( c => c.IsHighlighted == false ).ToList();
 			foreach(var cell in availableMoveCells)	{
 				cell.EnableHighlight(settings.availableMove_hoverPiece_highlightColor);
 			}
