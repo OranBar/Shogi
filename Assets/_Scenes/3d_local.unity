@@ -20813,6 +20813,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2029712260, guid: 2a5f363f1f8109a458d11f4b4b865cdd, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 732646903554541768, guid: 2a5f363f1f8109a458d11f4b4b865cdd, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 732646903554541769, guid: 2a5f363f1f8109a458d11f4b4b865cdd, type: 3}
       propertyPath: m_Name
       value: Crack_FX
