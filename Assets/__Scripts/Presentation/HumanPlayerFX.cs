@@ -44,7 +44,7 @@ namespace Shogi
 
 		}
 
-		private void Highlight_AvailableMoveCells( Piece piece ) {
+		public void Highlight_AvailableMoveCells( Piece piece ) {
 			foreach(var cell in previouslyHighlighted_cells){
 				cell.DisableHighlight();
 			}
@@ -68,7 +68,7 @@ namespace Shogi
 			player.selectedPiece.GetComponent<IHighlightFx>().DisableHighlight();
 		}
 
-		private void Disable_AvailableMoveCells_Highlights(AShogiAction _){
+		public void Disable_AvailableMoveCells_Highlights(AShogiAction _ = null){
 			foreach (var cell in previouslyHighlighted_cells) {
 				cell.DisableHighlight();
 			}
