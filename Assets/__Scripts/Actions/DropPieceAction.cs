@@ -69,34 +69,14 @@ namespace Shogi
 			bool isValidPieceMovement = ActingPiece.GetValidMoves().Any( m => m.x == DestinationX && m.y == DestinationY );
 			bool willBeAbleToMove_FromDestination = ActingPiece.defaultMovement.GetAvailableMoves( DestinationX, DestinationY ).Any();
 
-			if(ActingPiece.PieceType == PieceType.Pawn){
-				if(AnyUnpromotedPawns_OnColumn()){
-					isValidPieceMovement = false;
-				}
-			}
-			//TODO: King can't move to square that an opponent piece on board can move to. 
+			// if(ActingPiece.PieceType == PieceType.Pawn){
+			// 	if(AnyUnpromotedPawns_OnColumn()){
+			// 		isValidPieceMovement = false;
+			// 	}
+			// }
 			return isValidPieceMovement && willBeAbleToMove_FromDestination;
 
-			#region Local Methods -----------------------------
-
-			bool AnyUnpromotedPawns_OnColumn(){
-				for (int y = 0 ; y < 9 ; y++) {
-					Piece piece = game.board [DestinationX, y];
-					bool isAlliedPiece = piece?.OwnerId == ActingPiece.OwnerId;
-
-					bool isPawn = piece?.PieceType == PieceType.Pawn;
-					bool isUnpromotedPawn = isPawn && piece.IsPromoted == false;
-
-					if (isAlliedPiece && isUnpromotedPawn) {
-						return true;
-					}
-				}
-				return false;
-			}
-
-			#endregion -----------------------------------------
 		}
-
 
 	}
 }
