@@ -48,7 +48,9 @@ namespace Shogi
 			}
 
 			await MovementAnimation( action );
-			Enable_BoardCrack_FX( action );
+			if(action.capturedPiece != null){
+				Enable_BoardCrack_FX( action );
+			}
 
 			
 			#region Local Methods -----------------------------
