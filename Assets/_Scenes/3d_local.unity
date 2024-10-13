@@ -5631,7 +5631,7 @@ GameObject:
   - component: {fileID: 601967227}
   m_Layer: 0
   m_Name: Player 2 Pieces
-  m_TagString: Untagged
+  m_TagString: Player2_Pieces
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5682,7 +5682,7 @@ GameObject:
   - component: {fileID: 602464203}
   m_Layer: 0
   m_Name: Player 1 Pieces
-  m_TagString: Untagged
+  m_TagString: Player1_Pieces
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
