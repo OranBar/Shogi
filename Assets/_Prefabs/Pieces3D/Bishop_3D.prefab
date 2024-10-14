@@ -31,6 +31,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4116467676760397116}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -1365.6157, y: -947.2655, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -38,7 +39,6 @@ Transform:
   m_Children:
   - {fileID: 8297738518811992588}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4116467676760397114
 MonoBehaviour:
@@ -66,6 +66,7 @@ MonoBehaviour:
   defaultSprite: {fileID: 21300000, guid: fe028215f79fbc84eb1dce28354fae3c, type: 3}
   promotedSprite: {fileID: 0}
   pieceGraphics: {fileID: 8677501436129261750}
+  gameManager: {fileID: 0}
 --- !u!114 &2568356659148634698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,6 +234,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audios: {fileID: 11400000, guid: 9b8f6078ce983114788a5b82062aadf3, type: 2}
+  moveAnimParams: {fileID: 0}
+  OnMovementAnimBegin:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &-6430866030471777734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -250,7 +255,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 2
+    serializedVersion: 3
     m_TransformParent: {fileID: 4116467676760397117}
     m_Modifications:
     - target: {fileID: 51611462947625304, guid: 93c15f88a7340fa4dacc4eae920ea0d9, type: 3}
@@ -305,12 +310,18 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: fe028215f79fbc84eb1dce28354fae3c, type: 3}
+    - target: {fileID: 2715770114525287829, guid: 93c15f88a7340fa4dacc4eae920ea0d9, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 8111595319789125275, guid: 62fa2da53a42505459a0b37eb15fad43, type: 3}
     - target: {fileID: 4162732118080827762, guid: 93c15f88a7340fa4dacc4eae920ea0d9, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0.00010430813
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 93c15f88a7340fa4dacc4eae920ea0d9, type: 3}
 --- !u!114 &8022139236772488227 stripped
 MonoBehaviour:
