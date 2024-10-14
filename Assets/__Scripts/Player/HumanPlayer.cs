@@ -34,6 +34,7 @@ namespace Shogi
 		public RefAction<Piece> OnPiece_Selected = new RefAction<Piece>();
 		public RefAction<Piece> OnCapturePiece_Selected = new RefAction<Piece>();
 		public RefAction<Cell> OnMoveCell_Selected = new RefAction<Cell>();
+		public RefAction<AShogiAction> OnInvalidMove_Selected = new RefAction<AShogiAction>();
 
 		[ReadOnly] public Piece selectedPiece;
 		[HideInInspector] public ShogiGame shogiGame;

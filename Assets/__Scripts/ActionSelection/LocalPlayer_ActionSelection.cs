@@ -131,6 +131,12 @@ namespace Shogi
 				}
 			}
 
+			if (currAction.IsMoveValid( shogiGame ) == false){
+				//I don't like invoking events from external classes
+				player.OnInvalidMove_Selected.Invoke(currAction);
+				return await RequestAction();
+			}
+
 
 			return currAction;
 		}
