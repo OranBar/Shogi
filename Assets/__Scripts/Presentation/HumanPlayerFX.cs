@@ -16,8 +16,8 @@ namespace Shogi
 		void OnEnable()
         {
 			player.OnPiece_Selected += PieceSelected;
-			player.OnMoveCell_Selected += CellSelected;
-			player.OnCapturePiece_Selected += CapturePieceSelected;
+			// player.OnMoveCell_Selected += CellSelected;
+			// player.OnCapturePiece_Selected += CapturePieceSelected;
 			player.OnInvalidMove_Selected += InvalidActionSelected;
 
 			player.shogiGame.OnBeforeActionExecuted += Disable_AvailableMoveCells_Highlights;
@@ -25,8 +25,8 @@ namespace Shogi
 
 		void OnDisable(){
 			player.OnPiece_Selected -= PieceSelected;
-			player.OnMoveCell_Selected -= CellSelected;
-			player.OnCapturePiece_Selected -= CapturePieceSelected;
+			// player.OnMoveCell_Selected -= CellSelected;
+			// player.OnCapturePiece_Selected -= CapturePieceSelected;
 
 			player.OnInvalidMove_Selected -= InvalidActionSelected;
 			player.shogiGame.OnBeforeActionExecuted -= Disable_AvailableMoveCells_Highlights;
@@ -62,13 +62,13 @@ namespace Shogi
 			}
 		}
 
-		private void CellSelected( Cell cell ) {
-			player.selectedPiece.GetComponent<IHighlightFx>().DisableHighlight();
-		}
+		// private void CellSelected( Cell cell ) {
+		// 	player.selectedPiece.GetComponent<IHighlightFx>().DisableHighlight();
+		// }
 
-		private void CapturePieceSelected( Piece piece ) {
-			player.selectedPiece.GetComponent<IHighlightFx>().DisableHighlight();
-		}
+		// private void CapturePieceSelected( Piece piece ) {
+		// 	player.selectedPiece.GetComponent<IHighlightFx>().DisableHighlight();
+		// }
 
 		private void InvalidActionSelected( AShogiAction _ = null ) {
 			previouslyHighlighted_piece?.DisableHighlight();
