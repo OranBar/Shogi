@@ -57,7 +57,9 @@ namespace Shogi
 
 			void PlayMoveAudio() {
 					audioSource.clip = audios.GetMoveAudio();
-					audioSource.Play();
+					DOTween.Sequence()
+						.AppendInterval(0.4f)
+						.AppendCallback(() => audioSource.Play());
 				}
 
 			#endregion -----------------------------------------
