@@ -14067,10 +14067,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 966799792}
-  - component: {fileID: 966799794}
   - component: {fileID: 966799793}
-  - component: {fileID: 966799795}
-  - component: {fileID: 966799796}
   m_Layer: 5
   m_Name: SideBoard_Player2
   m_TagString: Untagged
@@ -14111,6 +14108,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef235ffa79a334e46a61008003fe59ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ownerId: 2
+  capturedPieces: []
   pawnText: {fileID: 1554508204}
   lancerText: {fileID: 285190779}
   knightText: {fileID: 1739499574}
@@ -14118,47 +14117,6 @@ MonoBehaviour:
   goldText: {fileID: 718003661}
   rookText: {fileID: 78116820}
   bishopText: {fileID: 1886799626}
---- !u!114 &966799794
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 966799791}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0aaf496ad0336841b01e9d747465757, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ownerId: 2
-  capturedPieces: []
---- !u!114 &966799795
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 966799791}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0aaf496ad0336841b01e9d747465757, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ownerId: 2
-  capturedPieces: []
---- !u!114 &966799796
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 966799791}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a46b24e2951ae143bbe33b2944f353d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  duration: 0.6
 --- !u!1 &970006886
 GameObject:
   m_ObjectHideFlags: 0
@@ -14484,8 +14442,8 @@ MonoBehaviour:
   Player2: {fileID: 489550812}
   _currTurn_PlayerId: 0
   board: {fileID: 759263462}
-  player1_sideboard: {fileID: 1355150549}
-  player2_sideboard: {fileID: 966799794}
+  player1_sideboard: {fileID: 1355150550}
+  player2_sideboard: {fileID: 966799793}
   beginGameOnStart: 1
   manualOverride: 0
   winner: {fileID: 0}
@@ -19560,10 +19518,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1355150548}
-  - component: {fileID: 1355150549}
   - component: {fileID: 1355150550}
-  - component: {fileID: 1355150551}
-  - component: {fileID: 1355150552}
   m_Layer: 5
   m_Name: SideBoard_Player1
   m_TagString: Untagged
@@ -19592,20 +19547,6 @@ RectTransform:
   m_AnchoredPosition: {x: 54.999878, y: 0.000004258618}
   m_SizeDelta: {x: 388.06, y: 271.912}
   m_Pivot: {x: 0.00000016478239, y: -0.000000014901161}
---- !u!114 &1355150549
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1355150547}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0aaf496ad0336841b01e9d747465757, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ownerId: 1
-  capturedPieces: []
 --- !u!114 &1355150550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19618,6 +19559,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef235ffa79a334e46a61008003fe59ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ownerId: 1
+  capturedPieces: []
   pawnText: {fileID: 1180533055}
   lancerText: {fileID: 1897622499}
   knightText: {fileID: 749656064}
@@ -19625,33 +19568,6 @@ MonoBehaviour:
   goldText: {fileID: 1354479881}
   rookText: {fileID: 857844265}
   bishopText: {fileID: 726685780}
---- !u!114 &1355150551
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1355150547}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0aaf496ad0336841b01e9d747465757, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ownerId: 1
-  capturedPieces: []
---- !u!114 &1355150552
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1355150547}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a46b24e2951ae143bbe33b2944f353d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  duration: 0.6
 --- !u!1 &1366838016
 GameObject:
   m_ObjectHideFlags: 0

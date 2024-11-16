@@ -1,13 +1,19 @@
 using System;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
 
+/* TODO: Sideboard_UI should probably extend Sideboard, and have different implementations for how the piece is placed/added to the sideboard.
+In 3D, we just want to change its position, but when we are in 2D, we want to also handle the numbers that show how many pieces of each are contained in the sideboard.
+We can still move the objects in 2D, but probably it needs more logic to prevent overlap clicks, like playing with the z-axis of sideboard elements.
+*/
+
 namespace Shogi
 {
 	[Serializable]
-	public class SideBoard_UI : MonoBehaviour, ISideboardFX
+	public class SideBoard_UI : SideBoard, ISideboardFX
 	{
 
 		public TMP_Text pawnText;
@@ -54,14 +60,25 @@ namespace Shogi
 			sideBoard.OnNewPieceRemoved.Value -= DecreaseText;
 		}
 
+		public float add_piece_anim_duration = 0.6f;
+
 		public async UniTask PieceAddedToSideboard_FX( Piece newPiece ) {
-			PieceAddedToSideboardFx( newPiece );
+			if (this.enabled == false) { return; }
+			// Make the piece higher in z position based on the number of pieces of the same type in the sideboard, to ensure we always click the topmost
+			//Don't disable the gameobject. It breaks a lot of stuff. Disable the child
+			newPiece.SetPieceGraphicsActive(false);
 
 			
-			void PieceAddedToSideboardFx( Piece newPiece ) {
-				Transform sideboardPiece = GetText( newPiece.PieceType ).transform.parent;
-				newPiece.transform.position = sideboardPiece.transform.position;
-			}
+			var sequence = DOTween.Sequence();
+			await sequence
+				.PrependInterval( .1f )
+				.AppendCallback( ()=> PlacePiece_OnSideboard_Immediate(newPiece) )
+				.AppendCallback( () => newPiece.SetPieceGraphicsActive( true ) )
+				.AppendCallback( () => newPiece.SetPieceGraphicsActive( true ) )
+				.AppendCallback( () => newPiece.transform.localScale = Vector3.one * 2 )
+				.AppendCallback( () => IncreaseText( newPiece ) )
+				.Append( newPiece.transform.DOScale( Vector3.one, add_piece_anim_duration ).SetEase( Ease.OutCubic ) )
+				.AsyncWaitForCompletion();
 		}
 
 		// private void OnPieceButtonClicked( PieceType pieceType ) {
@@ -120,6 +137,11 @@ namespace Shogi
 			return number;
 		}
 
-	}
+        public override void PlacePiece_OnSideboard_Immediate(Piece piece)
+        {
+            Transform sideboardPiece = GetText( piece.PieceType ).transform.parent;
+			piece.transform.position = sideboardPiece.transform.position;
+        }
+    }
 
 }

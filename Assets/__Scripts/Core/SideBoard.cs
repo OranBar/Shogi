@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Shogi
 {
-	public class SideBoard : MonoBehaviour
+	public abstract class SideBoard : MonoBehaviour
 	{
 		public PlayerId ownerId;
 		public RefAction<Piece> OnNewPieceAdded = new RefAction<Piece>();
@@ -27,6 +27,7 @@ namespace Shogi
 
 			foreach (var pieceToAdd in targetSideboardPieces.Except( capturedPieces ).ToList()) {
 				AddCapturedPiece( pieceToAdd );
+				PlacePiece_OnSideboard_Immediate( pieceToAdd );
 			}
 		}
 
@@ -41,9 +42,12 @@ namespace Shogi
 			// }
 		}
 
+		public abstract void PlacePiece_OnSideboard_Immediate(Piece piece);
+
 		public void RemoveCapturedPiece( Piece piece ) {
 			capturedPieces.Remove( piece );
 			OnNewPieceRemoved?.Invoke( piece );
 		}
+		
 	}
 }

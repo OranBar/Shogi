@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Shogi
 {
-	public class SideboardFX_3D : MonoBehaviour, ISideboardFX
+	public class SideboardFX_3D : SideBoard, ISideboardFX
 	{
 		public float duration = 1.5f;
 
@@ -36,15 +36,20 @@ namespace Shogi
 		}
 
 		public async UniTask PieceAddedToSideboard_FX( Piece newPiece ) {
-			if (this.enabled == false) { return; }
-
-			newPiece.SetPieceGraphicsActive(true);
-			newPiece.transform.position = GetNextAvailablePosition();
+			PlacePiece_OnSideboard_Immediate(newPiece);
 		}
 
 		private Vector3 GetNextAvailablePosition() {
 			var targetPos = piecesPositions [sideBoard.capturedPieces.Count - 1];
 			return targetPos;
 		}
-	}
+
+        public override void PlacePiece_OnSideboard_Immediate(Piece piece)
+        {
+            if (this.enabled == false) { return; }
+
+			piece.SetPieceGraphicsActive(true);
+			piece.transform.position = GetNextAvailablePosition();
+        }
+    }
 }

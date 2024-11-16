@@ -74,6 +74,7 @@ namespace Shogi
 
 				var sideboard = GameObject.FindObjectsOfType<SideBoard>().First( s => s.ownerId == capturedPiece.OwnerId );
 				await sideboard.GetComponent<ISideboardFX>().PieceAddedToSideboard_FX( capturedPiece );
+
 			}
 
 			void DoHighlightLastMovedPiece() {
