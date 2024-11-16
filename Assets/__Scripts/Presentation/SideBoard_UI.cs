@@ -74,7 +74,6 @@ namespace Shogi
 				.PrependInterval( .1f )
 				.AppendCallback( ()=> PlacePiece_OnSideboard_Immediate(newPiece) )
 				.AppendCallback( () => newPiece.SetPieceGraphicsActive( true ) )
-				.AppendCallback( () => newPiece.SetPieceGraphicsActive( true ) )
 				.AppendCallback( () => newPiece.transform.localScale = Vector3.one * 2 )
 				.AppendCallback( () => IncreaseText( newPiece ) )
 				.Append( newPiece.transform.DOScale( Vector3.one, add_piece_anim_duration ).SetEase( Ease.OutCubic ) )

@@ -124,9 +124,9 @@ namespace Shogi
 
 			shogiGame.ApplyGameState( entry.associatedMove.GameState_beforeMove );
 			highlightLastMovedPiece?.DoHighlight(entry.associatedMove);
+			shogiGame.ApplyGameState( entry.gameState_afterMove );
 			await entry.associatedMove.ExecuteAction_FX();
 
-			shogiGame.ApplyGameState( entry.gameState_afterMove );
 
 
 			if(shouldDetachHead){
