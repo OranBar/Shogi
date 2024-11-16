@@ -14117,6 +14117,7 @@ MonoBehaviour:
   goldText: {fileID: 718003661}
   rookText: {fileID: 78116820}
   bishopText: {fileID: 1886799626}
+  add_piece_anim_duration: 0.6
 --- !u!1 &970006886
 GameObject:
   m_ObjectHideFlags: 0
@@ -19568,6 +19569,7 @@ MonoBehaviour:
   goldText: {fileID: 1354479881}
   rookText: {fileID: 857844265}
   bishopText: {fileID: 726685780}
+  add_piece_anim_duration: 0.6
 --- !u!1 &1366838016
 GameObject:
   m_ObjectHideFlags: 0

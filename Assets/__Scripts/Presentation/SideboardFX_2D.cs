@@ -20,6 +20,7 @@ namespace Shogi
 			var sequence = DOTween.Sequence();
 			await sequence
 				.PrependInterval( .3f )
+				.AppendCallback( () => newPiece.GetComponent<IPieceActionsFX>().RotatePiece(newPiece.OwnerId)  )
 				.AppendCallback( () => newPiece.SetPieceGraphicsActive( true ) )
 				.AppendCallback( () => newPiece.transform.localScale = Vector3.one * 2 )
 				.AppendCallback( () => sideboard.IncreaseText( newPiece ) )

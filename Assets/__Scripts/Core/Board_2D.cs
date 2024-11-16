@@ -15,6 +15,7 @@ namespace Shogi
 
 		public override void PlacePieceOnCell_Immediate( int x, int y, Piece piece ){
 			piece.GetComponent<RectTransform>().anchoredPosition = GetCellPosition( x, y );
+			piece.GetComponent<IPieceActionsFX>().RotatePiece(piece.OwnerId);
 		}
 
 	}

@@ -137,11 +137,12 @@ namespace Shogi
 			return number;
 		}
 
-        public override void PlacePiece_OnSideboard_Immediate(Piece piece)
-        {
-            Transform sideboardPiece = GetText( piece.PieceType ).transform.parent;
+		public override void PlacePiece_OnSideboard_Immediate(Piece piece)
+		{
+			Transform sideboardPiece = GetText( piece.PieceType ).transform.parent;
 			piece.transform.position = sideboardPiece.transform.position;
-        }
-    }
+			piece.GetComponent<IPieceActionsFX>().RotatePiece(piece.OwnerId);
+		}
+	}
 
 }
