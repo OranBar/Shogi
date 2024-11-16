@@ -9180,8 +9180,8 @@ MonoBehaviour:
   Player2: {fileID: 489550812}
   _currTurn_PlayerId: 1
   board: {fileID: 52588236}
-  player1_sideboard: {fileID: 1153981051}
-  player2_sideboard: {fileID: 2028747769}
+  player1_sideboard: {fileID: 1153981050}
+  player2_sideboard: {fileID: 2028747768}
   beginGameOnStart: 1
   manualOverride: 0
   winner: {fileID: 0}
@@ -11006,9 +11006,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1153981049}
-  - component: {fileID: 1153981051}
   - component: {fileID: 1153981050}
-  - component: {fileID: 1153981052}
   m_Layer: 0
   m_Name: Sideboard_Player1
   m_TagString: Untagged
@@ -11046,37 +11044,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 797eab4f6ed55414ea15179a8323fd40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ownerId: 1
+  capturedPieces: []
   duration: 1.5
   piecePlacementTransform: {fileID: 377554339}
   piecesPerRow: 5
   piecesPerColumn: 4
   distanceBetweenPieces: 0.66
---- !u!114 &1153981051
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1153981048}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0aaf496ad0336841b01e9d747465757, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ownerId: 1
-  capturedPieces: []
---- !u!114 &1153981052
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1153981048}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7833e3e8a29b1f647b39fc67a51d6d83, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1170965739
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19501,9 +19475,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2028747766}
-  - component: {fileID: 2028747769}
   - component: {fileID: 2028747768}
-  - component: {fileID: 2028747767}
   m_Layer: 0
   m_Name: Sideboard_Player2
   m_TagString: Untagged
@@ -19529,18 +19501,6 @@ Transform:
   m_Father: {fileID: 1865576883}
   m_RootOrder: -2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2028747767
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2028747765}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7833e3e8a29b1f647b39fc67a51d6d83, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2028747768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19553,25 +19513,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 797eab4f6ed55414ea15179a8323fd40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ownerId: 2
+  capturedPieces: []
   duration: 1.5
   piecePlacementTransform: {fileID: 1813493844}
   piecesPerRow: 5
   piecesPerColumn: 4
   distanceBetweenPieces: 0.66
---- !u!114 &2028747769
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2028747765}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0aaf496ad0336841b01e9d747465757, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ownerId: 2
-  capturedPieces: []
 --- !u!1001 &2047208668
 PrefabInstance:
   m_ObjectHideFlags: 0
