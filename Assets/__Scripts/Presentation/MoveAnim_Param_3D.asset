@@ -63,7 +63,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  animDuration: 0.6
+  animDuration: 0.5
   yLift_onMovement: 0.5
   liftPieceAnimCurve:
     serializedVersion: 2
